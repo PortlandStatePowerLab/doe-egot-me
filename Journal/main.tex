@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{notebook}
+
+\usepackage[toc, acronym, nopostdot, style=long]{glossaries}
+    \makeglossaries
+    
+\title{ME Journal}
+\author{Sean Keene (Template by Tylor Slay)}
+\date{last updated: \today}
+
+\begin{document}
+
+    \maketitle
+    \newpage
+    
+    \tableofcontents
+    \newpage
+    
+    \input{glossaries.tex}
+    \printacronyms[type=\acronymtype, nonumberlist]
+    \newpage
+    
+    \listoferrors
+    \addcontentsline{toc}{section}{List of Errors}
+    \newpage
+    
+    \listofwarnings
+    \addcontentsline{toc}{section}{List of Warnings}
+    \newpage
+    
+    % NEW ENTRIES
+    %=========================================================================
+    
+    \input{Fall2020/all-sprints}
+
+    %=========================================================================
+    \newpage
+    \nocite{*}
+    \bibliographystyle{IEEEannot}
+    \bibliography{bibfile}
+
+\end{document}
