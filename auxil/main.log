@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.9)  9 MAR 2021 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.9)  9 MAR 2021 17:41
 entering extended mode
 **./main.tex
 (main.tex
@@ -1075,81 +1075,75 @@ LaTeX Info: Redefining \nameref on input line 12.
 \openout8 = `main.ist'.
 
 {C:/Users/stant/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+(C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.toc)
 \tf@toc=\write12
 \openout12 = `main.toc'.
 
-[2] (glossaries.tex
+ [2] (glossaries.tex
 \@gls@deffile=\write13
 \openout13 = `main.glsdefs'.
 
 )
 No file main.acr.
-[3]
-
-Package hyperref Warning: old errs file detected, not used; run LaTeX again.
-
+[3] (C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.errs)
 \tf@errs=\write14
 \openout14 = `main.errs'.
 
-[4]
-
-Package hyperref Warning: old warns file detected, not used; run LaTeX again.
-
+ [4]
+(C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.warns)
 \tf@warns=\write15
 \openout15 = `main.warns'.
 
-[5] (Fall2020/all-sprints.tex (Fall2020/Mar9.tex
-Fall2020/Mar9.tex:37: Missing $ inserted.
+ [5]
+(Fall2020/all-sprints.tex (Fall2020/Mar9.tex
+Fall2020/Mar9.tex:39: Missing $ inserted.
 <inserted text> 
                 $
-l.37         \item 13 node feeder MRID: '_
+l.39         \item 13 node feeder MRID: '_
                                           49AD8E07-3BF9-A4E2-CB8F-C3722F837B62'
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Fall2020/Mar9.tex:38: LaTeX Error: Command \end{itemize} invalid in math mode.
+Fall2020/Mar9.tex:40: LaTeX Error: Command \end{itemize} invalid in math mode.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38     \end{itemize}
+l.40     \end{itemize}
                       
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Fall2020/Mar9.tex:38: LaTeX Error: Something's wrong--perhaps a missing \item.
+Fall2020/Mar9.tex:40: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38     \end{itemize}
+l.40     \end{itemize}
                       
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Fall2020/Mar9.tex:38: LaTeX Error: Something's wrong--perhaps a missing \item.
+Fall2020/Mar9.tex:40: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38     \end{itemize}
+l.40     \end{itemize}
                       
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-Fall2020/Mar9.tex:38: Missing $ inserted.
+Fall2020/Mar9.tex:40: Missing $ inserted.
 <inserted text> 
                 $
-l.38     \end{itemize}
+l.40     \end{itemize}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1166,9 +1160,9 @@ runsystem(del main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 25939 strings out of 479334
- 474229 string characters out of 2857085
- 859946 words of memory out of 3000000
+ 25945 strings out of 479334
+ 474553 string characters out of 2857085
+ 859966 words of memory out of 3000000
  42893 multiletter control sequences out of 15000+200000
  409754 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1185,10 +1179,10 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/sta
 nt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/
 Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.
 pfb>
-Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (6 pages, 107
-781 bytes).
+Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (6 pages, 112
+860 bytes).
 PDF statistics:
- 92 PDF objects out of 1000 (max. 8388607)
+ 96 PDF objects out of 1000 (max. 8388607)
  9 named destinations out of 1000 (max. 500000)
  45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
