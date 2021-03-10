@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.9)  9 MAR 2021 17:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.9)  9 MAR 2021 18:09
 entering extended mode
 **./main.tex
 (main.tex
@@ -1075,33 +1075,27 @@ LaTeX Info: Redefining \nameref on input line 12.
 \openout8 = `main.ist'.
 
 {C:/Users/stant/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+(C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.toc)
 \tf@toc=\write12
 \openout12 = `main.toc'.
 
-[2] (glossaries.tex
+ [2] (glossaries.tex
 \@gls@deffile=\write13
 \openout13 = `main.glsdefs'.
 
 )
 No file main.acr.
-[3]
-
-Package hyperref Warning: old errs file detected, not used; run LaTeX again.
-
+[3] (C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.errs)
 \tf@errs=\write14
 \openout14 = `main.errs'.
 
-[4]
-
-Package hyperref Warning: old warns file detected, not used; run LaTeX again.
-
+ [4]
+(C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.warns)
 \tf@warns=\write15
 \openout15 = `main.warns'.
 
-[5] (Fall2020/all-sprints.tex (Fall2020/Mar9.tex)) [6]
+ [5]
+(Fall2020/all-sprints.tex (Fall2020/Mar9.tex)) [6]
 No file main.bbl.
 (C:/Users\stant\PycharmProjects\EGoT-ME\auxil\main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
@@ -1110,11 +1104,11 @@ runsystem(del main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 25938 strings out of 479334
- 474219 string characters out of 2857085
- 859946 words of memory out of 3000000
- 42892 multiletter control sequences out of 15000+200000
- 409300 words of font info for 47 fonts, out of 3000000 for 9000
+ 25946 strings out of 479334
+ 474571 string characters out of 2857085
+ 859966 words of memory out of 3000000
+ 42894 multiletter control sequences out of 15000+200000
+ 409754 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,6n,103p,1005b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\stant\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
@@ -1124,10 +1118,10 @@ ic/amsfonts/cm/cmbx12.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (6 pages, 774
-00 bytes).
+Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (6 pages, 819
+61 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
+ 80 PDF objects out of 1000 (max. 8388607)
  9 named destinations out of 1000 (max. 500000)
  45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
