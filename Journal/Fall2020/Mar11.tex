@@ -1,0 +1,87 @@
+\begin{entry}{Initial Script}{March 1, 2021}
+    \objective
+    Get GridAPPS-D running from a script.
+
+    \outline
+
+    Today's tasks were:
+        \begin{itemize}
+            \item Figure out how to set the configuration of a model from the python script
+            \item Connect to and run the script
+
+        \end{itemize}
+
+    \procedures
+
+        First, I needed the command to get all the feeders in the database:
+        \begin{minted}{sql}
+            # list all the feeders, with substations and regions - DistFeeder
+                PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX c:  <http://iec.ch/TC57/CIM100#>
+                SELECT ?feeder ?fid ?station ?sid ?subregion ?sgrid ?region ?rgnid WHERE {
+                 ?s r:type c:Feeder.
+                 ?s c:IdentifiedObject.name ?feeder.
+                 ?s c:IdentifiedObject.mRID ?fid.
+                 ?s c:Feeder.NormalEnergizingSubstation ?sub.
+                 ?sub c:IdentifiedObject.name ?station.
+                 ?sub c:IdentifiedObject.mRID ?sid.
+                 ?sub c:Substation.Region ?sgr.
+                 ?sgr c:IdentifiedObject.name ?subregion.
+                 ?sgr c:IdentifiedObject.mRID ?sgrid.
+                 ?sgr c:SubGeographicalRegion.Region ?rgn.
+                 ?rgn c:IdentifiedObject.name ?region.
+                 ?rgn c:IdentifiedObject.mRID ?rgnid.
+            }
+            ORDER by ?station ?feeder
+        \end{minted}
+
+        Then I wrote the code in the LogTest.py file to set up the simulation:
+        \begin{minted}{python}
+            run_config_13 = {
+                "power_system_config": {
+                    "GeographicalRegion_name": "_73C512BD-7249-4F50-50DA-D93849B89C43",
+                    "SubGeographicalRegion_name": "_ABEB635F-729D-24BF-B8A4-E2EF268D8B9E",
+                    "Line_name": "_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"
+                },
+                "application_config": {
+                    "applications": []
+                },
+                "simulation_config": {
+                    "start_time": "1570041113",
+                    "duration": "120",
+                    "simulator" : "GridLAB-D",
+                    "timestep_frequency": "1000",
+                    "timestep_increment": "1000",
+                    "run_realtime": True,
+                    "simulation_name": "ieee123",
+                    "power_flow_solver_method": "NR",
+                    "model_creation_config":{
+                        "load_scaling_factor": "1",
+                        "schedule_name": "ieeezipload",
+                        "z_fraction": "0",
+                        "i_fraction": "1",
+                        "p_fraction": "0",
+                        "randomize_zipload_fractions": False,
+                        "use_houses": False
+                    }
+
+                },
+        \end{minted}
+
+        Then I wrote the code to start the simulation.
+
+    \parameters
+
+    See above
+
+    \observations
+
+        Need "{\usepackage[outputdir=auxil]{minted}}" for minted in this document, as well as to change the auxil
+    folder to the one in the journal folder.
+
+
+    \results
+
+    Done. Now able to run a 13-node simulation from the script.
+
+\end{entry}
