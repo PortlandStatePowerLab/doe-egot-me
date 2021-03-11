@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+            \PYG{n}{run\PYGZus{}config\PYGZus{}13} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}power\PYGZus{}system\PYGZus{}config\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s+s2}{\PYGZdq{}GeographicalRegion\PYGZus{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}73C512BD\PYGZhy{}7249\PYGZhy{}4F50\PYGZhy{}50DA\PYGZhy{}D93849B89C43\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}SubGeographicalRegion\PYGZus{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}ABEB635F\PYGZhy{}729D\PYGZhy{}24BF\PYGZhy{}B8A4\PYGZhy{}E2EF268D8B9E\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}Line\PYGZus{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}49AD8E07\PYGZhy{}3BF9\PYGZhy{}A4E2\PYGZhy{}CB8F\PYGZhy{}C3722F837B62\PYGZdq{}}
+                \PYG{p}{\PYGZcb{},}
+                \PYG{l+s+s2}{\PYGZdq{}application\PYGZus{}config\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s+s2}{\PYGZdq{}applications\PYGZdq{}}\PYG{p}{:} \PYG{p}{[]}
+                \PYG{p}{\PYGZcb{},}
+                \PYG{l+s+s2}{\PYGZdq{}simulation\PYGZus{}config\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s+s2}{\PYGZdq{}start\PYGZus{}time\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1570041113\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}duration\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}120\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}simulator\PYGZdq{}} \PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}GridLAB\PYGZhy{}D\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}timestep\PYGZus{}frequency\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1000\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}timestep\PYGZus{}increment\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1000\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}run\PYGZus{}realtime\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{True}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}simulation\PYGZus{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ieee123\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}power\PYGZus{}flow\PYGZus{}solver\PYGZus{}method\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}NR\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}model\PYGZus{}creation\PYGZus{}config\PYGZdq{}}\PYG{p}{:\PYGZob{}}
+                        \PYG{l+s+s2}{\PYGZdq{}load\PYGZus{}scaling\PYGZus{}factor\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}schedule\PYGZus{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ieeezipload\PYGZdq{}}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}z\PYGZus{}fraction\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}0\PYGZdq{}}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}i\PYGZus{}fraction\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}p\PYGZus{}fraction\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}0\PYGZdq{}}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}randomize\PYGZus{}zipload\PYGZus{}fractions\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,}
+                        \PYG{l+s+s2}{\PYGZdq{}use\PYGZus{}houses\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{False}
+                    \PYG{p}{\PYGZcb{}}
+
+                \PYG{p}{\PYGZcb{},}
+\end{Verbatim}

@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+            \PYG{o}{\PYGZsh{}} \PYG{n}{list} \PYG{k}{all} \PYG{n}{the} \PYG{n}{feeders}\PYG{p}{,} \PYG{k}{with} \PYG{n}{substations} \PYG{k}{and} \PYG{n}{regions} \PYG{o}{\PYGZhy{}} \PYG{n}{DistFeeder}
+                \PYG{k}{PREFIX} \PYG{n}{r}\PYG{p}{:}  \PYG{o}{\PYGZlt{}}\PYG{n}{http}\PYG{p}{:}\PYG{o}{//}\PYG{n}{www}\PYG{p}{.}\PYG{n}{w3}\PYG{p}{.}\PYG{n}{org}\PYG{o}{/}\PYG{l+m+mi}{1999}\PYG{o}{/}\PYG{l+m+mi}{02}\PYG{o}{/}\PYG{l+m+mi}{22}\PYG{o}{\PYGZhy{}}\PYG{n}{rdf}\PYG{o}{\PYGZhy{}}\PYG{n}{syntax}\PYG{o}{\PYGZhy{}}\PYG{n}{ns}\PYG{o}{\PYGZsh{}\PYGZgt{}}
+                \PYG{k}{PREFIX} \PYG{k}{c}\PYG{p}{:}  \PYG{o}{\PYGZlt{}}\PYG{n}{http}\PYG{p}{:}\PYG{o}{//}\PYG{n}{iec}\PYG{p}{.}\PYG{n}{ch}\PYG{o}{/}\PYG{n}{TC57}\PYG{o}{/}\PYG{n}{CIM100}\PYG{o}{\PYGZsh{}\PYGZgt{}}
+                \PYG{k}{SELECT} \PYG{o}{?}\PYG{n}{feeder} \PYG{o}{?}\PYG{n}{fid} \PYG{o}{?}\PYG{n}{station} \PYG{o}{?}\PYG{n}{sid} \PYG{o}{?}\PYG{n}{subregion} \PYG{o}{?}\PYG{n}{sgrid} \PYG{o}{?}\PYG{n}{region} \PYG{o}{?}\PYG{n}{rgnid} \PYG{k}{WHERE} \PYG{err}{\PYGZob{}}
+                 \PYG{o}{?}\PYG{n}{s} \PYG{n}{r}\PYG{p}{:}\PYG{k}{type} \PYG{k}{c}\PYG{p}{:}\PYG{n}{Feeder}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{s} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{name} \PYG{o}{?}\PYG{n}{feeder}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{s} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{mRID} \PYG{o}{?}\PYG{n}{fid}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{s} \PYG{k}{c}\PYG{p}{:}\PYG{n}{Feeder}\PYG{p}{.}\PYG{n}{NormalEnergizingSubstation} \PYG{o}{?}\PYG{n}{sub}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sub} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{name} \PYG{o}{?}\PYG{n}{station}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sub} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{mRID} \PYG{o}{?}\PYG{n}{sid}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sub} \PYG{k}{c}\PYG{p}{:}\PYG{n}{Substation}\PYG{p}{.}\PYG{n}{Region} \PYG{o}{?}\PYG{n}{sgr}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sgr} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{name} \PYG{o}{?}\PYG{n}{subregion}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sgr} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{mRID} \PYG{o}{?}\PYG{n}{sgrid}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{sgr} \PYG{k}{c}\PYG{p}{:}\PYG{n}{SubGeographicalRegion}\PYG{p}{.}\PYG{n}{Region} \PYG{o}{?}\PYG{n}{rgn}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{rgn} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{name} \PYG{o}{?}\PYG{n}{region}\PYG{p}{.}
+                 \PYG{o}{?}\PYG{n}{rgn} \PYG{k}{c}\PYG{p}{:}\PYG{n}{IdentifiedObject}\PYG{p}{.}\PYG{n}{mRID} \PYG{o}{?}\PYG{n}{rgnid}\PYG{p}{.}
+            \PYG{err}{\PYGZcb{}}
+            \PYG{k}{ORDER} \PYG{k}{by} \PYG{o}{?}\PYG{n}{station} \PYG{o}{?}\PYG{n}{feeder}
+\end{Verbatim}
