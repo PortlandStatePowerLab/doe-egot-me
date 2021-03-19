@@ -2,4 +2,5 @@
 \contentsline {section}{List of Warnings}{5}{Doc-Start}%
 \contentsline {section}{\numberline {}Fall 2020}{6}{section.1}%
 \contentsline {subsection}{\numberline {}March 9, 2021 -- Initial Script}{6}{subsection.1.1}%
-\contentsline {subsection}{\numberline {}March 1, 2021 -- Initial Script}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {}March 11, 2021 -- Initial Script}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {}Mar 18, 2021 -- Initial Log API Functionality}{9}{subsection.1.3}%
