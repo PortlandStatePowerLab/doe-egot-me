@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  11 MAR 2021 13:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  18 MAR 2021 18:27
 entering extended mode
 **./main.tex
 (main.tex
@@ -1100,40 +1100,21 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 )
 \openout3 = `main.pyg'.
 
-runsystem(pygmentize -l python -f latex -P commandprefix=PYG -F tokenmerge -o a
-uxil/_minted-main/A0C9D24BB64CADB8A65E460DF952E2BF7BC401E7333CBB111836909A87E45
-0B8.pygtex auxil/main.pyg)...executed.
-
 
 (auxil/_minted-main/A0C9D24BB64CADB8A65E460DF952E2BF7BC401E7333CBB111836909A87E
-450B8.pygtex [7])
-
-Fall2020/Mar11.tex:79: LaTeX Error: Can be used only in preamble.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.79         Need "{\usepackage
-                               [outputdir=auxil]{minted}}" for minted in thi...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-)) [8]
+450B8.pygtex [7])) [8] (Fall2020/Mar18.tex)) [9]
 No file main.bbl.
 (C:/Users\stant\PycharmProjects\EGoT-ME\Journal\auxil\main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 47DF68413B88E81991D4DB6C8B94FD25;789.
+(rerunfilecheck)             Checksum: 07D867E20390D0D0950709232E18B1FB;1095.
 runsystem(del auxil\\main.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 26181 strings out of 479334
- 478849 string characters out of 2857084
- 869060 words of memory out of 3000000
- 43110 multiletter control sequences out of 15000+200000
+ 26191 strings out of 479334
+ 479009 string characters out of 2857084
+ 869061 words of memory out of 3000000
+ 43112 multiletter control sequences out of 15000+200000
  409468 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,7n,103p,1005b,686s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1145,10 +1126,10 @@ ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/stant/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (8 pages, 103
-255 bytes).
+Output written on C:/Users\stant\PycharmProjects\EGoT-ME\main.pdf (9 pages, 107
+462 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

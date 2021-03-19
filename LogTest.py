@@ -9,7 +9,50 @@ seakeene@pdx.edu
 from gridappsd import GridAPPSD, goss
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
-from gridappsd.topics import simulation_input_topic, simulation_output_topic
+from gridappsd.topics import simulation_input_topic, simulation_output_topic, simulation_log_topic
+import time
+import json
+import pandas as pd
+import csv
+
+global simulation_id, end_program, flag, w
+flag = 0
+
+def callback(headers, message):
+    global end_program, flag, w
+    publish_to_topic = simulation_input_topic(simulation_id)
+    if type(message) == str:
+            message = json.loads(message)
+    if 'message' not in message:
+        if message['processStatus'] == 'COMPLETE' or \
+           message['processStatus']=='CLOSED':
+            print('The End')
+            end_program = True
+    else:
+        print(message)
+        if flag == 0:
+            w = csv.DictWriter(f, message['message']['measurements'].keys())
+            w.writeheader()
+            flag = 1
+
+        print(type(message))
+        w.writerow(message['message']['measurements'])
+
+def callback2(headers, message):
+    global end_program
+    publish_to_topic = simulation_log_topic(simulation_id)
+    if type(message) == str:
+            message = json.loads(message)
+    print(message)
+
+    if 'message' not in message:
+        if message['processStatus'] == 'COMPLETE' or \
+           message['processStatus']=='CLOSED':
+            print('The End')
+            end_program = True
+    else:
+        print(message)
+
 
 #Connect to GridAPPS
 gapps = GridAPPSD("('localhost', 61613)", username='system', password='manager')
@@ -20,6 +63,7 @@ message = {
     "requestType": "QUERY_MODEL_NAMES",
     "resultFormat": "JSON"
 }
+
 
 #Query the model names. We know the mrid already, but this gives us our simulation id as well.
 x = gapps.get_response(topic, message)
@@ -58,7 +102,7 @@ run_config_13 = {
     },
     "simulation_config": {
         "start_time": "1570041113",
-        "duration": "120",
+        "duration": "21",
         "simulator" : "GridLAB-D",
         "timestep_frequency": "1000",
         "timestep_increment": "1000",
@@ -110,3 +154,24 @@ simulation.start_simulation()
 
 simulation_id = simulation.simulation_id
 print(simulation_id)
+
+#Test the callback function
+sim_output_topic = simulation_output_topic(simulation_id)
+f = open('csvwritertest.csv', 'w')
+
+gapps.subscribe(sim_output_topic, callback)
+sim_log_topic = simulation_log_topic(simulation_id)
+gapps.subscribe(sim_log_topic, callback2)
+
+def _main():
+    global end_program
+    end_program = False
+    print('test')
+    while not end_program:
+        time.sleep(0.1)
+    if end_program:
+        f.close()
+        print('bye')
+
+if __name__ == "__main__":
+    _main()
