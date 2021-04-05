@@ -1,11 +1,9 @@
 '''
+This script is a test of input functionality into a gridappsd simulation.
 
-This is a test script that will either develop into or be replaced by the eventual 'Log API' as designed for the EGot
-Modeling Environment (ME).
 
-~Sean Keene, Portland State University, 2021
-seakeene@pdx.edu
 '''
+
 from gridappsd import GridAPPSD, goss
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
