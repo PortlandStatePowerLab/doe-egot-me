@@ -1,7 +1,6 @@
 '''
 This script is a simple functional test of multiple queries available in the gridappsd library as well as
 a direct topic message
-
 '''
 
 
