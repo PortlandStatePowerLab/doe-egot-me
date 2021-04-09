@@ -11,15 +11,19 @@ from gridappsd import topics as t
 from gridappsd.simulation import Simulation
 from gridappsd.topics import simulation_input_topic, simulation_output_topic, simulation_log_topic
 import time
+import datetime
 import json
 import pandas as pd
 import csv
 
-global simulation_id, end_program, flag, w
+global simulation_id, end_program, flag, w, SIMULATION_TIME, log_timestamps
+end_program=False
+log_timestamps = []
 flag = 0
 
 def callback(headers, message):
-    global end_program, flag, w
+    global end_program, flag, w, log_timestamps
+    log_timestamp = []
     publish_to_topic = simulation_input_topic(simulation_id)
     if type(message) == str:
             message = json.loads(message)
@@ -27,11 +31,10 @@ def callback(headers, message):
         if message['processStatus'] == 'COMPLETE' or \
            message['processStatus']=='CLOSED':
             print('The End')
-            gapps.query_object_dictionary(model_mrid, None, '_08175e8f-b762-4c9b-92c4-07f369f69bd4')
             end_program = True
     else:
         #Uncomment for troubleshooting
-        #print(message)
+        print(message)
 
         '''
         Only runs the first output query. Grabs the keys from the message, looks them up for their real names, and
@@ -55,19 +58,33 @@ def callback(headers, message):
 
         print(type(message))
         w.writerow(message['message']['measurements'])
+        log_timestamps.append(SIMULATION_TIME)
 
 def callback2(headers, message):
-    global end_program
+    global end_program, SIMULATION_TIME, log_timestamps
     publish_to_topic = simulation_log_topic(simulation_id)
     if type(message) == str:
             message = json.loads(message)
     print(message)
-
+    SIMULATION_TIME = message["timestamp"]
+    print(SIMULATION_TIME)
     if 'message' not in message:
         if message['processStatus'] == 'COMPLETE' or \
            message['processStatus']=='CLOSED':
-            print('The End')
+            print('Adding timestamps to logs...')
+            f.close()
+            #Use pandas to append timestamps
+            csv_input = pd.read_csv('csvwritertest.csv')
+            print(csv_input)
+            print(log_timestamps)
+            log_timestamps = pd.to_datetime(log_timestamps, unit='ms')
+            csv_input['Timecode'] = log_timestamps
+            movecolumn = csv_input.pop("Timecode")
+            csv_input.insert(0, "Timecode", movecolumn)
+            csv_input.to_csv('csvwritertest.csv', index=False)
+            print("Ending Simulation...")
             end_program = True
+            quit()
     else:
         print(message)
 
@@ -117,10 +134,10 @@ object_meas = gapps.get_response(topic, message)
 meas_object_list = object_meas['data']
 
 #Example for how to grab a name given a measurement id
-testvar = next(item for item in meas_object_list if item['measid'] == '_08175e8f-b762-4c9b-92c4-07f369f69bd4')
-print(testvar)
-name = testvar['name']
-print(name)
+#testvar = next(item for item in meas_object_list if item['measid'] == '_08175e8f-b762-4c9b-92c4-07f369f69bd4')
+#print(testvar)
+#name = testvar['name']
+#print(name)
 
 #Playing around with simulations. See if I can get a 13 node, 120 second simulation running.
 
@@ -200,13 +217,13 @@ gapps.subscribe(sim_log_topic, callback2)
 
 def _main():
     global end_program
-    end_program = False
     print('test')
     while not end_program:
         time.sleep(0.1)
     if end_program:
         f.close()
         print('bye')
+        quit()
 
 if __name__ == "__main__":
     _main()
