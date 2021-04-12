@@ -1,7 +1,7 @@
 # EGoT-ME
-#####Energy Grid of Things - Modeling Environment
-#####Sean Keene -  seakeene@pdx.edu
-#####Portland State University - Power Engineering Group
+##### Energy Grid of Things - Modeling Environment
+##### Sean Keene -  seakeene@pdx.edu
+##### Portland State University - Power Engineering Group
 
 This repository contains the Modeling Environment for the EGoT project. The ME
 is currently in an early development stage.
