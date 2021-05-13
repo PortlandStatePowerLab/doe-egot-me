@@ -16,7 +16,7 @@ import json
 import pandas as pd
 import csv
 
-global simulation_id, end_program, SIMULATION_TIME, flag, w, log_timestamps, start_time, simulation_time, flag
+global simulation_id, end_program, SIMULATION_TIME, flag, w, log_timestamps, start_time, simulation_time, flag, sw_mrid
 start_time = 1570041113
 simulation_time = 0
 SIMULATION_TIME = 0
@@ -135,7 +135,6 @@ def ontimestep(sim, timestep):
         return
 
 
-
 def onstart(sim):
     global start_time, simulation_time, input_topic, table_from_csvin
     print("Start time:")
@@ -163,9 +162,10 @@ def oncomplete(sim):
 
 
 def operate_switch(position):
-        global input_topic, db
+        global input_topic, db1, db2, simulation_id, sw_mrid
         if position == 1:
             print('Closing Switch:')
+            print(simulation_id)
             # Create the DifferenceBuilder to automate message construction.
             db1 = DifferenceBuilder(simulation_id)
             # Generate the proper message to open the switch.
@@ -307,14 +307,15 @@ run_config_13 = {
 
 gapps_sim = GridAPPSD()
 simulation = Simulation(gapps_sim, run_config_13)
-simulation_id = simulation.simulation_id
 simulation.add_onstart_callback(onstart)
 simulation.add_ontimestep_callback(ontimestep)
 simulation.add_onmesurement_callback(onmeasurement)
 simulation.add_oncomplete_callback(oncomplete)
 simulation.start_simulation()
+simulation_id = simulation.simulation_id
 input_topic = simulation_input_topic(simulation_id)
 
+print("Sim ID:")
 print(simulation_id)
 
 #Test the callback function
