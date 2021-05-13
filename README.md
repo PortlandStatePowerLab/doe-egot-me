@@ -33,17 +33,14 @@ DER, after which it should integrate into the EDM without friction.
 * **Journal**: Contains the LaTex files required to  generate the design journal, 
   main.pdf. auxil and out folders are also required for this. 
 * **csvwritertest.csv** is the .csv output of the test script (*LogTest.py*)
-* **HelloWorld.py** is a "Hello World" file, typically used to test GitHub integrations.
-  It's not an important part of the system.
 * **LogTest.py** is the (currently) main file in the ME testbed. It configures and
   runs a GridAPPS-D simulation using the IEEE 13-node feeder model, and produces 
   a timecoded log containing grid states for all of the measurement nodes in the
   model.
+* **queries.txt** is a simple text file from PNNL containing numerous examples of
+  sparql queries. 
 * **Main.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
-* **QueryDictTest.py** is a scratchpad script containing tests of a number of model
-  information queries which I used to test the different ways to communicate with
-  GridAPPS-D and the model.
 * **README.md** is this file.
 
 ## Background Documentation
