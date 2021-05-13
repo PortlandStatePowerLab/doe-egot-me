@@ -122,17 +122,29 @@ def onstart(sim):
     print("Start time:")
     print(start_time)
     simulation_time = start_time
-    input_topic = simulation_input_topic(simulation_id)
 
 
 def open_switch(time, open_time):
+    '''
+    Function to open the switch at a given time.
+    time: the current simulation time as kept by ontimestep()
+    open_time: the timecode at which the switch should be opened (I.E. taken from an input
+                .csv of timecoded switch position values)
+    '''
+    # Check if it is time for a switch operation.
     if time == open_time:
         print("Opening switch, should happen once")
+        #Create the DifferenceBuilder to automate message construction.
         db = DifferenceBuilder(simulation_id)
+
+        #Generate the proper message to open the switch.
         #TROUBLESHOOT: Switch not opening, i think
-        db.add_difference(sw_mrid, "Switch.open", 0, 1)
+        db.add_difference(sw_mrid, "Switch.open", 1, 0)
         switch_message = db.get_message()
         print(switch_message)
+
+        #Send message to the input topic (opened in onstart())
+        switch_message = json.dumps(switch_message)
         gapps.send(input_topic, switch_message)
 
 
@@ -237,42 +249,19 @@ run_config_13 = {
         }
 
     },
-    # #Test Config is optional! This example is copied from the hackathon for syntax comparison
-    # "test_config": {
-    #     "events": [{
-    #         "message": {
-    #             "forward_differences": [
-    #                 {
-    #                     "object": "_6C1FDA90-1F4E-4716-BC90-1CCB59A6D5A9",
-    #                     "attribute": "Switch.open",
-    #                     "value": 1
-    #                 }
-    #             ],
-    #             "reverse_differences": [
-    #                 {
-    #                     "object": "_6C1FDA90-1F4E-4716-BC90-1CCB59A6D5A9",
-    #                     "attribute": "Switch.open",
-    #                     "value": 0
-    #                 }
-    #             ]
-    #         },
-    #         "event_type": "ScheduledCommandEvent",
-    #         "occuredDateTime": 1570041140,
-    #         "stopDateTime": 1570041200
-    #     }]
-    # },
 }
 
 #Start the simulation....
 
 gapps_sim = GridAPPSD()
 simulation = Simulation(gapps_sim, run_config_13)
+simulation_id = simulation.simulation_id
 simulation.add_onstart_callback(onstart)
 simulation.add_ontimestep_callback(ontimestep)
 simulation.add_onmesurement_callback(onmeasurement)
 simulation.start_simulation()
+input_topic = simulation_input_topic(simulation_id)
 
-simulation_id = simulation.simulation_id
 print(simulation_id)
 
 #Test the callback function
