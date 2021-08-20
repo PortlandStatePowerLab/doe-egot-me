@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.9)  9 MAR 2021 16:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  20 AUG 2021 13:41
 entering extended mode
 **./main.tex
 (main.tex
@@ -178,7 +178,7 @@ LaTeX Info: Redefining \addtolength on input line 81.
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\shellesc.st
 y
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
-Package shellesc Info: Restricted shell escape enabled on input line 77.
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
 )
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/ifplatform\ifplatform.s
 ty
@@ -205,12 +205,7 @@ Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )) (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-)
-
-Package ifplatform Warning: 
-    shell escape is disabled, so I can only detect \ifwindows.
-
-) (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
+)) (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex
 \integerpart=\count281
 \decimalpart=\count282
@@ -240,22 +235,8 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@listing=\toks22
 \c@listing=\count286
 )
-runsystem(if not exist _minted-main mkdir _minted-main)...disabled (restricted)
-.
+runsystem(if not exist auxil\_minted-main mkdir auxil\_minted-main)...executed.
 
-
-
-main.tex:7: Package minted Error: You must invoke LaTeX with the -shell-escape 
-flag.
-
-See the minted package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 \usepackage
-               {notebook}
-Pass the -shell-escape flag to LaTeX. Refer to the minted.sty documentation for
- more information.
 
 (notebook.sty
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
@@ -555,7 +536,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \tcb@record@out=\write7
 )
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2021-02-10 v7.00j Hypertext links for LaTeX
+Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
 
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
 keys.sty
@@ -579,13 +560,13 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 \Hy@pagecounter=\count303
 
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2021-02-10 v7.00j Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref-langp
 atches.def
-File: hyperref-langpatches.def 2021-02-10 v7.00j Hyperref: patches for babel la
+File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel la
 nguages
 )
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
@@ -594,7 +575,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 \Hy@SavedSpaceFactor=\count304
 
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
-File: puenc.def 2021-02-10 v7.00j Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
@@ -646,7 +627,7 @@ with kernel methods
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2021-02-10 v7.00j Hyperref driver for pdfTeX
+File: hpdftex.def 2021-02-27 v7.00k Hyperref driver for pdfTeX
 
 (C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
@@ -964,23 +945,182 @@ Package glossaries Info: Writing glossary file main.glo on input line 10.
 
 Package glossaries Info: Writing glossary file main.acn on input line 10.
 runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > ma
-in.aex <nul: /p x=^%~$PATH:i>> main.aex)...disabled (restricted).
+in.aex <nul: /p x=^%~$PATH:i>> main.aex)...executed.
+
+runsystem(del main.aex)...executed.
 
 
- :16: Emergency stop.
-<read 3> 
-         
-l.16 \begin{document}
-                     
-*** (cannot \read from terminal in nonstop modes)
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2021-03-02 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count357
+\l__pdf_internal_box=\box78
+) (C:/Users\stant\PycharmProjects\doe-egot-me\out\main.aux)
+\openout1 = `main.aux'.
 
- 
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count358
+\scratchdimen=\dimen285
+\scratchbox=\box79
+\nofMPsegments=\count359
+\nofMParguments=\count360
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count361
+\MPscratchDim=\dimen286
+\MPnumerator=\count362
+\makeMPintoPDFobject=\count363
+\everyMPtoPDFconversion=\toks53
+)
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package hyperref Info: Link coloring ON on input line 12.
+
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\stant\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count364
+)
+LaTeX Info: Redefining \ref on input line 12.
+LaTeX Info: Redefining \pageref on input line 12.
+LaTeX Info: Redefining \nameref on input line 12.
+ (C:/Users\stant\PycharmProjects\doe-egot-me\out\main.out)
+(C:/Users\stant\PycharmProjects\doe-egot-me\out\main.out)
+\@outlinefile=\write11
+\openout11 = `main.out'.
+
+
+(C:/Users\stant\PycharmProjects\doe-egot-me\out\main.glsdefs) [1
+
+\openout8 = `main.ist'.
+
+{C:/Users/stant/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+(C:/Users\stant\PycharmProjects\doe-egot-me\out\main.toc)
+\tf@toc=\write12
+\openout12 = `main.toc'.
+
+ [2] (glossaries.tex
+\@gls@deffile=\write13
+\openout13 = `main.glsdefs'.
+
+)
+No file main.acr.
+[3] (C:/Users\stant\PycharmProjects\doe-egot-me\out\main.errs)
+\tf@errs=\write14
+\openout14 = `main.errs'.
+
+ [4]
+(C:/Users\stant\PycharmProjects\doe-egot-me\out\main.warns)
+\tf@warns=\write15
+\openout15 = `main.warns'.
+
+ [5]
+(Fall2021/all-sprints.tex (Fall2021/8-20-2021.tex
+
+Fall2021/8-20-2021.tex:1: LaTeX Error: Can be used only in preamble.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \usepackage
+               {hyperref}% NOTE - this is only a template without real argum...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [6])
+No file main.bbl.
+(C:/Users\stant\PycharmProjects\doe-egot-me\out\main.aux)
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 2DCE2F930E1C69E428C03EE97E510A7A;675.
+ ) 
 Here is how much of TeX's memory you used:
- 24824 strings out of 479334
- 455224 string characters out of 2857085
- 838522 words of memory out of 3000000
- 41857 multiletter control sequences out of 15000+200000
- 403430 words of font info for 27 fonts, out of 3000000 for 9000
+ 25945 strings out of 479334
+ 474627 string characters out of 2857084
+ 860320 words of memory out of 3000000
+ 42893 multiletter control sequences out of 15000+200000
+ 409754 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,0n,103p,1006b,96s stack positions out of 5000i,500n,10000p,200000b,50000s
- :16:  ==> Fatal error occurred, no output PDF file produced!
+ 102i,6n,103p,1005b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\stant\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
+1000.pk><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (6 pa
+ges, 80644 bytes).
+PDF statistics:
+ 80 PDF objects out of 1000 (max. 8388607)
+ 9 named destinations out of 1000 (max. 500000)
+ 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+
