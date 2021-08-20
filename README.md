@@ -6,40 +6,40 @@
 NOTE: The following is out of date as of 8/18/2021. To be updated in the next few
 days.
 
-This repository contains the Modeling Environment for the EGoT project. The ME
-is currently in an early development stage.
+This repository contains the Modeling Environment for the EGoT project. The ME is
+in the process of leaving the design phase and entering development.
 
 ## Description
 
 The ME is designed to simulate the effects of aggregated, dispatched DERs on the
-energy grid. These DERs are aggregated and dispatched by a Grid Service Provider,
-or GSP. The ME will eventually have the ability to recieve DER dispatch commands
-from a GSP, or simulate them via external script or .csv input. These dispatches
-will affect the DERs physically in certain ways which will be simulated
-appropriately. The end result of these simulated DERs (DER-S) is an electrical
-model of the DER (DER Electrical Distribution Model, or DER-EDM). This DER-EDM
-is contained within a larger Electrical Distribution Model (EDM), which is 
-itself contained within and driven by a Model Controller (MC). The MC will be
-implemented in GridAPPS-D for it's simulation and intercommunication capabilities.
-The simulation will output grid states to a simulated Grid Operator, which will
-be a simple decision-making script that takes the grid states, decides if a service
-should be requested, and sends a signal to the GSP, creating a closed feedback loop
-within the system.
+energy grid. This is done by a DER aggregator or management system; for the EGoT
+project, we will be using the Grid Service Provider, or GSP. The ME has the ability to
+interface with physical DERs, emulators, or historical data via logs. Changes in these
+DERs (i.e. due to a GSP dispatch) will affect changes in their electrical state.
+These electrical changes are processed within simulated DERs (DER-S) and delivered to
+their respectively assigned electrical model DERs (DER-EMs). These DER-EMs
+are contained within a larger Electrical Distribution Model (EDM), which is 
+itself contained within and driven by a Model Controller (MC). The EDM is 
+implemented in GridAPPS-D for it's simulation and intercommunication capabilities;
+the Model Controller is a class-based Python script expressly designed to be 
+extensible and modifiable by the Test Engineer. The simulation will output grid states 
+to logs as well as a simulated Grid Operator, which will be a simple decision-making 
+class that takes the grid states, decides if a service should be requested, and sends 
+a signal to the GSP, creating a closed feedback loop within the system.
 
-In the earliest stages, the DERs in question will be resistive water heaters due
-to their simplicity and existing test data. Once the system is completed, however,
-implementing new types of DERs will require only development of a DER-S for this
-DER, after which it should integrate into the EDM without friction.
+Two DER-S types in development are: RWHDERS, a Resistive Water Heater DER-S, and 
+DERSHistoricalDataInput, a historical data log processor. In the future,
+new types of DERs can be implemented frictionlessly to the ME by development of
+a new DER-S class for each one. As long as the DER-S produces electrical states and
+provides identification and locational data, it can be directly introduced into the ME
+without further modification to the modeling system.
 
 ## Contents
 
 * **Journal**: Contains the LaTex files required to  generate the design journal, 
   main.pdf. auxil and out folders are also required for this. 
-* **csvwritertest.csv** is the .csv output of the test script (*LogTest.py*)
-* **LogTest.py** is the (currently) main file in the ME testbed. It configures and
-  runs a GridAPPS-D simulation using the IEEE 13-node feeder model, and produces 
-  a timecoded log containing grid states for all of the measurement nodes in the
-  model.
+* **Outdated**: Contains old test scripts, logs, and files that are no longer in use
+* **ModelController.py**: Contains the MC script.
 * **queries.txt** is a simple text file from PNNL containing numerous examples of
   sparql queries. 
 * **Main.pdf** is the design journal for this project, which is generally updated
@@ -49,7 +49,8 @@ DER, after which it should integrate into the EDM without friction.
 ## Background Documentation
 
 * [Development Plan Documents (PEG only)](https://drive.google.com/drive/folders/1gzclY2N1w7PiS4PjuwpQj0qUheekqnkn?usp=sharing)
-* [Estimated Quarterly Goals](https://www.overleaf.com/read/jrrvwgtvqryt)
+* [Flow Charts and other design documents (PEG only)](https://drive.google.com/drive/folders/13gm4Shm-kZ0PfSjn-9UMrA0cDD80fIy0?usp=sharing)
+* [Estimated Quarterly Goals(Outdated)](https://www.overleaf.com/read/jrrvwgtvqryt)
 
 ## Important Links
 
