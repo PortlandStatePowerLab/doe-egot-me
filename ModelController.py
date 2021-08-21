@@ -11,9 +11,6 @@ import time
 # import json
 # import pandas as pd
 # import csv
-global end_program
-end_program = False
-
 
 # -------------------------------------------------------------------------------------------------------------------
 #   Class Definitions
@@ -97,12 +94,15 @@ class EDMTimeKeeper:
         pass
 
 
-class EDMMeasurementProcessor(object):
+class EDMMeasurementProcessor:
     measured_timestamp = None
     current_measurements = None
     current_processed_grid_states = None
 
-    def on_message(self, sim, headers, message):
+    def __init__(self):
+        print("Test")
+
+    def on_message(self, headers, message):
         print("test")
         print(message)
         self.current_measurements = message
@@ -267,16 +267,14 @@ class GOOutputInterface:
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
 def _main():
-    global end_program
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
     edmCore.sim_start_up_process()
-
     #Temporary approach while testing callback classes. Currently not working. # TODO: Troubleshoot.
     edmMeasProc = EDMMeasurementProcessor()
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
-
-    while False:
+    while True:
         time.sleep(0.1)
+
 
 if __name__ == "__main__":
     _main()
