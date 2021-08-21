@@ -6,42 +6,13 @@ import ast
 from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
-# import time
+import time
 # import datetime
 # import json
 # import pandas as pd
 # import csv
-
-run_config_13 = {
-        "power_system_config": {
-            "GeographicalRegion_name": "_73C512BD-7249-4F50-50DA-D93849B89C43",
-            "SubGeographicalRegion_name": "_ABEB635F-729D-24BF-B8A4-E2EF268D8B9E",
-            "Line_name": "_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"
-        },
-        "application_config": {
-            "applications": []
-        },
-        "simulation_config": {
-            "start_time": "1570041113",
-            "duration": "21",
-            "simulator": "GridLAB-D",
-            "timestep_frequency": "1000",
-            "timestep_increment": "1000",
-            "run_realtime": True,
-            "simulation_name": "ieee123",
-            "power_flow_solver_method": "NR",
-            "model_creation_config": {
-                "load_scaling_factor": "1",
-                "schedule_name": "ieeezipload",
-                "z_fraction": "0",
-                "i_fraction": "1",
-                "p_fraction": "0",
-                "randomize_zipload_fractions": False,
-                "use_houses": False
-            }
-
-        },
-    }
+global end_program
+end_program = False
 
 
 # -------------------------------------------------------------------------------------------------------------------
@@ -122,17 +93,20 @@ class EDMTimeKeeper:
     sim_start_time = None
     sim_current_time = None
 
-    def on_message(self):
+    def on_message(self, sim, timestep):
         pass
 
 
-class EDMMeasurementProcessor:
+class EDMMeasurementProcessor(object):
     measured_timestamp = None
     current_measurements = None
     current_processed_grid_states = None
 
-    def on_message(self):
-        pass
+    def on_message(self, sim, headers, message):
+        print("test")
+        print(message)
+        self.current_measurements = message
+        print(self.current_measurements)
 
     def parse_message_into_current_measurements(self):
         pass
@@ -146,7 +120,7 @@ class EDMOnClose:
     def force_quit(self):
         pass
 
-    def on_message(self):
+    def on_message(self, sim):
         pass
 
 
@@ -282,15 +256,27 @@ class GOOutputInterface:
 # ---------------------------------------------------------------------------------------------------------------------
 # Function Definitions
 # ---------------------------------------------------------------------------------------------------------------------
+# Probably unnecessary, since everything can be put in classes. Delete later if unused. ~SJK
 
-
-def MC_instantiate_all_classes():
-    print("Instantiating classes:")
-    # example = Example()
+# def MC_instantiate_all_classes():
+#     print("Instantiating classes:")
+#     # example = Example()
 
 
 # --------------------------------------------------------------------------------------------------------------------
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
-edmCore = EDMCore()
-edmCore.sim_start_up_process()
+def _main():
+    global end_program
+    edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    edmCore.sim_start_up_process()
+
+    #Temporary approach while testing callback classes. Currently not working. # TODO: Troubleshoot.
+    edmMeasProc = EDMMeasurementProcessor()
+    edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
+
+    while False:
+        time.sleep(0.1)
+
+if __name__ == "__main__":
+    _main()
