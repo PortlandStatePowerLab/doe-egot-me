@@ -44,6 +44,7 @@ without further modification to the modeling system.
   sparql queries. 
 * **Main.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
+* **Config.txt** contains the configuration dictionary for the simulation.
 * **README.md** is this file.
 
 ## Background Documentation
