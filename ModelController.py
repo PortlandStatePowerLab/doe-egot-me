@@ -1,16 +1,47 @@
-'''
+"""
 model controller
-'''
+"""
+import ast
 
-from gridappsd import GridAPPSD, goss, DifferenceBuilder
+from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
-from gridappsd.topics import simulation_input_topic, simulation_output_topic, simulation_log_topic
-import time
-import datetime
-import json
-import pandas as pd
-import csv
+# import time
+# import datetime
+# import json
+# import pandas as pd
+# import csv
+
+run_config_13 = {
+        "power_system_config": {
+            "GeographicalRegion_name": "_73C512BD-7249-4F50-50DA-D93849B89C43",
+            "SubGeographicalRegion_name": "_ABEB635F-729D-24BF-B8A4-E2EF268D8B9E",
+            "Line_name": "_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"
+        },
+        "application_config": {
+            "applications": []
+        },
+        "simulation_config": {
+            "start_time": "1570041113",
+            "duration": "21",
+            "simulator": "GridLAB-D",
+            "timestep_frequency": "1000",
+            "timestep_increment": "1000",
+            "run_realtime": True,
+            "simulation_name": "ieee123",
+            "power_flow_solver_method": "NR",
+            "model_creation_config": {
+                "load_scaling_factor": "1",
+                "schedule_name": "ieeezipload",
+                "z_fraction": "0",
+                "i_fraction": "1",
+                "p_fraction": "0",
+                "randomize_zipload_fractions": False,
+                "use_houses": False
+            }
+
+        },
+    }
 
 
 # -------------------------------------------------------------------------------------------------------------------
@@ -24,40 +55,67 @@ class EDMCore:
     sim_mrid = None
     line_mrid = None
     config_parameters = None
-    config_file_path = None
+    config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
 
     def get_sim_start_time(self):
-        pass
+        return self.sim_start_time
 
     def get_sim_current_time(self):
-        pass
+        return self.sim_current_time
 
     def get_line_mrid(self):
-        pass
+        return self.line_mrid
 
     def increment_sim_current_time(self):
-        pass
+        int_time = int(self.sim_current_time)
+        int_time += 1
+        self.sim_current_time = int_time
 
     def sim_start_up_process(self):
-        pass
+        self.connect_to_gridapps()
+        self.initialize_sim_mrid()
+        # TODO: Create Assignment Lookup Table
+        # TODO: Assign all DERS
+        # TODO: Provide association table to ID Manager
+        self.load_config_from_file()
+        self.connect_to_simulation()
+        # TODO: Create Callback objects
+        # TODO: Set log name
+        # TODO: Open log .csv file
+        # TODO: Connect to aggregator
+        self.start_simulation()
 
     def load_config_from_file(self):
-        pass
+        with open(self.config_file_path) as f:
+            config_string = f.read()
+            self.config_parameters = ast.literal_eval(config_string)
 
     def connect_to_gridapps(self):
-        pass
+        self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
 
     def initialize_sim_mrid(self):
-        pass
+        topic = t.REQUEST_POWERGRID_DATA
+        message = {
+            "requestType": "QUERY_MODEL_NAMES",
+            "resultFormat": "JSON"
+        }
+        x = self.gapps_session.get_response(topic, message)
+        self.sim_mrid = x["id"]
+
+    def initialize_line_mrid(self):
+        self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
+
+    def initialize_sim_start_time(self):
+        self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
 
     def connect_to_simulation(self):
-        pass
+        self.sim_session = Simulation(self.gapps_session, self.config_parameters)
 
     def create_callback_objects(self):
         pass
 
     def start_simulation(self):
-        pass
+        self.sim_session.start_simulation()
 
 
 class EDMTimeKeeper:
@@ -225,10 +283,14 @@ class GOOutputInterface:
 # Function Definitions
 # ---------------------------------------------------------------------------------------------------------------------
 
+
 def MC_instantiate_all_classes():
     print("Instantiating classes:")
     # example = Example()
 
+
 # --------------------------------------------------------------------------------------------------------------------
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
+edmCore = EDMCore()
+edmCore.sim_start_up_process()

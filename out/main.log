@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  20 AUG 2021 13:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  21 AUG 2021 11:40
 entering extended mode
 **./main.tex
 (main.tex
@@ -1096,17 +1096,17 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [6])
+) [6] (Fall2021/8-21-2021.tex) [7])
 No file main.bbl.
 (C:/Users\stant\PycharmProjects\doe-egot-me\out\main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2DCE2F930E1C69E428C03EE97E510A7A;675.
+(rerunfilecheck)             Checksum: C4FDCF58E48B6CF01E1290A9DEDEA638;890.
  ) 
 Here is how much of TeX's memory you used:
- 25945 strings out of 479334
- 474627 string characters out of 2857084
- 860320 words of memory out of 3000000
- 42893 multiletter control sequences out of 15000+200000
+ 25952 strings out of 479334
+ 474789 string characters out of 2857084
+ 860080 words of memory out of 3000000
+ 42895 multiletter control sequences out of 15000+200000
  409754 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,6n,103p,1005b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1117,10 +1117,10 @@ ic/amsfonts/cm/cmbx12.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (6 pa
-ges, 80644 bytes).
+Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (7 pa
+ges, 84710 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 9 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 PDF objects out of 1000 (max. 8388607)
+ 11 named destinations out of 1000 (max. 500000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 
