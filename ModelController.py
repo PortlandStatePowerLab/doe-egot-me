@@ -94,17 +94,19 @@ class EDMTimeKeeper:
         pass
 
 
-class EDMMeasurementProcessor:
+class EDMMeasurementProcessor(object):
     measured_timestamp = None
     current_measurements = None
     current_processed_grid_states = None
 
-    def __init__(self):
+    def __init__(self, simulation_id, gapps_obj):
+        self._gapps = gapps_obj
+        self._simulation_id = simulation_id
         print("Test")
 
     def on_message(self, headers, message):
         print("test")
-        print(message)
+        print(message["message"])
         self.current_measurements = message
         print(self.current_measurements)
 
@@ -270,7 +272,7 @@ def _main():
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
     edmCore.sim_start_up_process()
     #Temporary approach while testing callback classes. Currently not working. # TODO: Troubleshoot.
-    edmMeasProc = EDMMeasurementProcessor()
+    edmMeasProc = EDMMeasurementProcessor(edmCore.sim_mrid, edmCore.gapps_session)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
     while True:
         time.sleep(0.1)
