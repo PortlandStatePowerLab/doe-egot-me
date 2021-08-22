@@ -3,6 +3,7 @@ model controller
 """
 import ast
 
+import pandas as pd
 from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
@@ -50,6 +51,7 @@ class EDMCore:
         # TODO: Assign all DERS
         # TODO: Provide association table to ID Manager
         self.load_config_from_file()
+        self.initialize_sim_start_time()
         self.connect_to_simulation()
         # TODO: Create Callback objects
         # TODO: Set log name
@@ -90,33 +92,62 @@ class EDMCore:
         self.sim_session.start_simulation()
 
 
-class EDMTimeKeeper:
+class EDMTimeKeeper(object):
     sim_start_time = None
     sim_current_time = None
 
+    def __init__(self, simulation_id, gapps_object, edmCore):
+        self._gapps = gapps_object
+        self._simulation_id = simulation_id
+        self.sim_start_time = edmCore.get_sim_start_time()
+        self.sim_current_time = self.sim_start_time
+
+
     def on_message(self, sim, timestep):
-        print("test feedthrough")
-        print(timestep)
+        self.increment_sim_current_time()
+        print("Current timestep: " + self.sim_current_time)
+        self.perform_all_on_timestep_updates()
+
+    def increment_sim_current_time(self):
+        current_int_time = int(self.sim_current_time)
+        current_int_time += 1
+        self.sim_current_time = str(current_int_time)
+
+    def get_sim_current_time(self):
+        return self.sim_current_time
+
+    def perform_all_on_timestep_updates(self):
+        print("Performing on-timestep updates:")
+        pass
+
 
 
 class EDMMeasurementProcessor(object):
-    # measured_timestamp = None
-    # current_measurements = None
-    # current_processed_grid_states = None
 
-    def __init__(self, simulation_id, gapps_object):
+    def __init__(self, simulation_id, gapps_object, edmCore):
         self._gapps = gapps_object
         self._simulation_id = simulation_id
-        print("Test")
+        self.measurement_timestamp = None
+        self.current_measurements = None
+        self.current_processed_grid_states = None
+        self.run_once_flag = False
 
-    def on_message(self, headers, message):
-        print("test")
-        print(message["message"])
-        self.current_measurements = message
-        print(self.current_measurements)
+    def on_message(self, sim, timestamp, measurements):
+        self.current_measurements = measurements
+        self.measurement_timestamp = timestamp
+        # print(self.current_measurements)
+        self.parse_message_into_current_measurements()
 
     def parse_message_into_current_measurements(self):
-        pass
+
+        if self.run_once_flag == False:
+            timestamped_message = {
+                "Timestamp": self.measurement_timestamp,
+                "Measurements": self.current_measurements
+            }
+            message_df = pd.DataFrame(timestamped_message)
+            print(message_df)
+
 
     def append_association_data(self):
         pass
@@ -282,14 +313,24 @@ def ontimestep(sim, timestep):
     edmTimekeeper.on_message(sim, timestep)
 
 def onmeas(sim, timestamp, measurements):
-    print("test measurements")
-    print(timestamp)
-    print(measurements)
+    edmMeasurementProcessor.on_message(sim, timestamp, measurements)
 
 def onclose(sim):
     global end_program
     print("test onclose")
     end_program = True
+
+def init_temporary_callback_method(simulation_id, gapps_object, edmCore):
+    global edmTimekeeper
+    edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
+    edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
+
+    global edmMeasurementProcessor
+    edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
+    edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
+
+    global edmOnClose
+    edmOnClose = EDMOnClose()
 
 # --------------------------------------------------------------------------------------------------------------------
 # Program Execution
@@ -297,8 +338,10 @@ def onclose(sim):
 def _main():
 
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
-    global edmTimekeeper
-    edmTimekeeper = EDMTimeKeeper()
+
+
+
+
     edmCore.sim_start_up_process()
 
     #Temporary approach while testing callback classes. Currently not working. # TODO: Troubleshoot.
@@ -307,7 +350,7 @@ def _main():
     # gapps.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
 
     initialize_callback_functions(edmCore)
-
+    init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
     global end_program
     while not end_program:
         time.sleep(0.1)
