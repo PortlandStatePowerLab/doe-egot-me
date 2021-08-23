@@ -57,7 +57,7 @@ class EDMCore:
         # TODO: Set log name
         # TODO: Open log .csv file
         # TODO: Connect to aggregator
-        self.start_simulation()
+
 
     def load_config_from_file(self):
         with open(self.config_file_path) as f:
@@ -93,8 +93,6 @@ class EDMCore:
 
 
 class EDMTimeKeeper(object):
-    sim_start_time = None
-    sim_current_time = None
 
     def __init__(self, simulation_id, gapps_object, edmCore):
         self._gapps = gapps_object
@@ -321,15 +319,12 @@ def onclose(sim):
     end_program = True
 
 def init_temporary_callback_method(simulation_id, gapps_object, edmCore):
-    global edmTimekeeper
     edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
-    global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
 
-    global edmOnClose
     edmOnClose = EDMOnClose()
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -344,12 +339,10 @@ def _main():
 
     edmCore.sim_start_up_process()
 
-    # gapps = GridAPPSD(edmCore.sim_mrid)
-    # edmMeasProc = EDMMeasurementProcessor(edmCore.sim_mrid, gapps)
-    # gapps.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
 
     # initialize_callback_functions(edmCore)
     init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
+    edmCore.start_simulation()
     global end_program
     while not end_program:
         time.sleep(0.1)
