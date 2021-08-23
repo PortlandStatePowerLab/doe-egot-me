@@ -344,12 +344,11 @@ def _main():
 
     edmCore.sim_start_up_process()
 
-    #Temporary approach while testing callback classes. Currently not working. # TODO: Troubleshoot.
     # gapps = GridAPPSD(edmCore.sim_mrid)
     # edmMeasProc = EDMMeasurementProcessor(edmCore.sim_mrid, gapps)
     # gapps.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasProc)
 
-    initialize_callback_functions(edmCore)
+    # initialize_callback_functions(edmCore)
     init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
     global end_program
     while not end_program:
