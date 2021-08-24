@@ -46,13 +46,13 @@ class EDMCore:
 
     def sim_start_up_process(self):
         self.connect_to_gridapps()
-        self.initialize_sim_mrid()
         # TODO: Create Assignment Lookup Table
         # TODO: Assign all DERS
         # TODO: Provide association table to ID Manager
         self.load_config_from_file()
         self.initialize_sim_start_time()
         self.connect_to_simulation()
+        self.initialize_sim_mrid()
         # TODO: Create Callback objects
         # TODO: Set log name
         # TODO: Open log .csv file
@@ -68,13 +68,8 @@ class EDMCore:
         self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
 
     def initialize_sim_mrid(self):
-        topic = t.REQUEST_POWERGRID_DATA
-        message = {
-            "requestType": "QUERY_MODEL_NAMES",
-            "resultFormat": "JSON"
-        }
-        x = self.gapps_session.get_response(topic, message)
-        self.sim_mrid = x["id"]
+        self.sim_mrid = self.sim_session.simulation_id
+        print(self.sim_mrid)
 
     def initialize_line_mrid(self):
         self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
@@ -130,10 +125,10 @@ class EDMMeasurementProcessor(object):
         self.current_processed_grid_states = None
         self.run_once_flag = False
 
-    def on_message(self, sim, timestamp, measurements):
-        self.current_measurements = measurements
-        self.measurement_timestamp = timestamp
-        # print(self.current_measurements)
+    def on_message(self, headers, measurements):
+        self.current_measurements = measurements['message']['measurements']
+        print(self.current_measurements)
+        self.measurement_timestamp = measurements['message']['timestamp']
         self.parse_message_into_current_measurements()
 
     def parse_message_into_current_measurements(self):
@@ -319,9 +314,12 @@ def onclose(sim):
     end_program = True
 
 def init_temporary_callback_method(simulation_id, gapps_object, edmCore):
+
+    global edmTimekeeper
     edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
+    global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
 
@@ -340,9 +338,12 @@ def _main():
     edmCore.sim_start_up_process()
 
 
-    # initialize_callback_functions(edmCore)
-    init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
     edmCore.start_simulation()
+    edmCore.initialize_sim_mrid()
+    init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
+    initialize_callback_functions(edmCore)
+
+
     global end_program
     while not end_program:
         time.sleep(0.1)
