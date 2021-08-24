@@ -2,8 +2,6 @@
 model controller
 """
 import ast
-import json
-
 import pandas as pd
 from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
 from gridappsd import topics as t
@@ -11,12 +9,9 @@ from gridappsd.simulation import Simulation
 import time
 # import datetime
 # import json
-# import pandas as pd
 # import csv
 global end_program
 end_program = False
-
-
 
 # -------------------------------------------------------------------------------------------------------------------
 #   Class Definitions
@@ -59,7 +54,6 @@ class EDMCore:
         # TODO: Open log .csv file
         # TODO: Connect to aggregator
 
-
     def load_config_from_file(self):
         with open(self.config_file_path) as f:
             config_string = f.read()
@@ -97,16 +91,17 @@ class EDMTimeKeeper(object):
         self.sim_current_time = self.sim_start_time
         self.log_message = None
         self.previous_log_message = None
-
+        self.edmCore = edmCore
 
     def on_message(self, sim, timestep):
         self.log_message = timestep["logMessage"]
         # print(timestep)
         try:
-            if "incrementing to " in timestep["logMessage"]:
+            if "incrementing to " in self.log_message:
                 if self.log_message != self.previous_log_message:
-                    print("Tick")
+                    print(self.log_message)
                     self.increment_sim_current_time()
+                    print("Start time: " + self.sim_start_time)
                     print("Current timestep: " + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = self.log_message
@@ -125,8 +120,8 @@ class EDMTimeKeeper(object):
 
     def perform_all_on_timestep_updates(self):
         print("Performing on-timestep updates:")
+        self.edmCore.sim_current_time = self.sim_current_time
         pass
-
 
 
 class EDMMeasurementProcessor(object):
@@ -147,14 +142,13 @@ class EDMMeasurementProcessor(object):
 
     def parse_message_into_current_measurements(self):
 
-        if self.run_once_flag == False:
+        if not self.run_once_flag:
             timestamped_message = {
                 "Timestamp": self.measurement_timestamp,
                 "Measurements": self.current_measurements
             }
             message_df = pd.DataFrame(timestamped_message)
             print(message_df)
-
 
     def append_association_data(self):
         pass
@@ -307,20 +301,19 @@ class GOOutputInterface:
 #     print("Instantiating classes:")
 #     # example = Example()
 
+
 def initialize_callback_functions(edmCore):
     """
     TODO: Remove. This is used for callback functions, which will be replaced by callback classes as soon as I can
     get that working.
     """
     edmCore.sim_session.add_ontimestep_callback(ontimestep)
-    edmCore.sim_session.add_onmesurement_callback(onmeas)
     edmCore.sim_session.add_oncomplete_callback(onclose)
+
 
 def ontimestep(sim, timestep):
     edmTimekeeper.on_message(sim, timestep)
 
-def onmeas(sim, timestamp, measurements):
-    edmMeasurementProcessor.on_message(sim, timestamp, measurements)
 
 def onclose(sim):
     global end_program
@@ -356,7 +349,6 @@ def _main():
     edmCore.initialize_sim_mrid()
     init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
     # initialize_callback_functions(edmCore)
-
 
     global end_program
     while not end_program:
