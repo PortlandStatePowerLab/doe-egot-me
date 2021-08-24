@@ -95,20 +95,19 @@ class EDMTimeKeeper(object):
 
     def on_message(self, sim, timestep):
         self.log_message = timestep["logMessage"]
-        # print(timestep)
         try:
             if "incrementing to " in self.log_message:
                 if self.log_message != self.previous_log_message:
+                    #print(timestep)
                     print(self.log_message)
                     self.increment_sim_current_time()
                     print("Start time: " + self.sim_start_time)
                     print("Current timestep: " + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = self.log_message
-            else:
-                print(timestep["logMessage"])
         except KeyError:
             print("KeyError!")
+            print(timestep)
 
     def increment_sim_current_time(self):
         current_int_time = int(self.sim_current_time)
@@ -307,12 +306,10 @@ def initialize_callback_functions(edmCore):
     TODO: Remove. This is used for callback functions, which will be replaced by callback classes as soon as I can
     get that working.
     """
-    edmCore.sim_session.add_ontimestep_callback(ontimestep)
     edmCore.sim_session.add_oncomplete_callback(onclose)
 
 
-def ontimestep(sim, timestep):
-    edmTimekeeper.on_message(sim, timestep)
+
 
 
 def onclose(sim):
