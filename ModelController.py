@@ -2,6 +2,7 @@
 model controller
 """
 import ast
+import json
 
 import pandas as pd
 from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
@@ -94,12 +95,25 @@ class EDMTimeKeeper(object):
         self._simulation_id = simulation_id
         self.sim_start_time = edmCore.get_sim_start_time()
         self.sim_current_time = self.sim_start_time
+        self.log_message = None
+        self.previous_log_message = None
 
 
     def on_message(self, sim, timestep):
-        self.increment_sim_current_time()
-        print("Current timestep: " + self.sim_current_time)
-        self.perform_all_on_timestep_updates()
+        self.log_message = timestep["logMessage"]
+        # print(timestep)
+        try:
+            if "incrementing to " in timestep["logMessage"]:
+                if self.log_message != self.previous_log_message:
+                    print("Tick")
+                    self.increment_sim_current_time()
+                    print("Current timestep: " + self.sim_current_time)
+                    self.perform_all_on_timestep_updates()
+                    self.previous_log_message = self.log_message
+            else:
+                print(timestep["logMessage"])
+        except KeyError:
+            print("KeyError!")
 
     def increment_sim_current_time(self):
         current_int_time = int(self.sim_current_time)
@@ -127,7 +141,7 @@ class EDMMeasurementProcessor(object):
 
     def on_message(self, headers, measurements):
         self.current_measurements = measurements['message']['measurements']
-        print(self.current_measurements)
+        # print(self.current_measurements)
         self.measurement_timestamp = measurements['message']['timestamp']
         self.parse_message_into_current_measurements()
 
@@ -315,13 +329,13 @@ def onclose(sim):
 
 def init_temporary_callback_method(simulation_id, gapps_object, edmCore):
 
-    global edmTimekeeper
-    edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
-    edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
-
     global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
+
+    global edmTimekeeper
+    edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
+    edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
     edmOnClose = EDMOnClose()
 
@@ -341,7 +355,7 @@ def _main():
     edmCore.start_simulation()
     edmCore.initialize_sim_mrid()
     init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
-    initialize_callback_functions(edmCore)
+    # initialize_callback_functions(edmCore)
 
 
     global end_program
