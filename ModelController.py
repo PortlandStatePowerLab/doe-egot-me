@@ -10,7 +10,6 @@ import time
 # import datetime
 # import json
 # import csv
-global end_program
 end_program = False
 
 # -------------------------------------------------------------------------------------------------------------------
@@ -49,7 +48,8 @@ class EDMCore:
         self.initialize_sim_start_time()
         self.connect_to_simulation()
         self.initialize_sim_mrid()
-        # TODO: Create Callback objects
+        self.create_objects()
+        mcOutputLog.set_log_name()
         # TODO: Set log name
         # TODO: Open log .csv file
         # TODO: Connect to aggregator
@@ -75,8 +75,16 @@ class EDMCore:
     def connect_to_simulation(self):
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
 
-    def create_callback_objects(self):
-        pass
+    def create_objects(self):
+        global mcOutputLog
+        mcOutputLog = MCOutputLog()
+        # TODO: This doesn't work, probably due to scope stuff. Do some research on it.
+        # global edmMeasurementProcessor
+        # edmMeasurementProcessor = EDMMeasurementProcessor(self.sim_mrid, self.gapps_session, self)
+        # self.gapps_session.subscribe(t.simulation_output_topic(self.sim_mrid), edmMeasurementProcessor)
+        # global edmTimekeeper
+        # edmTimekeeper = EDMTimeKeeper(self.sim_mrid, self.gapps_session, self)
+        # self.gapps_session.subscribe(t.simulation_log_topic(self.sim_mrid), edmTimekeeper)
 
     def start_simulation(self):
         self.sim_session.start_simulation()
@@ -89,25 +97,34 @@ class EDMTimeKeeper(object):
         self._simulation_id = simulation_id
         self.sim_start_time = edmCore.get_sim_start_time()
         self.sim_current_time = self.sim_start_time
-        self.log_message = None
         self.previous_log_message = None
         self.edmCore = edmCore
 
-    def on_message(self, sim, timestep):
-        self.log_message = timestep["logMessage"]
-        try:
-            if "incrementing to " in self.log_message:
-                if self.log_message != self.previous_log_message:
-                    #print(timestep)
-                    print(self.log_message)
+    def on_message(self, sim, message):
+        def end_program():
+            global end_program
+            end_program = True
+
+        def update_and_increment_timestep(log_message, self):
+            if "incrementing to " in log_message:
+                if log_message != self.previous_log_message:
+                    print(log_message)
                     self.increment_sim_current_time()
-                    print("Start time: " + self.sim_start_time)
+                    # print("Start time: " + self.sim_start_time)
                     print("Current timestep: " + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
-                    self.previous_log_message = self.log_message
+                    self.previous_log_message = log_message
+
+        log_message = message["logMessage"]
+        process_status = message['processStatus']
+        try:
+            if process_status == 'COMPLETE' or process_status == 'CLOSED':
+                end_program()
+            else:
+                update_and_increment_timestep(log_message, self)
         except KeyError:
             print("KeyError!")
-            print(timestep)
+            print(message)
 
     def increment_sim_current_time(self):
         current_int_time = int(self.sim_current_time)
@@ -139,15 +156,18 @@ class EDMMeasurementProcessor(object):
         self.measurement_timestamp = measurements['message']['timestamp']
         self.parse_message_into_current_measurements()
 
+    def get_current_measurements(self):
+        return self.current_measurements
+
     def parse_message_into_current_measurements(self):
 
         if not self.run_once_flag:
             timestamped_message = {
-                "Timestamp": self.measurement_timestamp,
-                "Measurements": self.current_measurements
+                self.measurement_timestamp: list(self.current_measurements.items())
             }
-            message_df = pd.DataFrame(timestamped_message)
-            print(message_df)
+            message_df = pd.DataFrame.from_dict(timestamped_message, orient='index', columns=self.current_measurements.keys())
+            # print(message_df)
+            self.current_measurements = message_df
 
     def append_association_data(self):
         pass
@@ -291,6 +311,39 @@ class GOOutputInterface:
     def send_service_request(self):
         pass
 
+
+class MCOutputLog:
+    csv_file: None
+    log_name: ''
+    header_mrids: None
+    header_names: None
+    csv_dict_writer: None
+    timestamp_array: None
+    is_first_measurement: True
+
+    def open_csv_file(self):
+        pass
+
+    def close_csv_file(self):
+        pass
+
+    def translate_header_names(self):
+        pass
+
+    def write_header(self):
+        pass
+
+    def append_timestamp(self):
+        pass
+
+    def write_row(self):
+        pass
+
+    def set_log_name(self):
+        self.log_name = 'testlog.csv'
+        print(self.log_name)
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Function Definitions
 # ---------------------------------------------------------------------------------------------------------------------
@@ -300,52 +353,24 @@ class GOOutputInterface:
 #     print("Instantiating classes:")
 #     # example = Example()
 
-
-def initialize_callback_functions(edmCore):
-    """
-    TODO: Remove. This is used for callback functions, which will be replaced by callback classes as soon as I can
-    get that working.
-    """
-    edmCore.sim_session.add_oncomplete_callback(onclose)
-
-
-
-
-
-def onclose(sim):
-    global end_program
-    print("test onclose")
-    end_program = True
-
-def init_temporary_callback_method(simulation_id, gapps_object, edmCore):
-
+def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
-
     global edmTimekeeper
     edmTimekeeper = EDMTimeKeeper(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
-    edmOnClose = EDMOnClose()
 
 # --------------------------------------------------------------------------------------------------------------------
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
 def _main():
-
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
-
-
-
-
     edmCore.sim_start_up_process()
-
-
     edmCore.start_simulation()
     edmCore.initialize_sim_mrid()
-    init_temporary_callback_method(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
-    # initialize_callback_functions(edmCore)
+    instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
     global end_program
     while not end_program:
