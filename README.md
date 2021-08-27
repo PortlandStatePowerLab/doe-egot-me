@@ -44,10 +44,11 @@ without further modification to the modeling system.
   sparql queries. 
 * **Main.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
+* **Config.txt** contains the configuration dictionary for the simulation.
 * **README.md** is this file.
 
 ## Background Documentation
-
+* [Development Journal](https://github.com/PortlandStatePowerLab/doe-egot-me/blob/main/out/main.pdf)
 * [Development Plan Documents (PEG only)](https://drive.google.com/drive/folders/1gzclY2N1w7PiS4PjuwpQj0qUheekqnkn?usp=sharing)
 * [Flow Charts and other design documents (PEG only)](https://drive.google.com/drive/folders/13gm4Shm-kZ0PfSjn-9UMrA0cDD80fIy0?usp=sharing)
 * [Estimated Quarterly Goals(Outdated)](https://www.overleaf.com/read/jrrvwgtvqryt)
