@@ -2,6 +2,8 @@
 model controller
 """
 import ast
+import csv
+
 import pandas as pd
 from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
 from gridappsd import topics as t
@@ -100,8 +102,10 @@ class EDMTimeKeeper(object):
         self.previous_log_message = None
         self.edmCore = edmCore
 
+
     def on_message(self, sim, message):
         def end_program():
+            mcOutputLog.close_out_logs()
             global end_program
             end_program = True
 
@@ -137,7 +141,7 @@ class EDMTimeKeeper(object):
     def perform_all_on_timestep_updates(self):
         print("Performing on-timestep updates:")
         self.edmCore.sim_current_time = self.sim_current_time
-        pass
+        mcOutputLog.update_logs()
 
 
 class EDMMeasurementProcessor(object):
@@ -151,23 +155,25 @@ class EDMMeasurementProcessor(object):
         self.run_once_flag = False
 
     def on_message(self, headers, measurements):
-        self.current_measurements = measurements['message']['measurements']
-        # print(self.current_measurements)
-        self.measurement_timestamp = measurements['message']['timestamp']
-        self.parse_message_into_current_measurements()
+        self.parse_message_into_current_measurements(measurements)
 
     def get_current_measurements(self):
         return self.current_measurements
 
-    def parse_message_into_current_measurements(self):
+    def parse_message_into_current_measurements(self, measurement_message):
+        # print(measurement_message)
+        self.current_measurements = measurement_message['message']['measurements']
+        # print(self.current_measurements)
+        self.measurement_timestamp = measurement_message['message']['timestamp']
+        # print(self.measurement_timestamp)
 
-        if not self.run_once_flag:
-            timestamped_message = {
-                self.measurement_timestamp: list(self.current_measurements.items())
-            }
-            message_df = pd.DataFrame.from_dict(timestamped_message, orient='index', columns=self.current_measurements.keys())
-            # print(message_df)
-            self.current_measurements = message_df
+        # if not self.run_once_flag:
+        #     timestamped_message = {
+        #         self.measurement_timestamp: list(self.current_measurements.items())
+        #     }
+        #     message_df = pd.DataFrame.from_dict(timestamped_message, orient='index', columns=self.current_measurements.keys())
+        #     print(message_df)
+        #     self.current_measurements = message_df
 
     def append_association_data(self):
         pass
@@ -313,36 +319,64 @@ class GOOutputInterface:
 
 
 class MCOutputLog:
-    csv_file: None
-    log_name: ''
-    header_mrids: None
-    header_names: None
-    csv_dict_writer: None
-    timestamp_array: None
-    is_first_measurement: True
+    def __init__(self):
+        self.csv_file = None
+        self.log_name = ''
+        self.header_mrids = None
+        self.header_names = None
+        self.csv_dict_writer = None
+        self.timestamp_array = []
+        self.current_measurement = None
+        self.is_first_measurement = True
+
+    def update_logs(self):
+        self.current_measurement = edmMeasurementProcessor.get_current_measurements()
+        if self.current_measurement:
+            print("Updating logs...")
+            if self.is_first_measurement == True:
+                print("First measurement routines...")
+                self.set_log_name()
+                self.open_csv_file()
+                self.translate_header_names()
+                self.open_csv_dict_writer()
+                self.write_header()
+                self.is_first_measurement = False
+            self.write_row()
+            self.timestamp_array.append(edmTimekeeper.sim_current_time)
+        else:
+            print("skipping")
 
     def open_csv_file(self):
-        pass
+        self.csv_file = open(self.log_name, 'w')
 
-    def close_csv_file(self):
-        pass
+    def open_csv_dict_writer(self):
+        # Note: the dict writer uses mrids for processing purposes
+        self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids)
+
+    def close_out_logs(self):
+        self.csv_file.close()
+        self.append_timestamps()
 
     def translate_header_names(self):
-        pass
+        self.header_mrids = self.current_measurement.keys()
+        self.header_mrids = dict(zip(list(self.header_mrids), self.header_mrids))
 
     def write_header(self):
-        pass
-
-    def append_timestamp(self):
-        pass
+        self.csv_dict_writer.writerow(self.header_mrids)
 
     def write_row(self):
-        pass
+        self.csv_dict_writer.writerow(self.current_measurement)
 
     def set_log_name(self):
         self.log_name = 'testlog.csv'
-        print(self.log_name)
 
+    def append_timestamps(self):
+        csv_input = pd.read_csv(self.log_name)
+        self.timestamp_array = pd.to_datetime(self.timestamp_array, unit='s')
+        csv_input['Timestamp'] = self.timestamp_array
+        move_column = csv_input.pop('Timestamp')
+        csv_input.insert(0, 'Timestamp', move_column)
+        csv_input.to_csv(self.log_name, index=False)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Function Definitions
