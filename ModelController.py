@@ -26,6 +26,7 @@ class EDMCore:
     line_mrid = None
     config_parameters = None
     config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
+    mrid_name_lookup_table = []
 
     def get_sim_start_time(self):
         return self.sim_start_time
@@ -43,17 +44,16 @@ class EDMCore:
 
     def sim_start_up_process(self):
         self.connect_to_gridapps()
-        # TODO: Create Assignment Lookup Table
         # TODO: Assign all DERS
         # TODO: Provide association table to ID Manager
         self.load_config_from_file()
+        self.initialize_line_mrid()
+        self.establish_mrid_name_lookup_table()
         self.initialize_sim_start_time()
         self.connect_to_simulation()
         self.initialize_sim_mrid()
         self.create_objects()
         mcOutputLog.set_log_name()
-        # TODO: Set log name
-        # TODO: Open log .csv file
         # TODO: Connect to aggregator
 
     def load_config_from_file(self):
@@ -91,6 +91,19 @@ class EDMCore:
     def start_simulation(self):
         self.sim_session.start_simulation()
 
+    def establish_mrid_name_lookup_table(self):
+        topic = "goss.gridappsd.process.request.data.powergridmodel"
+        message = {
+            "modelId": edmCore.get_line_mrid(),
+            "requestType": "QUERY_OBJECT_MEASUREMENTS",
+            "resultFormat": "JSON",
+        }
+        print(edmCore.get_line_mrid())
+        object_meas = edmCore.gapps_session.get_response(topic, message)
+        self.mrid_name_lookup_table = object_meas['data']
+
+    def get_mrid_name_lookup_table(self):
+        return self.mrid_name_lookup_table
 
 class EDMTimeKeeper(object):
 
@@ -153,6 +166,7 @@ class EDMMeasurementProcessor(object):
         self.current_measurements = None
         self.current_processed_grid_states = None
         self.run_once_flag = False
+        self.mrid_name_lookup_table = []
 
     def on_message(self, headers, measurements):
         self.parse_message_into_current_measurements(measurements)
@@ -177,6 +191,7 @@ class EDMMeasurementProcessor(object):
 
     def append_association_data(self):
         pass
+
 
 
 class EDMOnClose:
@@ -322,8 +337,9 @@ class MCOutputLog:
     def __init__(self):
         self.csv_file = None
         self.log_name = ''
-        self.header_mrids = None
-        self.header_names = None
+        self.mrid_name_lookup_table = []
+        self.header_mrids = []
+        self.header_names = []
         self.csv_dict_writer = None
         self.timestamp_array = []
         self.current_measurement = None
@@ -337,6 +353,7 @@ class MCOutputLog:
                 print("First measurement routines...")
                 self.set_log_name()
                 self.open_csv_file()
+                self.mrid_name_lookup_table = edmCore.get_mrid_name_lookup_table()
                 self.translate_header_names()
                 self.open_csv_dict_writer()
                 self.write_header()
@@ -359,7 +376,15 @@ class MCOutputLog:
 
     def translate_header_names(self):
         self.header_mrids = self.current_measurement.keys()
-        self.header_mrids = dict(zip(list(self.header_mrids), self.header_mrids))
+        for i in self.header_mrids:
+            try:
+                lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+            except StopIteration:
+                print(lookup_mrid)
+            lookup_name = lookup_mrid['name']
+            self.header_names.append(lookup_name)
+            print(self.header_names)
+        self.header_mrids = dict(zip(list(self.header_mrids), self.header_names))
 
     def write_header(self):
         self.csv_dict_writer.writerow(self.header_mrids)
@@ -400,6 +425,7 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
 def _main():
+    global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
     edmCore.sim_start_up_process()
     edmCore.start_simulation()
