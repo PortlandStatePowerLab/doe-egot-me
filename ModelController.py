@@ -5,7 +5,7 @@ import ast
 import csv
 
 import pandas as pd
-from gridappsd import GridAPPSD  # , goss, DifferenceBuilder
+from gridappsd import GridAPPSD, goss, DifferenceBuilder
 from gridappsd import topics as t
 from gridappsd.simulation import Simulation
 import time
@@ -17,6 +17,8 @@ end_program = False
 # -------------------------------------------------------------------------------------------------------------------
 #   Class Definitions
 # --------------------------------------------------------------------------------------------------------------------
+
+
 class EDMCore:
     gapps_session = None
     sim_session = None
@@ -53,6 +55,7 @@ class EDMCore:
         self.connect_to_simulation()
         self.initialize_sim_mrid()
         self.create_objects()
+        self.initialize_all_der_s()
         mcOutputLog.set_log_name()
         # TODO: Connect to aggregator
 
@@ -80,6 +83,10 @@ class EDMCore:
     def create_objects(self):
         global mcOutputLog
         mcOutputLog = MCOutputLog()
+        global mcInputInterface
+        mcInputInterface = MCInputInterface()
+        global dersHistoricalDataInput
+        dersHistoricalDataInput = DERSHistoricalDataInput()
         # TODO: This doesn't work, probably due to scope stuff. Do some research on it.
         # global edmMeasurementProcessor
         # edmMeasurementProcessor = EDMMeasurementProcessor(self.sim_mrid, self.gapps_session, self)
@@ -87,6 +94,10 @@ class EDMCore:
         # global edmTimekeeper
         # edmTimekeeper = EDMTimeKeeper(self.sim_mrid, self.gapps_session, self)
         # self.gapps_session.subscribe(t.simulation_log_topic(self.sim_mrid), edmTimekeeper)
+
+    def initialize_all_der_s(self):
+        #Comment out as required.
+        dersHistoricalDataInput.initialize_der_s()
 
     def start_simulation(self):
         self.sim_session.start_simulation()
@@ -104,6 +115,7 @@ class EDMCore:
 
     def get_mrid_name_lookup_table(self):
         return self.mrid_name_lookup_table
+
 
 class EDMTimeKeeper(object):
 
@@ -139,7 +151,8 @@ class EDMTimeKeeper(object):
                 end_program()
             else:
                 update_and_increment_timestep(log_message, self)
-        except KeyError:
+        except KeyError as e:
+            print(e)
             print("KeyError!")
             print(message)
 
@@ -154,6 +167,8 @@ class EDMTimeKeeper(object):
     def perform_all_on_timestep_updates(self):
         print("Performing on-timestep updates:")
         self.edmCore.sim_current_time = self.sim_current_time
+        mcInputInterface.update_all_der_s_status()
+        mcInputInterface.update_all_der_em_status()
         mcOutputLog.update_logs()
 
 
@@ -193,16 +208,6 @@ class EDMMeasurementProcessor(object):
         pass
 
 
-
-class EDMOnClose:
-
-    def force_quit(self):
-        pass
-
-    def on_message(self, sim):
-        pass
-
-
 class RWHDERS:
     current_input_request = None
     current_der_states = None
@@ -222,24 +227,50 @@ class RWHDERS:
 
 class DERSHistoricalDataInput:
     der_em_input_request = None
-    historical_data_file_path = None
-    input_file = None
+    historical_data_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\input.csv"
+    input_file_name = None
     input_table = None
 
+
+    def initialize_der_s(self):
+        self.open_input_file()
+        self.read_input_file()
+
     def get_input_request(self):
-        pass
+        self.update_der_em_input_request()
+        return self.der_em_input_request
 
     def assign_der_s_to_der_em(self):
         pass
 
     def open_input_file(self):
-        pass
+        with open(self.historical_data_file_path) as csvfile:
+            r = csv.DictReader(csvfile)
+            x = []
+            for row in r:
+                row = dict(row)
+                x.append(row)
+        print("Historical data file opened")
+        return x
 
     def read_input_file(self):
-        pass
+        self.input_table = self.open_input_file()
+
 
     def update_der_em_input_request(self):
-        pass
+        try:
+            print(self.input_table)
+            print(type(self.input_table))
+            input_at_time_now = next(item for item in self.input_table if int(item['Time']) >= int(edmCore.sim_current_time) and int(item['Time']) < (int(edmCore.sim_current_time) + 1))
+            print("Updating DER-EMs from historical data.")
+            self.der_em_input_request = dict(input_at_time_now)
+            self.der_em_input_request.pop('Time')
+            print("Current Historical Input DER-EM Input request:")
+            print(self.der_em_input_request)
+
+        except StopIteration:
+            print("End of input data.")
+            return
 
 
 class DERIdentificationManager:
@@ -277,17 +308,34 @@ class DERAssignmentHandler:
 class MCInputInterface:
     current_unified_input_request = None
     active_der_s_list = None
+    test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
+    test_school_mrid = '_9E931F3B-0D9D-4CBE-B771-9400202B20E8'
+    test_DER_2_mrid = '_3DE65927-85C2-4EA8-98A6-F4B2A7CA4937'
+    test_DER_3_mrid = '_6D2894FC-9973-468E-A816-BBAA0E92CA81'
+
 
     def update_all_der_em_status(self):
         pass
 
     def update_all_der_s_status(self):
-        pass
+        self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
+        print("Current unified input request:")
+        print(self.current_unified_input_request)
+
 
     def get_all_der_s_input_requests(self):
         pass
 
     def send_der_em_updates_to_edm(self):
+        pass
+
+    def test_der_em(self, mrid):
+        input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        my_diff_build.add_difference(mrid, "PowerElectronicsConnection.p", 42, 0)
+        message = my_diff_build.get_message()
+        print(message)
+        edmCore.gapps_session.send(input_topic, message)
         pass
 
 
@@ -361,7 +409,8 @@ class MCOutputLog:
             self.write_row()
             self.timestamp_array.append(edmTimekeeper.sim_current_time)
         else:
-            print("skipping")
+            #print("skipping")
+            pass
 
     def open_csv_file(self):
         self.csv_file = open(self.log_name, 'w')
@@ -383,7 +432,7 @@ class MCOutputLog:
                 print(lookup_mrid)
             lookup_name = lookup_mrid['name']
             self.header_names.append(lookup_name)
-            print(self.header_names)
+            # print(self.header_names)
         self.header_mrids = dict(zip(list(self.header_mrids), self.header_names))
 
     def write_header(self):
