@@ -307,9 +307,8 @@ class MCInputInterface:
     current_unified_input_request = None
     active_der_s_list = None
     test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
-    test_school_mrid = '_9E931F3B-0D9D-4CBE-B771-9400202B20E8'
-    test_DER_2_mrid = '_3DE65927-85C2-4EA8-98A6-F4B2A7CA4937'
-    test_DER_3_mrid = '_6D2894FC-9973-468E-A816-BBAA0E92CA81'
+    test_DER_2_mrid = '_2750969C-CBD5-41F4-BDCE-19287FBDCA71'
+    test_DER_3_mrid = '_1720E0C8-A0CA-41BF-84DE-9847A17EBE26'
 
 
     def update_all_der_em_status(self):

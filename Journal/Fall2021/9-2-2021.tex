@@ -33,7 +33,9 @@
 
     Had a bunch of issues adding DER-EMs. A lot of them came from the fact that I was jumping back and forth between
     CIMHub and the Powergrid-Models repository. USE POWERGRID-MODELS FOR EVERYTHING. It grabs stuff from CIMHub, but the
-    measurement stuff is in powergrid-models as well. Here is how the process works:
+    measurement stuff is in powergrid-models as well. A batch script could automate it, if written.
+
+    Here is how the process works:
 
     \begin{enumerate}
         \item Create a text file containing the feeder ID and information about each DER. (See EGoT13\_der.txt in the
@@ -46,6 +48,19 @@
         \item Edit/run powergrid-models/platform/list\_all\_measurements.sh
         \item Edit/run powergrid-models/platform/insert\_all\_measurements.sh
     \end{enumerate}
+
+    I added three test DERs to the model at node 671. There were some initial struggles related to controlling them,
+    but these all turned out to be due to incorrect mRIDs and typos. For results,
+    see /Log Demos/testlog(9-17 binary input demo).csv. The DERs were set to 0 or 1kW, counting up in binary. The
+    results were as expected once we knew what we were looking at: the measurement points all seem to be upstream of
+    the inverter (and thus interconnected) and represent a single phase. So on each phase at node 671, we get 333W of
+    power consumed per DER-EM that's "turned on". When all three are turned on, we get 1kW per phase, or 3kW total. This
+    is as expected.
+
+    Once I understood what I was looking at, the rest of the model came into focus. The only other dynamic load in the
+    system is a house model that seems to be disconnected until the third (measurement) timestep. Those together with
+    the DER-EMs had noticeable and consistent effects on current throughout the system. Apart from the house and its
+    components, we have very basic energy consumers, compensators, and node to node line segment measurements, etc.
 
 
     \data
