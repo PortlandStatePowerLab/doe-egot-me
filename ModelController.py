@@ -259,8 +259,6 @@ class DERSHistoricalDataInput:
 
     def update_der_em_input_request(self):
         try:
-            print(self.input_table)
-            print(type(self.input_table))
             input_at_time_now = next(item for item in self.input_table if int(item['Time']) >= int(edmCore.sim_current_time) and int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             print("Updating DER-EMs from historical data.")
             self.der_em_input_request = dict(input_at_time_now)
@@ -315,28 +313,29 @@ class MCInputInterface:
 
 
     def update_all_der_em_status(self):
-        pass
+        self.test_der_em()
 
     def update_all_der_s_status(self):
+        self.get_all_der_s_input_requests()
+
+
+    def get_all_der_s_input_requests(self):
         self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
-
-    def get_all_der_s_input_requests(self):
-        pass
-
     def send_der_em_updates_to_edm(self):
         pass
 
-    def test_der_em(self, mrid):
+    def test_der_em(self):
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
-        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
-        my_diff_build.add_difference(mrid, "PowerElectronicsConnection.p", 42, 0)
-        message = my_diff_build.get_message()
-        print(message)
-        edmCore.gapps_session.send(input_topic, message)
-        pass
+        for key in self.current_unified_input_request:
+            my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+            my_diff_build.add_difference(key, "PowerElectronicsConnection.p", int(self.current_unified_input_request[key]), 0)
+            message = my_diff_build.get_message()
+            print(message)
+            edmCore.gapps_session.send(input_topic, message)
+
 
 
 class GOSensor:
