@@ -39,12 +39,16 @@ without further modification to the modeling system.
 * **Journal**: Contains the LaTex files required to  generate the design journal, 
   main.pdf. auxil and out folders are also required for this. 
 * **Outdated**: Contains old test scripts, logs, and files that are no longer in use
+* **Log Demos**: Contains various .csv logs that are referenced in documentation or
+elsewhere. These logs are for demonstration and not used by the system.
 * **ModelController.py**: Contains the MC script.
 * **queries.txt** is a simple text file from PNNL containing numerous examples of
   sparql queries. 
-* **Main.pdf** is the design journal for this project, which is generally updated
+* **Journal.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
 * **Config.txt** contains the configuration dictionary for the simulation.
+* **input.csv** is the input file for the DERSHistoricalDataInput class.
+* **testlog.csv** is the log output and is updated each simulation.
 * **README.md** is this file.
 
 ## Background Documentation
