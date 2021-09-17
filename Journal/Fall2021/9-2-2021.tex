@@ -1,10 +1,11 @@
 % NOTE - this is only a template without real arguments
-\begin{entry}{Measurement processor and Log Early Implementation}{Sep 2, 2021}
+\begin{entry}{Phase 1 completion}{Sep 2, 2021}
     \objective 
     
     Determine a data scheme for internal data (I.E. grid states and association data passed to the GO and logger.)
     Implement MCOutputLog
     Run a simulation and get output logs
+
 
     \outline
 
@@ -17,13 +18,18 @@
         \item Add log writing routine to timekeeper
         \item Add file closeout function to timekeeper closeout
         \item Test
+        \item Add DER-EMs to model
+        \item Add McInputInterface with a test function
+        \item Add DERSHistoricalDataInput with a test function
+        \item Test (Phase 1 closeout)
 
     \end{itemize}
 
     \procedures
-    
-    See outline. Not much to add here. I'll come up with the test as I go along (see observations) since this is a
-    pretty simple communication feedthrough in spite of how crucial it is to the system.
+
+    NOTE: I accidentially overwrote a bunch of information about previous steps, but it sums up to "it works". Info
+    starts at "Add DER-EMs to model" for this sprint.
+
 
     \parameters
     
@@ -61,6 +67,18 @@
     system is a house model that seems to be disconnected until the third (measurement) timestep. Those together with
     the DER-EMs had noticeable and consistent effects on current throughout the system. Apart from the house and its
     components, we have very basic energy consumers, compensators, and node to node line segment measurements, etc.
+
+
+
+    I spent a long time trying to figure out the data scheme for the test input because I didn't understand that
+    assignment is just a reference and I kept popping the "Time" data from an individual row in my input readout.
+    Once I figured that out, the input manager and historical data DER-S worked pretty well. In this current state,
+    the log columns need to be the mRIDs for the battery inverter control IDs (see query below.) Once per second,
+    that message is ssent to the input handler which automatically changes the values for each mRID to the value in the
+    cell. A single input command is sufficient for this (and will probably be sufficient from now on).
+
+    Testing completed sat. There is an issue with the timecodes starting 6 seconds later than they should be,
+    but this is minor at this point. I made a card to troubleshoot it later, it won't hold up progress.
 
 
     \data

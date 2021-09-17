@@ -51,8 +51,8 @@ class EDMCore:
         self.load_config_from_file()
         self.initialize_line_mrid()
         self.establish_mrid_name_lookup_table()
-        self.initialize_sim_start_time()
         self.connect_to_simulation()
+        self.initialize_sim_start_time()
         self.initialize_sim_mrid()
         self.create_objects()
         self.initialize_all_der_s()
@@ -76,6 +76,8 @@ class EDMCore:
 
     def initialize_sim_start_time(self):
         self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
+        print("Simulation start time is:")
+        print(self.sim_start_time)
 
     def connect_to_simulation(self):
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
@@ -100,6 +102,7 @@ class EDMCore:
         dersHistoricalDataInput.initialize_der_s()
 
     def start_simulation(self):
+        self.initialize_sim_start_time()
         self.sim_session.start_simulation()
 
     def establish_mrid_name_lookup_table(self):
@@ -406,6 +409,8 @@ class MCOutputLog:
                 self.is_first_measurement = False
             self.write_row()
             self.timestamp_array.append(edmTimekeeper.sim_current_time)
+            print("Current array time:")
+            print(self.timestamp_array)
         else:
             #print("skipping")
             pass
