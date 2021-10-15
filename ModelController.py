@@ -202,7 +202,7 @@ class EDMMeasurementProcessor(object):
         return self.current_measurements
 
     def parse_message_into_current_measurements(self, measurement_message):
-        print(measurement_message)
+        # print(measurement_message)
         self.current_measurements = measurement_message['message']['measurements']
         # print(self.current_measurements)
         self.measurement_timestamp = measurement_message['message']['timestamp']
