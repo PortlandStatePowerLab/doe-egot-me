@@ -22,6 +22,9 @@ end_program = False
 
 
 class EDMCore:
+    """
+    Test
+    """
     gapps_session = None
     sim_session = None
     sim_start_time = None
@@ -33,20 +36,38 @@ class EDMCore:
     mrid_name_lookup_table = []
 
     def get_sim_start_time(self):
+        """
+
+        :return:
+        """
         return self.sim_start_time
 
     def get_sim_current_time(self):
+        """
+
+        :return:
+        """
         return self.sim_current_time
 
     def get_line_mrid(self):
+        """
+
+        :return:
+        """
         return self.line_mrid
 
     def increment_sim_current_time(self):
+        """
+
+        """
         int_time = int(self.sim_current_time)
         int_time += 1
         self.sim_current_time = int_time
 
     def sim_start_up_process(self):
+        """
+
+        """
         self.connect_to_gridapps()
         # TODO: Assign all DERS
         # TODO: Provide association table to ID Manager
@@ -65,29 +86,50 @@ class EDMCore:
         # TODO: Connect to aggregator
 
     def load_config_from_file(self):
+        """
+
+        """
         with open(self.config_file_path) as f:
             config_string = f.read()
             self.config_parameters = ast.literal_eval(config_string)
 
     def connect_to_gridapps(self):
+        """
+
+        """
         self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
 
     def initialize_sim_mrid(self):
+        """
+
+        """
         self.sim_mrid = self.sim_session.simulation_id
         print(self.sim_mrid)
 
     def initialize_line_mrid(self):
+        """
+
+        """
         self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
 
     def initialize_sim_start_time(self):
+        """
+
+        """
         self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
         print("Simulation start time is:")
         print(self.sim_start_time)
 
     def connect_to_simulation(self):
+        """
+
+        """
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
 
     def create_objects(self):
+        """
+
+        """
         global mcOutputLog
         mcOutputLog = MCOutputLog()
         global mcInputInterface
@@ -107,14 +149,23 @@ class EDMCore:
         # self.gapps_session.subscribe(t.simulation_log_topic(self.sim_mrid), edmTimekeeper)
 
     def initialize_all_der_s(self):
+        """
+
+        """
         #Comment out as required.
         dersHistoricalDataInput.initialize_der_s()
 
     def start_simulation(self):
+        """
+
+        """
         self.initialize_sim_start_time()
         self.sim_session.start_simulation()
 
     def establish_mrid_name_lookup_table(self):
+        """
+
+        """
         topic = "goss.gridappsd.process.request.data.powergridmodel"
         message = {
             "modelId": edmCore.get_line_mrid(),
@@ -126,11 +177,17 @@ class EDMCore:
         self.mrid_name_lookup_table = object_meas['data']
 
     def get_mrid_name_lookup_table(self):
+        """
+
+        :return:
+        """
         return self.mrid_name_lookup_table
 
 
 class EDMTimeKeeper(object):
+    """
 
+    """
     def __init__(self, simulation_id, gapps_object, edmCore):
         self._gapps = gapps_object
         self._simulation_id = simulation_id
@@ -141,12 +198,26 @@ class EDMTimeKeeper(object):
 
 
     def on_message(self, sim, message):
+        """
+
+        :param sim:
+        :param message:
+        """
         def end_program():
+            """
+
+            """
             mcOutputLog.close_out_logs()
             global end_program
             end_program = True
 
         def update_and_increment_timestep(log_message, self):
+            """
+
+            :param log_message:
+            :param self:
+            """
+            # print(log_message)
             if "incrementing to " in log_message:
                 if log_message != self.previous_log_message:
                     print(log_message)
@@ -169,14 +240,24 @@ class EDMTimeKeeper(object):
             print(message)
 
     def increment_sim_current_time(self):
+        """
+
+        """
         current_int_time = int(self.sim_current_time)
         current_int_time += 1
         self.sim_current_time = str(current_int_time)
 
     def get_sim_current_time(self):
+        """
+
+        :return:
+        """
         return self.sim_current_time
 
     def perform_all_on_timestep_updates(self):
+        """
+
+        """
         print("Performing on-timestep updates:")
         self.edmCore.sim_current_time = self.sim_current_time
         mcInputInterface.update_all_der_s_status()
@@ -185,7 +266,9 @@ class EDMTimeKeeper(object):
 
 
 class EDMMeasurementProcessor(object):
+    """
 
+    """
     def __init__(self, simulation_id, gapps_object, edmCore):
         self._gapps = gapps_object
         self._simulation_id = simulation_id
@@ -196,12 +279,25 @@ class EDMMeasurementProcessor(object):
         self.mrid_name_lookup_table = []
 
     def on_message(self, headers, measurements):
+        """
+
+        :param headers:
+        :param measurements:
+        """
         self.parse_message_into_current_measurements(measurements)
 
     def get_current_measurements(self):
+        """
+
+        :return:
+        """
         return self.current_measurements
 
     def parse_message_into_current_measurements(self, measurement_message):
+        """
+
+        :param measurement_message:
+        """
         # print(measurement_message)
         self.current_measurements = measurement_message['message']['measurements']
         # print(self.current_measurements)
@@ -217,6 +313,9 @@ class EDMMeasurementProcessor(object):
         #     self.current_measurements = message_df
 
     def append_association_data(self):
+        """
+
+        """
         pass
 
 
@@ -225,15 +324,27 @@ class RWHDERS:
     current_der_states = None
 
     def assign_DER_S_to_DER_EM(self):
+        """
+
+        """
         pass
 
     def gather_DER_EM_identification_data(self):
+        """
+
+        """
         pass
 
     def update_wh_states_from_emulator(self):
+        """
+
+        """
         pass
 
     def update_DER_EM_input_request(self):
+        """
+
+        """
         pass
 
 
@@ -247,13 +358,23 @@ class DERSHistoricalDataInput:
 
 
     def initialize_der_s(self):
+        """
+
+        """
         self.read_input_file()
 
     def get_input_request(self):
+        """
+
+        :return:
+        """
         self.update_der_em_input_request()
         return self.der_em_input_request
 
     def assign_der_s_to_der_em(self):
+        """
+
+        """
         for i in self.list_of_ders:
             der_being_assigned = {}
             der_being_assigned[i] = self.input_table[0][(self.location_lookup_dictionary[i])]
@@ -262,6 +383,10 @@ class DERSHistoricalDataInput:
             derAssignmentHandler.association_table.append(assigned_der)
 
     def open_input_file(self):
+        """
+
+        :return:
+        """
         with open(self.historical_data_file_path) as csvfile:
             r = csv.DictReader(csvfile)
             x = []
@@ -273,6 +398,9 @@ class DERSHistoricalDataInput:
 
 
     def read_input_file(self):
+        """
+
+        """
         self.input_table = self.open_input_file()
         print("Retrieving locational data:")
         first_row = next(item for item in self.input_table)
@@ -297,7 +425,10 @@ class DERSHistoricalDataInput:
 
 
     def update_der_em_input_request(self):
+        """
 
+        :return:
+        """
         try:
             input_at_time_now = next(item for item in self.input_table if int(item['Time']) >= int(edmCore.sim_current_time) and int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             print("Updating DER-EMs from historical data.")
@@ -320,9 +451,18 @@ class DERIdentificationManager:
     association_lookup_table = None
 
     def get_meas_name(self, mrid):
+        """
+
+        :param mrid:
+        """
         pass
 
     def get_der_em_mrid(self, name):
+        """
+
+        :param name:
+        :return:
+        """
         print(self.association_lookup_table)
         x = next(d for i,d in enumerate (self.association_lookup_table) if name in d)
         print('TEST')
@@ -330,9 +470,15 @@ class DERIdentificationManager:
         return x[name]
 
     def get_der_em_service_location(self):
+        """
+
+        """
         pass
 
     def get_association_table_from_assignment_handler(self):
+        """
+
+        """
         self.association_lookup_table = derAssignmentHandler.association_table
 
 
@@ -365,9 +511,16 @@ class DERAssignmentHandler:
     """
 
     def get_assignment_lookup_table(self):
+        """
+
+        :return:
+        """
         return self.assignment_lookup_table
 
     def create_assignment_lookup_table(self):
+        """
+
+        """
         der_em_mrid_per_bus_query_output = edmCore.gapps_session.query_data(self.der_em_mrid_per_bus_query_message)
         print("Bus query results:")
         print(der_em_mrid_per_bus_query_output)
@@ -378,6 +531,9 @@ class DERAssignmentHandler:
         print(self.assignment_lookup_table)
 
     def assign_all_ders(self):
+        """
+
+        """
         self.assignment_table = self.assignment_lookup_table
         dersHistoricalDataInput.assign_der_s_to_der_em()
 
@@ -385,6 +541,11 @@ class DERAssignmentHandler:
         print(self.association_table)
 
     def get_mRID_for_der_on_bus(self, Bus):
+        """
+
+        :param Bus:
+        :return:
+        """
         print("Getting mRID for a der on bus:" )
         print(Bus)
         try:
@@ -406,19 +567,31 @@ class MCInputInterface:
 
 
     def update_all_der_em_status(self):
+        """
+
+        """
         self.test_der_em()
         pass
 
     def update_all_der_s_status(self):
+        """
+
+        """
         self.get_all_der_s_input_requests()
 
 
     def get_all_der_s_input_requests(self):
+        """
+
+        """
         self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
     def send_der_em_updates_to_edm(self):
+        """
+
+        """
         pass
 
     def test_der_em(self):
@@ -449,6 +622,9 @@ class GOTopologyProcessor:
     group_list = []
 
     def import_topology_from_file(self):
+        """
+
+        """
         tree = ET.parse('topology.xml')
         root = tree.getroot()
         topology_map = []
@@ -484,9 +660,16 @@ class GOTopologyProcessor:
     #     pass
 
     def reverse_topology_dict(self):
+        """
+
+        """
         pass
 
     def get_group_members(self, group_input):
+        """
+
+        :param group_input:
+        """
         for i in self.topology_dict:
             try:
                 bus_return = i[group_input]
@@ -496,6 +679,9 @@ class GOTopologyProcessor:
                 pass
 
     def get_groups_bus_is_in(self):
+        """
+
+        """
         pass
 
 
@@ -505,15 +691,27 @@ class GOSensor:
     service_request_decision = None
 
     def get_service_request_decision(self):
+        """
+
+        """
         pass
 
     def get_sensor_status(self):
+        """
+
+        """
         pass
 
     def read_sensors(self):
+        """
+
+        """
         pass
 
     def make_service_request_decision(self):
+        """
+
+        """
         pass
 
 
@@ -523,25 +721,46 @@ class GOOutputInterface:
     service_request_status = None
 
     def ping_aggregator(self):
+        """
+
+        """
         pass
 
     def connect_to_aggregator(self):
+        """
+
+        """
         pass
 
     def disconnect_from_aggregator(self):
+        """
+
+        """
         pass
 
     def update_service_request_decision(self):
+        """
+
+        """
         pass
 
     def create_service_request_decision(self):
+        """
+
+        """
         pass
 
     def send_service_request(self):
+        """
+
+        """
         pass
 
 
 class MCOutputLog:
+    """
+
+    """
     def __init__(self):
         self.csv_file = None
         self.log_name = ''
@@ -554,6 +773,9 @@ class MCOutputLog:
         self.is_first_measurement = True
 
     def update_logs(self):
+        """
+
+        """
         self.current_measurement = edmMeasurementProcessor.get_current_measurements()
         if self.current_measurement:
             print("Updating logs...")
@@ -575,18 +797,30 @@ class MCOutputLog:
             pass
 
     def open_csv_file(self):
+        """
+
+        """
         print("Opening .csv file:")
         self.csv_file = open(self.log_name, 'w')
 
     def open_csv_dict_writer(self):
+        """
+
+        """
         # Note: the dict writer uses mrids for processing purposes
         self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids)
 
     def close_out_logs(self):
+        """
+
+        """
         self.csv_file.close()
         self.append_timestamps()
 
     def translate_header_names(self):
+        """
+
+        """
         self.header_mrids = self.current_measurement.keys()
         for i in self.header_mrids:
             try:
@@ -599,15 +833,27 @@ class MCOutputLog:
         self.header_mrids = dict(zip(list(self.header_mrids), self.header_names))
 
     def write_header(self):
+        """
+
+        """
         self.csv_dict_writer.writerow(self.header_mrids)
 
     def write_row(self):
+        """
+
+        """
         self.csv_dict_writer.writerow(self.current_measurement)
 
     def set_log_name(self):
+        """
+
+        """
         self.log_name = 'testlog.csv'
 
     def append_timestamps(self):
+        """
+
+        """
         csv_input = pd.read_csv(self.log_name)
         self.timestamp_array = pd.to_datetime(self.timestamp_array, unit='s')
         csv_input['Timestamp'] = self.timestamp_array
@@ -625,6 +871,12 @@ class MCOutputLog:
 #     # example = Example()
 
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
+    """
+
+    :param simulation_id:
+    :param gapps_object:
+    :param edmCore:
+    """
     global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object, edmCore)
     edmCore.gapps_session.subscribe(t.simulation_output_topic(edmCore.sim_mrid), edmMeasurementProcessor)
@@ -644,8 +896,14 @@ def _main():
     edmCore.initialize_sim_mrid()
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
-
-
+    # TODO: this code gets data associating input mRIDs with measurement mRIDs. Add function or remove as needed
+    # config_api_topic = 'goss.gridappsd.process.request.config'
+    # message = {
+    #     'configurationType': 'CIM Dictionary',
+    #     'parameters': {'model_id': edmCore.line_mrid}
+    # }
+    # cim_dict = edmCore.gapps_session.get_response(config_api_topic, message, timeout=20)
+    # print(cim_dict)
     global end_program
     while not end_program:
         time.sleep(0.1)
