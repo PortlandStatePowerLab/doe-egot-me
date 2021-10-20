@@ -1,0 +1,18 @@
+# Storage - DistStorage (Simplified to output name, bus, and mRID)
+PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX c:  <http://iec.ch/TC57/CIM100#>
+SELECT ?name ?bus ?id (group_concat(distinct ?phs;separator="\n") as ?phases) WHERE {
+ ?s r:type c:BatteryUnit.
+ ?s c:IdentifiedObject.name ?name.
+ ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+VALUES ?fdrid {"_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+ OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+ ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+   bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
+ bind(strafter(str(?s),"#_") as ?id).
+ ?t c:Terminal.ConductingEquipment ?pec.
+ ?t c:Terminal.ConnectivityNode ?cn.
+ ?cn c:IdentifiedObject.name ?bus
+}
+GROUP by ?name ?bus ?id
+ORDER by ?bus
