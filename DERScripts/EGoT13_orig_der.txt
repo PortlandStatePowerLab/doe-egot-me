@@ -1,0 +1,10 @@
+PowerElectronicsConnection,DER_Association_Test_6803,_3D34A60B-A080-4AF4-8CFF-A8D3D6730391
+PowerElectronicsConnection,house,_CEC0FC3A-0FD1-4F1C-9C51-7D9BEF4D8222 
+PowerElectronicsConnection,school,_D2E930A7-B136-4ACA-A996-8DB5C60AADF3
+PowerElectronicsConnection,house,_682AB7A9-4FBF-4204-BDE1-27EAB3425DA0
+PowerElectronicsConnection,school,_7B671984-4C56-4FF1-9733-B4B6FCA5F2AA
+BatteryUnit,DER_Association_Test_6803_Battery,_2B56378F-5B9F-4C76-858A-A50AB10C45B7
+Location,DER_Association_Test_6803_Loc,_9D6015C3-836C-40C9-B3D7-EF03D2132261
+Terminal,DER_Association_Test_6803_T1,_5F4F45F7-550F-4F97-A31B-5DEC6263EED9
+PowerElectronicsConnection,DER_Association_Test_6803,_3D34A60B-A080-4AF4-8CFF-A8D3D6730391
+
