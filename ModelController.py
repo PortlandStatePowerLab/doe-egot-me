@@ -300,7 +300,7 @@ class EDMMeasurementProcessor(object):
         """
         # print(measurement_message)
         self.current_measurements = measurement_message['message']['measurements']
-        # print(self.current_measurements)
+        print(self.current_measurements)
         self.measurement_timestamp = measurement_message['message']['timestamp']
         # print(self.measurement_timestamp)
 
@@ -350,7 +350,7 @@ class RWHDERS:
 
 class DERSHistoricalDataInput:
     der_em_input_request = []
-    historical_data_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\input2.csv"
+    historical_data_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\2p_input2.csv"
     input_file_name = None
     input_table = None
     list_of_ders = []
@@ -490,24 +490,32 @@ class DERAssignmentHandler:
     location_data = None
     ders_in_use = None
     der_em_mrid_per_bus_query_message = """
-    # Storage - DistStorage (Simplified to output name, bus, and mRID)
     PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX c:  <http://iec.ch/TC57/CIM100#>
-    SELECT ?name ?bus ?id (group_concat(distinct ?phs;separator="\\n") as ?phases) WHERE {
+    SELECT ?name ?id ?bus ?ratedS ?ratedU ?ipu ?p ?q ?fdrid (group_concat(distinct ?phs;separator="\\n") as ?phases) WHERE {
      ?s r:type c:BatteryUnit.
      ?s c:IdentifiedObject.name ?name.
+      ?s c:IdentifiedObject.mRID ?id.
      ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
+    # feeder selection options - if all commented out, query matches all feeders
+    #VALUES ?fdrid {"_C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
     VALUES ?fdrid {"_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+     ?pec c:Equipment.EquipmentContainer ?fdr.
+     ?fdr c:IdentifiedObject.mRID ?fdrid.
+     ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+     ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+     ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+     ?pec c:PowerElectronicsConnection.p ?p.
+     ?pec c:PowerElectronicsConnection.q ?q.
      OPTIONAL {?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
      ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
        bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }
-     bind(strafter(str(?s),"#_") as ?id).
      ?t c:Terminal.ConductingEquipment ?pec.
      ?t c:Terminal.ConnectivityNode ?cn.
      ?cn c:IdentifiedObject.name ?bus
     }
-    GROUP by ?name ?bus ?id
-    ORDER by ?bus
+    GROUP by ?name ?id ?bus ?ratedS ?ratedU ?ipu ?p ?q ?fdrid
+    ORDER by ?name
     """
 
     def get_assignment_lookup_table(self):
