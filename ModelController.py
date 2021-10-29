@@ -711,20 +711,22 @@ class MCInputInterface:
 
     def update_all_der_em_status(self):
         """
-
+        TODO: I think this is the same thing as send_der_em_updates_to_edm?
+        Currently, calls the test_der_em() method. In future, will call all input methods.
         """
         self.test_der_em()
         pass
 
     def update_all_der_s_status(self):
         """
-
+        Gets the DER-S input requests. TODO: Refactor
         """
         self.get_all_der_s_input_requests()
 
     def get_all_der_s_input_requests(self):
         """
-
+        TODO: Refactor
+        Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
         self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
         print("Current unified input request:")
@@ -732,11 +734,16 @@ class MCInputInterface:
 
     def send_der_em_updates_to_edm(self):
         """
-
+        TODO: Refactor
         """
         pass
 
     def test_der_em(self):
+        """
+        Reads each line in the unified input request and uses the GridAPPS-D library to generate EDM input messages for
+        each one. The end result is the inputs are sent to the associated DER-EMs and the grid model is updated with
+        the new DER states. This will be reflected in future measurements.
+        """
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         for i in self.current_unified_input_request:
             print(i)
@@ -758,6 +765,13 @@ class MCInputInterface:
 
 
 class GOTopologyProcessor:
+    """
+    'Topology' refers to where things are on the grid in relation to one another. In its simplest form, topology can
+    refer to what bus each DER-EM is on. However, GOs and GSPs may view topology in more complex forms, combining
+    buses into branches, groups, etc. More complex topologies are stored in xml files and read into the MC by this
+    class; the XLM contains each "group" and whatever buses are members of it. This class will then be able to
+    associate groups with buses as needed for the GO outputs, logging, etc.
+    """
     topology_file_path = None
     topology_dict = {}
     inverse_topology_lookup_dict = {}
@@ -766,7 +780,10 @@ class GOTopologyProcessor:
 
     def import_topology_from_file(self):
         """
+        Reads the topology xml file. This needs to be generated prior to the simulation and will be used by both the
+        ME and the DERMS in use (ex. the GSP).
 
+        TODO: Refactor.
         """
         tree = ET.parse('topology.xml')
         root = tree.getroot()
@@ -804,13 +821,14 @@ class GOTopologyProcessor:
 
     def reverse_topology_dict(self):
         """
-
+        I honestly don't remember what this is for.
+        TODO: Remove if necessary.
         """
         pass
 
     def get_group_members(self, group_input):
         """
-
+        Returns all buses contained in a given group.
         :param group_input:
         """
         for i in self.topology_dict:
@@ -823,12 +841,18 @@ class GOTopologyProcessor:
 
     def get_groups_bus_is_in(self):
         """
-
+        Returns all groups a given bus is a member of.
         """
         pass
 
 
 class GOSensor:
+    """
+    NOT YET IMPLEMENTED.
+    This class retrieves fully formatted grid states from the measurement processor, filters them down to necessary
+    information, and makes determinations (automatically or manually) about grid services, whether they're required,
+    happening satisfactorily, etc. These determinations are sent to the output API to be communicated to the DERMS.
+    """
     current_grid_states = None
     current_sensor_states = None
     service_request_decision = None
@@ -859,6 +883,11 @@ class GOSensor:
 
 
 class GOOutputInterface:
+    """
+    NOT YET IMPLEMENTED.
+    API between the MC and a DERMS. Must be customized to the needs of the DERMS. Converts determinations and feedback
+    data to message formats the DERMS requires/can use, and delivers them.
+    """
     connection_status = None
     current_service_request = None
     service_request_status = None
@@ -902,7 +931,8 @@ class GOOutputInterface:
 
 class MCOutputLog:
     """
-
+    Generates .csv logs containing measurements from the measurement processor. Updates (writes a line) once per
+    timestep.
     """
 
     def __init__(self):
@@ -918,7 +948,11 @@ class MCOutputLog:
 
     def update_logs(self):
         """
+        During the first measurement, performs housekeeping tasks like opening the file, setting the name, translating
+        the header to something readable, and writing the header. On all subsequent measurements, it writes a row of
+        measurements to the logs and appends a new timestamp to the timestamp array.
 
+        Note: The first timestep in the logs will be several seconds after the actual simulation start time.
         """
         self.current_measurement = edmMeasurementProcessor.get_current_measurements()
         if self.current_measurement:
@@ -942,28 +976,29 @@ class MCOutputLog:
 
     def open_csv_file(self):
         """
-
+        Opens the .csv file.
         """
         print("Opening .csv file:")
         self.csv_file = open(self.log_name, 'w')
 
     def open_csv_dict_writer(self):
         """
-
+        Opens the dict writer used to write rows. Note that the headers used are the measurement mRIDs; the plain
+        English names are a visual effect only.
         """
-        # Note: the dict writer uses mrids for processing purposes
         self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids)
 
     def close_out_logs(self):
         """
-
+        Closes the log file and re-appends the timestamps.
         """
         self.csv_file.close()
         self.append_timestamps()
 
     def translate_header_names(self):
         """
-
+        Looks up the plain english names for the headers and provides them to a dictionary for use by write_header().
+        TODO: Refactor?
         """
         self.header_mrids = self.current_measurement.keys()
         for i in self.header_mrids:
@@ -978,25 +1013,27 @@ class MCOutputLog:
 
     def write_header(self):
         """
-
+        Writes the log header.
         """
         self.csv_dict_writer.writerow(self.header_mrids)
 
     def write_row(self):
         """
-
+        Writes a row of measurements to the logs.
         """
         self.csv_dict_writer.writerow(self.current_measurement)
 
     def set_log_name(self):
         """
-
+        This is where you name the log.
+        TODO: I don't really need a method for this, do I?
         """
         self.log_name = 'testlog.csv'
 
     def append_timestamps(self):
         """
-
+        Uses the pandas library to append the timestamp column to the logs. This is the most convenient way to handle
+        timekeeping while making sure to use the simulation time rather than the measurement time.
         """
         csv_input = pd.read_csv(self.log_name)
         self.timestamp_array = pd.to_datetime(self.timestamp_array, unit='s')
@@ -1018,10 +1055,9 @@ class MCOutputLog:
 
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     """
-
-    :param simulation_id:
-    :param gapps_object:
-    :param edmCore:
+    Instantiates the callback classes.
+    TODO: May take another crack at putting this in the edmCore object. It was a mess the first time I tried, due to
+    challenges with getting the simulation ID before running the simulation.
     """
     global edmMeasurementProcessor
     edmMeasurementProcessor = EDMMeasurementProcessor(simulation_id, gapps_object)
@@ -1035,6 +1071,11 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
 # Program Execution
 # --------------------------------------------------------------------------------------------------------------------
 def _main():
+    """
+    Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
+    classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
+    Otherwise, sleeps until the end_program flag is thrown.
+    """
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
     edmCore.sim_start_up_process()
