@@ -14,10 +14,26 @@ import xml.etree.ElementTree as ET
 end_program = False
 
 
+
+
 # -------------------------------------------------------------------------------------------------------------------
 #   Class Definitions
 # --------------------------------------------------------------------------------------------------------------------
 
+class MCConfiguration:
+    """
+    Provides user configurability of the MC when appropriate. Not to be confused with the GridAPPS-D configuration
+    process.
+    """
+    def __init__(self):
+        self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
+        self.ders_obj_list = {
+            'DERSHistoricalDataInput' : 'dersHistoricalDataInput'
+            # ,
+            # 'RWHDERS': 'rwhDERS'
+            # ,
+            # 'EXAMPLEDERClassName': 'exampleDERObjectName'
+        }
 
 class EDMCore:
     """
@@ -31,7 +47,6 @@ class EDMCore:
     sim_mrid = None
     line_mrid = None
     config_parameters = None
-    config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
     mrid_name_lookup_table = []
     cim_measurement_dict = []
 
@@ -41,27 +56,11 @@ class EDMCore:
         """
         return self.sim_start_time
 
-    def get_sim_current_time(self):
-        """
-        ACCESSOR METHOD: returns the current simulation time.
-        TODO: May be unused. Handled by Timekeeper. Remove if possible.
-        """
-        return self.sim_current_time
-
     def get_line_mrid(self):
         """
         ACCESSOR METHOD: Returns the mRID for the current model (I.E. the IEEE 13-node test feeder).
         """
         return self.line_mrid
-
-    def increment_sim_current_time(self):
-        """
-        Increments the simulation time.
-        TODO: May be unused. Timekeeper functionality. Remove if possible.
-        """
-        int_time = int(self.sim_current_time)
-        int_time += 1
-        self.sim_current_time = int_time
 
     def sim_start_up_process(self):
         """
@@ -82,7 +81,7 @@ class EDMCore:
         self.initialize_all_der_s()
         derAssignmentHandler.create_assignment_lookup_table()
         derAssignmentHandler.assign_all_ders()
-        derIdentificationManager.get_association_table_from_assignment_handler()
+        derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
         # TODO: Connect to aggregator
 
@@ -90,7 +89,7 @@ class EDMCore:
         """
         Loads the GridAPPS-D configuration string from a file and places the parameters in a variable for later use.
         """
-        with open(self.config_file_path) as f:
+        with open(mcConfiguration.config_file_path) as f:
             config_string = f.read()
             self.config_parameters = ast.literal_eval(config_string)
 
@@ -148,12 +147,10 @@ class EDMCore:
 
     def initialize_all_der_s(self):
         """
-        ENCAPSULATION METHOD: calls all DER-S initialization processes. New DER-S initialization processes should be
-        added here, and implemented in a method using the same format. Commenting out lines will remove that respective
-        DER-S startup process.
+        Calls the initialize_der_s() method for each DER-S listed in mcConfiguration.ders_obj_list.
         """
-        # Comment out as required.
-        dersHistoricalDataInput.initialize_der_s()
+        for key, value in mcConfiguration.ders_obj_list.items():
+            eval(value).initialize_der_s()
 
     def start_simulation(self):
         """
@@ -169,7 +166,6 @@ class EDMCore:
         This currently creates two lookup dictionaries. mrid_name_lookup_table gets the real names of measurements for
         the measurement processor/logger. cim_measurement_dict gives a more fully fleshed out dictionary containing
         several parameters related to measurements that are appended to the measurement processor's current readings.
-        TODO: I think these are redundant. Refactor and remove the mrid_name_lookup_table stuff if possible.
         """
         topic = "goss.gridappsd.process.request.data.powergridmodel"
         message = {
@@ -177,7 +173,6 @@ class EDMCore:
             "requestType": "QUERY_OBJECT_MEASUREMENTS",
             "resultFormat": "JSON",
         }
-        print(edmCore.get_line_mrid())
         object_meas = edmCore.gapps_session.get_response(topic, message)
         self.mrid_name_lookup_table = object_meas['data']
 
@@ -188,13 +183,11 @@ class EDMCore:
         }
         cim_dict = edmCore.gapps_session.get_response(config_api_topic, message, timeout=20)
         measdict = cim_dict['data']['feeders'][0]['measurements']
-        print(cim_dict['data']['feeders'][0]['measurements'])
-        print(measdict)
         self.cim_measurement_dict = measdict
 
     def get_mrid_name_lookup_table(self):
         """
-        ACCESSOR METHOD: Returns the mrid_name_lookup_table. TODO: Refactor and remove, potentially.
+        ACCESSOR METHOD: Returns the mrid_name_lookup_table.
         """
         return self.mrid_name_lookup_table
 
@@ -247,14 +240,10 @@ class EDMTimeKeeper(object):
         def update_and_increment_timestep(log_message, self):
             """
             Increments the timestep only if "incrementing to " is within the log_message, otherwise does nothing.
-            TODO: Clean this up.
             """
-            # print(log_message)
             if "incrementing to " in log_message:
-                if log_message != self.previous_log_message:
-                    # print(log_message)
+                if log_message != self.previous_log_message:  # Msgs get spit out twice for some reason. Only reads one.
                     self.increment_sim_current_time()
-                    # print("Start time: " + self.sim_start_time)
                     print("Current timestep: " + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = log_message
@@ -347,12 +336,8 @@ class EDMMeasurementProcessor(object):
         calls methods to append names, association/location info, etc. Basically, this turns the raw input data into
         the fully formatted edmMeasurementProcessor.current_measurements dictionary which is passed to the logger and GO
         """
-        # print(measurement_message)
         self.current_measurements = measurement_message['message']['measurements']
-        print("Measurements being processed.")
-        # print(self.current_measurements)
         self.measurement_timestamp = measurement_message['message']['timestamp']
-        # print(self.measurement_timestamp)
         self.append_names()
         self.append_association_data()
 
@@ -371,10 +356,7 @@ class EDMMeasurementProcessor(object):
                 print(lookup_mrid)
             lookup_name = lookup_mrid['name']
             self.measurement_names.append(lookup_name)
-            # print(self.header_names)
         self.measurement_mrids = dict(zip(list(self.measurement_mrids), self.measurement_names))
-        # print("Measurement mrids:::")
-        # print(self.measurement_mrids)
         for key, value in self.measurement_mrids.items():
             try:
                 self.current_measurements[key]['Measurement name'] = value
@@ -391,7 +373,6 @@ class EDMMeasurementProcessor(object):
                     'measurementType']
             except StopIteration:
                 print("Measurements updated with amplifying information.")
-        # print(self.current_measurements)
 
     def append_association_data(self):
         """
@@ -399,26 +380,23 @@ class EDMMeasurementProcessor(object):
         TODO: Refactor/rewrite.
         """
         self.assignment_lookup_table = derAssignmentHandler.get_assignment_lookup_table()
-        for i in self.assignment_lookup_table:
-            original_name = i['Name']
+        for item in self.assignment_lookup_table:
+            original_name = item['Name']
             formatted_name = original_name[:-len('_Battery')]
-            i['DER-EM Name'] = formatted_name
-            print("Fixed dict:")
-            print(i)
+            item['DER-EM Name'] = formatted_name
         for key, value in self.current_measurements.items():
             try:
                 assignment_dict_with_given_name = next(item for item in self.assignment_lookup_table if
                                                        item['DER-EM Name'] == self.current_measurements[key][
                                                            'Conducting Equipment Name'])
-                print("Assignment dict with given name")
-                print(assignment_dict_with_given_name)
                 self.current_measurements[key]['Inverter Control mRID'] = assignment_dict_with_given_name['mRID']
                 input_name = derIdentificationManager.get_meas_name(assignment_dict_with_given_name['mRID'])
                 self.current_measurements[key]['Input Unique ID'] = input_name
             except StopIteration:
-                print("Nothing Found")
-        print("Fully formatted current measurements:")
-        print(self.current_measurements)
+                # print("Nothing Found")
+                pass
+        # print("Fully formatted current measurements:")
+        # print(self.current_measurements)
 
 
 class RWHDERS:
@@ -467,7 +445,6 @@ class DERSHistoricalDataInput:
     def get_input_request(self):
         """
 
-        :return:
         """
         self.update_der_em_input_request()
         return self.der_em_input_request
@@ -534,20 +511,13 @@ class DERSHistoricalDataInput:
         (see MCInputInterface.get_all_der_s_input_requests() )
         """
         try:
-            input_at_time_now = next(item for item in self.input_table
-                                     if int(edmCore.sim_current_time) <=
+            input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             print("Updating DER-EMs from historical data.")
-            print(input_at_time_now)
             input_at_time_now = dict(input_at_time_now)
             input_at_time_now.pop('Time')
             for i in self.list_of_ders:
-                # print(i)
                 self.der_em_input_request.append({i: input_at_time_now[i]})
-                # print(self.der_em_input_request)
-            # print("Current Historical Input DER-EM Input request:")
-            # print(self.der_em_input_request)
-
         except StopIteration:
             print("End of input data.")
             return
@@ -582,17 +552,9 @@ class DERIdentificationManager:
         x = next(d for i, d in enumerate(self.association_lookup_table) if name in d)
         return x[name]
 
-    def get_der_em_service_location(self):
-        """
-        TODO: Verify and remove. I think this was just for the measurement processor appendage, and this info is already
-        conveniently available from the CIM table
-        """
-        pass
-
-    def get_association_table_from_assignment_handler(self):
+    def initialize_association_lookup_table(self):
         """
         Gets the association table from the assignment handler.
-        TODO: Rename. Also, decouple. Come on, Sean. You even have an accessor method for this.
         """
         self.association_lookup_table = derAssignmentHandler.association_table
 
@@ -669,10 +631,12 @@ class DERAssignmentHandler:
     def assign_all_ders(self):
         """
         Calls the assignment process for each DER-S. New DER-Ss should be added here as they're implemented.
-        TODO: Refactor. What's the difference between an assignment table and an assignment lookup table?
         """
         self.assignment_table = self.assignment_lookup_table
-        dersHistoricalDataInput.assign_der_s_to_der_em()
+
+        # Object list contains string names of objects. eval() lets us use these to call the methods for the proper obj
+        for key, value in mcConfiguration.ders_obj_list.items():
+            eval(value).assign_der_s_to_der_em()
 
         print("DER Assignment complete.")
         print(self.association_table)
@@ -746,20 +710,19 @@ class MCInputInterface:
         """
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         for i in self.current_unified_input_request:
-            print(i)
             der_name_to_look_up = list(i.keys())
             der_name_to_look_up = der_name_to_look_up[0]
-            print("DER Name to look up:")
-            print(der_name_to_look_up)
+            # print("DER Name to look up:")
+            # print(der_name_to_look_up)
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            print("Associated DER EM mrid")
-            print(associated_der_em_mrid)
-            print(i[der_name_to_look_up])
+            # print("Associated DER EM mrid")
+            # print(associated_der_em_mrid)
+            # print(i[der_name_to_look_up])
             my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
             my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
             message = my_diff_build.get_message()
-            print(message)
+            # print(message)
             edmCore.gapps_session.send(input_topic, message)
         self.current_unified_input_request.clear()
 
@@ -1076,6 +1039,8 @@ def _main():
     classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
     Otherwise, sleeps until the end_program flag is thrown.
     """
+    global mcConfiguration
+    mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
     edmCore.sim_start_up_process()
