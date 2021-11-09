@@ -80,8 +80,8 @@
     MC program.
     
     \subsubsection*{DERAssignmentHandler}
-    Each DER-S object requires a \begin{verbatim}self.assign_der_s_to_der_em()\end{verbatim} method, which is called
-    once by \begin{verbatim}DERAssignmentHandler.assign_all_ders()\end{verbatim} during the MC startup process. This is
+    Each DER-S object requires a \verb|self.assign_der_s_to_der_em()| method, which is called
+    once by \verb|DERAssignmentHandler.assign_all_ders()| during the MC startup process. This is
     part of the DER-S API function, since each input will represent and provide locational data in different ways. This
     customizable method retrieves the names and associated buses for each input in the DER-S via some custom function,
     uses the Bus to get an mRID for a DER-EM on the proper bus, and associates the name with the mRID. The name and bus
@@ -115,7 +115,7 @@
     purposes and this was easy to implement.
 
     \subsection*{DERHistoricalDataInput}
-    The biggest addition to this object was the \begin{verbatim}.assign_der_s_to_der_em()\end{verbatim} method. This
+    The biggest addition to this object was the \verb|.assign_der_s_to_der_em()| method. This
     method goes through the list of DERs read from the (odd) headers in the log file, gets the bus numbers for each
     DER from the even columns of the first line of the .csv, and uses those name/number pairs in the Assignment
     handler to generate the association table (name/mRID). All updates to the class are in service of this function.
@@ -150,19 +150,22 @@
     the measurement mRID of each DER-EM.
 
     First, we needed to query GridAPPS-D for a new model dictionary containing all of the possible information for all
-    the loads on our feeder model. This was added to edmCore.establish_mrid_name_lookup_table(). Now instead of just
-    getting the mrid/name lookup table used by the measurement processor, it also gets this "cim_dict".
+    the loads on our feeder model. This was added to \verb|edmCore.establish_mrid_name_lookup_table()|.
+    Now instead of just getting the mrid/name lookup table used by the measurement processor, it also
+    gets this \verb|"cim_dict".|
 
-    The cim_dict is then used in a method in the EDMMeasurementProcessor.append_names() and .append_association_data.
-    The methodology is sloppy and difficult to explain, let alone understand, but in short it takes values from both
-    dictionaries and uses it to determine the name of objects based on the names of the DER-EMs taken from the cim_dict.
-    These names need to be parsed and excess characters removed to align data in the cim_dict with the input association
-    data. Once that's done, we have inputName/inputmRID/DER-EMname/measurementmRID data all lumped together, which
-    is then added to each measurement's value dictionary each timestep. The end result is that our output logs are MUCH
-    larger, as each cell is a dictionary with a half dozen or so key/value pairs. This is obviously not the most
-    efficient method of maintaining this data, but as it's all present it will suffice for now. It was always the intent
-    that a set of tools would be needed to be developed to unpack and use the logs for analysis, and now the logs
-    are larger but much more useful.
+    The \verb|cim_dict| is then used in a method in the \verb|EDMMeasurementProcessor.append_names()| and
+    \verb|.append_association_data|. The methodology is sloppy and difficult to explain, let alone understand,
+    but in short it takes values from both dictionaries and uses it to determine the name of objects based on the
+    names of the DER-EMs taken from the \verb|cim_dict.|
+    These names need to be parsed and excess characters removed to align data in the
+    \verb|cim_dict| with the input association data. Once that's done, we have
+    inputName/inputmRID/DER-EMname/measurementmRID data all lumped together, which is then added to each
+    measurement's value dictionary each timestep. The end result is that our output logs are MUCH larger, as each
+    cell is a dictionary with a half dozen or so key/value pairs. This is obviously not the most efficient method of
+    maintaining this data, but as it's all present it will suffice for now. It was always the intent that a set of
+    tools would be needed to be developed to unpack and use the logs for analysis, and now the logs are larger but
+    much more useful.
 
     This feedthrough data will also be necessary when the GO is implemented, so feedback can be presented to the DERMS
     about whether DERs are operating as necessary for the dispatch.
@@ -196,7 +199,8 @@
     \data
 
     Most of the relevent data can be found in the logs. The DER addition scripts are added to a folder called
-    /DERScripts, and invoked by the Initialise_DER_EMs.bat script. Refer to the GitHub repository for more info.
+    /DERScripts, and invoked by the \verb|Initialise_DER_EMs.bat| script.
+    Refer to the GitHub repository for more info.
 
     The individual dictionaries communicated from actor to actor are manipulated using complex and often repetitious
     methods. To see the contents of a dictionary at a given simulation time, the best way to go about it is to add
