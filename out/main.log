@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  30 SEP 2021 14:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  8 NOV 2021 17:07
 entering extended mode
 **./main.tex
 (main.tex
@@ -1116,32 +1116,208 @@ Overfull \hbox (7.99081pt too wide) in paragraph at lines 122--122
 owerElectronicsConnection ?pec.[] 
  []
 
-) [11])
+) [11] (Fall2021/Phase2.tex
+Fall2021/Phase2.tex:13: Missing $ inserted.
+<inserted text> 
+                $
+l.13 ...     \item https://miro.com/app/board/o9J_
+                                                  luL3bbE=/
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Fall2021/Phase2.tex:14: LaTeX Error: Command \end{itemize} invalid in math mode
+.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \end{itemize}
+                          
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Fall2021/Phase2.tex:14: LaTeX Error: Something's wrong--perhaps a missing \item
+.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \end{itemize}
+                          
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Fall2021/Phase2.tex:14: LaTeX Error: Something's wrong--perhaps a missing \item
+.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \end{itemize}
+                          
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Fall2021/Phase2.tex:14: Missing $ inserted.
+<inserted text> 
+                $
+l.14         \end{itemize}
+                          
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[12]
+Fall2021/Phase2.tex:71: Missing $ inserted.
+<inserted text> 
+                $
+l.71     and run the Initialise_
+                                DER_EMs.bat batch script to run all the nece...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Fall2021/Phase2.tex:72: Missing $ inserted.
+<inserted text> 
+                $
+l.72 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 83.
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 84.
+
+[13]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 118.
+
+[14]
+Fall2021/Phase2.tex:153: Missing $ inserted.
+<inserted text> 
+                $
+l.153 ...del. This was added to edmCore.establish_
+                                                  mrid_name_lookup_table(). ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Fall2021/Phase2.tex:155: Missing $ inserted.
+<inserted text> 
+                $
+l.155 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (442.83954pt too wide) in paragraph at lines 152--155
+\OT1/cmr/m/n/10 for all the loads on our feeder model. This was added to edmCor
+e.establish$[]\OML/cmm/m/it/10 rid[]ame[]ookup[]able\OT1/cmr/m/n/10 ()\OML/cmm/
+m/it/10 :Nowinsteadofjustgettingthemrid=namelookuptableusedbythemeasurementproc
+essor; italsogetsthis\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 cim[]ict\OT1/cmr/m/n/10 
+"\OML/cmm/m/it/10 :$ 
+ []
+
+Fall2021/Phase2.tex:156: Missing $ inserted.
+<inserted text> 
+                $
+l.156     The cim_
+                  dict is then used in a method in the EDMMeasurementProcess...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Fall2021/Phase2.tex:166: Missing $ inserted.
+<inserted text> 
+                $
+l.166 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (850.4206pt too wide) in paragraph at lines 156--166
+[]\OT1/cmr/m/n/10 The cim$[]\OML/cmm/m/it/10 ictisthenusedinamethodintheEDMMeas
+urementProcessor:append[]ames\OT1/cmr/m/n/10 ()\OML/cmm/m/it/10 and:append[]sso
+ciation[]ata:Themethodologyissloppyanddifficulttoexplain; letaloneunderstand; b
+utinshortittakesvaluesfrombothdictionariesandusesittodeterminethenameofobjectsb
+asedonthenamesoftheDER \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (399.55035pt too wide) in paragraph at lines 156--166
+\OML/cmm/m/it/10 EMstakenfromthecim[]ict:Thesenamesneedtobeparsedandexcesschara
+ctersremovedtoaligndatainthecim[]ictwiththeinputassociationdata:Oncethat[]sdone
+; wehaveinputName=inputmRID=DER \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (1722.91325pt too wide) in paragraph at lines 156--166
+\OML/cmm/m/it/10 EMname=measurementmRIDdataalllumpedtogether; whichisthenaddedt
+oeachmeasurement[]svaluedictionaryeachtimestep:Theendresultisthatouroutputlogsa
+reMUCHlarger; aseachcellisadictionarywithahalfdozenorsokey=valuepairs:Thisisobv
+iouslynotthemostefficientmethodofmaintainingthisdata; butasit[]sallpresentitwil
+lsufficefornow:Itwasalwaystheintentthatasetoftoolswouldbeneededtobedevelopedtou
+npackandusethelogsforanalysis; andnowthelogsarelargerbutmuchmoreuseful:$ 
+ []
+
+Fall2021/Phase2.tex:199: Missing $ inserted.
+<inserted text> 
+                $
+l.199 ...ERScripts, and invoked by the Initialise_
+                                                  DER_EMs.bat script. Refer ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Fall2021/Phase2.tex:200: Missing $ inserted.
+<inserted text> 
+                $
+l.200 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+) [15])
 No file main.bbl.
 (C:/Users\stant\PycharmProjects\doe-egot-me\out\main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 33534D6DAE3552DFE57182A1103FC32A;1593.
+(rerunfilecheck)             Checksum: E0E38B4A8BC423D1C56FF62406557978;1831.
  ) 
 Here is how much of TeX's memory you used:
- 25978 strings out of 479334
- 475207 string characters out of 2857084
+ 26001 strings out of 479334
+ 475512 string characters out of 2857084
  869083 words of memory out of 3000000
- 42902 multiletter control sequences out of 15000+200000
- 409922 words of font info for 50 fonts, out of 3000000 for 9000
+ 42905 multiletter control sequences out of 15000+200000
+ 410268 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,6n,103p,1005b,553s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\stant\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmbx12.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/stant/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (11 p
-ages, 122455 bytes).
+ype1/public/amsfonts/cm/cmmi10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/stant/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/stant/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stant/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/st
+ant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
+/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmti10.pfb><C:/Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmtt10.pfb>
+Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (15 p
+ages, 204957 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 187 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
+ 77 words of extra memory for PDF output out of 10000 (max. 10000000)
 
