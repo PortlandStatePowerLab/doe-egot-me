@@ -3,7 +3,7 @@ model controller
 """
 import ast
 import csv
-
+import os
 import pandas as pd
 from gridappsd import GridAPPSD, DifferenceBuilder
 from gridappsd import topics as t
@@ -16,9 +16,7 @@ end_program = False
 
 
 
-# -------------------------------------------------------------------------------------------------------------------
-#   Class Definitions
-# --------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------ Class Definitions ------------------------------------------------
 
 class MCConfiguration:
     """
@@ -29,8 +27,8 @@ class MCConfiguration:
         self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
         self.ders_obj_list = {
             'DERSHistoricalDataInput' : 'dersHistoricalDataInput'
-            # ,
-            # 'RWHDERS': 'rwhDERS'
+            ,
+            'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
@@ -140,6 +138,8 @@ class EDMCore:
         mcInputInterface = MCInputInterface()
         global dersHistoricalDataInput
         dersHistoricalDataInput = DERSHistoricalDataInput()
+        global rwhDERS
+        rwhDERS = RWHDERS()
         global derAssignmentHandler
         derAssignmentHandler = DERAssignmentHandler()
         global derIdentificationManager
@@ -400,32 +400,84 @@ class EDMMeasurementProcessor(object):
 
 
 class RWHDERS:
+    der_em_input_request = []
     current_input_request = None
     current_der_states = None
+    input_file_path = r"C:/Users/stant/PycharmProjects/doe-egot-me/RWHDERS Inputs/"
+    input_identification_dict = {}
 
-    def assign_DER_S_to_DER_EM(self):
+    def initialize_der_s(self):
         """
 
         """
-        pass
+        self.parse_input_file_names_for_assignment()
 
-    def gather_DER_EM_identification_data(self):
+
+    def assign_der_s_to_der_em(self):
+        print('iid')
+        print(self.input_identification_dict)
+        for key,value in self.input_identification_dict.items():
+            der_id = key
+            print('der_id')
+            print(der_id)
+            der_bus = value['Bus']
+            print('der_bus')
+            print(der_bus)
+            der_mrid = derAssignmentHandler.get_mRID_for_der_on_bus(der_bus)
+            der_being_assigned = {der_id:der_mrid}
+            print("der_being_assigned")
+            print(der_being_assigned)
+            derAssignmentHandler.append_new_values_to_association_table(der_being_assigned)
+
+    def parse_input_file_names_for_assignment(self):
         """
 
         """
-        pass
+        filename_list = os.listdir(self.input_file_path)
+        parsed_filename_list = []
+        for i in filename_list:
+            g = i.split('_')
+            g[0] = g[0][-5:]
+            g[1] = g[1][3:6]
+            parsed_filename_list.append({g[0]: {"Filepath": i, "Bus": g[1]}})
+        for item in parsed_filename_list:
+            self.input_identification_dict.update(item)
+
 
     def update_wh_states_from_emulator(self):
         """
 
         """
+
+
         pass
 
-    def update_DER_EM_input_request(self):
+    def update_der_em_input_request(self):
         """
 
         """
-        pass
+        for key, value in self.input_identification_dict.items():
+            print(key)
+            print(value)
+            print(self.input_file_path + value['Filepath'])
+            import csv
+            with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
+                der_input_reader = csv.reader(csvfile)
+                for row in der_input_reader:
+                    current_der_input = {row[0]: row[1]}
+                    print(current_der_input)
+            current_der_real_power = current_der_input['P']
+            current_der_input_request = {key: current_der_real_power}
+
+            print(current_der_input_request)
+
+
+    def get_input_request(self):
+        """
+
+        """
+        self.update_der_em_input_request()
+        return self.der_em_input_request
 
 
 class DERSHistoricalDataInput:
@@ -458,7 +510,7 @@ class DERSHistoricalDataInput:
             der_being_assigned[i] = self.input_table[0][(self.location_lookup_dictionary[i])]
             der_being_assigned[i] = derAssignmentHandler.get_mRID_for_der_on_bus(der_being_assigned[i])
             assigned_der = dict([(value, key) for value, key in der_being_assigned.items()])
-            derAssignmentHandler.association_table.append(assigned_der)
+            derAssignmentHandler.append_new_values_to_association_table(assigned_der)
 
     def open_input_file(self):
         """
@@ -626,7 +678,8 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
-        # print(self.assignment_lookup_table)
+        print("TEST")
+        print(self.assignment_lookup_table)
 
     def assign_all_ders(self):
         """
@@ -659,6 +712,9 @@ class DERAssignmentHandler:
         print(next_mrid_on_bus)
         return mrid
 
+    def append_new_values_to_association_table(self, values):
+        self.association_table.append(values)
+
 
 class MCInputInterface:
     """
@@ -667,7 +723,7 @@ class MCInputInterface:
     Input interface. Receives input messages from DER-Ss, retrieves the proper DER-EM input mRIDs for each input from
     the Identification Manager, and delivers input messages to the EDM that update the DER-EMs with the new states.
     """
-    current_unified_input_request = None
+    current_unified_input_request = []
     active_der_s_list = None
     test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
     test_DER_2_mrid = '_2750969C-CBD5-41F4-BDCE-19287FBDCA71'
@@ -692,7 +748,10 @@ class MCInputInterface:
         TODO: Refactor
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
-        self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
+        for key, value in mcConfiguration.ders_obj_list.items():
+            input_request_combined = []
+            input_request_combined.append(eval(value).get_input_request())
+        self.current_unified_input_request = input_request_combined[0]
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
@@ -1006,14 +1065,7 @@ class MCOutputLog:
         csv_input.to_csv(self.log_name, index=False)
 
 
-# ---------------------------------------------------------------------------------------------------------------------
-# Function Definitions
-# ---------------------------------------------------------------------------------------------------------------------
-# Probably unnecessary, since everything can be put in classes. Delete later if unused. ~SJK
-
-# def MC_instantiate_all_classes():
-#     print("Instantiating classes:")
-#     # example = Example()
+# ------------------------------------------------Function Definitions------------------------------------------------
 
 
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
@@ -1030,9 +1082,7 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
 
-# --------------------------------------------------------------------------------------------------------------------
-# Program Execution
-# --------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------Program Execution (Main loop)------------------------------------------
 def _main():
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
