@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  8 NOV 2021 17:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.11)  15 NOV 2021 10:09
 entering extended mode
 **./main.tex
 (main.tex
@@ -1234,7 +1234,7 @@ ant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:
 /Users/stant/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt1
 0.pfb>
 Output written on C:/Users\stant\PycharmProjects\doe-egot-me\out\main.pdf (15 p
-ages, 184035 bytes).
+ages, 184080 bytes).
 PDF statistics:
  179 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
