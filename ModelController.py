@@ -26,8 +26,7 @@ class MCConfiguration:
     def __init__(self):
         self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
         self.ders_obj_list = {
-            'DERSHistoricalDataInput' : 'dersHistoricalDataInput'
-            ,
+            'DERSHistoricalDataInput' : 'dersHistoricalDataInput',
             'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
@@ -418,15 +417,9 @@ class RWHDERS:
         print(self.input_identification_dict)
         for key,value in self.input_identification_dict.items():
             der_id = key
-            print('der_id')
-            print(der_id)
             der_bus = value['Bus']
-            print('der_bus')
-            print(der_bus)
             der_mrid = derAssignmentHandler.get_mRID_for_der_on_bus(der_bus)
             der_being_assigned = {der_id:der_mrid}
-            print("der_being_assigned")
-            print(der_being_assigned)
             derAssignmentHandler.append_new_values_to_association_table(der_being_assigned)
 
     def parse_input_file_names_for_assignment(self):
@@ -456,10 +449,8 @@ class RWHDERS:
         """
 
         """
+        self.der_em_input_request.clear()
         for key, value in self.input_identification_dict.items():
-            print(key)
-            print(value)
-            print(self.input_file_path + value['Filepath'])
             import csv
             with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
                 der_input_reader = csv.reader(csvfile)
@@ -468,8 +459,7 @@ class RWHDERS:
                     print(current_der_input)
             current_der_real_power = current_der_input['P']
             current_der_input_request = {key: current_der_real_power}
-
-            print(current_der_input_request)
+            self.der_em_input_request.append(current_der_input_request)
 
 
     def get_input_request(self):
@@ -562,6 +552,7 @@ class DERSHistoricalDataInput:
         it is read, converted into an input dictionary, and put in the current der_input_request
         (see MCInputInterface.get_all_der_s_input_requests() )
         """
+        self.der_em_input_request.clear()
         try:
             input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
@@ -748,10 +739,13 @@ class MCInputInterface:
         TODO: Refactor
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
+        online_ders = mcConfiguration.ders_obj_list
+        print("online_ders")
+        print(online_ders)
+        self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
-            input_request_combined = []
-            input_request_combined.append(eval(value).get_input_request())
-        self.current_unified_input_request = input_request_combined[0]
+            print(value)
+            self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
