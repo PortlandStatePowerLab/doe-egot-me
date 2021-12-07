@@ -10,6 +10,7 @@ from gridappsd import topics as t
 from gridappsd.simulation import Simulation
 import time
 import xml.etree.ElementTree as ET
+import xmltodict
 
 end_program = False
 
@@ -31,6 +32,8 @@ class MCConfiguration:
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
+        self.go_sensor_decision_making_manual_override = True
+        self.manual_service_filename = "manually_posted_services.xml"
 
 class EDMCore:
     """
@@ -80,6 +83,7 @@ class EDMCore:
         derAssignmentHandler.assign_all_ders()
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
+        goSensor.load_manual_service_file()
         # TODO: Connect to aggregator
 
     def load_config_from_file(self):
@@ -143,6 +147,8 @@ class EDMCore:
         derAssignmentHandler = DERAssignmentHandler()
         global derIdentificationManager
         derIdentificationManager = DERIdentificationManager()
+        global goSensor
+        goSensor = GOSensor()
 
     def initialize_all_der_s(self):
         """
@@ -286,6 +292,7 @@ class EDMTimeKeeper(object):
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
         mcOutputLog.update_logs()
+        goSensor.make_service_request_decision()
 
 
 class EDMMeasurementProcessor(object):
@@ -869,34 +876,57 @@ class GOSensor:
     information, and makes determinations (automatically or manually) about grid services, whether they're required,
     happening satisfactorily, etc. These determinations are sent to the output API to be communicated to the DERMS.
     """
-    current_grid_states = None
-    current_sensor_states = None
-    service_request_decision = None
+    def __init__(self):
+        # self.current_grid_states = None
+        self.current_sensor_states = None
+        self.service_request_decision = None
+        self.posted_service_list = []
+        self.service_serial_num = 0
+        self.manual_service_xml_data = {}
 
-    def get_service_request_decision(self):
+
+    def update_sensor_states(self):
         """
-
-        """
-        pass
-
-    def get_sensor_status(self):
-        """
-
-        """
-        pass
-
-    def read_sensors(self):
-        """
-
+        Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
         """
         pass
 
     def make_service_request_decision(self):
         """
-
+        In MANUAL MODE (override is True):
+            Instantiates a grid service
         """
+        if mcConfiguration.go_sensor_decision_making_manual_override is True:
+            self.manually_post_service(edmTimekeeper.get_sim_current_time())
+        elif mcConfiguration.go_sensor_decision_making_manual_override is False:
+            pass
+        else:
+            print("Service request failure. Wrong input.")
+
         pass
 
+    def load_manual_service_file(self):
+        input_file = open(mcConfiguration.manual_service_filename, "r")
+        data = input_file.read()
+        input_file.close()
+        self.manual_service_xml_data = xmltodict.parse(data)
+        print(self.manual_service_xml_data)
+
+    def manually_post_service(self, sim_time):
+        for item in self.manual_service_xml_data['services']:
+            if int(item['start_time']) == int(sim_time):
+                name = str(item)
+                group_id = item["group_id"]
+                service_type = item["service_type"]
+                interval_duration = item["interval_duration"]
+                interval_start = item["interval_start"]
+                power = item["power"]
+                ramp = item["ramp"]
+                price = item["price"]
+                start_time = item["start_time"]
+                self.posted_service_list.append(GOPostedService(name, group_id, service_type, interval_start, interval_duration, power, ramp, price))
+                print("Manually posting service, name:")
+                print(name)
 
 class GOOutputInterface:
     """
@@ -905,7 +935,7 @@ class GOOutputInterface:
     data to message formats the DERMS requires/can use, and delivers them.
     """
     connection_status = None
-    current_service_request = None
+    current_service_requests = []
     service_request_status = None
 
     def ping_aggregator(self):
@@ -926,19 +956,20 @@ class GOOutputInterface:
         """
         pass
 
-    def update_service_request_decision(self):
+    def get_all_posted_service_requests(self):
+        """
+
+        """
+        for item in goSensor.posted_service_list:
+            self.current_service_requests.append(item.get_service_message_data)
+
+    def generate_service_messages(self):
         """
 
         """
         pass
 
-    def create_service_request_decision(self):
-        """
-
-        """
-        pass
-
-    def send_service_request(self):
+    def send_service_request_messages(self):
         """
 
         """
@@ -1058,6 +1089,54 @@ class MCOutputLog:
         csv_input.insert(0, 'Timestamp', move_column)
         csv_input.to_csv(self.log_name, index=False)
 
+
+class GOPostedService:
+    """
+    TODO: Write this
+    """
+    def __init__(self, service_name="Undefined", group_id=0, service_type="Undefined", interval_start=0, interval_duration = 0, power=0, ramp=0, price=0):
+        self.service_name = service_name
+        self.group_id = group_id
+        self.service_type = service_type
+        self.interval_start = interval_start
+        self.interval_duration = interval_duration
+        self.power = power
+        self.ramp = ramp
+        self.price = price
+
+    def get_service_name(self):
+        return self.service_name
+
+    def get_group_id(self):
+        return self.group_id
+
+    def get_service_type(self):
+        return self.service_type
+
+    def get_interval_start(self):
+        return self.interval_start
+
+    def get_interval_duration(self):
+        return self.interval_duration
+
+    def get_power(self):
+        return self.power
+
+    def get_price(self):
+        return self.price
+
+    def get_service_message_data(self):
+        service_message_data = {
+            "service_name": self.service_name,
+            "group_id": self.group_id,
+            "service_type": self.service_type,
+            "interval_start": self.interval_start,
+            "interval_duration": self.interval_duration,
+            "power": self.power,
+            "ramp": self.ramp,
+            "price": self.price
+        }
+        return service_message_data
 
 # ------------------------------------------------Function Definitions------------------------------------------------
 
