@@ -4,6 +4,8 @@ model controller
 import ast
 import csv
 import os
+import traceback
+
 import pandas as pd
 from gridappsd import GridAPPSD, DifferenceBuilder
 from gridappsd import topics as t
@@ -11,6 +13,7 @@ from gridappsd.simulation import Simulation
 import time
 import xml.etree.ElementTree as ET
 import xmltodict
+from dict2xml import dict2xml
 
 end_program = False
 
@@ -149,6 +152,8 @@ class EDMCore:
         derIdentificationManager = DERIdentificationManager()
         global goSensor
         goSensor = GOSensor()
+        global goOutputInterface
+        goOutputInterface = GOOutputInterface()
 
     def initialize_all_der_s(self):
         """
@@ -293,6 +298,8 @@ class EDMTimeKeeper(object):
         mcInputInterface.update_all_der_em_status()
         mcOutputLog.update_logs()
         goSensor.make_service_request_decision()
+        goOutputInterface.get_all_posted_service_requests()
+        goOutputInterface.send_service_request_messages()
 
 
 class EDMMeasurementProcessor(object):
@@ -883,6 +890,8 @@ class GOSensor:
         self.posted_service_list = []
         self.service_serial_num = 0
         self.manual_service_xml_data = {}
+        self.already_posted_services = []
+        self.deleted_items = []
 
 
     def update_sensor_states(self):
@@ -913,9 +922,10 @@ class GOSensor:
         print(self.manual_service_xml_data)
 
     def manually_post_service(self, sim_time):
-        for item in self.manual_service_xml_data['services']:
+        for key, item in self.manual_service_xml_data['services'].items():
+            print(item)
             if int(item['start_time']) == int(sim_time):
-                name = str(item)
+                name = str(key)
                 group_id = item["group_id"]
                 service_type = item["service_type"]
                 interval_duration = item["interval_duration"]
@@ -928,6 +938,7 @@ class GOSensor:
                 print("Manually posting service, name:")
                 print(name)
 
+
 class GOOutputInterface:
     """
     NOT YET IMPLEMENTED.
@@ -938,41 +949,38 @@ class GOOutputInterface:
     current_service_requests = []
     service_request_status = None
 
-    def ping_aggregator(self):
-        """
-
-        """
-        pass
-
-    def connect_to_aggregator(self):
-        """
-
-        """
-        pass
-
-    def disconnect_from_aggregator(self):
-        """
-
-        """
-        pass
 
     def get_all_posted_service_requests(self):
         """
 
         """
         for item in goSensor.posted_service_list:
-            self.current_service_requests.append(item.get_service_message_data)
+            if item.get_status() is False:
+                print("Posting...")
+                self.current_service_requests.append(item.get_service_message_data())
+                print(item.get_service_message_data())
+                item.set_status(True)
+            else:
+                print("All already posted")
+
+
 
     def generate_service_messages(self):
         """
 
         """
-        pass
+        request_out_xml = dict2xml(self.current_service_requests)
+        print("Current Service Requests")
+        print(request_out_xml)
+        return request_out_xml
 
     def send_service_request_messages(self):
         """
 
         """
+        xmlfile = open("toGSP.xml", "w")
+        xmlfile.write(self.generate_service_messages())
+        xmlfile.close()
         pass
 
 
@@ -1103,6 +1111,7 @@ class GOPostedService:
         self.power = power
         self.ramp = ramp
         self.price = price
+        self.status = False
 
     def get_service_name(self):
         return self.service_name
@@ -1124,6 +1133,12 @@ class GOPostedService:
 
     def get_price(self):
         return self.price
+
+    def get_status(self):
+        return self.status
+
+    def set_status(self, new_status):
+        self.status = new_status
 
     def get_service_message_data(self):
         service_message_data = {
