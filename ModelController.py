@@ -503,6 +503,8 @@ class DERSHistoricalDataInput:
 
         """
         self.update_der_em_input_request()
+        print("DER EM INPUT REQUEST")
+        print(self.der_em_input_request)
         return self.der_em_input_request
 
     def assign_der_s_to_der_em(self):
