@@ -82,6 +82,37 @@
     Testing was completed satisfactorily after the GOOutputInterface was built and partially tested. The input and output
     files corresponded with one another. See below for more details.
 
+    \section*{Establish GOOutputInterface}
+    The main purpose of the GOOutputInterface class is to provide a custom API between the MC and the DERMS under test.
+    It needs to be specifically designed and customized for the requirements of the DERMS. It could take any number of
+    forms with regards to communications, how they're packaged, etc. But in all cases, they take the Posted Service list,
+    translate it into data readable by the DERMS, and send it over each timestep so the DERMS knows what grid services
+    the GO is requesting at any given time.
+
+    In theory, the GO-GSP communications should be bidirectional. The GO sends the list of services to the GSP, which the
+    GSP acknowledges, but it also provides settlement data for use by the Grid Operator for pricing and validation.
+    However, in our tests, validation will be performed by the Test Engineer using human analysis on the logs; therefore,
+    there was no need at all to actually code a system to do this automatically. The only communications necessary
+    are the posted service list from the GO to the GSP.
+
+    Because of this simplification and prior requirements, we decided that the most efficient way to provide the posted
+    services to the GSP would be to put them in an .xml file once per time step, updated based on the requirements of
+    the Manual Mode file (or automatically generated services later on.) The services are put in a .xml file that the
+    GSP (which, recall, is located on the same system) can read and respond to by its own requirements. The results
+    end up in the logs.
+
+    In short, the current architecture of the ME's GO is to read an .xml file containing required service parameters,
+    parse them at the proper time and place them in dictionaries in the Sensor class, read the dictionaries with the
+    Interface class, and repackage the dictionaries back into nearly identical .xml files for the GSP to use. This
+    seemingly roundabout method is necessary both to ensure services are occuring at the proper time, and for
+    modularity purposes: if the output protocol is changed, the only part of the method that needs be changed is the
+    interface message wrapping. No undue coupling has occured.
+
+    \section*{Testing}
+    As with phase 3, full test plan testing requires a functional GSP for full-loop operations. We tested the system
+    as fully as possible without the GSP, and found that it seems to function as required.
+
+
     \parameters
     
     N/A
@@ -103,8 +134,8 @@
         \label{fig:gogsp}
     \end{figure}
 
-    Most of the relevent data can be found in the logs. The RWHDERS input files are (and must be) located in the
-    "RWHDERS Inputs" directory in the ME folder, as seen on the GitHub.
+    Most of the relevent data can be found in the logs. The .xml input and output files are in the ME main folder in
+    the GitHub.
 
     The individual dictionaries communicated from actor to actor are manipulated using complex and often repetitious
     methods. To see the contents of a dictionary at a given simulation time, the best way to go about it is to add
@@ -112,7 +143,7 @@
 
     \results
     
-    RWHDERS complete. Partial functional testing completed sat, full testing pending completion of GSP.
+    ME reaches 1.0 pending testing. GSP and ME functional testing will occur in tandem when the GSP is further developed.
 
 
 \end{entry}
