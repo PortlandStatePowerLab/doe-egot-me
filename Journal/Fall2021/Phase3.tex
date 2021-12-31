@@ -25,8 +25,8 @@
     processing functionality, etc. The following are the required components of any DER-S class:
     \begin{itemize}
         \item Attribute \verb|self.der_em_input_request|: this attribute contains the data required each time step to
-            update DER-EMs with the most current data from the DER-S. It is a list of dictionarie, with key-value pairs
-            containing {DER_Name:Power_in_W} data for each DER handled by the DER-S.
+            update DER-EMs with the most current data from the DER-S. It is a list of dictionaries, with key-value pairs
+            containing \verb|{DER_Name:Power_in_W}| data for each DER handled by the DER-S.
         \item Method \verb|self.initialize_der_s(self)|: Initializes the DER-S by reading files, connecting to emulators,
             etc. Called during the MC simulation startup process, and generally speaking, generates some attribute or
             dictionary containing the names of each DER and their respective locational data for assignment to DER-EMs.
