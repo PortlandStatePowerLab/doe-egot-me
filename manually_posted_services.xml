@@ -1,0 +1,22 @@
+<services>
+    <service1>
+        <group_id>1</group_id>
+        <service_type>"Energy Schedule"</service_type>
+        <interval_start>0</interval_start>
+        <interval_duration>0</interval_duration>
+        <power>1000</power>
+        <ramp>0</ramp>
+        <price>0</price>
+        <start_time>1570041123</start_time>
+    </service1>
+    <service2>
+        <group_id>2</group_id>
+        <service_type>"Energy Schedule"</service_type>
+        <interval_start>0</interval_start>
+        <interval_duration>0</interval_duration>
+        <power>1000</power>
+        <ramp>0</ramp>
+        <price>0</price>
+        <start_time>1570041128</start_time>
+    </service2>
+</services>

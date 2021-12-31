@@ -3,6 +3,8 @@ model controller
 """
 import ast
 import csv
+import os
+import traceback
 
 import pandas as pd
 from gridappsd import GridAPPSD, DifferenceBuilder
@@ -10,15 +12,15 @@ from gridappsd import topics as t
 from gridappsd.simulation import Simulation
 import time
 import xml.etree.ElementTree as ET
+import xmltodict
+from dict2xml import dict2xml
 
 end_program = False
 
 
 
 
-# -------------------------------------------------------------------------------------------------------------------
-#   Class Definitions
-# --------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------ Class Definitions ------------------------------------------------
 
 class MCConfiguration:
     """
@@ -28,12 +30,13 @@ class MCConfiguration:
     def __init__(self):
         self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
         self.ders_obj_list = {
-            'DERSHistoricalDataInput' : 'dersHistoricalDataInput'
-            # ,
-            # 'RWHDERS': 'rwhDERS'
+            'DERSHistoricalDataInput' : 'dersHistoricalDataInput',
+            'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
+        self.go_sensor_decision_making_manual_override = True
+        self.manual_service_filename = "manually_posted_services.xml"
 
 class EDMCore:
     """
@@ -83,6 +86,7 @@ class EDMCore:
         derAssignmentHandler.assign_all_ders()
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
+        goSensor.load_manual_service_file()
         # TODO: Connect to aggregator
 
     def load_config_from_file(self):
@@ -140,10 +144,16 @@ class EDMCore:
         mcInputInterface = MCInputInterface()
         global dersHistoricalDataInput
         dersHistoricalDataInput = DERSHistoricalDataInput()
+        global rwhDERS
+        rwhDERS = RWHDERS()
         global derAssignmentHandler
         derAssignmentHandler = DERAssignmentHandler()
         global derIdentificationManager
         derIdentificationManager = DERIdentificationManager()
+        global goSensor
+        goSensor = GOSensor()
+        global goOutputInterface
+        goOutputInterface = GOOutputInterface()
 
     def initialize_all_der_s(self):
         """
@@ -287,6 +297,9 @@ class EDMTimeKeeper(object):
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
         mcOutputLog.update_logs()
+        goSensor.make_service_request_decision()
+        goOutputInterface.get_all_posted_service_requests()
+        goOutputInterface.send_service_request_messages()
 
 
 class EDMMeasurementProcessor(object):
@@ -400,32 +413,75 @@ class EDMMeasurementProcessor(object):
 
 
 class RWHDERS:
+    der_em_input_request = []
     current_input_request = None
     current_der_states = None
+    input_file_path = r"C:/Users/stant/PycharmProjects/doe-egot-me/RWHDERS Inputs/"
+    input_identification_dict = {}
 
-    def assign_DER_S_to_DER_EM(self):
+    def initialize_der_s(self):
         """
 
         """
-        pass
+        self.parse_input_file_names_for_assignment()
 
-    def gather_DER_EM_identification_data(self):
+
+    def assign_der_s_to_der_em(self):
+        print('iid')
+        print(self.input_identification_dict)
+        for key,value in self.input_identification_dict.items():
+            der_id = key
+            der_bus = value['Bus']
+            der_mrid = derAssignmentHandler.get_mRID_for_der_on_bus(der_bus)
+            der_being_assigned = {der_id:der_mrid}
+            derAssignmentHandler.append_new_values_to_association_table(der_being_assigned)
+
+    def parse_input_file_names_for_assignment(self):
         """
 
         """
-        pass
+        filename_list = os.listdir(self.input_file_path)
+        parsed_filename_list = []
+        for i in filename_list:
+            g = i.split('_')
+            g[0] = g[0][-5:]
+            g[1] = g[1][3:6]
+            parsed_filename_list.append({g[0]: {"Filepath": i, "Bus": g[1]}})
+        for item in parsed_filename_list:
+            self.input_identification_dict.update(item)
+
 
     def update_wh_states_from_emulator(self):
         """
 
         """
+
+
         pass
 
-    def update_DER_EM_input_request(self):
+    def update_der_em_input_request(self):
         """
 
         """
-        pass
+        self.der_em_input_request.clear()
+        for key, value in self.input_identification_dict.items():
+            import csv
+            with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
+                der_input_reader = csv.reader(csvfile)
+                for row in der_input_reader:
+                    current_der_input = {row[0]: row[1]}
+                    print(current_der_input)
+            current_der_real_power = current_der_input['P']
+            current_der_input_request = {key: current_der_real_power}
+            self.der_em_input_request.append(current_der_input_request)
+
+
+    def get_input_request(self):
+        """
+
+        """
+        self.update_der_em_input_request()
+        return self.der_em_input_request
 
 
 class DERSHistoricalDataInput:
@@ -447,6 +503,8 @@ class DERSHistoricalDataInput:
 
         """
         self.update_der_em_input_request()
+        print("DER EM INPUT REQUEST")
+        print(self.der_em_input_request)
         return self.der_em_input_request
 
     def assign_der_s_to_der_em(self):
@@ -458,7 +516,7 @@ class DERSHistoricalDataInput:
             der_being_assigned[i] = self.input_table[0][(self.location_lookup_dictionary[i])]
             der_being_assigned[i] = derAssignmentHandler.get_mRID_for_der_on_bus(der_being_assigned[i])
             assigned_der = dict([(value, key) for value, key in der_being_assigned.items()])
-            derAssignmentHandler.association_table.append(assigned_der)
+            derAssignmentHandler.append_new_values_to_association_table(assigned_der)
 
     def open_input_file(self):
         """
@@ -510,6 +568,7 @@ class DERSHistoricalDataInput:
         it is read, converted into an input dictionary, and put in the current der_input_request
         (see MCInputInterface.get_all_der_s_input_requests() )
         """
+        self.der_em_input_request.clear()
         try:
             input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
@@ -626,7 +685,8 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
-        # print(self.assignment_lookup_table)
+        print("TEST")
+        print(self.assignment_lookup_table)
 
     def assign_all_ders(self):
         """
@@ -659,6 +719,9 @@ class DERAssignmentHandler:
         print(next_mrid_on_bus)
         return mrid
 
+    def append_new_values_to_association_table(self, values):
+        self.association_table.append(values)
+
 
 class MCInputInterface:
     """
@@ -667,7 +730,7 @@ class MCInputInterface:
     Input interface. Receives input messages from DER-Ss, retrieves the proper DER-EM input mRIDs for each input from
     the Identification Manager, and delivers input messages to the EDM that update the DER-EMs with the new states.
     """
-    current_unified_input_request = None
+    current_unified_input_request = []
     active_der_s_list = None
     test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
     test_DER_2_mrid = '_2750969C-CBD5-41F4-BDCE-19287FBDCA71'
@@ -692,7 +755,13 @@ class MCInputInterface:
         TODO: Refactor
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
-        self.current_unified_input_request = dersHistoricalDataInput.get_input_request()
+        online_ders = mcConfiguration.ders_obj_list
+        print("online_ders")
+        print(online_ders)
+        self.current_unified_input_request.clear()
+        for key, value in mcConfiguration.ders_obj_list.items():
+            print(value)
+            self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
@@ -816,33 +885,60 @@ class GOSensor:
     information, and makes determinations (automatically or manually) about grid services, whether they're required,
     happening satisfactorily, etc. These determinations are sent to the output API to be communicated to the DERMS.
     """
-    current_grid_states = None
-    current_sensor_states = None
-    service_request_decision = None
+    def __init__(self):
+        # self.current_grid_states = None
+        self.current_sensor_states = None
+        self.service_request_decision = None
+        self.posted_service_list = []
+        self.service_serial_num = 0
+        self.manual_service_xml_data = {}
+        self.already_posted_services = []
+        self.deleted_items = []
 
-    def get_service_request_decision(self):
+
+    def update_sensor_states(self):
         """
-
-        """
-        pass
-
-    def get_sensor_status(self):
-        """
-
-        """
-        pass
-
-    def read_sensors(self):
-        """
-
+        Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
         """
         pass
 
     def make_service_request_decision(self):
         """
-
+        In MANUAL MODE (override is True):
+            Instantiates a grid service
         """
+        if mcConfiguration.go_sensor_decision_making_manual_override is True:
+            self.manually_post_service(edmTimekeeper.get_sim_current_time())
+        elif mcConfiguration.go_sensor_decision_making_manual_override is False:
+            pass
+        else:
+            print("Service request failure. Wrong input.")
+
         pass
+
+    def load_manual_service_file(self):
+        input_file = open(mcConfiguration.manual_service_filename, "r")
+        data = input_file.read()
+        input_file.close()
+        self.manual_service_xml_data = xmltodict.parse(data)
+        print(self.manual_service_xml_data)
+
+    def manually_post_service(self, sim_time):
+        for key, item in self.manual_service_xml_data['services'].items():
+            print(item)
+            if int(item['start_time']) == int(sim_time):
+                name = str(key)
+                group_id = item["group_id"]
+                service_type = item["service_type"]
+                interval_duration = item["interval_duration"]
+                interval_start = item["interval_start"]
+                power = item["power"]
+                ramp = item["ramp"]
+                price = item["price"]
+                start_time = item["start_time"]
+                self.posted_service_list.append(GOPostedService(name, group_id, service_type, interval_start, interval_duration, power, ramp, price))
+                print("Manually posting service, name:")
+                print(name)
 
 
 class GOOutputInterface:
@@ -852,43 +948,41 @@ class GOOutputInterface:
     data to message formats the DERMS requires/can use, and delivers them.
     """
     connection_status = None
-    current_service_request = None
+    current_service_requests = []
     service_request_status = None
 
-    def ping_aggregator(self):
+
+    def get_all_posted_service_requests(self):
         """
 
         """
-        pass
+        for item in goSensor.posted_service_list:
+            if item.get_status() is False:
+                print("Posting...")
+                self.current_service_requests.append(item.get_service_message_data())
+                print(item.get_service_message_data())
+                item.set_status(True)
+            else:
+                print("All already posted")
 
-    def connect_to_aggregator(self):
+
+
+    def generate_service_messages(self):
         """
 
         """
-        pass
+        request_out_xml = dict2xml(self.current_service_requests)
+        print("Current Service Requests")
+        print(request_out_xml)
+        return request_out_xml
 
-    def disconnect_from_aggregator(self):
+    def send_service_request_messages(self):
         """
 
         """
-        pass
-
-    def update_service_request_decision(self):
-        """
-
-        """
-        pass
-
-    def create_service_request_decision(self):
-        """
-
-        """
-        pass
-
-    def send_service_request(self):
-        """
-
-        """
+        xmlfile = open("toGSP.xml", "w")
+        xmlfile.write(self.generate_service_messages())
+        xmlfile.close()
         pass
 
 
@@ -1006,14 +1100,62 @@ class MCOutputLog:
         csv_input.to_csv(self.log_name, index=False)
 
 
-# ---------------------------------------------------------------------------------------------------------------------
-# Function Definitions
-# ---------------------------------------------------------------------------------------------------------------------
-# Probably unnecessary, since everything can be put in classes. Delete later if unused. ~SJK
+class GOPostedService:
+    """
+    TODO: Write this
+    """
+    def __init__(self, service_name="Undefined", group_id=0, service_type="Undefined", interval_start=0, interval_duration = 0, power=0, ramp=0, price=0):
+        self.service_name = service_name
+        self.group_id = group_id
+        self.service_type = service_type
+        self.interval_start = interval_start
+        self.interval_duration = interval_duration
+        self.power = power
+        self.ramp = ramp
+        self.price = price
+        self.status = False
 
-# def MC_instantiate_all_classes():
-#     print("Instantiating classes:")
-#     # example = Example()
+    def get_service_name(self):
+        return self.service_name
+
+    def get_group_id(self):
+        return self.group_id
+
+    def get_service_type(self):
+        return self.service_type
+
+    def get_interval_start(self):
+        return self.interval_start
+
+    def get_interval_duration(self):
+        return self.interval_duration
+
+    def get_power(self):
+        return self.power
+
+    def get_price(self):
+        return self.price
+
+    def get_status(self):
+        return self.status
+
+    def set_status(self, new_status):
+        self.status = new_status
+
+    def get_service_message_data(self):
+        service_message_data = {
+            "service_name": self.service_name,
+            "group_id": self.group_id,
+            "service_type": self.service_type,
+            "interval_start": self.interval_start,
+            "interval_duration": self.interval_duration,
+            "power": self.power,
+            "ramp": self.ramp,
+            "price": self.price
+        }
+        return service_message_data
+
+# ------------------------------------------------Function Definitions------------------------------------------------
 
 
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
@@ -1030,9 +1172,7 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     edmCore.gapps_session.subscribe(t.simulation_log_topic(edmCore.sim_mrid), edmTimekeeper)
 
 
-# --------------------------------------------------------------------------------------------------------------------
-# Program Execution
-# --------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------Program Execution (Main loop)------------------------------------------
 def _main():
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
