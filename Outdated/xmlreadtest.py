@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('../topology.xml')
+tree = ET.parse('../Configuration/topology.xml')
 root = tree.getroot()
 topology_map = []
 for i, val in enumerate(root):
