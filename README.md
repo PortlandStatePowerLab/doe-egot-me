@@ -3,11 +3,7 @@
 ##### Sean Keene -  seakeene@pdx.edu
 ##### Portland State University - Power Engineering Group
 
-NOTE: The following is out of date as of 8/18/2021. To be updated in the next few
-days.
-
-This repository contains the Modeling Environment for the EGoT project. The ME is
-in the process of leaving the design phase and entering development.
+This repository contains the Modeling Environment for the EGoT project.
 
 ## Description
 
@@ -36,19 +32,21 @@ without further modification to the modeling system.
 
 ## Contents
 
-* **Journal**: Contains the LaTex files required to  generate the design journal, 
+* **/Configuration/** Contains configuration files read in to the ME, such as the topology.
+* **/DERScripts/** A set of scripts provided by PNNL's [CIMHub](https://github.com/GRIDAPPSD/CIMHub) project. These provide the "backend" for Initialise_DER_EMs.bat
+* **/DERSHistoricalDataInputs/** Contains .csv input files used the Historical Data Input DER-S. Intended to be modified by the end user to provide custom DER inputs.
+* **/Journal/**: Contains the LaTex files required to  generate the design journal, 
   main.pdf. auxil and out folders are also required for this. 
-* **Outdated**: Contains old test scripts, logs, and files that are no longer in use
-* **Log Demos**: Contains various .csv logs that are referenced in documentation or
+* **/Log Demos/**: Contains various .csv logs that are referenced in documentation or
 elsewhere. These logs are for demonstration and not used by the system.
+* **/Logged Grid State Data/** Simulation output logs providing timestamped measurements, grid states and amplifying data for the most recent simulation.
+* **/Outputs to DERMS/** Contains the .xml file currently being used as the ME-DERMS API. 
+* **/RWHDERS Inputs/** Contains input files for each DER managed by RWHDERS.
+* **Initialise_DER_EMs.bat** A batch script that, when run, will automatically inject DER-EMs into the grid model based on the contents of DERScripts/EGoT13_der.txt (for example). 
+* **manually_posted_service_input.xml** Contains data dictating when and what grid services will be manually posted. Since Grid Operator automatic operation is not currently supported, this is necessary for grid services to be requested in a test.
 * **ModelController.py**: Contains the MC script.
-* **queries.txt** is a simple text file from PNNL containing numerous examples of
-  sparql queries. 
 * **Journal.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
-* **Config.txt** contains the configuration dictionary for the simulation.
-* **input.csv** is the input file for the DERSHistoricalDataInput class.
-* **testlog.csv** is the log output and is updated each simulation.
 * **README.md** is this file.
 
 ## Background Documentation

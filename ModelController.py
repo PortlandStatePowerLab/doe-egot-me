@@ -28,7 +28,8 @@ class MCConfiguration:
     process, this provides global configuration for the MC as a whole.
     """
     def __init__(self):
-        self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
+        self.mc_file_directory = r"C:/Users/stant/PycharmProjects/doe-egot-me/"
+        self.config_file_path = self.mc_file_directory + r"Configuration/Config.txt"
         self.ders_obj_list = {
             'DERSHistoricalDataInput' : 'dersHistoricalDataInput',
             'RWHDERS': 'rwhDERS'
@@ -37,7 +38,7 @@ class MCConfiguration:
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'MeasOutputLogs.csv'
+        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs.csv'
 
 class EDMCore:
     """
@@ -144,9 +145,9 @@ class EDMCore:
         global mcInputInterface
         mcInputInterface = MCInputInterface()
         global dersHistoricalDataInput
-        dersHistoricalDataInput = DERSHistoricalDataInput()
+        dersHistoricalDataInput = DERSHistoricalDataInput(mcConfiguration)
         global rwhDERS
-        rwhDERS = RWHDERS()
+        rwhDERS = RWHDERS(mcConfiguration)
         global derAssignmentHandler
         derAssignmentHandler = DERAssignmentHandler()
         global derIdentificationManager
@@ -414,11 +415,12 @@ class EDMMeasurementProcessor(object):
 
 
 class RWHDERS:
-    der_em_input_request = []
-    current_input_request = None
-    current_der_states = None
-    input_file_path = r"C:/Users/stant/PycharmProjects/doe-egot-me/RWHDERS Inputs/"
-    input_identification_dict = {}
+    def __init__(self,mcConfiguration):
+        self.der_em_input_request = []
+        self.current_input_request = None
+        self.current_der_states = None
+        self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS Inputs/"
+        self.input_identification_dict = {}
 
     def initialize_der_s(self):
         """
@@ -478,12 +480,13 @@ class RWHDERS:
 
 
 class DERSHistoricalDataInput:
-    der_em_input_request = []
-    historical_data_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\2p_input2.csv"
-    input_file_name = None
-    input_table = None
-    list_of_ders = []
-    location_lookup_dictionary = {}
+    def __init__(self, mcConfiguration):
+        self.der_em_input_request = []
+        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/2p_input2.csv"
+        self.input_file_name = None
+        self.input_table = None
+        self.list_of_ders = []
+        self.location_lookup_dictionary = {}
 
     def initialize_der_s(self):
         """
@@ -796,7 +799,7 @@ class GOTopologyProcessor:
         Reads the topology xml file. This needs to be generated prior to the simulation and will be used by both the
         ME and the DERMS in use (ex. the GSP).
         """
-        tree = ET.parse('topology.xml')
+        tree = ET.parse('Configuration/topology.xml')
         root = tree.getroot()
         topology_map = []
         for i, val in enumerate(root):
@@ -942,7 +945,7 @@ class GOOutputInterface:
         """
 
         """
-        xmlfile = open("OutputtoGSP.xml", "w")
+        xmlfile = open("Outputs To DERMS/OutputtoGSP.xml", "w")
         xmlfile.write(self.generate_service_messages())
         xmlfile.close()
         pass
