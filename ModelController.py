@@ -25,7 +25,7 @@ end_program = False
 class MCConfiguration:
     """
     Provides user configurability of the MC when appropriate. Not to be confused with the GridAPPS-D configuration
-    process.
+    process, this provides global configuration for the MC as a whole.
     """
     def __init__(self):
         self.config_file_path = r"C:\Users\stant\PycharmProjects\doe-egot-me\Config.txt"
@@ -36,7 +36,8 @@ class MCConfiguration:
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
         self.go_sensor_decision_making_manual_override = True
-        self.manual_service_filename = "manually_posted_services.xml"
+        self.manual_service_filename = "manually_posted_service_input.xml"
+        self.output_log_name = 'MeasOutputLogs.csv'
 
 class EDMCore:
     """
@@ -310,8 +311,8 @@ class EDMMeasurementProcessor(object):
     association and location data from the input branch, and appends it to the dictionary to produce something usable
     by the GO and the logging class.
 
-    NOTE: the API for measurements and timekeeping are completely seperate. The MC as a whole is synchronized with the
-    timekeeping class, but measurement processes are done seperately. This is why logs will have repeated values: the
+    NOTE: the API for measurements and timekeeping are completely separate. The MC as a whole is synchronized with the
+    timekeeping class, but measurement processes are done separately. This is why logs will have repeated values: the
     logs are part of the MC and thus update once per second, but the grid states going IN to the logs are only updated
     once per three seconds.
 
@@ -324,7 +325,7 @@ class EDMMeasurementProcessor(object):
         self.measurement_timestamp = None
         self.current_measurements = None
         self.current_processed_grid_states = None
-        self.run_once_flag = False
+        # self.run_once_flag = False
         self.mrid_name_lookup_table = []
         self.measurement_lookup_table = []
         self.measurement_mrids = []
@@ -450,14 +451,6 @@ class RWHDERS:
         for item in parsed_filename_list:
             self.input_identification_dict.update(item)
 
-
-    def update_wh_states_from_emulator(self):
-        """
-
-        """
-
-
-        pass
 
     def update_der_em_input_request(self):
         """
@@ -732,16 +725,15 @@ class MCInputInterface:
     """
     current_unified_input_request = []
     active_der_s_list = None
-    test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
-    test_DER_2_mrid = '_2750969C-CBD5-41F4-BDCE-19287FBDCA71'
-    test_DER_3_mrid = '_1720E0C8-A0CA-41BF-84DE-9847A17EBE26'
+    # test_DER_1_mrid = '_B1C7AD50-5726-4442-BA61-B8FA87C8E947'
+    # test_DER_2_mrid = '_2750969C-CBD5-41F4-BDCE-19287FBDCA71'
+    # test_DER_3_mrid = '_1720E0C8-A0CA-41BF-84DE-9847A17EBE26'
 
     def update_all_der_em_status(self):
         """
-        TODO: I think this is the same thing as send_der_em_updates_to_edm?
         Currently, calls the test_der_em() method. In future, will call all input methods.
         """
-        self.test_der_em()
+        self.update_der_ems()
         pass
 
     def update_all_der_s_status(self):
@@ -765,13 +757,8 @@ class MCInputInterface:
         print("Current unified input request:")
         print(self.current_unified_input_request)
 
-    def send_der_em_updates_to_edm(self):
-        """
-        TODO: Refactor
-        """
-        pass
 
-    def test_der_em(self):
+    def update_der_ems(self):
         """
         Reads each line in the unified input request and uses the GridAPPS-D library to generate EDM input messages for
         each one. The end result is the inputs are sent to the associated DER-EMs and the grid model is updated with
@@ -781,17 +768,11 @@ class MCInputInterface:
         for i in self.current_unified_input_request:
             der_name_to_look_up = list(i.keys())
             der_name_to_look_up = der_name_to_look_up[0]
-            # print("DER Name to look up:")
-            # print(der_name_to_look_up)
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            # print("Associated DER EM mrid")
-            # print(associated_der_em_mrid)
-            # print(i[der_name_to_look_up])
             my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
             my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
             message = my_diff_build.get_message()
-            # print(message)
             edmCore.gapps_session.send(input_topic, message)
         self.current_unified_input_request.clear()
 
@@ -814,8 +795,6 @@ class GOTopologyProcessor:
         """
         Reads the topology xml file. This needs to be generated prior to the simulation and will be used by both the
         ME and the DERMS in use (ex. the GSP).
-
-        TODO: Refactor.
         """
         tree = ET.parse('topology.xml')
         root = tree.getroot()
@@ -827,29 +806,18 @@ class GOTopologyProcessor:
                 topological_input_row_vals.append(list(root[i][a].attrib.values()))
             topology_map_row = {topological_input_row_key: topological_input_row_vals}
             topology_map.append(topology_map_row)
-
         self.topology_dict = topology_map
-        # print(topology_map)
         group_list = []
         bus_list = []
-
         for i in topology_map:
             group_list.append(list(i.keys())[0])
             bus_list.append(list(i.values()))
-
         self.group_list = group_list
-        # print(group_list)
-
         for flatten_count in range(0, 3):
             bus_list = [x for item in bus_list for x in item]
-
         bus_list_final = []
         [bus_list_final.append(x) for x in bus_list if x not in bus_list_final]
         self.bus_list = bus_list
-        # print(bus_list_final)
-
-    # def parse_topology(self):
-    #     pass
 
     def reverse_topology_dict(self):
         """
@@ -873,27 +841,24 @@ class GOTopologyProcessor:
 
     def get_groups_bus_is_in(self):
         """
-        Returns all groups a given bus is a member of.
+        Returns all groups a give bus is a member of.
         """
         pass
 
 
 class GOSensor:
     """
-    NOT YET IMPLEMENTED.
     This class retrieves fully formatted grid states from the measurement processor, filters them down to necessary
     information, and makes determinations (automatically or manually) about grid services, whether they're required,
     happening satisfactorily, etc. These determinations are sent to the output API to be communicated to the DERMS.
     """
     def __init__(self):
-        # self.current_grid_states = None
         self.current_sensor_states = None
         self.service_request_decision = None
         self.posted_service_list = []
         self.service_serial_num = 0
         self.manual_service_xml_data = {}
         self.already_posted_services = []
-        self.deleted_items = []
 
 
     def update_sensor_states(self):
@@ -943,13 +908,10 @@ class GOSensor:
 
 class GOOutputInterface:
     """
-    NOT YET IMPLEMENTED.
     API between the MC and a DERMS. Must be customized to the needs of the DERMS. Converts determinations and feedback
     data to message formats the DERMS requires/can use, and delivers them.
     """
-    connection_status = None
     current_service_requests = []
-    service_request_status = None
 
 
     def get_all_posted_service_requests(self):
@@ -980,7 +942,7 @@ class GOOutputInterface:
         """
 
         """
-        xmlfile = open("toGSP.xml", "w")
+        xmlfile = open("OutputtoGSP.xml", "w")
         xmlfile.write(self.generate_service_messages())
         xmlfile.close()
         pass
@@ -1083,9 +1045,8 @@ class MCOutputLog:
     def set_log_name(self):
         """
         This is where you name the log.
-        TODO: I don't really need a method for this, do I?
         """
-        self.log_name = 'testlog.csv'
+        self.log_name = mcConfiguration.output_log_name
 
     def append_timestamps(self):
         """
