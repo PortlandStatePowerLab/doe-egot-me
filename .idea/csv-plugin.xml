@@ -3,7 +3,7 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\2p_input2.csv">
+        <entry key="\DERSHistoricalData Inputs\2p_input2.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -45,7 +45,21 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\testlog.csv">
+        <entry key="\RWHDERS Inputs\DER00000_Bus632.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\RWHDERS Inputs\DER00001_Bus633.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\RWHDERS Inputs\DER00002_Bus634.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
