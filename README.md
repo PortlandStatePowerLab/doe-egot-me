@@ -47,6 +47,7 @@ elsewhere. These logs are for demonstration and not used by the system.
 * **ModelController.py**: Contains the MC script.
 * **Journal.pdf** is the design journal for this project, which is generally updated
   whenever an update is made to the system and pushed to this repository.
+* **ClassOutline.html** Documentation of the classes, attributes, methods and functions within ModelController.py.
 * **README.md** is this file.
 
 ## Background Documentation
