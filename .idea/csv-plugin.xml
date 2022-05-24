@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\DERSHistoricalData Inputs\thesisfiginput.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Log Demos\testlog(9-17 binary input demo).csv">
           <value>
             <Attribute>

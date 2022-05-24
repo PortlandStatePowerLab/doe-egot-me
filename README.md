@@ -30,6 +30,8 @@ a new DER-S class for each one. As long as the DER-S produces electrical states 
 provides identification and locational data, it can be directly introduced into the ME
 without further modification to the modeling system.
 
+For installation instructions, see the Implementation Profile, Appendix B (link below)
+
 ## Contents
 
 * **/Configuration/** Contains configuration files read in to the ME, such as the topology.
@@ -55,6 +57,7 @@ elsewhere. These logs are for demonstration and not used by the system.
 * [Development Plan Documents (PEG only)](https://drive.google.com/drive/folders/1gzclY2N1w7PiS4PjuwpQj0qUheekqnkn?usp=sharing)
 * [Flow Charts and other design documents (PEG only)](https://drive.google.com/drive/folders/13gm4Shm-kZ0PfSjn-9UMrA0cDD80fIy0?usp=sharing)
 * [Estimated Quarterly Goals(Outdated)](https://www.overleaf.com/read/jrrvwgtvqryt)
+* [Implementation Profile (See appendix B for installation guide)](https://docs.google.com/document/d/1W9mIf69tUp5LxAxTi9JdYpVbyF84esILUnnz5kcZQFw/edit?usp=sharing)
 
 ## Important Links
 
