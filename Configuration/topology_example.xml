@@ -1,0 +1,13 @@
+<all>
+    <group name= "group-1" >
+        <bus name="632" />
+        <bus name="646" />
+        <bus name="645" />
+    </group>
+
+    <group name= "group-2" >
+        <bus name="632" />
+        <bus name="633" />
+        <bus name="634" />
+    </group>
+</all>

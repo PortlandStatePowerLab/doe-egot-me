@@ -490,7 +490,7 @@ class RWHDERS:
         .input_file_path: The folder in which the RWHDERS input files are located.
 
         .input_identification_dict: a dictionary of identification information for each DER input. The keys are the
-           serial numbers parsed from each file name, and the values include the buys and the filename. Used during
+           serial numbers parsed from each file name, and the values include the buses and the filename. Used during
            assignment, and also on time step to get the right data from the right file for each DER's unique ID.
     """
     def __init__(self, mcConfiguration):
@@ -598,7 +598,7 @@ class DERSHistoricalDataInput:
     """
     def __init__(self, mcConfiguration):
         self.der_em_input_request = []
-        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/2p_input2.csv"
+        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/thesisfiginput.csv"
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
@@ -712,9 +712,6 @@ class DERIdentificationManager:
             DER inputs (whatever form they might take) to mRIDs for their assigned DER-EMs.
     """
     def __init__(self):
-        """
-
-        """
         self.association_lookup_table = None
 
     def get_meas_name(self, mrid):
@@ -768,7 +765,7 @@ class DERAssignmentHandler:
         .association_table: Contains association data provided by each DER-S class, for use by the
             DERIdentificationManager.
 
-        .der_em_mrid_per_bus_query_message: SPARQL Query used to gather the DER-EM info for the assignment tables.
+        .der_em_mrid_per_bus_query_message: SPARQL Query used to gather the DER-EM info for the assignment tables from the model database.
     """
     def __init__(self):
         self.assignment_lookup_table = None
@@ -876,7 +873,8 @@ class MCInputInterface:
 
     def update_all_der_em_status(self):
         """
-        Currently, calls the test_der_em() method. In future, will call all input methods.
+        Currently, calls the update_der_ems() method. In the future, may be used to call methods for different input
+        types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
         self.update_der_ems()
         pass
@@ -994,6 +992,10 @@ class GOSensor:
     This class retrieves fully formatted grid states from the measurement processor, filters them down to necessary
     information, and makes determinations (automatically or manually) about grid services, whether they're required,
     happening satisfactorily, etc. These determinations are sent to the output API to be communicated to the DERMS.
+
+    NOTE: In the current state of the ME, only Manual Mode is implemented. Automatic Mode requires development of GO
+    threshold detection algorithms that, while more realistic, do not support the current goal of functionally testing
+    a DERMS.
 
     ATTRIBUTES:
         .current_sensor_states: Grid states read into the sensor. Automatic mode only. Not currently implemented.
@@ -1143,7 +1145,7 @@ class MCOutputLog:
 
         .current_measurement: The dictionary containing the current set of measurements.
 
-        .is_first_measurement: Calls functions that should only run once at the start of logging (such as opening
+        .is_first_measurement: Flags functions that should only run once at the start of logging (such as opening
            the log files, setting up the header, etc.)
 
     """
