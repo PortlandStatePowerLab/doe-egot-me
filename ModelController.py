@@ -1107,8 +1107,17 @@ class GOOutputInterface:
         Converts the current_service_requests list of dicts into a proper xml format. Used by the xml writed in
         send_service_request_messages().
         """
-
-        request_out_xml = dict2xml(self.current_service_requests)
+        request_out_xml = '<services>\n'
+        service_serial_num = 1
+        for item in self.current_service_requests:
+            print("Test1")
+            print(dict2xml(item))
+            request_out_xml = request_out_xml + '<service' + str(service_serial_num) + '>\n'
+            request_out_xml = request_out_xml + dict2xml(item) + '\n'
+            request_out_xml = request_out_xml + '</service' + str(service_serial_num) + '>\n'
+            service_serial_num = service_serial_num + 1
+        request_out_xml = request_out_xml + '</services>'
+        # request_out_xml = dict2xml(self.current_service_requests)
         print("Current Service Requests")
         print(request_out_xml)
         return request_out_xml
@@ -1118,13 +1127,8 @@ class GOOutputInterface:
         Writes the current service request messages to an xml file, which will be accessed by the GSP for its service
         provisioning functions.
         """
-        service_serial_num = 1
         xmlfile = open("Outputs To DERMS/OutputtoGSP.xml", "w")
-        xmlfile.write('<services>')
-        xmlfile.write('<service' + str(service_serial_num) + '>')
         xmlfile.write(self.generate_service_messages())
-        xmlfile.write('<service' + str(service_serial_num) + '>')
-        xmlfile.write('</services>')
         xmlfile.close()
 
 
