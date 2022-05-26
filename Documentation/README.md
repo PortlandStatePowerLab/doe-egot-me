@@ -4,7 +4,7 @@
 ##### Portland State University - Power Engineering Group
 
 # Example Simulation Overview
-
+This simulation overview is taken from the appendices of the Implementation Profile document. Consult the Implementation Profile for more information. 
 ## Explanation and Configuration
 The following section provides a step-by-step example of a single simulation, including preparation, configuration, the mechanisms that occur during a simulation, and the expected output. The simulation parameters are as follows:
 * GridAPPS-D Simulation Configuration parameters
