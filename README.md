@@ -68,7 +68,7 @@ elsewhere. These logs are for demonstration and not used by the system.
 * [GridAPPS-D Documentation](https://gridappsd.readthedocs.io/en/latest/using_gridappsd/index.html)
 * [GridAPPS-D GitHub Repository](https://github.com/GRIDAPPSD)
 
-##MC Installation
+## MC Installation
 The following is a step-by-step process on installing and configuring the MC and CIMHub scripts.
 * If not already done, install Python 3.
 * If using Windows, install Ubuntu. If using Linux, this step shouldn’t be required.

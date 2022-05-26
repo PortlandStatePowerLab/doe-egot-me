@@ -128,10 +128,10 @@ The following section provides a step-by-step example of a single simulation, in
    2. IMPORTANT NOTE: A glitch in GridAPPS-D causes very frequent instances of GridAPPS-D freezing during the simulation startup process. If the simulation doesn’t seem to be starting in short order, press CTRL-C in the terminal to close GridAPPS-D, type “./run-gridappsd.sh” to re-run the program, and attempt to rerun the ModelController.py script.
 3. When the simulation is complete, measurement logs will be generated and placed in the “Logged Grid States Data” directory. These logs can be used to verify DER-EMs operated per the input data sent to DERSHistoricalDataInput. The functional test is complete.
 
-#Simulation Process Summary
+# Simulation Process Summary
 The following is a simplified summary of the inner workings and information exchanges of the ME simulation configured in (B.1). This is intended to be a high level overview of operations, and not a full algorithmic description of the system. 
 
-##Simulation Top Level Process
+## Simulation Top Level Process
 1. The Test Engineer, having previously configured the system, executes “ModelController.py”.
 2. Prior to major class instantiation, the MC performs the following tasks:
    1. The “end_program” flag is initialized to “False”.
@@ -190,16 +190,16 @@ The following is a simplified summary of the inner workings and information exch
    14. goSensor.load_manual_service_file() is called.
        1. Loads the XML file containing service requests to be called in Manual Mode.
 
-###Callback Class Instantiation
+### Callback Class Instantiation
 1. Global function instantiate_callback_classes() is called.
    1. Global callback object edmMeasurementProcessor is instantiated.
    2. Global callback object edmTimekeeper is instantiated.
       1. On construction, the edmTimekeeper.sim_start_time and edmTimekeeper.sim_current_time attributes are set to the start time from the Config.txt file, ensuring that timekeeping starts at the proper time.
 
-##Callback Processes
+## Callback Processes
 After the simulation start up processes have been completed, all script functions are handled within the callback classes. EDMTimekeeper handles all functions that are intended to call frequently, and updates once per timestep, or once per second. EDMMeasurementProcessor is dedicated to receiving measurements from the simulation, parsing them into the proper form, and making them available to the GO and logger; it updates less frequently around once per three seconds. 
 
-###On-Timestep Functions
+### On-Timestep Functions
 1. Frequently each second, log messages are sent from the GridAPPS-D simulation to the edmTimekeeper object. These messages are sent for many reasons, including errors, system changes, and (internal) simulation timestep incrementation. This invokes edmTimekeeper.on_message(), performing the following tasks.
    1. The GridAPPS-D log message is parsed. If the message indicates that the process is “COMPLETED” or “CLOSED”, self.end_program() is called; this closes out the log file and ends the program. If the log message contains the words “incrementing to”, a timestep has occurred and on-timestep functions are called (see b.) Otherwise, the message is disregarded.
    2. If an incrementation message has been detected, the incrementation method first detects if the log message is a repeat of the last received message. GridAPPS-D often sends the same log message multiple times; this check ensures duplicate messages don’t invoke multiple on-timestep processes or incrementations.
@@ -221,7 +221,7 @@ After the simulation start up processes have been completed, all script function
       7. goOutputInterface.send_service_request_messages() is called.
          1. The second and final step in the GO-DERMS communication process. The list of dictionaries in goOutputInterface.current_service_requests is converted to XML format and written to (in this case) an output file to be read by the GSP. In this case, the GSP is inactive so nothing is done with the file; in other simulations, the GSP would read and parse that file to determine when and how to dispatch resources to fulfill the request.
 
-###On-Measurement Functions
+### On-Measurement Functions
 1. Once every three seconds, a message is sent from the EDM to the edmMeasurementProcessor object. This message is a very large dictionary of dictionaries containing grid state measurements for every item in the grid model Each measurement is a dictionary containing multiple key/value pairs for mRID, measurement value, measurement angle, etc. Each set of measurements is timestamped, and each measurement is referenced by mRID; however, amplifying data such as readable names, measurement types, phase, bus location, etc. are not included and must be added by the measurement processor. Each measurement message invokes the edmMeasurementProcessor.on_message() method, performing the following tasks:
    1. The message is parsed for the current measurements, which are placed in self.current_measurements.
    2. The message is parsed for the measurement timestamp, which is placed in self.measurement_timestamp.
