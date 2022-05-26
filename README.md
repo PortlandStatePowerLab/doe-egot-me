@@ -30,18 +30,22 @@ a new DER-S class for each one. As long as the DER-S produces electrical states 
 provides identification and locational data, it can be directly introduced into the ME
 without further modification to the modeling system.
 
-For installation instructions, see the Implementation Profile, Appendix B (link below)
+Installation instructions are included below. The README.md within the Documentation folder provides a detailed example configuration
+and simulation process overview. A more detailed description of the implementation of the system is 
+provided in the Implementation Profile in the Documentation folder (online version linked below).
 
 ## Contents
 
 * **/Configuration/** Contains configuration files read in to the ME, such as the topology.
 * **/DERScripts/** A set of scripts provided by PNNL's [CIMHub](https://github.com/GRIDAPPSD/CIMHub) project. These provide the "backend" for Initialise_DER_EMs.bat
 * **/DERSHistoricalDataInputs/** Contains .csv input files used the Historical Data Input DER-S. Intended to be modified by the end user to provide custom DER inputs.
+* **/Documentation/** Contains a copy of the Implementation Profile as well as a README.md containing a more detailed overview of an example simulation. Also contains a class outline (link below).
 * **/Journal/**: Contains the LaTex files required to  generate the design journal, 
   main.pdf. auxil and out folders are also required for this. 
 * **/Log Demos/**: Contains various .csv logs that are referenced in documentation or
 elsewhere. These logs are for demonstration and not used by the system.
 * **/Logged Grid State Data/** Simulation output logs providing timestamped measurements, grid states and amplifying data for the most recent simulation.
+* **/Outdated/** Contains scripts and files from previous versions of the ME. Unused.
 * **/Outputs to DERMS/** Contains the .xml file currently being used as the ME-DERMS API. 
 * **/RWHDERS Inputs/** Contains input files for each DER managed by RWHDERS.
 * **Initialise_DER_EMs.bat** A batch script that, when run, will automatically inject DER-EMs into the grid model based on the contents of DERScripts/EGoT13_der.txt (for example). 
@@ -58,8 +62,26 @@ elsewhere. These logs are for demonstration and not used by the system.
 * [Flow Charts and other design documents (PEG only)](https://drive.google.com/drive/folders/13gm4Shm-kZ0PfSjn-9UMrA0cDD80fIy0?usp=sharing)
 * [Estimated Quarterly Goals(Outdated)](https://www.overleaf.com/read/jrrvwgtvqryt)
 * [Implementation Profile (See appendix B for installation guide)](https://docs.google.com/document/d/1W9mIf69tUp5LxAxTi9JdYpVbyF84esILUnnz5kcZQFw/edit?usp=sharing)
-
+* [Class Outline (browser-viewable link)](https://htmlpreview.github.io/?https://github.com/PortlandStatePowerLab/doe-egot-me/blob/main/ClassOutline.html)
 ## Important Links
 
 * [GridAPPS-D Documentation](https://gridappsd.readthedocs.io/en/latest/using_gridappsd/index.html)
 * [GridAPPS-D GitHub Repository](https://github.com/GRIDAPPSD)
+
+##MC Installation
+The following is a step-by-step process on installing and configuring the MC and CIMHub scripts.
+* If not already done, install Python 3.
+* If using Windows, install Ubuntu. If using Linux, this step shouldn’t be required.
+* Install Docker; Docker Desktop has been tested
+* Install GridAPPS-D.
+* Clone the doe-egot-me GitHub repository to your local system.
+* Clone the CIMHub and Powergrid-Models repositories to your local system.
+* Make the following edits to ModelController.py:
+* In the MCConfiguration.__init__() method, edit “self.mc_file_directory” with the correct file path for your computer. Verify other path and filename attributes are correct.
+* Verify the path attributes are correct in the __init__() methods of all DER-S classes.
+* Navigate to the /DERScripts/ directory and make the following changes to envars.sh
+* Edit the SRC_PATH variable with the correct path for the /Powergrid-Models/platform/ folder you cloned.
+* Edit cimhubconfig.json, ensure it reads:
+* * {
+  "blazegraph_url": "http://localhost:8889/bigdata/namespace/kb/sparql",   "cim_ns": "<http://iec.ch/TC57/CIM100#"}
+
