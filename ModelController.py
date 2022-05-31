@@ -43,7 +43,7 @@ class MCConfiguration:
 
             .output_log_name: The name and location of the output logs. Rename before simulation with date/time, for example.
         """
-        self.mc_file_directory = r"C:/Users/stant/PycharmProjects/doe-egot-me/"
+        self.mc_file_directory = r"/home/tylor/dev/doe-egot-me/"
         self.config_file_path = self.mc_file_directory + r"Configuration/Config.txt"
         self.ders_obj_list = {
             'DERSHistoricalDataInput': 'dersHistoricalDataInput',

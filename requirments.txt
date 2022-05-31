@@ -1,0 +1,7 @@
+# enter requirements that aren't related to connecting to the messagebus here
+stomp.py==6.0.0
+PyYAML==5.3
+pytz==2019.3
+gridappsd-python
+xmltodict
+dict2xml
