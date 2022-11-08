@@ -4,6 +4,7 @@ model controller
 import ast
 import csv
 import os
+import sys
 import pandas as pd
 from gridappsd import GridAPPSD, DifferenceBuilder
 from gridappsd import topics as t
@@ -72,6 +73,7 @@ class EDMCore:
         self.config_parameters = None
         self.mrid_name_lookup_table = []
         self.cim_measurement_dict = []
+        self.is_in_test_mode = False
 
     def get_sim_start_time(self):
         """
@@ -239,6 +241,9 @@ class EDMCore:
         """
         return self.cim_measurement_dict
 
+    def put_in_test_mode(self):
+        self.is_in_test_mode = True
+
 
 class EDMTimeKeeper(object):
     """
@@ -301,6 +306,16 @@ class EDMTimeKeeper(object):
                     print("Current timestep: " + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = log_message
+                    if edmCore.is_in_test_mode is True:
+                        print("PAUSING SIMULATION FOR TESTING")
+                        edmCore.sim_session.stop()
+
+                        # for i in rwhDERS.input_identification_dict:
+                        #     print(rwhDERS.input_identification_dict[i]['Filepath'])
+
+                        # print(rwhDERS.input_identification_dict[list(rwhDERS.input_identification_dict.keys())[0]]['Filepath'])
+                        global end_program
+                        end_program = True
 
         # on_message() function body:
 
@@ -562,7 +577,6 @@ class RWHDERS:
         """
         self.der_em_input_request.clear()
         for key, value in self.input_identification_dict.items():
-            import csv
             with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
                 der_input_reader = csv.reader(csvfile)
                 for row in der_input_reader:
@@ -571,6 +585,8 @@ class RWHDERS:
             current_der_real_power = current_der_input['P']
             current_der_input_request = {key: current_der_real_power}
             self.der_em_input_request.append(current_der_input_request)
+
+
 
     def get_input_request(self):
         """
@@ -693,7 +709,7 @@ class DERSHistoricalDataInput:
         print("List of DERS:")
         print(self.list_of_ders)
 
-    def update_der_em_input_request(self):
+    def update_der_em_input_request(self, force_first_row=False):
         """
         Checks the current simulation time against the input table. If a new input exists for the current timestep,
         it is read, converted into an input dictionary, and put in the current der_input_request
@@ -701,7 +717,11 @@ class DERSHistoricalDataInput:
         """
         self.der_em_input_request.clear()
         try:
-            input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
+            if force_first_row is True:
+                print("DERHistoricalDataInput TEST MODE: retrieving first item from input log")
+                input_at_time_now = next(item for item in self.input_table)
+            else:
+                input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             print("Updating DER-EMs from historical data.")
             input_at_time_now = dict(input_at_time_now)
@@ -1370,12 +1390,13 @@ def set_testing_conditions():
     mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    edmCore.put_in_test_mode()
     edmCore.sim_start_up_process()
     edmCore.start_simulation_and_pause()
     edmCore.initialize_sim_mrid()
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
-def _main():
+def main(test_mode = False):
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
     classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
@@ -1385,6 +1406,9 @@ def _main():
     mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    # test_mode = True
+    if test_mode is True:
+        edmCore.put_in_test_mode()
     edmCore.sim_start_up_process()
     edmCore.start_simulation()
     edmCore.initialize_sim_mrid()
@@ -1400,4 +1424,4 @@ def _main():
 
 
 if __name__ == "__main__":
-    _main()
+    main()
