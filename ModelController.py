@@ -43,7 +43,7 @@ class MCConfiguration:
 
             .output_log_name: The name and location of the output logs. Rename before simulation with date/time, for example.
         """
-        self.mc_file_directory = r"C:/Users/stant/PycharmProjects/doe-egot-me/"
+        self.mc_file_directory = r"/home/seanjkeene/PycharmProjects/doe-egot-me/"
         self.config_file_path = self.mc_file_directory + r"Configuration/Config.txt"
         self.ders_obj_list = {
             'DERSHistoricalDataInput': 'dersHistoricalDataInput',
@@ -128,6 +128,7 @@ class EDMCore:
         while the object contains methods to, for example, start the simulation.
         """
         self.sim_mrid = self.sim_session.simulation_id
+        print("Sim MRID:\n")
         print(self.sim_mrid)
 
     def initialize_line_mrid(self):
@@ -150,6 +151,7 @@ class EDMCore:
         Connects to the GridAPPS-D simulation (as opposed to the GridAPPS-D program) and creates the simulation object.
         """
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
+
 
     def create_objects(self):
         """
@@ -189,6 +191,17 @@ class EDMCore:
         """
         self.initialize_sim_start_time()
         self.sim_session.start_simulation()
+
+    def start_simulation_and_pause(self):
+        """
+        Performs one final initialization of the simulation start time (fixes a bug related to our use of the logging
+        API tricking the timekeeper into thinking it's later than it is) and calls the method to start the actual
+        simulation. Then, immediately pauses the simulation. This allows test harnesses to test a fully set up
+        simulation without necessarily requiring the entire simulation process to run.
+        """
+        self.initialize_sim_start_time()
+        self.sim_session.start_simulation()
+        self.sim_session.pause()
 
     def establish_mrid_name_lookup_table(self):
         """
@@ -1347,6 +1360,21 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
 
 
 # ------------------------------------------Program Execution (Main loop)------------------------------------------
+def set_testing_conditions():
+    """
+    Used for unit testing. Sets up the ME for a run without actually starting the simulation. This will allow most
+    classes and specifications to be tested by importing ModelController.py as a module and using this method
+    to set initial conditions.
+    """
+    global mcConfiguration
+    mcConfiguration = MCConfiguration()
+    global edmCore
+    edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    edmCore.sim_start_up_process()
+    edmCore.start_simulation_and_pause()
+    edmCore.initialize_sim_mrid()
+    instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
+
 def _main():
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
