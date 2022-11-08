@@ -1,22 +1,2 @@
 <services>
-<service1>
-<group_id>1</group_id>
-<interval_duration>0</interval_duration>
-<interval_start>0</interval_start>
-<power>1000</power>
-<price>0</price>
-<ramp>0</ramp>
-<service_name>service1</service_name>
-<service_type>"Energy Schedule"</service_type>
-</service1>
-<service2>
-<group_id>2</group_id>
-<interval_duration>0</interval_duration>
-<interval_start>0</interval_start>
-<power>1000</power>
-<price>0</price>
-<ramp>0</ramp>
-<service_name>service2</service_name>
-<service_type>"Energy Schedule"</service_type>
-</service2>
 </services>
