@@ -1,3 +1,6 @@
+from behave import *
+import ModelController
+
 @given(u'DER-S inputs are available')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Given DER-S inputs are available')
@@ -55,13 +58,14 @@ def step_impl(context):
 
 @given(u'The Model Controller has completed the simulation startup process.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given The Model Controller has completed the simulation startup process.')
+    pass  # See environment.py
 
 
 @then(u'A GridAPPS-D simulation object should be instantiated.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then A GridAPPS-D simulation object should be instantiated.')
-
+    print(ModelController.edmCore.gapps_session)
+    print(type(ModelController.edmCore.gapps_session))
+    assert ModelController.edmCore.gapps_session is not None
 
 @then(u'Output logs should exist for two unique simulations')
 def step_impl(context):
@@ -100,7 +104,7 @@ def step_impl(context):
 
 @when(u'The Model Controller runs a full simulation')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The Model Controller runs a full simulation')
+    pass  # See environment.py
 
 
 @then(u'The simulation should start at the proper start time')
