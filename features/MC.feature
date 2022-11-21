@@ -18,12 +18,12 @@ Feature: MC
 
   @notdone @tpme3
   Scenario: MC03: The MC SHALL provide input and output interfaces.
-    Given A DER Input is available
-    And A grid service input file is available
+    Given DER-S inputs are available
+    And A manually posted service input file is available
     When The DER-S input processing method is called
     And The GOSensor grid service request method is called
     Then The unified input request should update
-    And A GO output XML file should be generated
+    And The GO should output an XML file available for use by the GSP.
 
   @tpme1 @problematic # Requires extensive log parsing. Consider rewriting.
   Scenario: MC04: The MC SHALL recognize if DER-Ss have changed state since the prior timestep.
@@ -49,7 +49,7 @@ Feature: MC
 
   @tpme1
   Scenario: MC08: The MC SHALL provide an automated method to assign DER-EMs to DER-Ss (based on locational data.)
-    Given DER Input files are available
+    Given DER-S inputs are available
     When A DER-S calls the assignment function
     Then The DER association table contains keys for each input DER name
     And The DER association table contains mRIDs associated with each name

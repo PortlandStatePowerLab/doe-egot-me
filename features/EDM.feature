@@ -13,7 +13,7 @@ Feature: EDM
 
   @tpme1
   Scenario: EDM03: The EDM SHALL calculate new grid states at regular intervals.
-    Given DER Input files exist
+    Given DER-S inputs are available
     And Logs from a simulation using these DER Input files exist
     Then Log files should indicate values update regularly at defined intervals.
 
@@ -55,7 +55,7 @@ Feature: EDM
 
   @tpme1
   Scenario: EDM10: The EDM SHALL provide a unique identifier to each DER-EM.
-    Given DER Inputs are available
+    Given DER-S inputs are available
     When The DER assignment process is called
     Then The Assignment Lookup table should contain the name of each DER input
     And The Assignment Lookup Table should contain an mRID for each DER input
@@ -63,7 +63,7 @@ Feature: EDM
 
   @tpme1
   Scenario: EDM11: The EDM SHALL store locational/topological data for each DER-EM for assignment purposes.
-    Given DER Inputs are available
+    Given DER-S inputs are available
     When The DER assignment process is called
     Then The Assignment Lookup Table should contain the name of each DER input
     And Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.

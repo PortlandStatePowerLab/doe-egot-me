@@ -2,7 +2,6 @@ from behave import *
 from os import path
 import ModelController
 
-
 @given(u'DER-S inputs are available')
 def step_impl(context):
     assert path.exists(
@@ -37,12 +36,23 @@ def step_impl(context):
 
 @given(u'Output logs exist for two unique simulations')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Output logs exist for two unique simulations')
+    assert path.exists(
+        context.MEPath + context.firstfilename) is True
+    assert path.exists(
+        context.MEPath + context.secondfilename) is True
 
 
 @given(u'DER Inputs for each simulation were not identical')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER Inputs for each simulation were not identical')
+    with open(context.firstfilepath, 'r') as file1, open(context.secondfilepath, 'r') as file2:
+        file1contents = file1.readlines()
+        file2contents = file2.readlines()
+    x = 0
+    for line in file2contents:
+        if line != file1contents[x]:
+            assert True is True
+        x += 1
+    assert False is True
 
 
 @then(u'The logs should indicate proper values for each input.')
@@ -67,7 +77,7 @@ def step_impl(context):
 
 @given(u'The Model Controller has completed the simulation startup process.')
 def step_impl(context):
-    pass  # See environment.py
+    pass  # Done in environment.py
 
 
 @then(u'A GridAPPS-D simulation object should be instantiated.')
@@ -79,17 +89,18 @@ def step_impl(context):
 
 @then(u'Output logs should exist for two unique simulations')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Output logs should exist for two unique simulations')
-
-
-@given(u'DER Input files exist')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER Input files exist')
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/" + context.firstfilename) is True
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/" + context.secondfilename) is True
 
 
 @given(u'Logs from a simulation using these DER Input files exist')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Logs from a simulation using these DER Input files exist')
+    assert path.exists(
+        context.MEPath + context.firstfilename) is True
+    assert path.exists(
+        context.MEPath + context.secondfilename) is True
 
 
 @then(u'Log files should indicate values update regularly at defined intervals.')
@@ -99,7 +110,8 @@ def step_impl(context):
 
 @given(u'Logs from a simulation exist')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Logs from a simulation exist')
+    assert path.exists(
+        context.MEPath + context.secondfilename) is True
 
 
 @then(u'Log files should indicate power and voltage readings exist for three phases of any bus.')
@@ -114,7 +126,7 @@ def step_impl(context):
 
 @when(u'The Model Controller runs a full simulation')
 def step_impl(context):
-    pass  # See environment.py
+    pass  # Done in environment.py
 
 
 @then(u'The simulation should start at the proper start time')
@@ -145,8 +157,8 @@ def step_impl(context):
 
 @given(u'Logs from a simulation exist which use these inputs')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Logs from a simulation exist which use these inputs')
-
+    assert path.exists(
+        context.MEPath + context.secondfilename) is True
 
 @then(u'The logs should indicate the DER acted as a storage, load, and source.')
 def step_impl(context):
@@ -171,11 +183,6 @@ def step_impl(context):
 @then(u'The power values on each phase for a single load should not be exactly equal')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then The power values on each phase for a single load should not be exactly equal')
-
-
-@given(u'DER Inputs are available')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER Inputs are available')
 
 
 @when(u'The DER assignment process is called')
@@ -216,12 +223,14 @@ def step_impl(context):
 
 @then(u'The GO should output an XML file available for use by the GSP.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The GO should output an XML file available for use by the GSP.')
+    assert path.exists(
+        context.MEPath + "Outputs To Derms/OutputtoGSP.xml") is True
 
 
 @given(u'A manually posted service input file is available')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A manually posted service input file is available')
+    assert path.exists(
+        context.MEPath + "manually_posted_service_input.xml") is True
 
 
 @when(u'The function to manually post a service is called')
@@ -284,16 +293,6 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: Then The measurements should have human-readable names (not mRIDs).')
 
 
-@given(u'A DER Input is available')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A DER Input is available')
-
-
-@given(u'A grid service input file is available')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A grid service input file is available')
-
-
 @when(u'The DER-S input processing method is called')
 def step_impl(context):
     raise NotImplementedError(u'STEP: When The DER-S input processing method is called')
@@ -307,11 +306,6 @@ def step_impl(context):
 @then(u'The unified input request should update')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then The unified input request should update')
-
-
-@then(u'A GO output XML file should be generated')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then A GO output XML file should be generated')
 
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
@@ -347,11 +341,6 @@ def step_impl(context):
 @then(u'Time is incremented by one second')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then Time is incremented by one second')
-
-
-@given(u'DER Input files are available')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER Input files are available')
 
 
 @when(u'A DER-S calls the assignment function')

@@ -545,8 +545,8 @@ class RWHDERS:
         bus. This function does those tasks using the input_identification_dict generated in the initialization process
         (see self.parse_input_file_names_for_assignment())
         """
-        print('iid')
-        print(self.input_identification_dict)
+        # print('iid')
+        # print(self.input_identification_dict)
         for key, value in self.input_identification_dict.items():
             der_id = key
             der_bus = value['Bus']
@@ -582,7 +582,7 @@ class RWHDERS:
                 der_input_reader = csv.reader(csvfile)
                 for row in der_input_reader:
                     current_der_input = {row[0]: row[1]}
-                    print(current_der_input)
+                    # print(current_der_input)
             current_der_real_power = current_der_input['P']
             current_der_input_request = {key: current_der_real_power}
             self.der_em_input_request.append(current_der_input_request)
@@ -628,7 +628,11 @@ class DERSHistoricalDataInput:
     """
     def __init__(self, mcConfiguration):
         self.der_em_input_request = []
-        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/thesisfiginput.csv"
+        if DERSHDIPath_test is None:
+            self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/thesisfiginput.csv"
+        else:
+            self.historical_data_file_path = mcConfiguration.mc_file_directory + DERSHDIPath_test
+
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
@@ -697,18 +701,18 @@ class DERSHistoricalDataInput:
         print("First row:")
         print(first_row)
         log_der_keys = list(first_row.keys())
-        print(log_der_keys)
+        # print(log_der_keys)
         for i in range(len(log_der_keys)):
             if i % 2 == 0:
                 der_name = log_der_keys[i]
             else:
                 der_loc = log_der_keys[i]
                 self.location_lookup_dictionary[der_name] = der_loc
-                print("Current dict:")
-                print(self.location_lookup_dictionary)
+                # print("Current dict:")
+                # print(self.location_lookup_dictionary)
         self.list_of_ders = list(self.location_lookup_dictionary.keys())
-        print("List of DERS:")
-        print(self.list_of_ders)
+        # print("List of DERS:")
+        # print(self.list_of_ders)
 
     def update_der_em_input_request(self, force_first_row=False):
         """
@@ -865,7 +869,7 @@ class DERAssignmentHandler:
             eval(value).assign_der_s_to_der_em()
 
         print("DER Assignment complete.")
-        print(self.association_table)
+        # print(self.association_table)
 
     def get_mRID_for_der_on_bus(self, Bus):
         """
@@ -882,7 +886,7 @@ class DERAssignmentHandler:
             print("FATAL ERROR: Attempting to assign a DER to a nonexistant DER-EM. "
                   "The bus may be wrong, or may not contain enough DER-EMs. Verify test.")
             quit()
-        print(next_mrid_on_bus)
+        # print(next_mrid_on_bus)
         return mrid
 
     def append_new_values_to_association_table(self, values):
@@ -924,11 +928,11 @@ class MCInputInterface:
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
         online_ders = mcConfiguration.ders_obj_list
-        print("online_ders")
-        print(online_ders)
+        # print("online_ders")
+        # print(online_ders)
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
-            print(value)
+            # print(value)
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
@@ -1089,7 +1093,7 @@ class GOSensor:
         one, appending the objects to a list.
         """
         for key, item in self.manual_service_xml_data['services'].items():
-            print(item)
+            # print(item)
             if int(item['start_time']) == int(sim_time):
                 name = str(key)
                 group_id = item["group_id"]
@@ -1131,7 +1135,7 @@ class GOOutputInterface:
             if item.get_status() is False:
                 print("Posting...")
                 self.current_service_requests.append(item.get_service_message_data())
-                print(item.get_service_message_data())
+                # print(item.get_service_message_data())
                 item.set_status(True)
             else:
                 print("All already posted")
@@ -1144,16 +1148,16 @@ class GOOutputInterface:
         request_out_xml = '<services>\n'
         service_serial_num = 1
         for item in self.current_service_requests:
-            print("Test1")
-            print(dict2xml(item))
+            # print("Test1")
+            # print(dict2xml(item))
             request_out_xml = request_out_xml + '<service' + str(service_serial_num) + '>\n'
             request_out_xml = request_out_xml + dict2xml(item) + '\n'
             request_out_xml = request_out_xml + '</service' + str(service_serial_num) + '>\n'
             service_serial_num = service_serial_num + 1
         request_out_xml = request_out_xml + '</services>'
         # request_out_xml = dict2xml(self.current_service_requests)
-        print("Current Service Requests")
-        print(request_out_xml)
+        # print("Current Service Requests")
+        # print(request_out_xml)
         return request_out_xml
 
     def send_service_request_messages(self):
@@ -1397,12 +1401,14 @@ def set_testing_conditions():
     edmCore.initialize_sim_mrid()
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
-def main(test_mode = False):
+def main(test_mode = False, DERSHDI_FilePath = None):
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
     classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
     Otherwise, sleeps until the end_program flag is thrown.
     """
+    global DERSHDIPath_test
+    DERSHDIPath_test = DERSHDI_FilePath
     global mcConfiguration
     mcConfiguration = MCConfiguration()
     global edmCore
@@ -1416,6 +1422,7 @@ def main(test_mode = False):
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
     global end_program
+    end_program = False
     while not end_program:
         time.sleep(0.1)
 
