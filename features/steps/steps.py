@@ -1,14 +1,23 @@
 from behave import *
+from os import path
 import ModelController
+
 
 @given(u'DER-S inputs are available')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER-S inputs are available')
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv") is True
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv") is True
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00000_Bus632.csv") is True
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00001_Bus633.csv") is True
 
 
 @when(u'A DER-S update occurs')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When A DER-S update occurs')
+    ModelController.mcInputInterface.update_all_der_s_status()
 
 
 @then(u'The Unified Input Request should indicate an input request at the correct time')
@@ -67,6 +76,7 @@ def step_impl(context):
     print(type(ModelController.edmCore.gapps_session))
     assert ModelController.edmCore.gapps_session is not None
 
+
 @then(u'Output logs should exist for two unique simulations')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then Output logs should exist for two unique simulations')
@@ -99,7 +109,7 @@ def step_impl(context):
 
 @given(u'The "Config.txt" file is available')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given The "Config.txt" file is available')
+    assert ModelController.edmCore.config_parameters is not None
 
 
 @when(u'The Model Controller runs a full simulation')
@@ -109,12 +119,13 @@ def step_impl(context):
 
 @then(u'The simulation should start at the proper start time')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The simulation should start at the proper start time')
+
+    assert ModelController.edmCore.sim_start_time == ModelController.edmCore.config_parameters["simulation_config"]["start_time"]
 
 
 @then(u'The simulation should end at the proper end time (start time + duration)')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The simulation should end at the proper end time (start time + duration)')
+    assert int(ModelController.edmCore.sim_current_time) == int(ModelController.edmCore.config_parameters["simulation_config"]["start_time"]) + int(ModelController.edmCore.config_parameters["simulation_config"]["duration"])
 
 
 @then(u'The logs should contain non-zero values for Voltage for a non-DER asset')
