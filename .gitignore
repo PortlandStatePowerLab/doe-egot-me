@@ -1,3 +1,9 @@
 /auxil/
 /out/
 /Outdated/
+/venv/
+/venv/bin/
+/venv/lib/
+/venv/local/
+/venv/.gitignore
+/venv/pyvenv.cfg

@@ -13,6 +13,7 @@ import time
 import xml.etree.ElementTree as ET
 import xmltodict
 from dict2xml import dict2xml
+from datetime import datetime
 
 end_program = False
 
@@ -54,7 +55,7 @@ class MCConfiguration:
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs.csv'
+        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M") + '.csv'
 
 
 class EDMCore:
