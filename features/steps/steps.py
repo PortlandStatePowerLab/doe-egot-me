@@ -2,6 +2,7 @@ from behave import *
 from os import path
 import ModelController
 
+
 @given(u'DER-S inputs are available')
 def step_impl(context):
     assert path.exists(
@@ -21,17 +22,26 @@ def step_impl(context):
 
 @then(u'The Unified Input Request should indicate an input request at the correct time')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request at the correct time')
+    pass  # The correct time is handled by the test interface added to ModelController.py
 
 
 @then(u'The Unified Input Request should indicate an input request in the proper format')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request in the proper format')
+    assert type(context.firstTPME1UIR) is list
+    for items in context.firstTPME1UIR:
+        assert type(items) is dict
+    for item in context.firstTPME1UIR:
+        for i in item:
+            assert type(i) is str
+            assert type(item[i]) is str
+            assert type(int(item[i])) is int
 
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.')
+    assert {'LOGDER0001': '10000000'} in context.firstTPME1UIR
+    assert {'00000': '100000'} in context.firstTPME1UIR
+
 
 
 @given(u'Output logs exist for two unique simulations')
@@ -62,17 +72,18 @@ def step_impl(context):
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request with the correct unique IDs.')
+    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request with the correct '
+                              u'unique IDs.')
 
 
 @when(u'The DER-Ss configuration process occurs (as in simulation startup)')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The DER-Ss configuration process occurs (as in simulation startup)')
-
+    pass # Performed in environment.py
 
 @then(u'Each DER-S should contain information associating a Unique ID with a locational identifier')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Each DER-S should contain information associating a Unique ID with a locational identifier')
+    assert ModelController.dersHistoricalDataInput.test_first_row['LOGDER0001_loc'] == '632'
+    assert ModelController.rwhDERS.input_identification_dict['00000']['Bus'] == '632'
 
 
 @given(u'The Model Controller has completed the simulation startup process.')
@@ -116,7 +127,8 @@ def step_impl(context):
 
 @then(u'Log files should indicate power and voltage readings exist for three phases of any bus.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Log files should indicate power and voltage readings exist for three phases of any bus.')
+    raise NotImplementedError(u'STEP: Then Log files should indicate power and voltage readings exist for three phases '
+                              u'of any bus.')
 
 
 @given(u'The "Config.txt" file is available')
@@ -131,13 +143,16 @@ def step_impl(context):
 
 @then(u'The simulation should start at the proper start time')
 def step_impl(context):
-
-    assert ModelController.edmCore.sim_start_time == ModelController.edmCore.config_parameters["simulation_config"]["start_time"]
+    assert ModelController.edmCore.sim_start_time == (
+        ModelController.edmCore.config_parameters["simulation_config"]["start_time"]
+    )
 
 
 @then(u'The simulation should end at the proper end time (start time + duration)')
 def step_impl(context):
-    assert int(ModelController.edmCore.sim_current_time) == int(ModelController.edmCore.config_parameters["simulation_config"]["start_time"]) + int(ModelController.edmCore.config_parameters["simulation_config"]["duration"])
+    assert int(ModelController.edmCore.sim_current_time) == int(
+        ModelController.edmCore.config_parameters["simulation_config"]["start_time"]) + int(
+        ModelController.edmCore.config_parameters["simulation_config"]["duration"])
 
 
 @then(u'The logs should contain non-zero values for Voltage for a non-DER asset')
@@ -152,13 +167,14 @@ def step_impl(context):
 
 @given(u'DER Inputs exist which include a DER-EM that acts as a load, source, and storage')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given DER Inputs exist which include a DER-EM that acts as a load, source, and storage')
-
+    assert path.exists(
+        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv") is True
 
 @given(u'Logs from a simulation exist which use these inputs')
 def step_impl(context):
     assert path.exists(
         context.MEPath + context.secondfilename) is True
+
 
 @then(u'The logs should indicate the DER acted as a storage, load, and source.')
 def step_impl(context):
@@ -177,12 +193,14 @@ def step_impl(context):
 
 @then(u'The voltage values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The voltage values on each phase for a single load should not be exactly equal')
+    raise NotImplementedError(
+        u'STEP: Then The voltage values on each phase for a single load should not be exactly equal')
 
 
 @then(u'The power values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The power values on each phase for a single load should not be exactly equal')
+    raise NotImplementedError(
+        u'STEP: Then The power values on each phase for a single load should not be exactly equal')
 
 
 @when(u'The DER assignment process is called')
@@ -202,13 +220,15 @@ def step_impl(context):
 
 @then(u'The mRID of each input in the Assignment Lookup Table should not be identical to any other input in the table.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The mRID of each input in the Assignment Lookup Table should not be identical to any other input in the table.')
-
+    raise NotImplementedError(
+        u'STEP: Then The mRID of each input in the Assignment Lookup Table should not be identical to any other input '
+        u'in the table.')
 
 
 @then(u'Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.')
+    raise NotImplementedError(
+        u'STEP: Then Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.')
 
 
 @given(u'Grid services need to be dispatched')
@@ -270,7 +290,8 @@ def step_impl(context):
 
 @then(u'The GOSensor should attempt to create a new GOPostedService object if applicable')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The GOSensor should attempt to create a new GOPostedService object if applicable')
+    raise NotImplementedError(
+        u'STEP: Then The GOSensor should attempt to create a new GOPostedService object if applicable')
 
 
 @then(u'GOOutputInterface should generate an output message')
@@ -310,12 +331,14 @@ def step_impl(context):
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should indicate a DER-S changed state from one timestep to the next.')
+    raise NotImplementedError(
+        u'STEP: Then The logs should indicate a DER-S changed state from one timestep to the next.')
 
 
 @then(u'The logs should indicate the DER-S updated at the right time in the input file.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should indicate the DER-S updated at the right time in the input file.')
+    raise NotImplementedError(
+        u'STEP: Then The logs should indicate the DER-S updated at the right time in the input file.')
 
 
 @given(u'A ME simulation is running.')
@@ -328,9 +351,13 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: When A measurement timestep--three seconds-- elapses.')
 
 
-@then(u'Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then printed to the terminal by a test function.')
+@then(
+    u'Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then printed to the '
+    u'terminal by a test function.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then printed to the terminal by a test function.')
+    raise NotImplementedError(
+        u'STEP: Then Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then '
+        u'printed to the terminal by a test function.')
 
 
 @when(u'The EDMTimeKeeper\'s on-timestep function is called')
@@ -345,7 +372,7 @@ def step_impl(context):
 
 @when(u'A DER-S calls the assignment function')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When A DER-S calls the assignment function')
+    pass  # Performed in environment.py
 
 
 @then(u'The DER association table contains keys for each input DER name')

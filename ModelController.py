@@ -636,6 +636,7 @@ class DERSHistoricalDataInput:
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
+        self.test_first_row = None
 
     def initialize_der_s(self):
         """
@@ -700,6 +701,7 @@ class DERSHistoricalDataInput:
         first_row.pop('Time')
         print("First row:")
         print(first_row)
+        self.test_first_row = first_row
         log_der_keys = list(first_row.keys())
         # print(log_der_keys)
         for i in range(len(log_der_keys)):
@@ -908,6 +910,7 @@ class MCInputInterface:
 
     def __init__(self):
         self.current_unified_input_request = []
+        self.test_tpme1_unified_input_request = []
 
     def update_all_der_em_status(self):
         """
@@ -936,6 +939,10 @@ class MCInputInterface:
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
+        # For TP-ME1-DER01:
+        if edmCore.sim_current_time == "1570041120":
+            self.test_tpme1_unified_input_request = list(self.current_unified_input_request)
+
 
     def update_der_ems(self):
         """

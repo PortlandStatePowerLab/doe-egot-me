@@ -4,8 +4,7 @@ Feature: DER-S
   Scenario: DER01: The DER-S SHALL provide electrical data to the MC necessary to generate control inputs for the DER-EMs.
     Given DER-S inputs are available
     When A DER-S update occurs
-    Then The Unified Input Request should indicate an input request at the correct time
-    And The Unified Input Request should indicate an input request in the proper format
+    Then The Unified Input Request should indicate an input request in the proper format
     And The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.
 
   @tpme2 @problematic # This is a horrible requirement. Careful how we implement this one.

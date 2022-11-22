@@ -3,14 +3,21 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="/Logged Grid State Data/MeasOutputLogsExample.csv">
+        <entry key="/DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="/Logged Grid State Data/MeasOutputLogs_21_11_2022_11_47.csv">
+        <entry key="/DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Logged Grid State Data/MeasOutputLogsExample.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
