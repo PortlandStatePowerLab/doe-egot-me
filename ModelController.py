@@ -123,7 +123,16 @@ class EDMCore:
         """
         Connects to GridAPPS-D and creates the gridapps session object.
         """
-        self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
+        os.environ['GRIDAPPSD_USER'] = 'tutorial_user'
+        os.environ['GRIDAPPSD_PASSWORD'] = '12345!'
+        os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
+        os.environ['GRIDAPPSD_PORT'] = '61613'
+
+        # Connect to GridAPPS-D Platform
+        self.gapps_session = GridAPPSD()
+        assert self.gapps_session.connected
+        
+        #self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
 
     def initialize_sim_mrid(self):
         """
