@@ -16,7 +16,7 @@ Feature: MC
     Then The EDMMeasurementProcessor should provide measurements by a function call
     And The measurements should have human-readable names (not mRIDs).
 
-  @notdone @tpme3
+  @notdone @tpme3/home/seanjkeene/PycharmProjects/doe-egot-melogtool
   Scenario: MC03: The MC SHALL provide input and output interfaces.
     Given DER-S inputs are available
     And A manually posted service input file is available

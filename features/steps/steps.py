@@ -1,7 +1,7 @@
 from behave import *
 from os import path
 import ModelController
-
+import melogtool
 
 @given(u'DER-S inputs are available')
 def step_impl(context):
@@ -92,7 +92,7 @@ def step_impl(context):
 
 
 @then(u'A GridAPPS-D simulation object should be instantiated.')
-def step_impl(context):
+def step_impl(context):/home/seanjkeene/PycharmProjects/doe-egot-melogtool
     print(ModelController.edmCore.gapps_session)
     print(type(ModelController.edmCore.gapps_session))
     assert ModelController.edmCore.gapps_session is not None
