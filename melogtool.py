@@ -94,7 +94,7 @@ class MELogTool:
                 self.options_import_error = True
                 print("Error: Unable to parse end_time. Ensure it is in the proper format. Quitting...")
                 quit()
-            time_filtered_df = log_df[start_time_index:end_time_index]
+            time_filtered_df = log_df[start_time_index:end_time_index+1]
         else:
             print("No start/end times given. Using full set.")
             time_filtered_df = log_df
@@ -112,6 +112,7 @@ class MELogTool:
 
 
         output_df = column_filtered_df["Timestamp"]
+        output_df.index = np.arange(1, len(output_df) + 1)
         flatten_df = column_filtered_df.drop("Timestamp", axis=1)
         for column_name, column_series in flatten_df.items():
             for cell_index, cell_contents in column_series.items():
@@ -124,7 +125,7 @@ class MELogTool:
                     flatten_df.at[cell_index, column_name] = filtered_dict
         new_names_dict = {}
         for header_name, column_series in flatten_df.items():
-            for key, value in column_series[1].items():
+            for key, value in column_series[column_series.index[0]].items():
                 new_column_name = header_name + "[" + str(key) + "]"
                 new_names_dict[new_column_name] = {header_name: key}
         for new_names, column_dicts in new_names_dict.items():

@@ -25,12 +25,12 @@ Feature: MC
     Then The unified input request should update
     And The GO should output an XML file available for use by the GSP.
 
-  @tpme1 @problematic # Requires extensive log parsing. Consider rewriting.
+  @tpme1  # Requires extensive log parsing. Consider rewriting.
   Scenario: MC04: The MC SHALL recognize if DER-Ss have changed state since the prior timestep.
     Given Logs from a simulation exist
     Then The logs should indicate a DER-S changed state from one timestep to the next.
 
-  @tpme1 @problematic # Requires extensive log parsing. Consider rewriting.
+  @tpme1  @wip
   Scenario: MC05: The MC SHALL update DER-EMs as necessary.
     Given Logs from a simulation exist
     Then The logs should indicate a DER-S changed state from one timestep to the next.

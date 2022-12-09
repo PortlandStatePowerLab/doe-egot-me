@@ -1,7 +1,9 @@
 from behave import *
 from os import path
 import ModelController
-import melogtool
+from melogtool import *
+melogtool = MELogTool()
+
 
 @given(u'DER-S inputs are available')
 def step_impl(context):
@@ -54,21 +56,28 @@ def step_impl(context):
 
 @given(u'DER Inputs for each simulation were not identical')
 def step_impl(context):
-    with open(context.firstfilepath, 'r') as file1, open(context.secondfilepath, 'r') as file2:
+    with open(context.firstinputfilepath, 'r') as file1, open(context.secondinputfilepath, 'r') as file2:
         file1contents = file1.readlines()
         file2contents = file2.readlines()
     x = 0
+    same_count = 0
     for line in file2contents:
         if line != file1contents[x]:
             assert True is True
+        else:
+            same_count += 1
         x += 1
-    assert False is True
+    if (same_count == len(file2contents)) or (same_count == len(file1contents)):
+        print(same_count)
+        print(len(file1contents))
+        assert False is True
 
 
 @then(u'The logs should indicate proper values for each input.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should indicate proper values for each input.')
-
+    print(context.firstfilepath)
+    print(melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath))
+    assert True is False
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs.')
 def step_impl(context):
@@ -92,7 +101,7 @@ def step_impl(context):
 
 
 @then(u'A GridAPPS-D simulation object should be instantiated.')
-def step_impl(context):/home/seanjkeene/PycharmProjects/doe-egot-melogtool
+def step_impl(context):
     print(ModelController.edmCore.gapps_session)
     print(type(ModelController.edmCore.gapps_session))
     assert ModelController.edmCore.gapps_session is not None
