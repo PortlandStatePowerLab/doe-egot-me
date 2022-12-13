@@ -1,11 +1,15 @@
 from behave import *
 import ModelController
+import pandas
+from melogtool import *
+melogtool = MELogTool()
+
 
 def before_all(context):
     context.MEPath = "/home/seanjkeene/PycharmProjects/doe-egot-me/"
     context.firstinputfilepath = r"DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv"
     context.secondinputfilepath = r"DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv"
-
+    context.unique_ids = ['LOGDER0001', '00000', '00001']
 
     print("First run...")
     try:
@@ -22,7 +26,8 @@ def before_all(context):
         context.secondfilepath = context.MEPath + context.secondfilename
         context.secondTPME1UIR = ModelController.mcInputInterface.test_tpme1_unified_input_request
 
-
-    # {'LOGDER0001': '0', 'LOGDER0001_loc': '632'}
-    # {'00001': {'Filepath': 'DER00001_Bus633.csv', 'Bus': '633'},
-    #  '00000': {'Filepath': 'DER00000_Bus632.csv', 'Bus': '632'}}
+    context.first_parsed_output_df = melogtool.parse_logs(
+        context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath)
+    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_csv(
+        'df_test.csv')
+    context.assignment_lookup_table = ModelController.derAssignmentHandler.assignment_lookup_table

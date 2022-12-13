@@ -7,7 +7,7 @@ Feature: DER-S
     Then The Unified Input Request should indicate an input request in the proper format
     And The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.
 
-  @tpme2 @problematic # This is a horrible requirement. Careful how we implement this one.
+  @wip @tpme2 @problematic # This is a horrible requirement. Careful how we implement this one.
   Scenario: DER02: The DER-S SHALL have a configurable/reprogrammable API between external DER representations and itself.
     Given Output logs exist for two unique simulations
     And DER Inputs for each simulation were not identical

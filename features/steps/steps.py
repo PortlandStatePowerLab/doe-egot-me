@@ -76,13 +76,28 @@ def step_impl(context):
 @then(u'The logs should indicate proper values for each input.')
 def step_impl(context):
     print(context.firstfilepath)
-    print(melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath))
+    # print(melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_markdown())
+    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_csv('df_test.csv')
     assert True is False
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Unified Input Request should indicate an input request with the correct '
-                              u'unique IDs.')
+
+    for i in context.firstTPME1UIR:
+        unique_id = list(i.keys())
+        print(unique_id[0])
+        print(type(unique_id[0]))
+        print(context.unique_ids)
+        if unique_id[0] in context.unique_ids:
+            print("Removing:")
+            print(context.unique_ids)
+            context.unique_ids.remove(unique_id[0])
+            print(context.unique_ids)
+        else:
+            print("Excess unique ID found. Ensure system is in test configuration.")
+            assert True is False
+        print(len(context.unique_ids))
+    assert len(context.unique_ids) == 0
 
 
 @when(u'The DER-Ss configuration process occurs (as in simulation startup)')
@@ -136,8 +151,26 @@ def step_impl(context):
 
 @then(u'Log files should indicate power and voltage readings exist for three phases of any bus.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Log files should indicate power and voltage readings exist for three phases '
-                              u'of any bus.')
+    headings_list = context.first_parsed_output_df.columns
+    print(headings_list)
+    heading_verification_list = [
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery_A_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery_A_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.1_B_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.1_B_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.2_C_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.2_C_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.3_A_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.3_A_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.4_B_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.4_B_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.5_C_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.5_C_PNV[magnitude]'
+                                ]
+    for item in heading_verification_list:
+        assert item in headings_list
+
+
 
 
 @given(u'The "Config.txt" file is available')
@@ -192,33 +225,49 @@ def step_impl(context):
 
 @then(u'The logs should contain non-zero values for Voltage for a DER-EM')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should contain non-zero values for Voltage for a DER-EM')
+    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery_A_PNV[magnitude]'])
+    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery_A_PNV[magnitude]'] != 0
+
 
 
 @then(u'The logs should contain non-zero values for Power for a DER-EM')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should contain non-zero values for Power for a DER-EM')
+    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.1_B_VA[magnitude]'])
+    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.1_B_VA[magnitude]'] != 0
 
 
 @then(u'The voltage values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The voltage values on each phase for a single load should not be exactly equal')
-
+    v1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery_A_PNV[magnitude]']
+    v2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.4_B_PNV[magnitude]']
+    v3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.5_C_PNV[magnitude]']
+    print(v1)
+    print(v2)
+    print(v3)
+    assert v1 != v2
+    assert v2 != v3
+    assert v1 != v3
 
 @then(u'The power values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The power values on each phase for a single load should not be exactly equal')
-
+    p1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.1_B_VA[magnitude]']
+    p2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.2_C_VA[magnitude]']
+    p3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_RWHDERS_Test_6332_Battery.3_A_VA[magnitude]']
+    print(p1)
+    print(p2)
+    print(p3)
+    assert p1 != p2
+    assert p2 != p3
+    assert p1 != p3
 
 @when(u'The DER assignment process is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The DER assignment process is called')
+    pass  # Done in environment.py
 
 
 @then(u'The Assignment Lookup table should contain the name of each DER input')
 def step_impl(context):
+    print(context.assignment_lookup_table)
     raise NotImplementedError(u'STEP: Then The Assignment Lookup table should contain the name of each DER input')
 
 

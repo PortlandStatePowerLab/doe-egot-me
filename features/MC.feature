@@ -50,7 +50,7 @@ Feature: MC
   @tpme1
   Scenario: MC08: The MC SHALL provide an automated method to assign DER-EMs to DER-Ss (based on locational data.)
     Given DER-S inputs are available
-    When The DER-S assignment process is called
+    When The DER assignment process is called
     Then The DER association table contains keys for each input DER name
     And The DER association table contains mRIDs associated with each name
 

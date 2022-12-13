@@ -103,14 +103,15 @@ class MELogTool:
         column_filtered_df = time_filtered_df["Timestamp"]
         if self.option_measurement_points is not None:
             for i in self.option_measurement_points:
-                column_filtered_df = pd.merge(column_filtered_df, time_filtered_df[i], left_index=True, right_index=True)
+                columns = time_filtered_df.filter(like=i)
+                column_filtered_df = pd.merge(column_filtered_df, columns, left_index=True, right_index=True)
         if self.option_values_to_search is not None:
             pass  # Search for contents and pd.merge() column when found. Not implemented.
         if (self.option_measurement_points is None) and (self.option_values_to_search is None):
             print("No columns filtered. Using all measurement points.")
             column_filtered_df = time_filtered_df
 
-
+        # Flatten columns
         output_df = column_filtered_df["Timestamp"]
         output_df.index = np.arange(1, len(output_df) + 1)
         flatten_df = column_filtered_df.drop("Timestamp", axis=1)
@@ -122,12 +123,15 @@ class MELogTool:
                     for key, value in cell_contents.items():
                         if key in self.option_keys_to_include:
                             filtered_dict[key] = value
+                    filtered_dict['Phases'] = cell_contents['Phases']
+                    filtered_dict['MeasType'] = cell_contents['MeasType']
                     flatten_df.at[cell_index, column_name] = filtered_dict
         new_names_dict = {}
         for header_name, column_series in flatten_df.items():
             for key, value in column_series[column_series.index[0]].items():
-                new_column_name = header_name + "[" + str(key) + "]"
-                new_names_dict[new_column_name] = {header_name: key}
+                if (key != "Phases") and (key != "MeasType"):
+                    new_column_name = header_name + "_" + column_series[column_series.index[0]]["Phases"] + "_" + column_series[column_series.index[0]]["MeasType"] + "[" + str(key) + "]"
+                    new_names_dict[new_column_name] = {header_name: key}
         for new_names, column_dicts in new_names_dict.items():
             new_column_data = list([])
             for keys, values in column_dicts.items():
