@@ -265,28 +265,37 @@ def step_impl(context):
     pass  # Done in environment.py
 
 
-@then(u'The Assignment Lookup table should contain the name of each DER input')
+@then(u'The Assignment Lookup table should contain the name of each DER-EM')
 def step_impl(context):
-    print(context.assignment_lookup_table)
-    raise NotImplementedError(u'STEP: Then The Assignment Lookup table should contain the name of each DER input')
+    for i in context.der_em_list:
+        assert context.assignment_lookup_table[i]
 
 
-@then(u'The Assignment Lookup Table should contain an mRID for each DER input')
+@then(u'The Assignment Lookup Table should contain an mRID for each DER-EM')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The Assignment Lookup Table should contain an mRID for each DER input')
+    for i in context.der_em_list:
+        mrid = context.assignment_lookup_table[i]['mRID']
+        assert type(mrid) is str
+        assert len(mrid) == 37
+        assert mrid[0] == '_'
+        assert mrid[9] == '-'
+        assert mrid[14] == '-'
+        assert mrid[19] == '-'
+        assert mrid[24] == '-'
 
 
 @then(u'The mRID of each input in the Assignment Lookup Table should not be identical to any other input in the table.')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The mRID of each input in the Assignment Lookup Table should not be identical to any other input '
-        u'in the table.')
+    list_of_mrids = []
+    for i in context.der_em_list:
+        list_of_mrids.append(context.assignment_lookup_table[i]['mRID'])
+    assert len(set(list_of_mrids)) == len(context.der_em_list)
 
 
 @then(u'Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then Each DER-EM name should be associated with a locational identifier in the Assignment Lookup Table.')
+    for i in context.der_em_list:
+        assert context.assignment_lookup_table[i]['Bus']
 
 
 @given(u'Grid services need to be dispatched')
@@ -435,9 +444,24 @@ def step_impl(context):
 
 @then(u'The DER association table contains keys for each input DER name')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The DER association table contains keys for each input DER name')
+    print(context.association_lookup_table)
+    context.table_der_dict = {}
+    for item in context.association_lookup_table:
+        for key, value in item.items():
+            context.table_der_dict[key] = value
+    for item in context.der_input_list:
+        assert context.table_der_dict[item]
 
 
 @then(u'The DER association table contains mRIDs associated with each name')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The DER association table contains mRIDs associated with each name')
+    for item in context.der_input_list:
+        mrid = context.table_der_dict[item]
+        assert type(mrid) is str
+        assert len(mrid) == 37
+        assert mrid[0] == '_'
+        assert mrid[9] == '-'
+        assert mrid[14] == '-'
+        assert mrid[19] == '-'
+        assert mrid[24] == '-'
+
