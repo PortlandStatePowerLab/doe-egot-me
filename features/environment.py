@@ -44,3 +44,5 @@ def before_all(context):
         'DER_Association_Test_6322_Battery',
         'DER_Association_Test_6331_Battery'
     ]
+
+    context.posted_service_list = ModelController.goSensor.posted_service_list

@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/Logged Grid State Data/MeasOutputLogs_27_12_2022_10_09.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/df_test.csv">
           <value>
             <Attribute>

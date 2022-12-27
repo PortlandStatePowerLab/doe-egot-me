@@ -300,35 +300,32 @@ def step_impl(context):
 
 @given(u'Grid services need to be dispatched')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Grid services need to be dispatched')
+    assert path.exists(context.MEPath + "Outputs To DERMS/OutputtoGSP.xml") is True
 
 
 @when(u'The GO dispatches a grid service request')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The GO dispatches a grid service request')
+    pass  # Done in environment.py
 
 
 @then(u'The GO should output an XML file available for use by the GSP.')
 def step_impl(context):
-    assert path.exists(
-        context.MEPath + "Outputs To Derms/OutputtoGSP.xml") is True
+    assert path.exists(context.MEPath + "manually_posted_service_input.xml") is True
 
 
 @given(u'A manually posted service input file is available')
 def step_impl(context):
-    assert path.exists(
-        context.MEPath + "manually_posted_service_input.xml") is True
+    assert path.exists(context.MEPath + "manually_posted_service_input.xml") is True
 
 
 @when(u'The function to manually post a service is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The function to manually post a service is called')
+    assert ModelController.mcConfiguration.go_sensor_decision_making_manual_override is True
 
 
 @then(u'A GOPostedService object should be instantiated')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then A GOPostedService object should be instantiated')
-
+    assert context.posted_service_list is not False
 
 @when(u'The EDMTimeKeeper on-timestep function is called')
 def step_impl(context):
@@ -368,23 +365,23 @@ def step_impl(context):
 
 @given(u'The EDMMeasurementProcessor has received at least one set of measurements.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given The EDMMeasurementProcessor has received at least one set of measurements.')
+    context.measurement_set = ModelController.edmMeasurementProcessor.get_current_measurements()
 
 
 @then(u'The EDMMeasurementProcessor should provide measurements by a function call')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The EDMMeasurementProcessor should provide measurements by a function call')
+    pass  # Completed in the Given step
 
 
 @then(u'The measurements should have human-readable names (not mRIDs).')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The measurements should have human-readable names (not mRIDs).')
+    for keys, values in context.measurement_set.items():
+        assert values['Measurement name']
 
 
 @when(u'The DER-S input processing method is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The DER-S input processing method is called')
-
+    pass  # Performed in environment.py (by running the simulation)
 
 @when(u'The GOSensor grid service request method is called')
 def step_impl(context):
@@ -393,7 +390,8 @@ def step_impl(context):
 
 @then(u'The unified input request should update')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The unified input request should update')
+    print(context.firstTPME1UIR)
+    assert context.firstTPME1UIR == 'dog'
 
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
@@ -410,31 +408,30 @@ def step_impl(context):
 
 @given(u'A ME simulation is running.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given A ME simulation is running.')
-
+    pass  # Handled in environment.py. Full simulation run accomplishes this.
 
 @when(u'A measurement timestep--three seconds-- elapses.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When A measurement timestep--three seconds-- elapses.')
-
+    pass  # Handled in environment.py. Full simulation run accomplishes this.
 
 @then(
     u'Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then printed to the '
     u'terminal by a test function.')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then '
-        u'printed to the terminal by a test function.')
+    assert ModelController.edmMeasurementProcessor.current_measurements is not None
+    assert type(ModelController.edmMeasurementProcessor.current_measurements) is dict
 
 
 @when(u'The EDMTimeKeeper\'s on-timestep function is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The EDMTimeKeeper\'s on-timestep function is called')
+    context.first_timecode = int(ModelController.edmTimekeeper.sim_current_time)
+    ModelController.edmTimekeeper.increment_sim_current_time()
+    context.second_timecode = int(ModelController.edmTimekeeper.sim_current_time)
 
 
 @then(u'Time is incremented by one second')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Time is incremented by one second')
+    assert context.second_timecode == context.first_timecode + 1
 
 
 @when(u'A DER-S calls the assignment function')

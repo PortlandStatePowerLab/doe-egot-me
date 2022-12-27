@@ -676,6 +676,8 @@ class DERSHistoricalDataInput:
         """
         Opens the historical data input file, read it as a .csv file, and parses it into a list of dicts.
         """
+        print("Opening:\n")
+        print(self.historical_data_file_path)
         with open(self.historical_data_file_path) as csvfile:
             r = csv.DictReader(csvfile)
             x = []
