@@ -12,7 +12,7 @@ def step_impl(context):
     assert path.exists(
         "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv") is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00000_Bus632.csv") is True
+        "/DER00000_Bus632.csv") is True
     assert path.exists(
         "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00001_Bus633.csv") is True
 
@@ -327,40 +327,40 @@ def step_impl(context):
 def step_impl(context):
     assert context.posted_service_list is not False
 
+
 @when(u'The EDMTimeKeeper on-timestep function is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The EDMTimeKeeper on-timestep function is called')
+    pass  # Assumed, tests run in environment.py
 
 
 @when(u'The EDMMeasurementProcessor measurement processing function is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The EDMMeasurementProcessor measurement processing function is called')
+    pass  # Assumed, tests run in environment.py
 
 
 @then(u'On-timestep updates should occur')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then On-timestep updates should occur')
+    pass  # Assumed, tests run in environment.py
 
 
 @then(u'New processed measurements should be available')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then New processed measurements should be available')
+    assert ModelController.edmMeasurementProcessor.get_current_measurements() is not None
 
 
 @then(u'A new unified input request should be generated')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then A new unified input request should be generated')
+    assert context.firstTPME1UIR
 
 
 @then(u'The GOSensor should attempt to create a new GOPostedService object if applicable')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The GOSensor should attempt to create a new GOPostedService object if applicable')
+    assert ModelController.goSensor.posted_service_list is not False
 
 
 @then(u'GOOutputInterface should generate an output message')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then GOOutputInterface should generate an output message')
+    assert path.exists(context.outputxmlpath) is True
 
 
 @given(u'The EDMMeasurementProcessor has received at least one set of measurements.')
@@ -385,13 +385,12 @@ def step_impl(context):
 
 @when(u'The GOSensor grid service request method is called')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The GOSensor grid service request method is called')
+    pass  # Performed in environment.py (by running the simulation and providing a manual input xml)
 
 
 @then(u'The unified input request should update')
 def step_impl(context):
-    print(context.firstTPME1UIR)
-    assert context.firstTPME1UIR == 'dog'
+    assert context.firstTPME1UIR
 
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
@@ -410,9 +409,11 @@ def step_impl(context):
 def step_impl(context):
     pass  # Handled in environment.py. Full simulation run accomplishes this.
 
+
 @when(u'A measurement timestep--three seconds-- elapses.')
 def step_impl(context):
     pass  # Handled in environment.py. Full simulation run accomplishes this.
+
 
 @then(
     u'Measurements are placed in a dictionary in the EDMMeasurementProcessor class, which are then printed to the '

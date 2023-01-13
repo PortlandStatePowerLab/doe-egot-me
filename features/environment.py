@@ -9,6 +9,7 @@ def before_all(context):
     context.MEPath = "/home/seanjkeene/PycharmProjects/doe-egot-me/"
     context.firstinputfilepath = r"DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv"
     context.secondinputfilepath = r"DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv"
+    context.outputxmlpath = r"Outputs To DERMS/OutputtoGSP.xml"
     context.unique_ids = ['LOGDER0001', '00000', '00001']
 
     print("First run...")
@@ -41,7 +42,7 @@ def before_all(context):
     ]
     context.der_em_list = [
         'DER_RWHDERS_Test_6332_Battery',
-        'DER_Association_Test_6322_Battery',
+        'DER_Association_Test_6321_Battery',
         'DER_Association_Test_6331_Battery'
     ]
 

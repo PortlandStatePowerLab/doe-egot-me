@@ -783,6 +783,8 @@ class DERIdentificationManager:
         Retrieves the association table from the assignment handler.
         """
         self.association_lookup_table = derAssignmentHandler.association_table
+        print("Association Lookup Table (For Testing)")
+        print(self.association_lookup_table)
 
 
 class DERAssignmentHandler:
@@ -860,6 +862,8 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
+        print("Assignment Lookup Table (For Testing)")
+        print(self.assignment_lookup_table)
 
     def assign_all_ders(self):
         """
@@ -961,6 +965,8 @@ class MCInputInterface:
             my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
             message = my_diff_build.get_message()
+            print("Input message [FOR TESTING]:")
+            print(message)
             edmCore.gapps_session.send(input_topic, message)
         self.current_unified_input_request.clear()
 
