@@ -357,5 +357,16 @@
   "PowerTransformer_xfm1:xf1:C:VA": "_7c2d79a9-04db-46e2-95b8-acc386c3821c",
   "PowerTransformer_xfm1:634:A:VA": "_901f65a0-1d2e-4bcc-9175-34a70e772e43",
   "PowerTransformer_xfm1:634:B:VA": "_378b4a13-aff9-41d2-a96d-a1ebc4e7e7b6",
-  "PowerTransformer_xfm1:634:C:VA": "_29eddf04-3e6e-4fb4-9041-354c418119fa"
+  "PowerTransformer_xfm1:634:C:VA": "_29eddf04-3e6e-4fb4-9041-354c418119fa",
+  "LoadBreakSwitch_671692:v1:A:PNV": "_7bf6048c-3cda-48b7-a9ee-868f1996a65d",
+  "LoadBreakSwitch_671692:v2:A:PNV": "_7e9b63bb-e540-4f39-8876-828c5ef7d080",
+  "LoadBreakSwitch_671692:v1:B:PNV": "_34e00ac5-9021-41bd-b826-3f10b959d14a",
+  "LoadBreakSwitch_671692:v2:B:PNV": "_227b0380-f93e-406c-ae52-cbf91fdb1263",
+  "LoadBreakSwitch_671692:v1:C:PNV": "_f98f806e-c1c6-4b3a-a630-ed1213165d32",
+  "LoadBreakSwitch_671692:v2:C:PNV": "_2258dcc7-a006-4dc3-8f68-a67c8bb77221",
+  "ACLineSegment_632645:v2:B:PNV": "_92759b01-69fe-4318-b4fa-34ff88ccbc8b",
+  "ACLineSegment_632645:v2:C:PNV": "_89396a6e-e49b-48f0-9372-4147a2ddad75",
+  "ACLineSegment_671680:v2:A:PNV": "_83d7338b-27fb-41ae-b1aa-4b9cc5a1858f",
+  "ACLineSegment_671680:v2:B:PNV": "_6d7b3f6d-d597-48bd-8a89-5a7ccc7135a9",
+  "ACLineSegment_671680:v2:C:PNV": "_7bdecee0-6ac7-4084-901e-f4ed541dd47e"
 }

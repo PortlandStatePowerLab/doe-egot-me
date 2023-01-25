@@ -14,7 +14,7 @@ def step_impl(context):
     assert path.exists(
         "/DER00000_Bus632.csv") is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00001_Bus633.csv") is True
+        "/RWHDERS Inputs/DER00001_Bus633.csv") is True
 
 
 @when(u'A DER-S update occurs')

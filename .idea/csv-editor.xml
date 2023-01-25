@@ -38,13 +38,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/Logged Grid State Data/MeasOutputLogs_09_01_2023_11_31.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/RWHDERS Inputs/DER00000_Bus632.csv">
           <value>
             <Attribute>
