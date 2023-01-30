@@ -1,19 +1,16 @@
-"""
-model controller
-"""
+
+import os
 import ast
 import csv
-import os
-import sys
-import pandas as pd
-from gridappsd import GridAPPSD, DifferenceBuilder
-from gridappsd import topics as t
-from gridappsd.simulation import Simulation
 import time
-import xml.etree.ElementTree as ET
 import xmltodict
+import pandas as pd
 from dict2xml import dict2xml
-from datetime import datetime
+from pprint import pprint as pp
+from gridappsd import topics as t
+import xml.etree.ElementTree as ET
+from gridappsd.simulation import Simulation
+from gridappsd import GridAPPSD, DifferenceBuilder
 
 end_program = False
 
@@ -21,32 +18,9 @@ end_program = False
 
 
 class MCConfiguration:
-    """
-    Provides user configurability of the MC when appropriate. Not to be confused with the GridAPPS-D configuration
-    process, this provides global configuration for the MC as a whole. DER-S configuration should be handled within
-    the DER-S Class definition, and not here.
-    """
     def __init__(self):
-        """
-        ATTRIBUTES:
-
-            .mc_file_directory: The root folder where the ME is located.
-
-            .config_file_path: The text file containing the GridAPPS-D configuration info.
-
-            .ders_obj_list: A dictionary containing the DER-S classes and objects *that will be used in the current
-                simulation*. Add or comment out as appropriate for new DER-Ss or for different tests.
-
-            .go_sensor_decision_making_manual_override: Set to True to use manual GOSensor decision making (That is,
-                grid services are called by a text file rather than based on grid conditions.
-                NOTE: Automatic mode is not currently implemented, so this should ALWAYS be set to True.
-
-            .manual_service_filename: the .xml filename of the GOSensor manual service input file. Should be in MC root.
-
-            .output_log_name: The name and location of the output logs. Rename before simulation with date/time, for example.
-        """
-        self.mc_file_directory = r"/home/seanjkeene/PycharmProjects/doe-egot-me/"
-        self.config_file_path = self.mc_file_directory + r"Configuration/Config.txt"
+        self.mc_file_directory = r"/home/deras/Desktop/midrar_work_github/midrar_me/"
+        self.config_file_path = self.mc_file_directory + r"Configuration/simulation_configuration.json"
         self.ders_obj_list = {
             'DERSHistoricalDataInput': 'dersHistoricalDataInput',
             'RWHDERS': 'rwhDERS'
@@ -55,14 +29,10 @@ class MCConfiguration:
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M") + '.csv'
+        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs.csv'
 
 
 class EDMCore:
-    """
-    Provides central, core functionality to the MC. Responsible for the startup process and storing the GridAPPS-D
-    connection and simulation mRIDs and objects.
-    """
 
     def __init__(self):
         self.gapps_session = None
@@ -74,28 +44,17 @@ class EDMCore:
         self.config_parameters = None
         self.mrid_name_lookup_table = []
         self.cim_measurement_dict = []
-        self.is_in_test_mode = False
 
     def get_sim_start_time(self):
-        """
-        ACCESSOR METHOD: returns the simulation start time (per the configuration file, not realtime)
-        """
+
         return self.sim_start_time
 
     def get_line_mrid(self):
-        """
-        ACCESSOR METHOD: Returns the mRID for the current model (I.E. the IEEE 13-node test feeder).
-        """
+
         return self.line_mrid
 
     def sim_start_up_process(self):
-        """
-        ENCAPSULATION METHOD: calls all methods required to set up the simulation process. Does not start the simulation
-        itself, but performs the "startup checklist". This includes connecting to GridAPPS-D and the simulation, loading
-        configuration from the file, instantiating all the (non-callback) objects, initializing DER-Ss, assigning
-        DER-EMs and creating the association table, and connecting to the aggregator among others. See each method's
-        docstring for more details.
-        """
+
         self.connect_to_gridapps()
         self.load_config_from_file()
         self.initialize_line_mrid()
@@ -112,17 +71,13 @@ class EDMCore:
         goSensor.load_manual_service_file()
 
     def load_config_from_file(self):
-        """
-        Loads the GridAPPS-D configuration string from a file and places the parameters in a variable for later use.
-        """
+
         with open(mcConfiguration.config_file_path) as f:
             config_string = f.read()
             self.config_parameters = ast.literal_eval(config_string)
 
     def connect_to_gridapps(self):
-        """
-        Connects to GridAPPS-D and creates the gridapps session object.
-        """
+
         os.environ['GRIDAPPSD_USER'] = 'tutorial_user'
         os.environ['GRIDAPPSD_PASSWORD'] = '12345!'
         os.environ['GRIDAPPSD_ADDRESS'] = 'localhost'
@@ -131,46 +86,25 @@ class EDMCore:
         # Connect to GridAPPS-D Platform
         self.gapps_session = GridAPPSD()
         assert self.gapps_session.connected
-        
-        #self.gapps_session = GridAPPSD("('localhost', 61613)", username='system', password='manager')
 
     def initialize_sim_mrid(self):
-        """
-        Retrieves the simulation mRID from the simulation object. The mRID is used to connect to messaging topics,
-        while the object contains methods to, for example, start the simulation.
-        """
+
         self.sim_mrid = self.sim_session.simulation_id
-        print("Sim MRID:\n")
-        print(self.sim_mrid)
 
     def initialize_line_mrid(self):
-        """
-        Retrieves the model mRID from the config parameters.
-        """
+
         self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
 
     def initialize_sim_start_time(self):
-        """
-        Retrieves the simulation start timestamp from the config parameters. Note: this is a setting, not the real
-        current time.
-        """
+
         self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
-        print("Simulation start time is:")
-        print(self.sim_start_time)
 
     def connect_to_simulation(self):
-        """
-        Connects to the GridAPPS-D simulation (as opposed to the GridAPPS-D program) and creates the simulation object.
-        """
+
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
 
-
     def create_objects(self):
-        """
-        Instantiates all non-callback classes. All objects are global to simplify arguments and facilitate decoupling.
-        (Note: EDMCore is manually instantiated first, in the main loop function. This is part of the startup process.
-        The callback classes need to be instantiated separately to ensure the callback methods work properly.)
-        """
+
         global mcOutputLog
         mcOutputLog = MCOutputLog()
         global mcInputInterface
@@ -189,38 +123,17 @@ class EDMCore:
         goOutputInterface = GOOutputInterface()
 
     def initialize_all_der_s(self):
-        """
-        Calls the initialize_der_s() method for each DER-S listed in mcConfiguration.ders_obj_list.
-        """
+
         for key, value in mcConfiguration.ders_obj_list.items():
             eval(value).initialize_der_s()
 
     def start_simulation(self):
-        """
-        Performs one final initialization of the simulation start time (fixes a bug related to our use of the logging
-        API tricking the timekeeper into thinking it's later than it is) and calls the method to start the actual
-        simulation.
-        """
-        self.initialize_sim_start_time()
-        self.sim_session.start_simulation()
 
-    def start_simulation_and_pause(self):
-        """
-        Performs one final initialization of the simulation start time (fixes a bug related to our use of the logging
-        API tricking the timekeeper into thinking it's later than it is) and calls the method to start the actual
-        simulation. Then, immediately pauses the simulation. This allows test harnesses to test a fully set up
-        simulation without necessarily requiring the entire simulation process to run.
-        """
         self.initialize_sim_start_time()
         self.sim_session.start_simulation()
-        self.sim_session.pause()
 
     def establish_mrid_name_lookup_table(self):
-        """
-        This currently creates two lookup dictionaries. mrid_name_lookup_table gets the real names of measurements for
-        the measurement processor/logger. cim_measurement_dict gives a more fully fleshed out dictionary containing
-        several parameters related to measurements that are appended to the measurement processor's current readings.
-        """
+
         topic = "goss.gridappsd.process.request.data.powergridmodel"
         message = {
             "modelId": edmCore.get_line_mrid(),
@@ -229,16 +142,21 @@ class EDMCore:
         }
         object_meas = edmCore.gapps_session.get_response(topic, message)
         self.mrid_name_lookup_table = object_meas['data']
-
         config_api_topic = 'goss.gridappsd.process.request.config'
         message = {
-            'configurationType': 'CIM Dictionary',
+            'configurationType': 'CIM Feeder Index',
             'parameters': {'model_id': edmCore.line_mrid}
         }
+        # message = {
+        #     'configurationType': 'CIM Dictionary',
+        #     'parameters': {'model_id': edmCore.line_mrid}
+        # }
         cim_dict = edmCore.gapps_session.get_response(config_api_topic, message, timeout=20)
-        measdict = cim_dict['data']['feeders'][0]['measurements']
-        self.cim_measurement_dict = measdict
 
+        # measdict = cim_dict['data']['feeders'][0]['measurements']
+        measdict = cim_dict['data']['feeders'][0]
+        pp(measdict)
+        self.cim_measurement_dict = measdict
     def get_mrid_name_lookup_table(self):
         """
         ACCESSOR METHOD: Returns the mrid_name_lookup_table.
@@ -250,9 +168,6 @@ class EDMCore:
         ACCESSOR METHOD: Returns the cim_measurement.dict.
         """
         return self.cim_measurement_dict
-
-    def put_in_test_mode(self):
-        self.is_in_test_mode = True
 
 
 class EDMTimeKeeper(object):
@@ -313,19 +228,9 @@ class EDMTimeKeeper(object):
             if "incrementing to " in log_message:
                 if log_message != self.previous_log_message:  # Msgs get spit out twice for some reason. Only reads one.
                     self.increment_sim_current_time()
-                    print("Current timestep: " + self.sim_current_time)
+                    print("\n\n\n--------- Current timestep:\t" + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = log_message
-                    if edmCore.is_in_test_mode is True:
-                        print("PAUSING SIMULATION FOR TESTING")
-                        edmCore.sim_session.stop()
-
-                        # for i in rwhDERS.input_identification_dict:
-                        #     print(rwhDERS.input_identification_dict[i]['Filepath'])
-
-                        # print(rwhDERS.input_identification_dict[list(rwhDERS.input_identification_dict.keys())[0]]['Filepath'])
-                        global end_program
-                        end_program = True
 
         # on_message() function body:
 
@@ -363,7 +268,7 @@ class EDMTimeKeeper(object):
         NOTE: DOES NOT INCLUDE MEASUREMENT READING/PROCESSING. Those are done once every three seconds due to the way
         GridAPPS-D is designed and are independent of the simulation timekeeper processes. See EDMMeasurementProcessor.
         """
-        print("Performing on-timestep updates:")
+        print("\n\n--------------- Performing on-timestep updates --------------------\n\n")
         self.edmCoreObj.sim_current_time = self.sim_current_time
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
@@ -371,6 +276,7 @@ class EDMTimeKeeper(object):
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
         goOutputInterface.send_service_request_messages()
+        print("\n\n--------------- Done with on-timestep updates --------------------\n\n")
 
 
 class EDMMeasurementProcessor(object):
@@ -449,7 +355,7 @@ class EDMMeasurementProcessor(object):
             try:
                 lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
             except StopIteration:
-                print(lookup_mrid)
+                print(f"\n\n-------- lookup_mrid --------\n\n{lookup_mrid}")
             lookup_name = lookup_mrid['name']
             self.measurement_names.append(lookup_name)
         self.measurement_mrids = dict(zip(list(self.measurement_mrids), self.measurement_names))
@@ -468,7 +374,7 @@ class EDMMeasurementProcessor(object):
                 self.current_measurements[key]['MeasType'] = measurement_table_dict_containing_mrid[
                     'measurementType']
             except StopIteration:
-                print("Measurements updated with amplifying information.")
+                print("\n\n ---------- Measurements updated with amplifying information ---------- \n\n")
 
     def append_association_data(self):
         """
@@ -533,7 +439,7 @@ class RWHDERS:
     """
     def __init__(self, mcConfiguration):
         self.der_em_input_request = []
-        self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS Inputs/"
+        self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS_Inputs/"
         self.input_identification_dict = {}
 
     def initialize_der_s(self):
@@ -554,8 +460,7 @@ class RWHDERS:
         bus. This function does those tasks using the input_identification_dict generated in the initialization process
         (see self.parse_input_file_names_for_assignment())
         """
-        # print('iid')
-        # print(self.input_identification_dict)
+        print(f"\n\n ------------- input_identification_dict ------------- \n\n{self.input_identification_dict}")
         for key, value in self.input_identification_dict.items():
             der_id = key
             der_bus = value['Bus']
@@ -587,16 +492,15 @@ class RWHDERS:
         """
         self.der_em_input_request.clear()
         for key, value in self.input_identification_dict.items():
+            import csv
             with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
                 der_input_reader = csv.reader(csvfile)
                 for row in der_input_reader:
                     current_der_input = {row[0]: row[1]}
-                    # print(current_der_input)
+                    print(f"\n\n---------- current_der_input ---------\n\n{current_der_input}")
             current_der_real_power = current_der_input['P']
             current_der_input_request = {key: current_der_real_power}
             self.der_em_input_request.append(current_der_input_request)
-
-
 
     def get_input_request(self):
         """
@@ -637,11 +541,7 @@ class DERSHistoricalDataInput:
     """
     def __init__(self, mcConfiguration):
         self.der_em_input_request = []
-        if DERSHDIPath_test is None:
-            self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalData Inputs/thesisfiginput.csv"
-        else:
-            self.historical_data_file_path = mcConfiguration.mc_file_directory + DERSHDIPath_test
-
+        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"DERSHistoricalDataInput/psu_13_feeder_ders_s.csv"
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
@@ -661,8 +561,7 @@ class DERSHistoricalDataInput:
         for an updated input request, then returns the updated request for use by the MCInputInterface
         """
         self.update_der_em_input_request()
-        # print("DER EM INPUT REQUEST")
-        # print(self.der_em_input_request)
+        print(f"\n\n------------ DER EM INPUT REQUEST------------ \n\n{self.der_em_input_request}")
         return self.der_em_input_request
 
     def assign_der_s_to_der_em(self):
@@ -690,7 +589,7 @@ class DERSHistoricalDataInput:
             for row in r:
                 row = dict(row)
                 x.append(row)
-        print("Historical data file opened")
+        print("\n\n--------------- Historical data file opened--------------- \n\n")
         return x
 
     def read_input_file(self):
@@ -703,27 +602,19 @@ class DERSHistoricalDataInput:
         without requiring the inputs to know DER-EM mRIDs.)
         """
         self.input_table = self.open_input_file()
-        print("Retrieving locational data:")
         first_row = next(item for item in self.input_table)
         first_row = dict(first_row)
         first_row.pop('Time')
-        print("First row:")
-        print(first_row)
         log_der_keys = list(first_row.keys())
-        # print(log_der_keys)
         for i in range(len(log_der_keys)):
             if i % 2 == 0:
                 der_name = log_der_keys[i]
             else:
                 der_loc = log_der_keys[i]
                 self.location_lookup_dictionary[der_name] = der_loc
-                # print("Current dict:")
-                # print(self.location_lookup_dictionary)
         self.list_of_ders = list(self.location_lookup_dictionary.keys())
-        # print("List of DERS:")
-        # print(self.list_of_ders)
 
-    def update_der_em_input_request(self, force_first_row=False):
+    def update_der_em_input_request(self):
         """
         Checks the current simulation time against the input table. If a new input exists for the current timestep,
         it is read, converted into an input dictionary, and put in the current der_input_request
@@ -731,19 +622,15 @@ class DERSHistoricalDataInput:
         """
         self.der_em_input_request.clear()
         try:
-            if force_first_row is True:
-                print("DERHistoricalDataInput TEST MODE: retrieving first item from input log")
-                input_at_time_now = next(item for item in self.input_table)
-            else:
-                input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
+            input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
-            print("Updating DER-EMs from historical data.")
+            print("\n\n --------- Updating DER-EMs from historical data --------- \n\n")
             input_at_time_now = dict(input_at_time_now)
             input_at_time_now.pop('Time')
             for i in self.list_of_ders:
                 self.der_em_input_request.append({i: input_at_time_now[i]})
         except StopIteration:
-            print("End of input data.")
+            print("\n\n --------- End of input data ---------\n\n")
             return
 
 
@@ -828,7 +715,8 @@ class DERAssignmentHandler:
          ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
         # feeder selection options - if all commented out, query matches all feeders
         #VALUES ?fdrid {"_C1C3E687-6FFD-C753-582B-632A27E28507"}  # 123 bus
-        VALUES ?fdrid {"_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+        #VALUES ?fdrid {"_49AD8E07-3BF9-A4E2-CB8F-C3722F837B62"}  # 13 bus
+        VALUES ?fdrid {"F234F944-6C06-4D13-8E87-3532CDB095FA"}  # psu_feeder
          ?pec c:Equipment.EquipmentContainer ?fdr.
          ?fdr c:IdentifiedObject.mRID ?fdrid.
          ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
@@ -865,6 +753,8 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
+        print(f"\n\n--------- DER Assignment complete --------\n\n{self.association_table}")
+        print(x)
 
     def assign_all_ders(self):
         """
@@ -877,16 +767,15 @@ class DERAssignmentHandler:
         for key, value in mcConfiguration.ders_obj_list.items():
             eval(value).assign_der_s_to_der_em()
 
-        print("DER Assignment complete.")
-        # print(self.association_table)
+        # print(f"\n\n--------- DER Assignment complete --------\n\n{self.association_table}")
 
     def get_mRID_for_der_on_bus(self, Bus):
         """
         For a given Bus, checks if a DER-EM exists on that bus and is available for assignment. If so, returns its mRID
         and removes it from the list (so a DER-EM can't be assigned twice).
         """
-        print("Getting mRID for a der on bus:")
-        print(Bus)
+        print(f"\n\n--------- Getting mRID for a der on bus --------\n\n{Bus}")
+        print(self.assignment_table)
         try:
             next_mrid_on_bus = next(item for item in self.assignment_table if item['Bus'] == str(Bus))
             mrid = next_mrid_on_bus['mRID']
@@ -895,7 +784,7 @@ class DERAssignmentHandler:
             print("FATAL ERROR: Attempting to assign a DER to a nonexistant DER-EM. "
                   "The bus may be wrong, or may not contain enough DER-EMs. Verify test.")
             quit()
-        # print(next_mrid_on_bus)
+        print(f"\n\n -------- next_mrid_on_bus -------- \n\n{next_mrid_on_bus}")
         return mrid
 
     def append_new_values_to_association_table(self, values):
@@ -937,14 +826,13 @@ class MCInputInterface:
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
         online_ders = mcConfiguration.ders_obj_list
-        # print("online_ders")
-        # print(online_ders)
+        print(f"\n\n------ ONLINE DERs -----\n\n {online_ders} --------")
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
-            # print(value)
+            print(f"\n\n------ value in der_obj_list -----\n\n {value} \n\n--------")
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
-        print("Current unified input request:")
-        print(self.current_unified_input_request)
+        print(f"\n\n------ Current unified input request: ------\n\n {self.current_unified_input_request} --------")
+        # print(self.current_unified_input_request)
 
     def update_der_ems(self):
         """
@@ -1115,8 +1003,8 @@ class GOSensor:
                 start_time = item["start_time"]
                 self.posted_service_list.append(GOPostedService(
                     name, group_id, service_type, interval_start, interval_duration, power, ramp, price))
-                print("Manually posting service, name:")
-                print(name)
+                # print("---------------- \n\n\n\nManually posting service, name ----------------:")
+                # print(name)
 
 
 class GOOutputInterface:
@@ -1144,10 +1032,11 @@ class GOOutputInterface:
             if item.get_status() is False:
                 print("Posting...")
                 self.current_service_requests.append(item.get_service_message_data())
-                # print(item.get_service_message_data())
+                print(item.get_service_message_data())
                 item.set_status(True)
             else:
-                print("All already posted")
+                # print("----------------All already posted----------------")
+                print(".")
 
     def generate_service_messages(self):
         """
@@ -1157,7 +1046,7 @@ class GOOutputInterface:
         request_out_xml = '<services>\n'
         service_serial_num = 1
         for item in self.current_service_requests:
-            # print("Test1")
+            print("Test1")
             # print(dict2xml(item))
             request_out_xml = request_out_xml + '<service' + str(service_serial_num) + '>\n'
             request_out_xml = request_out_xml + dict2xml(item) + '\n'
@@ -1165,7 +1054,7 @@ class GOOutputInterface:
             service_serial_num = service_serial_num + 1
         request_out_xml = request_out_xml + '</services>'
         # request_out_xml = dict2xml(self.current_service_requests)
-        # print("Current Service Requests")
+        # print("----------------\n\nCurrent Service Requests\n\n----------------")
         # print(request_out_xml)
         return request_out_xml
 
@@ -1394,44 +1283,22 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
 
 
 # ------------------------------------------Program Execution (Main loop)------------------------------------------
-def set_testing_conditions():
-    """
-    Used for unit testing. Sets up the ME for a run without actually starting the simulation. This will allow most
-    classes and specifications to be tested by importing ModelController.py as a module and using this method
-    to set initial conditions.
-    """
-    global mcConfiguration
-    mcConfiguration = MCConfiguration()
-    global edmCore
-    edmCore = EDMCore()  # EDMCore must be manually instantiated.
-    edmCore.put_in_test_mode()
-    edmCore.sim_start_up_process()
-    edmCore.start_simulation_and_pause()
-    edmCore.initialize_sim_mrid()
-    instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
-
-def main(test_mode = False, DERSHDI_FilePath = None):
+def _main():
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
     classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
     Otherwise, sleeps until the end_program flag is thrown.
     """
-    global DERSHDIPath_test
-    DERSHDIPath_test = DERSHDI_FilePath
     global mcConfiguration
     mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
-    # test_mode = True
-    if test_mode is True:
-        edmCore.put_in_test_mode()
     edmCore.sim_start_up_process()
     edmCore.start_simulation()
     edmCore.initialize_sim_mrid()
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
     global end_program
-    end_program = False
     while not end_program:
         time.sleep(0.1)
 
@@ -1441,4 +1308,4 @@ def main(test_mode = False, DERSHDI_FilePath = None):
 
 
 if __name__ == "__main__":
-    main()
+    _main()
