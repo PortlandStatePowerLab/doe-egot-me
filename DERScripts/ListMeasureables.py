@@ -1,6 +1,7 @@
 from SPARQLWrapper import SPARQLWrapper2#, JSON
 import sys
-import CIMHubConfig
+# constants.py is used for configuring blazegraph.
+import constants
 
 def FlatPhases (phases):
   if len(phases) < 1:
@@ -30,27 +31,24 @@ def FlatPhases (phases):
   return []
 
 
-if len(sys.argv) < 4:
-  print ('usage: python3 ListMeasureables.py cimhubconfig.json filename_root feeder_mRID [outpath]')
+if len(sys.argv) < 3:
+  print ('usage: python ListMeasureables.py filename_root feeder_mRID')
   print (' (Blazegraph server must already be started, with feeder_mRID model data loaded)')
   exit()
 
-froot = sys.argv[2]
-if len(sys.argv) > 4:
-  froot = './{:s}/{:s}'.format (sys.argv[4], froot)
+froot = sys.argv[1]
 op = open (froot + '_special.txt', 'w')
 np = open (froot + '_node_v.txt', 'w')
-CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
-sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+sparql = SPARQLWrapper2(constants.blazegraph_url)
 
-fidselect = """ VALUES ?fdrid {\"""" + sys.argv[3] + """\"}
+fidselect = """ VALUES ?fdrid {\"""" + sys.argv[2] + """\"}
  ?s c:Equipment.EquipmentContainer ?fdr.
  ?fdr c:IdentifiedObject.mRID ?fdrid. """
 
 #################### start by listing all the buses
 busphases = {}
 
-qstr = CIMHubConfig.prefix + """SELECT ?bus WHERE { VALUES ?fdrid {\"""" + sys.argv[3] + """\"}
+qstr = constants.prefix + """SELECT ?bus WHERE { VALUES ?fdrid {\"""" + sys.argv[2] + """\"}
  ?fdr c:IdentifiedObject.mRID ?fdrid.
  ?s c:ConnectivityNode.ConnectivityNodeContainer ?fdr.
  ?s r:type c:ConnectivityNode.
@@ -66,7 +64,7 @@ for b in ret.bindings:
 
 #################### capacitors
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?bus ?phases ?eqid ?trmid WHERE {""" + fidselect + """
+qstr = constants.prefix + """SELECT ?name ?bus ?phases ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:LinearShuntCompensator.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?eqid. 
@@ -94,7 +92,7 @@ for b in ret.bindings:
 
 #################### regulators
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?wnum ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
+qstr = constants.prefix + """SELECT ?name ?wnum ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
  SELECT ?name ?wnum ?bus ?phs ?eqid ?trmid WHERE { """ + fidselect + """
  ?rtc r:type c:RatioTapChanger.
  ?rtc c:IdentifiedObject.name ?rname.
@@ -128,7 +126,7 @@ for b in ret.bindings:
 
 ####################### - Storage
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?uname ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
+qstr = constants.prefix + """SELECT ?name ?uname ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
   SELECT ?name ?uname ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:PowerElectronicsConnection.
  ?s c:IdentifiedObject.name ?name.
@@ -161,7 +159,7 @@ for b in ret.bindings:
 
 ####################### - Solar
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?uname ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
+qstr = constants.prefix + """SELECT ?name ?uname ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
   SELECT ?name ?uname ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:PowerElectronicsConnection.
  ?s c:IdentifiedObject.name ?name.
@@ -195,7 +193,7 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_switch_i.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?cimtype ?name ?bus1 ?bus2 (group_concat(distinct ?phs1;separator=\"\") as ?phases1) ?eqid ?trm1id ?trm2id WHERE {
+qstr = constants.prefix + """SELECT ?cimtype ?name ?bus1 ?bus2 (group_concat(distinct ?phs1;separator=\"\") as ?phases1) ?eqid ?trm1id ?trm2id WHERE {
   SELECT ?cimtype ?name ?bus1 ?bus2 ?phs1 ?eqid ?trm1id ?trm2id WHERE {""" + fidselect + """
  VALUES ?cimraw {c:LoadBreakSwitch c:Recloser c:Breaker}
  ?s r:type ?cimraw.
@@ -237,7 +235,7 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_lines_pq.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?bus1 ?bus2 (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trm1id ?trm2id WHERE {
+qstr = constants.prefix + """SELECT ?name ?bus1 ?bus2 (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trm1id ?trm2id WHERE {
   SELECT ?name ?bus1 ?bus2 ?phs ?eqid ?trm1id ?trm2id WHERE {""" + fidselect + """
  ?s r:type c:ACLineSegment.
  ?s c:IdentifiedObject.name ?name.
@@ -279,7 +277,7 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_loads.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
+qstr = constants.prefix + """SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
   SELECT ?name ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:EnergyConsumer.
  ?s c:IdentifiedObject.name ?name.
@@ -309,7 +307,7 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_machines.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?bus ?eqid ?trmid WHERE {""" + fidselect + """
+qstr = constants.prefix + """SELECT ?name ?bus ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:SynchronousMachine.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?eqid. 
@@ -333,7 +331,7 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_xfmr_pq.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?wnum ?bus ?eqid ?trmid WHERE {""" + fidselect + """
+qstr = constants.prefix + """SELECT ?name ?wnum ?bus ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:PowerTransformer.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?eqid.
@@ -360,7 +358,7 @@ for b in ret.bindings:
 
 ####################### - PowerTransformer, with tanks
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?wnum ?bus ?phases ?eqid ?trmid WHERE {""" + fidselect + """
+qstr = constants.prefix + """SELECT ?name ?wnum ?bus ?phases ?eqid ?trmid WHERE {""" + fidselect + """
  ?s r:type c:PowerTransformer.
  ?s c:IdentifiedObject.name ?name.
  ?s c:IdentifiedObject.mRID ?eqid.

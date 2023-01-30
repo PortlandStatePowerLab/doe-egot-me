@@ -1,17 +1,17 @@
-from SPARQLWrapper import SPARQLWrapper2
+from SPARQLWrapper import SPARQLWrapper2#, JSON
+# constants.py is used for configuring blazegraph.
+import constants
 import sys
-import CIMHubConfig
 
-if len(sys.argv) < 3:
-	print ('usage: python DropMeasurements.py cimhubconfig.json feeder_id')
+if len(sys.argv) < 2:
+	print ('usage: python DropMeasurements.py feeder_id')
 	print (' (Blazegraph server must already be started)')
 	exit()
 
-CIMHubConfig.ConfigFromJsonFile (sys.argv[1])
-sparql = SPARQLWrapper2(CIMHubConfig.blazegraph_url)
+sparql = SPARQLWrapper2(constants.blazegraph_url)
 sparql.method = 'POST'
 
-qstr = CIMHubConfig.prefix + """DELETE {
+qstr = constants.prefix + """DELETE {
   ?m a ?class.
   ?m c:IdentifiedObject.mRID ?uuid.
   ?m c:IdentifiedObject.name ?name.
@@ -20,7 +20,7 @@ qstr = CIMHubConfig.prefix + """DELETE {
   ?m c:Measurement.phases ?phases.
   ?m c:Measurement.measurementType ?type.
  } WHERE {
-  VALUES ?fdrid {\"""" + sys.argv[2] + """\"}
+  VALUES ?fdrid {\"""" + sys.argv[1] + """\"}
   VALUES ?class {c:Analog c:Discrete}
   ?fdr c:IdentifiedObject.mRID ?fdrid. 
   ?eq c:Equipment.EquipmentContainer ?fdr.
