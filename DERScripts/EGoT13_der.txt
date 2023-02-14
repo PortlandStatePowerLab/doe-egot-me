@@ -7,3 +7,4 @@ DER_Association_Test_6331,633,ABC,Battery,10000,4.16,0,0,500.0,250.0
 DER_Association_Test_6332,633,ABC,Battery,10000,4.16,0,0,500.0,250.0
 DER_Association_Test_6341,634,ABC,Battery,10000,4.16,0,0,500.0,250.0
 DER_Association_Test_6342,634,ABC,Battery,10000,4.16,0,0,500.0,250.0
+
