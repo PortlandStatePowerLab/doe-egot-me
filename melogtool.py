@@ -131,8 +131,11 @@ class MELogTool:
             for key, value in column_series[column_series.index[0]].items():
                 if (key != "Phases") and (key != "MeasType"):
                     new_column_name = header_name + "_" + column_series[column_series.index[0]]["Phases"] + "_" + column_series[column_series.index[0]]["MeasType"] + "[" + str(key) + "]"
-                    new_names_dict[new_column_name] = {header_name: key}
+                    new_column_name_trimmed = new_column_name.replace('.1', '').replace('.2', '').replace('.3', '').replace('.4', '').replace('.5', '')
+                    # print(new_column_name_trimmed)
+                    new_names_dict[new_column_name_trimmed] = {header_name: key}
         for new_names, column_dicts in new_names_dict.items():
+            # print(new_names)
             new_column_data = list([])
             for keys, values in column_dicts.items():
                 new_column_dict_list = flatten_df[keys].values.tolist()

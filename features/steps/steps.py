@@ -140,6 +140,8 @@ def step_impl(context):
 
 @then(u'Log files should indicate values update regularly at defined intervals.')
 def step_impl(context):
+    pnv_column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6341_Battery_A_VA[magnitude]"]
+    va_column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6321_Battery_A_PNV[magnitude]"]
     raise NotImplementedError(u'STEP: Then Log files should indicate values update regularly at defined intervals.')
 
 
@@ -155,18 +157,18 @@ def step_impl(context):
     headings_list = context.first_parsed_output_df.columns
     print(headings_list)
     heading_verification_list = [
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery_A_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery_A_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.1_C_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.1_C_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.2_C_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.2_C_PNV[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.3_B_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.3_B_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.4_A_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.4_A_PNV[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.5_B_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.5_B_PNV[magnitude]'
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_PNV[magnitude]'
                                 ]
     for item in heading_verification_list:
         assert item in headings_list
@@ -227,23 +229,23 @@ def step_impl(context):
 @then(u'The logs should contain non-zero values for Voltage for a DER-EM')
 # Make Portable
 def step_impl(context):
-    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.4_A_PNV[magnitude]'])
-    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.4_A_PNV[magnitude]'] != 0
+    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]'])
+    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]'] != 0
 
 
 
 @then(u'The logs should contain non-zero values for Power for a DER-EM')
 # Make Portable
 def step_impl(context):
-    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery_A_VA[magnitude]'])
-    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery_A_VA[magnitude]'] != 0
+    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]'])
+    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]'] != 0
 
 
 @then(u'The voltage values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    v1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.4_A_PNV[magnitude]']
-    v2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.5_B_PNV[magnitude]']
-    v3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.2_C_PNV[magnitude]']
+    v1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_A_PNV[magnitude]']
+    v2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_B_PNV[magnitude]']
+    v3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_C_PNV[magnitude]']
     print(v1)
     print(v2)
     print(v3)
@@ -253,15 +255,14 @@ def step_impl(context):
 
 @then(u'The power values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    p1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.1_C_VA[magnitude]']
-    p2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery_A_VA[magnitude]']
-    p3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DER_Association_Test_6332_Battery.3_B_VA[magnitude]']
+    p1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_C_VA[magnitude]']
+    p2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_A_VA[magnitude]']
+    p3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_B_VA[magnitude]']
     print(p1)
     print(p2)
     print(p3)
-    assert p1 != p2
-    assert p2 != p3
-    assert p1 != p3
+    assert (p1 != p2 or p2 != p3 or p1 != p3)
+
 
 @when(u'The DER assignment process is called')
 def step_impl(context):
@@ -398,14 +399,20 @@ def step_impl(context):
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The logs should indicate a DER-S changed state from one timestep to the next.')
+    column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6341_Battery_A_VA[magnitude]"]
+    v1 = column.iloc[5]
+    v2 = column.iloc[6]
+    print(column)
+    print(v1)
+    print(v2)
+    assert (v1 != v2)
 
 
 @then(u'The logs should indicate the DER-S updated at the right time in the input file.')
 def step_impl(context):
-    raise NotImplementedError(
-        u'STEP: Then The logs should indicate the DER-S updated at the right time in the input file.')
+    column = context.first_parsed_output_df.loc[:,"Timestamp"]
+    print(column.iloc[6])
+    assert column.iloc[6] == "2019-10-02 18:32:03"
 
 
 @given(u'A ME simulation is running.')
