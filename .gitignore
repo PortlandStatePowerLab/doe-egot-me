@@ -7,3 +7,5 @@
 /venv/local/
 /venv/.gitignore
 /venv/pyvenv.cfg
+
+**/Logged_Grid_State_Data/**
