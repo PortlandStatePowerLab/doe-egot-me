@@ -8,7 +8,7 @@ class get_ders_historical_data():
 
     def __init__(self):
         self.current_dir = os.getcwd()
-        self.der_loc_file = './dss/psu_feeder_coords.csv'
+        self.der_loc_file = './dss/psu_feeder_coordinates.csv'
         self.nodes = ["680","633","632","692","675","671","684","645","652", "611"]
         self.me_dir = '/home/deras/Desktop/midrar_work_github/cimhub_psu_feeder/midrar_me/'
         self.watt_files = '/home/deras/Desktop/midrar_work_github/populated_13_node_feeder_whs/glm/glm_output/'
@@ -82,6 +82,7 @@ class get_ders_historical_data():
 
     
     def wr_csv(self):
+        print(self.df)
         self.df.to_csv(f'{self.me_dir}DERSHistoricalDataInput/psu_feeder_ders_data.csv', index=False)
 
 if __name__ == '__main__':

@@ -8,4 +8,11 @@
 /venv/.gitignore
 /venv/pyvenv.cfg
 
+# Remove large csv files
 **/Logged_Grid_State_Data/**
+
+# Remove debugging files (imported gridappsd models from blazegraph)
+
+**/gridappsd_file/**
+**/gridappsd_tmp/**
+*.txt

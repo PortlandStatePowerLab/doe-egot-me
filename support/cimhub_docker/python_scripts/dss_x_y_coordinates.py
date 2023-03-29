@@ -8,6 +8,7 @@ class establish_xy_coordinates():
 
         # Reference file:
         self.dss_file = "./dss_no_loads/Master.dss"
+        self.dss_file = "./dss_batteries/Master.dss"
 
         # Arrange nodes based on x-y plane levels
 
@@ -157,15 +158,18 @@ class establish_xy_coordinates():
                 
 
 
-        self.all_objects_coordinates['650'] = [('N650,3000,1000')]
-        self.all_objects_coordinates['transformer'] = [('trans_N650_N630,2000,970')]
-        self.all_objects_coordinates['630'].append('N630,2000,940')
+        self.all_objects_coordinates['SourceBus'] = [('SourceBus,3000,1000')]
+        self.all_objects_coordinates['transformer'] = [('trans_source_N650,3000,990')]
+        self.all_objects_coordinates['650'] = [('N650,3000,985')]
+        # self.all_objects_coordinates['630'].append('N630,2000,940')
+        self.all_objects_coordinates['reg'] = [('Reg,3000,980')]
+        self.all_objects_coordinates['reg60'] = [('RG60,3000,975')]
         self.all_objects_coordinates['634'].append('N634,4000,900')
         self.all_objects_coordinates['6321'].append('N6321,2000,750')
-        pp(self.all_objects_coordinates['650'])
+        
         
     def wr_csv(self):
-        with open ('./dss/psu_feeder_coordinates.csv','w', newline='') as output:
+        with open ('./dss_batteries/psu_feeder_coordinates.csv','w', newline='') as output:
             writer = csv.writer(output)
             for key, values in self.all_objects_coordinates.items():
                 for value in values:
