@@ -279,58 +279,26 @@ for b in ret.bindings:
 op.close()
 op = open (froot + '_loads.txt', 'w')
 
-qstr = CIMHubConfig.prefix + """SELECT ?name ?uname ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases)
-?eqid ?trmid WHERE {  
-    SELECT ?name ?uname ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
-    ?s c:Equipment.EquipmentContainer ?fdr.
-    ?fdr c:IdentifiedObject.mRID ?fdrid.
-    ?s r:type c:PowerElectronicsConnection.
-    ?s c:IdentifiedObject.name ?name.
-    ?s c:IdentifiedObject.mRID ?eqid. 
-    ?peu r:type c:BatteryUnit.
-    ?peu c:IdentifiedObject.name ?uname.
-    ?s c:PowerElectronicsConnection.PowerElectronicsUnit ?peu.
-    ?t1 c:Terminal.ConductingEquipment ?s.
-    ?t1 c:IdentifiedObject.mRID ?trmid. 
-    ?t1 c:ACDCTerminal.sequenceNumber "1".
-    ?t1 c:Terminal.ConnectivityNode ?cn1. 
-    ?cn1 c:IdentifiedObject.name ?bus.
-    OPTIONAL {?pep c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?s.
-    ?pep c:PowerElectronicsConnectionPhase.phase ?phsraw.
-    bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) } } ORDER BY ?name ?phs
-    } GROUP BY ?name ?uname ?bus ?eqid ?trmid
-    ORDER BY ?name
+qstr = CIMHubConfig.prefix + """SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
+  SELECT ?name ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
+ ?s r:type c:EnergyConsumer.
+ ?s c:IdentifiedObject.name ?name.
+ ?s c:IdentifiedObject.mRID ?eqid. 
+ ?t1 c:Terminal.ConductingEquipment ?s.
+ ?t1 c:IdentifiedObject.mRID ?trmid. 
+ ?t1 c:ACDCTerminal.sequenceNumber "1".
+ ?t1 c:Terminal.ConnectivityNode ?cn1. 
+ ?cn1 c:IdentifiedObject.name ?bus.
+ OPTIONAL {?acp c:EnergyConsumerPhase.EnergyConsumer ?s.
+ ?acp c:EnergyConsumerPhase.phase ?phsraw.
+  bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
+ } GROUP BY ?name ?bus ?eqid ?trmid
+ ORDER BY ?name
 """
-
-# qstr = CIMHubConfig.prefix + """SELECT ?name ?bus (group_concat(distinct ?phs;separator=\"\") as ?phases) ?eqid ?trmid WHERE {
-#   SELECT ?name ?bus ?phs ?eqid ?trmid WHERE {""" + fidselect + """
-#  ?s r:type c:EnergyConsumer.
-#  ?s c:IdentifiedObject.name ?name.
-#  ?s c:IdentifiedObject.mRID ?eqid. 
-#  ?t1 c:Terminal.ConductingEquipment ?s.
-#  ?t1 c:IdentifiedObject.mRID ?trmid. 
-#  ?t1 c:ACDCTerminal.sequenceNumber "1".
-#  ?t1 c:Terminal.ConnectivityNode ?cn1. 
-#  ?cn1 c:IdentifiedObject.name ?bus.
-#  OPTIONAL {?acp c:EnergyConsumerPhase.EnergyConsumer ?s.
-#  ?acp c:EnergyConsumerPhase.phase ?phsraw.
-#   bind(strafter(str(?phsraw),\"SinglePhaseKind.\") as ?phs) } } ORDER BY ?name ?phs
-#  } GROUP BY ?name ?bus ?eqid ?trmid
-#  ORDER BY ?name
-# """
-# #print (qstr)
-# sparql.setQuery(qstr)
-# ret = sparql.query()
-# #print ('\nEnergyConsumer binding keys are:',ret.variables)
-# for b in ret.bindings:
-#   phases = FlatPhases (b['phases'].value)
-#   bus = b['bus'].value
-#   for phs in phases:
-#     print ('EnergyConsumer',b['uname'].value,bus,phs,b['eqid'].value,b['trmid'].value,file=op)
 #print (qstr)
 sparql.setQuery(qstr)
 ret = sparql.query()
-# print ('\nEnergyConsumer binding keys are:',ret.variables)
+#print ('\nEnergyConsumer binding keys are:',ret.variables)
 for b in ret.bindings:
   phases = FlatPhases (b['phases'].value)
   bus = b['bus'].value

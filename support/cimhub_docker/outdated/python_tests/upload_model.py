@@ -22,7 +22,7 @@ dss_name = 'Master'
 
 # Directory path:
 current_dir = path().absolute()
-me_dir = '/home/deras/Desktop/midrar_work_github/cimhub_psu_feeder/midrar_me/'
+me_dir = '/home/deras/Desktop/midrar_work_github/cimhub_psu_feeder/doe-egot-me/'
 
 #Create folders if they don't exist
 path('dss').mkdir(parents=False, exist_ok=True)
@@ -259,7 +259,7 @@ def list_insert_meas(fd_mrid,me_dir):
 
     os.chdir(f"{me_dir}/DERScripts/")
     print("-------------------------------------------------")
-    print("----> Changing directory to:\n----> /home/deras/Desktop/midrar_work_github/cimhub_psu_feeder/midrar_me/DERScripts/ <----\n")
+    print(f"----> Changing directory to:\n----> {me_dir}/DERScripts/ <----\n")
 
     drop_der = open('drop_der.sh','w')
     print(f'python3 DropDER.py cimhubconfig.json EGoT13_orig_der_psu.txt', file=drop_der)

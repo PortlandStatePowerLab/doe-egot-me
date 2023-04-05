@@ -436,7 +436,7 @@ class DERSHistoricalDataInput:
         
         
         self.der_em_input_request = []
-        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/psu_feeder_ders_data.csv"
+        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
@@ -493,15 +493,31 @@ class DERSHistoricalDataInput:
         """
         Opens the historical data input file, read it as a .csv file, and parses it into a list of dicts.
         """
-        with open(self.historical_data_file_path) as csvfile:
-            r = csv.DictReader(csvfile)
-            x = []
-            for row in r:
-                row = dict(row)
-                x.append(row)
-        self.len_der_s_historical_data_input = len(x)
+        ders_files = [file for file in os.listdir(self.historical_data_file_path) if file.startswith("ders")]
+        ders_files_sorted = sorted(ders_files, key=lambda x: int(x.split("_")[1].split(".")[0]))
+        df_all = pd.read_csv(self.historical_data_file_path+ders_files_sorted[0], usecols=['Time'])
+        
+        x = []
 
+        for file in ders_files_sorted:
+            df = pd.read_csv(self.historical_data_file_path+file,usecols=[1,2])
+            df_all = pd.concat([df_all, df], axis=1)
+        
+        for index, row in df_all.iterrows():
+            row = dict(row)
+            x.append(row)
+
+        self.len_der_s_historical_data_input = len(x)
         return x
+
+        # with open(self.historical_data_file_path) as csvfile:
+        #     r = csv.DictReader(csvfile)
+        #     x = []
+        #     for row in r:
+        #         row = dict(row)
+        #         x.append(row)
+        
+        # return x
         
 
     def read_input_file(self):
@@ -595,7 +611,7 @@ class DERAssignmentHandler:
     """
     This class is used during the MC startup process. DER-S inputs will not know the mRIDs of DER-EMs since those
     are internal to the EDM. As such, a process is required to assign each incoming DER input to an appropriate DER-EM
-    mRID, so that it's states can be updated in the model. Each DER-S DER unit requires a unique identifier (a name, a
+    mRID, so that its states can be updated in the model. Each DER-S DER unit requires a unique identifier (a name, a
     unique number, etc.) and a "location" on the grid, generally the bus it's located on. The assignment handler
     receives as input a list of {uniqueID:location} dictionaries, uses the location values to look up the DER-EMs on the
     appropriate bus, and assigns each unique identifier to an individual DER-EM. These associations are passed to the
@@ -620,32 +636,31 @@ class DERAssignmentHandler:
         self.assignment_table = None
         self.association_table = []
         self.der_em_mrid_per_bus_query_message = f'''
-        PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX c: <http://iec.ch/TC57/CIM100#>
-        SELECT ?class ?type ?name ?bus ?phases ?eqtype ?eqname ?eqid ?trmid ?id WHERE {{
+        PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX c:  <http://iec.ch/TC57/CIM100#>
+        SELECT ?name ?id ?bus ?ratedS ?ratedU ?ipu ?p ?q ?fdrid (group_concat(distinct ?phs;separator=\"\") as ?phases) WHERE {{
+         ?s r:type c:BatteryUnit.
+         ?s c:IdentifiedObject.name ?name.
+          ?s c:IdentifiedObject.mRID ?id.
+         ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
         VALUES ?fdrid {{"{edmCore.line_mrid}"}}  # psu_feeder
-        ?eq c:Equipment.EquipmentContainer ?fdr.
-        ?fdr c:IdentifiedObject.mRID ?fdrid.
-        {{ ?s r:type c:Discrete. bind ("Discrete" as ?class)}}
-          UNION
-        {{ ?s r:type c:Analog. bind ("Analog" as ?class)}}
-        ?s c:IdentifiedObject.name ?name .
-        ?s c:IdentifiedObject.mRID ?id .
-        ?s c:Measurement.PowerSystemResource ?eq .
-        ?s c:Measurement.Terminal ?trm .
-        ?s c:Measurement.measurementType ?type .
-        ?trm c:IdentifiedObject.mRID ?trmid.
-        ?eq c:IdentifiedObject.mRID ?eqid.
-        ?eq c:IdentifiedObject.name ?eqname.
-        ?eq r:type ?typeraw.
-         bind(strafter(str(?typeraw),"#") as ?eqtype)
-        ?trm c:Terminal.ConnectivityNode ?cn.
-        ?cn c:IdentifiedObject.name ?bus.
-        ?s c:Measurement.phases ?phsraw .
-         {{bind(strafter(str(?phsraw),"PhaseCode.") as ?phases)}}
-        }} ORDER BY ?class ?type ?name
+         ?pec c:Equipment.EquipmentContainer ?fdr.
+         ?fdr c:IdentifiedObject.mRID ?fdrid.
+         ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
+         ?pec c:PowerElectronicsConnection.ratedU ?ratedU.
+         ?pec c:PowerElectronicsConnection.maxIFault ?ipu.
+         ?pec c:PowerElectronicsConnection.p ?p.
+         ?pec c:PowerElectronicsConnection.q ?q.
+         OPTIONAL {{?pecp c:PowerElectronicsConnectionPhase.PowerElectronicsConnection ?pec.
+         ?pecp c:PowerElectronicsConnectionPhase.phase ?phsraw.
+           bind(strafter(str(?phsraw),"SinglePhaseKind.") as ?phs) }}
+         ?t c:Terminal.ConductingEquipment ?pec.
+         ?t c:Terminal.ConnectivityNode ?cn.
+         ?cn c:IdentifiedObject.name ?bus
+        }}
+        GROUP by ?name ?id ?bus ?ratedS ?ratedU ?ipu ?p ?q ?fdrid
+        ORDER by ?name
         '''
-        
 
     def get_assignment_lookup_table(self):
         """
@@ -663,13 +678,20 @@ class DERAssignmentHandler:
         
         x = []
         for i in range(len(der_em_mrid_per_bus_query_output['data']['results']['bindings'])):
-            if (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].startswith('EnergyConsumer')) and (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'].startswith('trip_load')):
-                curr_dict = {'Name':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].split("r_")[1],
-                             'Bus':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
-                             'mRID':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['eqid']['value']}
-                if curr_dict not in x:
-                    x.append(curr_dict)
+            x.append({'Name': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'],
+                      'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
+                      'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
+        # The below code works for EnergyConsumer loads.
+        # x = []
+        # for i in range(len(der_em_mrid_per_bus_query_output['data']['results']['bindings'])):
+        #     if (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].startswith('EnergyConsumer')) and (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'].startswith('trip_load')):
+        #         curr_dict = {'Name':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].split("r_")[1],
+        #                      'Bus':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
+        #                      'mRID':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['eqid']['value']}
+        #         if curr_dict not in x:
+        #             x.append(curr_dict)
+        # self.assignment_lookup_table = x
 
     def assign_all_ders(self):
 
@@ -740,9 +762,11 @@ class MCInputInterface:
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
         """
         online_ders = mcConfiguration.ders_obj_list
+        
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
+        print(f"\n\n------ Current unified input request: ------\n\n {self.current_unified_input_request} --------")
         
 
     def update_der_ems(self):
@@ -753,13 +777,25 @@ class MCInputInterface:
         """
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        
         for i in self.current_unified_input_request:
             der_name_to_look_up = list(i.keys())
             der_name_to_look_up = der_name_to_look_up[0]
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            my_diff_build.add_difference(associated_der_em_mrid, "EnergyConsumer.p",
+            print(f'\n\n\n==================================\n\n\n')
+            print('printing associated_der_em_mrid (DER mRID)\n\n\n')
+            print(associated_der_em_mrid)
+            print(f'\n\n\n==================================\n\n\n')
+            print('printing the new DER value\n\n\n')
+            print(int(i[der_name_to_look_up]))
+            print(f'\n\n\n==================================\n\n\n')
+            my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
         message = my_diff_build.get_message()
+        print(f'\n\n\n==================================\n\n\n')
+        print('printing Diff builder: \n\n\n')
+        print(message)
+        print(f'\n\n\n==================================\n\n\n')
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
         self.current_unified_input_request.clear()
