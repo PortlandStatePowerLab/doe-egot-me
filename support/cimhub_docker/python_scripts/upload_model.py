@@ -166,7 +166,7 @@ def create_config_file(geo_rgn, sub_geo, fd_mrid, me_dir):
             "simulator": "GridLAB-D",
             "timestep_frequency": "1000",
             "timestep_increment": "1000",
-            "run_realtime": "false",
+            "run_realtime": "true",
             "simulation_name": "psu_13_node_feeder",
             "power_flow_solver_method": "NR",
             "model_creation_config": {

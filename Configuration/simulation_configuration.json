@@ -1,19 +1,19 @@
 {
     "power_system_config": {
-        "GeographicalRegion_name": "_770B8422-DB51-474A-B157-A76B417BD7DF",
-        "SubGeographicalRegion_name": "_F36BB7CB-B6F5-41EA-86D8-3A81B2EA3234",
-        "Line_name": "_FF5C3964-33D9-4B97-9BFD-45E731D1CA60"
+        "GeographicalRegion_name": "_920162FC-04D2-4A40-AB2F-5BB44C478687",
+        "SubGeographicalRegion_name": "_7F448417-87E5-4AA1-947A-F48B1FE42FF2",
+        "Line_name": "_F1ED12EA-7FFA-41AF-A737-B0EE15210A87"
     },
     "application_config": {
         "applications": []
     },
     "simulation_config": {
         "start_time": "1672531200",
-        "duration": "21600",
+        "duration": "300",
         "simulator": "GridLAB-D",
         "timestep_frequency": "1000",
         "timestep_increment": "1000",
-        "run_realtime": "false",
+        "run_realtime": "true",
         "simulation_name": "psu_13_node_feeder",
         "power_flow_solver_method": "NR",
         "model_creation_config": {

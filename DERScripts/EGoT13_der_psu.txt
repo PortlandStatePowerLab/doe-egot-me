@@ -1,5 +1,5 @@
 uuid_file,feederID
-EGoT13_der_psu_uuid.txt,_FF5C3964-33D9-4B97-9BFD-45E731D1CA60
+EGoT13_der_psu_uuid.txt,_F1ED12EA-7FFA-41AF-A737-B0EE15210A87
 //name,bus,phases(ABCs1s2),type(Battery ,Photovoltaic),RatedkVA,RatedkV,kW,kVAR,RatedkWH,StoredkWH
 trip_load_611_c_10_battery,trip_load_611_c_h_10,s1s2,Battery,1,0.208,0.1,0,0,0
 trip_load_611_c_11_battery,trip_load_611_c_h_11,s1s2,Battery,1,0.208,0.1,0,0,0

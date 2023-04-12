@@ -80,18 +80,26 @@ class get_ders_historical_data():
 
         self.df = pd.concat([time_df, self.df], axis=1)
 
-    
     def wr_csv(self):
-        # print(self.df)
+        self.df = self.df.head(5)
         self.df.to_csv(f'{self.me_dir}DERSHistoricalDataInput/psu_feeder_ders_data.csv', index=False)
+    
+
+    def expand_ders(self):
+        counter = 0
+        df = pd.read_csv(f'{self.me_dir}DERSHistoricalDataInput/psu_feeder_ders_data.csv')
+        for i in range(1, len(df.columns), 2):
+            new_df = df.iloc[:, [0,i,i+1]]
+            new_df.to_csv(f'{self.me_dir}DERSHistoricalDataInput/ders_{counter}.csv', index=False)
+            counter += 1
 
 if __name__ == '__main__':
     ders = get_ders_historical_data()
     ders.get_der_loc()
-    # ders.append_busses_to_df()
     ders.read_watts()
     ders.concat_bus_watts()
     ders.uppercase_to_lowercase()
     ders.float_to_int()
     ders.create_time_col()
     ders.wr_csv()
+    ders.expand_ders()

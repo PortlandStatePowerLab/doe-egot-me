@@ -28,7 +28,7 @@ class MCConfiguration:
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs'
+        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs.csv'
 
 
 class EDMCore:
@@ -216,7 +216,7 @@ class EDMTimeKeeper(object):
             Ends the program by closing out the logs and setting the global end program flag to true, breaking the
             main loop.
             """
-            # mcOutputLog.close_out_logs()
+            mcOutputLog.close_out_logs()
             global end_program
             end_program = True
 
@@ -1040,6 +1040,17 @@ class MCOutputLog:
     """
 
     def __init__(self):
+        # self.csv_file = None
+        # self.log_name = ''
+        # self.mrid_name_lookup_table = []
+        # self.header_mrids = []
+        # self.header_names = []
+        # self.csv_dict_writer = None
+        # self.timestamp_array = []
+        # self.current_measurement = None
+        # self.is_first_measurement = True
+        # self.message_size = 0
+        # self.file_num = 0
         self.csv_file = None
         self.log_name = ''
         self.mrid_name_lookup_table = []
@@ -1049,8 +1060,7 @@ class MCOutputLog:
         self.timestamp_array = []
         self.current_measurement = None
         self.is_first_measurement = True
-        self.message_size = 0
-        self.file_num = 0
+
 
 
     def update_logs(self):
@@ -1061,11 +1071,28 @@ class MCOutputLog:
 
         Note: The first timestep in the logs will be several seconds after the actual simulation start time.
         """
+        # self.current_measurement = edmMeasurementProcessor.get_current_measurements()
+        # if self.current_measurement:
+        #     print("Updating logs...")
+        #     if (self.is_first_measurement is True):
+        #         self.message_size = 0
+        #         print("First measurement routines...")
+        #         self.set_log_name()
+        #         self.open_csv_file()
+        #         self.mrid_name_lookup_table = edmCore.get_mrid_name_lookup_table()
+        #         self.translate_header_names()
+        #         self.open_csv_dict_writer()
+        #         self.write_header()
+        #         self.is_first_measurement = False
+        #     self.write_row()
+        #     self.message_size_checkpoint()
+        #     self.timestamp_array.append(edmTimekeeper.sim_current_time)
+        # else:
+        #     pass
         self.current_measurement = edmMeasurementProcessor.get_current_measurements()
         if self.current_measurement:
             print("Updating logs...")
-            if (self.is_first_measurement is True):
-                self.message_size = 0
+            if self.is_first_measurement is True:
                 print("First measurement routines...")
                 self.set_log_name()
                 self.open_csv_file()
@@ -1075,21 +1102,20 @@ class MCOutputLog:
                 self.write_header()
                 self.is_first_measurement = False
             self.write_row()
-            self.message_size_checkpoint()
             self.timestamp_array.append(edmTimekeeper.sim_current_time)
         else:
             pass
 
-    def message_size_checkpoint (self):
+    # def message_size_checkpoint (self):
         
-        self.message_size +=1
-        print('Current message size --->', self.message_size)
-        if self.message_size > 120:
-            print('Message size threshold reached!', self.message_size)
-            print(f"Closing file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
-            self.is_first_measurement = True
-            self.message_size = 0
-            self.close_out_logs()
+    #     self.message_size +=1
+    #     print('Current message size --->', self.message_size)
+    #     if self.message_size > 120:
+    #         print('Message size threshold reached!', self.message_size)
+    #         print(f"Closing file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
+    #         self.is_first_measurement = True
+    #         self.message_size = 0
+    #         self.close_out_logs()
     
     def open_csv_file(self):
         """
@@ -1110,7 +1136,7 @@ class MCOutputLog:
         Closes the log file and re-appends the timestamps.
         """
         self.csv_file.close()
-        # self.append_timestamps()
+        self.append_timestamps()
 
     def translate_header_names(self):
         """
@@ -1143,8 +1169,9 @@ class MCOutputLog:
         """
         Sets the log name based on the MCConfiguration settings.
         """
-        self.file_num += 1
-        self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
+        # self.file_num += 1
+        # self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
+        self.log_name = mcConfiguration.output_log_name
 
     def append_timestamps(self):
         """

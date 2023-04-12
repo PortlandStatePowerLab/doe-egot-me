@@ -33,9 +33,9 @@ def drop_data(df):
     df = df.iloc[:, :3]
     return df
 def main(df):
-    # expand_ders_file(df)
-    df = drop_data(df)
-    df.to_csv("./ders_new.csv", index=False)
+    expand_ders_file(df)
+    # df = drop_data(df)
+    # df.to_csv("./ders_new.csv", index=False)
     # test(df)
 
 main(df)
