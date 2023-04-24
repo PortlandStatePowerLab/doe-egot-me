@@ -782,20 +782,9 @@ class MCInputInterface:
             der_name_to_look_up = list(i.keys())
             der_name_to_look_up = der_name_to_look_up[0]
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            print(f'\n\n\n==================================\n\n\n')
-            print('printing associated_der_em_mrid (DER mRID)\n\n\n')
-            print(associated_der_em_mrid)
-            print(f'\n\n\n==================================\n\n\n')
-            print('printing the new DER value\n\n\n')
-            print(int(i[der_name_to_look_up]))
-            print(f'\n\n\n==================================\n\n\n')
             my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
         message = my_diff_build.get_message()
-        print(f'\n\n\n==================================\n\n\n')
-        print('printing Diff builder: \n\n\n')
-        print(message)
-        print(f'\n\n\n==================================\n\n\n')
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
         self.current_unified_input_request.clear()
@@ -806,7 +795,7 @@ class GOTopologyProcessor:
     'Topology' refers to where things are on the grid in relation to one another. In its simplest form, topology can
     refer to what bus each DER-EM is on. However, GOs and GSPs may view topology in more complex forms, combining
     buses into branches, groups, etc. More complex topologies are stored in xml files and read into the MC by this
-    class; the XLM contains each "group" and whatever buses are members of it. This class will then be able to
+    class; the XML contains each "group" and whatever buses are members of it. This class will then be able to
 
     Topological processing is not required in the early stages of testing, so this class has not been fully implemented
     and many of its functions are currently unused.
@@ -906,7 +895,7 @@ class GOSensor:
     def make_service_request_decision(self):
         """
         Performs the following once per timestep.
-current_unified_input_request
+        current_unified_input_request
         In MANUAL MODE (override is True):
             Instantiates a grid service
         In AUTOMATIC MODE (override is False):
