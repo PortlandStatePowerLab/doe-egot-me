@@ -86,27 +86,8 @@ def service_points (data,service_points):
                     i = counter
                     counter += k
     
-                    
-
-
-                # for xf in range(len(xfmrs)):
-                #     splitter = seg.split("_")
-                #     print(xf)
-                    # for sps in range(len(service_points)):
-                    #     if splitter[1] in service_points[sps] and splitter[2] in service_points[sps]:
-                    #         tlx_name = f'{service_points[sps]}'
-                    #         data['SourceBus'][item][fed][seg][xf][tlx_name]
-                    # data['SourceBus'][item][fed][seg][xf] = [sps for sps in service_points if splitter[1] in sps and splitter[2] in sps and ]
-    pp(data)
     return data
-
-# def correct_dict(data):
-#     for item in data['SourceBus']:
-#         for fed in data['SourceBus'][item]:
-#             for seg in data['SourceBus'][item][fed]:
-#                 for i in data['SourceBus'][item][fed][seg]:
                     
-
 def dict_xml(data):
     xml_string = dicttoxml(data, attr_type=False)
     dom = ps(xml_string)
@@ -124,13 +105,11 @@ def main(feeder, nodes):
     sps = service_point(feeder)
     data = nodes_feeders_dict (main_nodes, feeders)
     data = insert_segments(data, segments)
-    # pp(data)
     data = insert_xfmrs (data, xfmrs)
     data = service_points (data, sps)
-    # data = correct_dict(data)
-    # data = dict_xml(data)
-    # with open ('xml_output.xml', 'w') as f:
-    #     f.write(data.toprettyxml(indent='   '))
+    data = dict_xml(data)
+    with open ('xml_output.xml', 'w') as f:
+        f.write(data.toprettyxml(indent='   '))
     
 
 
