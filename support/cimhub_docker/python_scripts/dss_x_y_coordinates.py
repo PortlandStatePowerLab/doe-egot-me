@@ -7,7 +7,7 @@ class establish_xy_coordinates():
     def __init__(self):
 
         # Reference file:
-        self.dss_file = "./dss_no_loads/Master.dss"
+        # self.dss_file = "./dss_no_loads/Master.dss"
         self.dss_file = "./dss_batteries/Master.dss"
 
         # Arrange nodes based on x-y plane levels
@@ -69,7 +69,7 @@ class establish_xy_coordinates():
     
     def get_trip_load(self, node, obj,x,y):
         for elem in obj:
-            if elem.startswith('trip_load'):
+            if elem.startswith('tlx'):
                 self.all_objects_coordinates[node].append(f'{elem},{x},{y}')
                 x -= 8
 
@@ -160,6 +160,7 @@ class establish_xy_coordinates():
 
         self.all_objects_coordinates['SourceBus'] = [('SourceBus,3000,1000')]
         self.all_objects_coordinates['transformer'] = [('trans_source_N650,3000,990')]
+        self.all_objects_coordinates['transformer'] = [('XFM1,3850,900')]
         self.all_objects_coordinates['650'] = [('N650,3000,985')]
         # self.all_objects_coordinates['630'].append('N630,2000,940')
         self.all_objects_coordinates['reg'] = [('Reg,3000,980')]

@@ -1,13 +1,9 @@
 <all>
     <group name= "group-1" >
-        <bus name="632" />
-        <bus name="646" />
-        <bus name="645" />
+        <bus name="tlx_652_A_h_1" />
     </group>
 
     <group name= "group-2" >
-        <bus name="632" />
-        <bus name="633" />
-        <bus name="634" />
+        <bus name = "tlx_611_C_h_1" />
     </group>
 </all>

@@ -39,7 +39,7 @@ def nodes_feeders_dict(main_nodes, feeders):
     for node in range(len(main_nodes)):
         for feeder in feeders:
             if main_nodes[node].split('N')[1] in feeder:
-                group_name = f'group name-{main_nodes[node]}'
+                group_name = f'{main_nodes[node]}'
                 if not group_name in data['SourceBus']:
                     data['SourceBus'][group_name] = {}
                 data['SourceBus'][group_name][feeder] = {}
@@ -91,7 +91,17 @@ def service_points (data,service_points):
 def dict_xml(data):
     xml_string = dicttoxml(data, attr_type=False)
     dom = ps(xml_string)
-    return dom
+
+    with open ('xml_output.xml', 'w') as f:
+        f.write(dom.toprettyxml(indent='   '))
+    
+    finalize_xml()
+
+def finalize_xml():
+    tree = et.parse("./xml_output.xml")
+    source_bus_child = tree.getroot().find('SourceBus')
+    tree._setroot(source_bus_child)
+    tree.write('xml_output.xml')
 
 
 
@@ -108,8 +118,6 @@ def main(feeder, nodes):
     data = insert_xfmrs (data, xfmrs)
     data = service_points (data, sps)
     data = dict_xml(data)
-    with open ('xml_output.xml', 'w') as f:
-        f.write(data.toprettyxml(indent='   '))
     
 
 

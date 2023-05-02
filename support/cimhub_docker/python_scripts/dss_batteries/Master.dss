@@ -6131,4 +6131,3 @@ Transformer.Reg2.Taps=[1.0 1.0300]
 Transformer.Reg3.Taps=[1.0 1.03]
 set controlmode=OFF
 solve
-// show buses

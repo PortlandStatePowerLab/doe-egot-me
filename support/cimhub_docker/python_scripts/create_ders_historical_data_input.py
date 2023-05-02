@@ -11,7 +11,8 @@ class get_ders_historical_data():
         self.der_loc_file = './dss_batteries/psu_feeder_coordinates.csv'
         self.me_dir = '/home/deras/Desktop/midrar_work_github/doe-egot-me/'
         self.nodes = ["680","633","632","692","675","671","684","645","652", "611"]
-        self.watt_files = '/home/deras/Desktop/midrar_work_github/populated_13_node_feeder_whs/glm/glm_output/'
+        self.watt_files = '/home/deras/Desktop/midrar_work_github/water-draw-generator/populated_13_node_feeder_whs/glm/glm_output/'
+
     
     def get_int(self,x):                     #Called in sort_list func. Not in main
         return int(x.split('_')[-1])
@@ -22,7 +23,7 @@ class get_ders_historical_data():
     def get_der_loc (self):
         der_s_busses = []
         df = pd.read_csv(self.der_loc_file, names = ['bus','x','y'])
-        filtered_df = df[df['bus'].str.startswith("trip_load")]
+        filtered_df = df[df['bus'].str.startswith("tlx")]
         for node in self.nodes:
             for index, row in filtered_df.iterrows():
                 if node in row.to_string():
@@ -34,7 +35,6 @@ class get_ders_historical_data():
         self.watts_values = []
         sorted_watts_profiles = sorted([file_names for file_names in os.listdir(self.watt_files)], 
                                        key=lambda x: int((x.split('meter_')[1]).split(".")[0]))
-        
         for file_index in range(len(self.der_s_busses)):
             
             try:
@@ -73,6 +73,8 @@ class get_ders_historical_data():
         
         timestamp = pd.date_range(start=pd.to_datetime(starting_time, unit='s'),
                                   freq='1min', periods=len(self.df['DER0_mag']))
+        # timestamp = pd.date_range(start=pd.to_datetime(starting_time, unit='s'),
+        #                           freq='1S', periods=len(self.df['DER0_mag']))
         
         time_df = pd.DataFrame({'Time':timestamp})
 
@@ -90,8 +92,10 @@ class get_ders_historical_data():
         df = pd.read_csv(f'{self.me_dir}DERSHistoricalDataInput/psu_feeder_ders_data.csv')
         for i in range(1, len(df.columns), 2):
             new_df = df.iloc[:, [0,i,i+1]]
+            print(new_df)
             new_df.to_csv(f'{self.me_dir}DERSHistoricalDataInput/ders_{counter}.csv', index=False)
             counter += 1
+            
 
 if __name__ == '__main__':
     ders = get_ders_historical_data()

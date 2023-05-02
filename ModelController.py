@@ -68,6 +68,7 @@ class EDMCore:
         derAssignmentHandler.assign_all_ders()
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
+        goTopologyProcessor.import_topology_from_file()
         goSensor.load_manual_service_file()
 
 
@@ -122,6 +123,8 @@ class EDMCore:
         derAssignmentHandler = DERAssignmentHandler()
         global derIdentificationManager
         derIdentificationManager = DERIdentificationManager()
+        global goTopologyProcessor
+        goTopologyProcessor= GOTopologyProcessor ()
         global goSensor
         goSensor = GOSensor()
         global goOutputInterface
@@ -227,7 +230,7 @@ class EDMTimeKeeper(object):
             if "incrementing to " in log_message:
                 if log_message != self.previous_log_message:  # Msgs get spit out twice for some reason. Only reads one.
                     self.increment_sim_current_time()
-                    print("\n\n\n--------- Current timestep:\t" + self.sim_current_time)
+                    print("\nCurrent timestep:\t" + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = log_message
 
@@ -682,16 +685,6 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
-        # The below code works for EnergyConsumer loads.
-        # x = []
-        # for i in range(len(der_em_mrid_per_bus_query_output['data']['results']['bindings'])):
-        #     if (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].startswith('EnergyConsumer')) and (der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'].startswith('trip_load')):
-        #         curr_dict = {'Name':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['name']['value'].split("r_")[1],
-        #                      'Bus':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
-        #                      'mRID':der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['eqid']['value']}
-        #         if curr_dict not in x:
-        #             x.append(curr_dict)
-        # self.assignment_lookup_table = x
 
     def assign_all_ders(self):
 
@@ -766,7 +759,7 @@ class MCInputInterface:
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
-        print(f"\n\n------ Current unified input request: ------\n\n {self.current_unified_input_request} --------")
+        # print(f"\n\n------ Current unified input request: ------\n\n {self.current_unified_input_request} --------")
         
 
     def update_der_ems(self):
@@ -777,12 +770,12 @@ class MCInputInterface:
         """
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
-        
         for i in self.current_unified_input_request:
             der_name_to_look_up = list(i.keys())
-            der_name_to_look_up = der_name_to_look_up[0]
+            der_name_to_look_up = der_name_to_look_up[0] # DER_mags
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
+            my_diff_build.add_difference(associated_der_em_mrid,
+                                         "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
         message = my_diff_build.get_message()
         edmCore.gapps_session.send(input_topic, message)
@@ -801,62 +794,37 @@ class GOTopologyProcessor:
     and many of its functions are currently unused.
     """
     def __init__(self):
-        self.topology_dict = {}
-        self.bus_list = []
-        self.group_list = []
+        
+        self.topology_file = './Configuration/psu_feeder_topology.xml'
 
     def import_topology_from_file(self):
-        """
-        Reads the topology xml file. This needs to be generated prior to the simulation and will be used by both the
-        ME and the DERMS in use (ex. the GSP).
-        """
-        tree = ET.parse('Configuration/topology.xml')
-        root = tree.getroot()
-        topology_map = []
-        for i, val in enumerate(root):
-            topological_input_row_key = list(root[i].attrib.values())[0]
-            topological_input_row_vals = []
-            for a, b in enumerate(root[i]):
-                topological_input_row_vals.append(list(root[i][a].attrib.values()))
-            topology_map_row = {topological_input_row_key: topological_input_row_vals}
-            topology_map.append(topology_map_row)
-        self.topology_dict = topology_map
-        group_list = []
-        bus_list = []
-        for i in topology_map:
-            group_list.append(list(i.keys())[0])
-            bus_list.append(list(i.values()))
-        self.group_list = group_list
-        for flatten_count in range(0, 3):
-            bus_list = [x for item in bus_list for x in item]
-        bus_list_final = []
-        [bus_list_final.append(x) for x in bus_list if x not in bus_list_final]
-        self.bus_list = bus_list
 
-    def reverse_topology_dict(self):
-        """
-        Not implemented.
-        """
-        pass
+        with open (self.topology_file, 'r', encoding='utf-8') as f:
+            xml_file = f.read()
+        self.topology = xmltodict.parse(xml_file)
 
     def get_group_members(self, group_input):
         """
-        Unused. Returns all buses contained in a given group.
+        Returns all buses contained in a given group.
         """
-        for i in self.topology_dict:
-            try:
-                bus_return = i[group_input]
-                bus_return = [x for item in bus_return for x in item]
+        bus_list = [
 
-                return bus_return
-            except KeyError:
-                pass
+        load for source, k in self.topology.items()
+        for nodes in self.topology[source]
+        for fed in self.topology[source][nodes]
+        for seg in self.topology[source][nodes][fed]
+        for xf in self.topology[source][nodes][fed][seg]
+        for tls in self.topology[source][nodes][fed][seg][xf]
+        for load in self.topology[source][nodes][fed][seg][xf][tls]
+        ]
+
+        return list(set(bus_list))
 
     def get_groups_bus_is_in(self):
         """
-        Not implemented. Returns all groups a given bus is a member of.
+        Returns all groups a given bus is a member of. As Per CSIP topology, each node in a feeder is a group.
         """
-        pass
+        return list(self.topology[list(self.topology.keys())[0]])
 
 
 class GOSensor:
@@ -995,7 +963,7 @@ class GOOutputInterface:
         Writes the current service request messages to an xml file, which will be accessed by the GSP for its service
         provisioning functions.
         """
-        xmlfile = open("Outputs To DERMS/OutputtoGSP.xml", "w")
+        xmlfile = open("output_to_DERMS/OutputtoGSP.xml", "w")
         xmlfile.write(self.generate_service_messages())
         xmlfile.close()
 
