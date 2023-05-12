@@ -28,7 +28,7 @@ class MCConfiguration:
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs.csv'
+        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs'
 
 
 class EDMCore:
@@ -49,10 +49,6 @@ class EDMCore:
 
         return self.sim_start_time
 
-    # def get_line_mrid(self):
-    #     self.line_mrid
-    #     return self.line_mrid
-
     def sim_start_up_process(self):
 
         self.connect_to_gridapps()
@@ -68,7 +64,7 @@ class EDMCore:
         derAssignmentHandler.assign_all_ders()
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
-        goTopologyProcessor.import_topology_from_file()
+        # goTopologyProcessor.import_topology_from_file()
         goSensor.load_manual_service_file()
 
 
@@ -334,7 +330,7 @@ class EDMMeasurementProcessor(object):
         ACCESSOR: Returns the current fully processed measurement dictionary.
         """
         return self.current_measurements
-
+    
     def parse_message_into_current_measurements(self, measurement_message):
         """
         The measurement message from GridAPPS-D is pretty ugly. This method pulls out just the stuff we need, and then
@@ -390,6 +386,7 @@ class EDMMeasurementProcessor(object):
         """
         self.assignment_lookup_table = derAssignmentHandler.get_assignment_lookup_table()
         for item in self.assignment_lookup_table:
+
             original_name = item['Name']
             formatted_name = original_name
             item['DER-EM Name'] = formatted_name
@@ -405,7 +402,8 @@ class EDMMeasurementProcessor(object):
                 self.current_measurements[key]['Input Unique ID'] = input_name
             except StopIteration:
                 pass
-
+        
+        pp(self.current_measurements)
 
 class DERSHistoricalDataInput:
     """
@@ -496,32 +494,29 @@ class DERSHistoricalDataInput:
         """
         Opens the historical data input file, read it as a .csv file, and parses it into a list of dicts.
         """
-        ders_files = [file for file in os.listdir(self.historical_data_file_path) if file.startswith("ders")]
-        ders_files_sorted = sorted(ders_files, key=lambda x: int(x.split("_")[1].split(".")[0]))
-        df_all = pd.read_csv(self.historical_data_file_path+ders_files_sorted[0], usecols=['Time'])
-        
+
+        """
+        Update:
+        The new method is the same as the old one. However, since we have 960 DERs in the feeder, and each DER has its own, dedicated Watts profile,
+        we perform the following steps to parse each profile into a list of dictionaries:
+
+            - Only read the profiles within the DERSHistoricalDataInput that start with the word (ders)
+            - Sort the DERs profiles based on their order (from 1 - 960).
+            - Append the bus, the DER magnitude, and Time to the dicionary (x). <-- same as the previous version of this function!
+        """
         x = []
 
+        ders_files = [file for file in os.listdir(self.historical_data_file_path) if file.startswith("ders")]
+        ders_files_sorted = sorted(ders_files, key=lambda x: int(x.split("_")[1].split(".")[0]))
+
         for file in ders_files_sorted:
-            df = pd.read_csv(self.historical_data_file_path+file,usecols=[1,2])
-            df_all = pd.concat([df_all, df], axis=1)
-        
-        for index, row in df_all.iterrows():
-            row = dict(row)
-            x.append(row)
+            df = pd.read_csv(self.historical_data_file_path+file)
+            for index, row in df.iterrows():
+                row = dict(row)
+                x.append(row)
 
-        self.len_der_s_historical_data_input = len(x)
         return x
-
-        # with open(self.historical_data_file_path) as csvfile:
-        #     r = csv.DictReader(csvfile)
-        #     x = []
-        #     for row in r:
-        #         row = dict(row)
-        #         x.append(row)
-        
-        # return x
-        
+    
 
     def read_input_file(self):
 
@@ -634,6 +629,7 @@ class DERAssignmentHandler:
 
         .der_em_mrid_per_bus_query_message: SPARQL Query used to gather the DER-EM info for the assignment tables from the model database.
     """
+
     def __init__(self):
         self.assignment_lookup_table = None
         self.assignment_table = None
@@ -759,7 +755,6 @@ class MCInputInterface:
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
-        # print(f"\n\n------ Current unified input request: ------\n\n {self.current_unified_input_request} --------")
         
 
     def update_der_ems(self):
@@ -788,43 +783,85 @@ class GOTopologyProcessor:
     'Topology' refers to where things are on the grid in relation to one another. In its simplest form, topology can
     refer to what bus each DER-EM is on. However, GOs and GSPs may view topology in more complex forms, combining
     buses into branches, groups, etc. More complex topologies are stored in xml files and read into the MC by this
-    class; the XML contains each "group" and whatever buses are members of it. This class will then be able to
+    class; the XML contains each "group" and whatever buses are members of it.
 
-    Topological processing is not required in the early stages of testing, so this class has not been fully implemented
-    and many of its functions are currently unused.
+    UPDATE:
+
+    Since grid services might be on a substation level, feeder level, transformer level, or segment level, this class 
+    extracts the branches of each level, which will be later used by other classes to post a Grid Service to the 
+    DERMS.
+
+        - The PSU feeder topology is similar to the CSIP topology; it contains the following:
+              --------------------------------------------
+              name on feeder    |   reference name on CSIP
+              --------------------------------------------
+              SourceBus         |   Substation
+              N6*               |   Group
+              Meter*            |   Feeder
+              OL*               |   Segment names
+              xfmr*             |   transformers
+              tlx*              |   DER Busses
+
+        - The updated version of this class aligns with the older version objectives. It is however expanded to accommodate
+        more complex topologies.
     """
     def __init__(self):
         
-        self.topology_file = './Configuration/psu_feeder_topology.xml'
+        # self.topology_file = './Configuration/psu_feeder_topology.xml'
+        self.topology_file = './Configuration/archive/topology.xml'
 
     def import_topology_from_file(self):
-
-        with open (self.topology_file, 'r', encoding='utf-8') as f:
-            xml_file = f.read()
-        self.topology = xmltodict.parse(xml_file)
-
-    def get_group_members(self, group_input):
         """
-        Returns all buses contained in a given group.
+        Read topology file
         """
-        bus_list = [
-
-        load for source, k in self.topology.items()
-        for nodes in self.topology[source]
-        for fed in self.topology[source][nodes]
-        for seg in self.topology[source][nodes][fed]
-        for xf in self.topology[source][nodes][fed][seg]
-        for tls in self.topology[source][nodes][fed][seg][xf]
-        for load in self.topology[source][nodes][fed][seg][xf][tls]
-        ]
-
-        return list(set(bus_list))
-
-    def get_groups_bus_is_in(self):
+        tree = ET.parse(self.topology_file)
+        root = tree.getroot()
+    
+    def get_substation(self, root):
         """
-        Returns all groups a given bus is a member of. As Per CSIP topology, each node in a feeder is a group.
+        Get the root name
         """
-        return list(self.topology[list(self.topology.keys())[0]])
+        return root.tag
+
+    def get_group (self, root):
+        """
+        Get groups in root
+        """
+        self.group = self.get_elements(root, 'group', 'name')
+
+    def get_feeder (self, root):
+        """
+        Get feeder in each group
+        """
+        self.feeders = self.get_elements(root, 'feeder', 'name')
+
+    def get_segment (self, root):
+        """
+        Get segments in each feeder
+        """
+        self.segments = self.get_elements(root, 'segment', 'name')
+
+    def get_xfmrs (self, root):
+        """
+        Get transformers in each segment
+        """
+        self.xfmrs = self.get_elements(root, 'xfmr', 'name')
+    
+    def get_service_points (self, root):
+        """
+        Get buses in each segment for each DER
+        """
+        self.buses = self.get_elements(root, 'bus', 'name')
+
+    def get_elements (self, element, tag, attribute):
+        """
+        Loop to retrieve the above attributes
+        """
+        attributes = []
+
+        for elem in element.iter (tag):
+            attributes.append(elem.get(attribute))
+        return attributes
 
 
 class GOSensor:
@@ -837,6 +874,9 @@ class GOSensor:
     threshold detection algorithms that, while more realistic, do not support the current goal of functionally testing
     a DERMS.
 
+    Also, make sure the simulation time in the Configuration/Config.txt matches the start_time in the 
+    manually_posted_service_input.xml
+
     ATTRIBUTES:
         .current_sensor_states: Grid states read into the sensor. Automatic mode only. Not currently implemented.
 
@@ -846,8 +886,10 @@ class GOSensor:
 
         .manual_service_xml_data: In Manual Mode, the data contained within the manual service xml file. To be parsed
             and posted service objects generated from this data.
+    
     """
     def __init__(self):
+
         self.current_sensor_states = None
         self.service_request_decision = None
         self.posted_service_list = []
@@ -856,9 +898,15 @@ class GOSensor:
     def update_sensor_states(self):
         """
         Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
-        This is only used by AUTOMATIC MODE. Not currently implemented.
+        This is only used by AUTOMATIC MODE. In progress.
+
+        Progress:
+            1- Get xfmers VAs.
+            2- Check if transformers are overloaded.
         """
         pass
+
+
 
     def make_service_request_decision(self):
         """
@@ -869,6 +917,8 @@ class GOSensor:
         In AUTOMATIC MODE (override is False):
             Will call code to make grid service determination. Currently not implemented.
         """
+        
+        meas = mcOutputLog.current_measurement
         if mcConfiguration.go_sensor_decision_making_manual_override is True:
             self.manually_post_service(edmTimekeeper.get_sim_current_time())
         elif mcConfiguration.go_sensor_decision_making_manual_override is False:
@@ -879,6 +929,7 @@ class GOSensor:
         pass
 
     def load_manual_service_file(self):
+        
         """
         MANUAL MODE: Reads the manually_posted_service_input.xml file during MC initialization and loads it into
         a dictionary for later use.
@@ -894,6 +945,7 @@ class GOSensor:
         dictionary, draws all relevant data points for each service, and instantiates a GOPostedService object for each
         one, appending the objects to a list.
         """
+    
         for key, item in self.manual_service_xml_data['services'].items():
             if int(item['start_time']) == int(sim_time):
                 name = str(key)
@@ -935,7 +987,6 @@ class GOOutputInterface:
             if item.get_status() is False:
                 print("Posting...")
                 self.current_service_requests.append(item.get_service_message_data())
-                print(item.get_service_message_data())
                 item.set_status(True)
             else:
                 print("----------------All already posted----------------")
@@ -949,8 +1000,6 @@ class GOOutputInterface:
         request_out_xml = '<services>\n'
         service_serial_num = 1
         for item in self.current_service_requests:
-            print("Test1")
-            
             request_out_xml = request_out_xml + '<service' + str(service_serial_num) + '>\n'
             request_out_xml = request_out_xml + dict2xml(item) + '\n'
             request_out_xml = request_out_xml + '</service' + str(service_serial_num) + '>\n'
@@ -994,29 +1043,31 @@ class MCOutputLog:
         .is_first_measurement: Flags functions that should only run once at the start of logging (such as opening
            the log files, setting up the header, etc.)
 
+    Update:
+        - The objectives of this class is the same as the old version. However, its functionality is different as mentioned below:
+            - At this level of testing, we need more simulation time (up to 12 hrs). <-- Existing GridAPPS-D bugs do not allow for more than 12 hrs simulation.
+            - More data stream is expected due to the long simulation time.
+        
+        - New functionalities;
+            - The timestamp values are written at the same time as the measurements in each timestep. Therefore, append_timestamps() function is optimized.
+            - More than one log file are now exported. Easier to parse, less time when reading each file in Python, and memory-convienient during and post simulation.
+                - A Python parsing script is available in python_support folder as an example.
+            - After several trials-and-errors, it was noted that exporting a log file after 100 timesteps is sufficient. (Depends on Computer features and OS)
+            - message_size_checkpoint() is a function that monitors the simulation time steps, closing old files, openning new files,
+            and updating needed class parameters.
     """
 
     def __init__(self):
-        # self.csv_file = None
-        # self.log_name = ''
-        # self.mrid_name_lookup_table = []
-        # self.header_mrids = []
-        # self.header_names = []
-        # self.csv_dict_writer = None
-        # self.timestamp_array = []
-        # self.current_measurement = None
-        # self.is_first_measurement = True
-        # self.message_size = 0
-        # self.file_num = 0
         self.csv_file = None
         self.log_name = ''
         self.mrid_name_lookup_table = []
         self.header_mrids = []
         self.header_names = []
         self.csv_dict_writer = None
-        self.timestamp_array = []
         self.current_measurement = None
         self.is_first_measurement = True
+        self.message_size = 0
+        self.file_num = 0
 
 
 
@@ -1024,32 +1075,18 @@ class MCOutputLog:
         """
         During the first measurement, performs housekeeping tasks like opening the file, setting the name, translating
         the header to something readable, and writing the header. On all subsequent measurements, it writes a row of
-        measurements to the logs and appends a new timestamp to the timestamp array.
+        measurements to the logs.
 
         Note: The first timestep in the logs will be several seconds after the actual simulation start time.
+
+        UPDATE:
+            - timestamp array is eliminated. Removed from the above paragraph!
         """
-        # self.current_measurement = edmMeasurementProcessor.get_current_measurements()
-        # if self.current_measurement:
-        #     print("Updating logs...")
-        #     if (self.is_first_measurement is True):
-        #         self.message_size = 0
-        #         print("First measurement routines...")
-        #         self.set_log_name()
-        #         self.open_csv_file()
-        #         self.mrid_name_lookup_table = edmCore.get_mrid_name_lookup_table()
-        #         self.translate_header_names()
-        #         self.open_csv_dict_writer()
-        #         self.write_header()
-        #         self.is_first_measurement = False
-        #     self.write_row()
-        #     self.message_size_checkpoint()
-        #     self.timestamp_array.append(edmTimekeeper.sim_current_time)
-        # else:
-        #     pass
         self.current_measurement = edmMeasurementProcessor.get_current_measurements()
         if self.current_measurement:
             print("Updating logs...")
-            if self.is_first_measurement is True:
+            if (self.is_first_measurement is True):
+                self.message_size = 0
                 print("First measurement routines...")
                 self.set_log_name()
                 self.open_csv_file()
@@ -1058,21 +1095,26 @@ class MCOutputLog:
                 self.open_csv_dict_writer()
                 self.write_header()
                 self.is_first_measurement = False
+            self.append_timestamps()
             self.write_row()
-            self.timestamp_array.append(edmTimekeeper.sim_current_time)
-        else:
-            pass
+            self.message_size_checkpoint()
 
-    # def message_size_checkpoint (self):
-        
-    #     self.message_size +=1
-    #     print('Current message size --->', self.message_size)
-    #     if self.message_size > 120:
-    #         print('Message size threshold reached!', self.message_size)
-    #         print(f"Closing file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
-    #         self.is_first_measurement = True
-    #         self.message_size = 0
-    #         self.close_out_logs()
+
+    def message_size_checkpoint (self):
+        """
+        Set the message size and checks if the it is exceeded. If it is, it closes the current file, opens a new file, and
+        changes the is_first_measurement flag to True so we can head back to the update_logs function.
+
+        NOTE: The message_size must be hardcoded for long Simulations.
+        """
+        self.message_size +=1
+        print('Current message size --->', self.message_size)
+        if self.message_size > 10:
+            print('Message size threshold reached!', self.message_size)
+            print(f"Openning file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
+            self.is_first_measurement = True
+            self.message_size = 0
+            self.close_out_logs()
     
     def open_csv_file(self):
         """
@@ -1086,14 +1128,13 @@ class MCOutputLog:
         Opens the dict writer used to write rows. Note that the headers used are the measurement mRIDs; the plain
         English names are a visual effect only.
         """
-        self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids)
+        self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids) # header_mrids is a dict of object mrid and its name
 
     def close_out_logs(self):
         """
         Closes the log file and re-appends the timestamps.
         """
         self.csv_file.close()
-        self.append_timestamps()
 
     def translate_header_names(self):
         """
@@ -1101,14 +1142,22 @@ class MCOutputLog:
         """
         self.header_mrids = self.current_measurement.keys()
         for i in self.header_mrids:
-            try:
-                lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
-            except StopIteration:
-                print(lookup_mrid)
-            lookup_name = lookup_mrid['name']
-            self.header_names.append(lookup_name)
+            if i != 'Timestamp':
+                try:
+                    lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+                except StopIteration:
+                    print(lookup_mrid)
+                lookup_name = lookup_mrid['name']
+                self.header_names.append(lookup_name)
             
         self.header_mrids = dict(zip(list(self.header_mrids), self.header_names))
+        self.header_mrids['Timestamp'] = 'Timestamp'
+
+    def append_timestamps(self):
+        """
+        Convert simulation time to a human-readable format.
+        """
+        self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
 
     def write_header(self):
         """
@@ -1126,21 +1175,8 @@ class MCOutputLog:
         """
         Sets the log name based on the MCConfiguration settings.
         """
-        # self.file_num += 1
-        # self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
-        self.log_name = mcConfiguration.output_log_name
-
-    def append_timestamps(self):
-        """
-        Uses the pandas library to append the timestamp column to the logs. This is the most convenient way to handle
-        timekeeping while making sure to use the simulation time rather than the measurement time.
-        """
-        csv_input = pd.read_csv(self.log_name)
-        self.timestamp_array = pd.to_datetime(self.timestamp_array, unit='s')
-        csv_input['Timestamp'] = self.timestamp_array
-        move_column = csv_input.pop('Timestamp')
-        csv_input.insert(0, 'Timestamp', move_column)
-        csv_input.to_csv(self.log_name, index=False)
+        self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
+        self.file_num += 1
 
 
 class GOPostedService:

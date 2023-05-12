@@ -162,7 +162,7 @@ def create_config_file(geo_rgn, sub_geo, fd_mrid, me_dir):
         },
         "simulation_config": {
             "start_time": "1672531200",
-            "duration": "86280",
+            "duration": "120",
             "simulator": "GridLAB-D",
             "timestep_frequency": "1000",
             "timestep_increment": "1000",

@@ -1,15 +1,15 @@
 {
     "power_system_config": {
-        "GeographicalRegion_name": "_316640D9-7489-458F-92C7-8398934AA3AE",
-        "SubGeographicalRegion_name": "_F4C2964F-B027-4E14-BFF8-F7A2FD4D5CBE",
-        "Line_name": "_9CCEA472-5389-442D-A8C9-F2B5C4E44488"
+        "GeographicalRegion_name": "_91E8DA02-2689-4BAD-8571-185A071FC758",
+        "SubGeographicalRegion_name": "_58A9B4CF-3C00-4995-99DC-93B0389F757F",
+        "Line_name": "_6F29152C-9098-4540-9B8C-8150B57702D1"
     },
     "application_config": {
         "applications": []
     },
     "simulation_config": {
         "start_time": "1672531200",
-        "duration": "300",
+        "duration": "120",
         "simulator": "GridLAB-D",
         "timestep_frequency": "1000",
         "timestep_increment": "1000",
