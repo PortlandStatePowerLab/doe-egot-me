@@ -42,7 +42,7 @@
 	<strictnames>TRUE</strictnames>
 	<website>http://www.gridlabd.org/</website>
 	<urlbase>http://www.gridlabd.org/</urlbase>
-	<randomseed>1602813564</randomseed>
+	<randomseed>-128556091</randomseed>
 	<include>""</include>
 	<trace>""</trace>
 	<gdb_window>FALSE</gdb_window>
@@ -1283,8 +1283,9 @@
 			<inherits_from>triplex_node</inherits_from>
 			<triplex_meter>
 				<id>19</id>
-				<rank>2</rank>
+				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:00:00 UTC</clock>
 				<name>Load_Meter</name>
 				<measured_real_energy>+0 Wh</measured_real_energy>
 				<measured_real_energy_delta>+0 Wh</measured_real_energy_delta>
@@ -1346,13 +1347,13 @@
 				<third_tier_energy>+0 kWh</third_tier_energy>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
-				<maximum_voltage_error>+0 V</maximum_voltage_error>
-				<voltage_1>+0+0d V</voltage_1>
-				<voltage_2>+0+0d V</voltage_2>
+				<maximum_voltage_error>+0.00024 V</maximum_voltage_error>
+				<voltage_1>+240+0d V</voltage_1>
+				<voltage_2>+240+0d V</voltage_2>
 				<voltage_N>+0+0d V</voltage_N>
-				<voltage_12>+0+0d V</voltage_12>
-				<voltage_1N>+0+0d V</voltage_1N>
-				<voltage_2N>+0+0d V</voltage_2N>
+				<voltage_12>+480+0d V</voltage_12>
+				<voltage_1N>+240+0d V</voltage_1N>
+				<voltage_2N>+240+0d V</voltage_2N>
 				<prerotated_current_1>+0+0i A</prerotated_current_1>
 				<prerotated_current_2>+0+0i A</prerotated_current_2>
 				<prerotated_current_12>+0+0i A</prerotated_current_12>
@@ -1438,8 +1439,8 @@
 				<measured_angle_12>+0 rad</measured_angle_12>
 				<measured_frequency_12>+60 Hz</measured_frequency_12>
 				<measured_frequency>+60 Hz</measured_frequency>
-				<phases>AB</phases>
-				<nominal_voltage>+120 V</nominal_voltage>
+				<phases>AS</phases>
+				<nominal_voltage>+240 V</nominal_voltage>
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</triplex_meter>
 		</triplex_meter_list>
@@ -1524,6 +1525,169 @@
 		</load_tracker_list>
 		<triplex_load_list>
 			<inherits_from>triplex_node</inherits_from>
+			<triplex_load>
+				<id>21</id>
+				<rank>4</rank>
+				<out_svc>NEVER</out_svc>
+				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:00:00 UTC</clock>
+				<name>tlx_1</name>
+				<load_class>U</load_class>
+				<load_priority>DISCRETIONARY</load_priority>
+				<constant_power_1>+0+0i VA</constant_power_1>
+				<constant_power_2>+0+0i VA</constant_power_2>
+				<constant_power_12>+0+0i VA</constant_power_12>
+				<constant_power_1_real>+0 W</constant_power_1_real>
+				<constant_power_2_real>+0 W</constant_power_2_real>
+				<constant_power_12_real>+0 W</constant_power_12_real>
+				<constant_power_1_reac>+0 VAr</constant_power_1_reac>
+				<constant_power_2_reac>+0 VAr</constant_power_2_reac>
+				<constant_power_12_reac>+0 VAr</constant_power_12_reac>
+				<constant_current_1>+0+0i A</constant_current_1>
+				<constant_current_2>+0+0i A</constant_current_2>
+				<constant_current_12>+0+0i A</constant_current_12>
+				<constant_current_1_real>+0 A</constant_current_1_real>
+				<constant_current_2_real>+0 A</constant_current_2_real>
+				<constant_current_12_real>+0 A</constant_current_12_real>
+				<constant_current_1_reac>+0 A</constant_current_1_reac>
+				<constant_current_2_reac>+0 A</constant_current_2_reac>
+				<constant_current_12_reac>+0 A</constant_current_12_reac>
+				<constant_impedance_1>+0+0i Ohm</constant_impedance_1>
+				<constant_impedance_2>+0+0i Ohm</constant_impedance_2>
+				<constant_impedance_12>+0+0i Ohm</constant_impedance_12>
+				<constant_impedance_1_real>+0 Ohm</constant_impedance_1_real>
+				<constant_impedance_2_real>+0 Ohm</constant_impedance_2_real>
+				<constant_impedance_12_real>+0 Ohm</constant_impedance_12_real>
+				<constant_impedance_1_reac>+0 Ohm</constant_impedance_1_reac>
+				<constant_impedance_2_reac>+0 Ohm</constant_impedance_2_reac>
+				<constant_impedance_12_reac>+0 Ohm</constant_impedance_12_reac>
+				<measured_voltage_1>+0+0d V</measured_voltage_1>
+				<measured_voltage_2>+0+0d V</measured_voltage_2>
+				<measured_voltage_12>+0+0d V</measured_voltage_12>
+				<indiv_measured_power_1>+0+0i VA</indiv_measured_power_1>
+				<indiv_measured_power_2>+0+0i VA</indiv_measured_power_2>
+				<indiv_measured_power_12>+0+0i VA</indiv_measured_power_12>
+				<measured_power>+0+0i VA</measured_power>
+				<base_power_1>+0 VA</base_power_1>
+				<base_power_2>+0 VA</base_power_2>
+				<base_power_12>+0 VA</base_power_12>
+				<power_pf_1>+1 pu</power_pf_1>
+				<current_pf_1>+1 pu</current_pf_1>
+				<impedance_pf_1>+1 pu</impedance_pf_1>
+				<power_pf_2>+1 pu</power_pf_2>
+				<current_pf_2>+1 pu</current_pf_2>
+				<impedance_pf_2>+1 pu</impedance_pf_2>
+				<power_pf_12>+1 pu</power_pf_12>
+				<current_pf_12>+1 pu</current_pf_12>
+				<impedance_pf_12>+1 pu</impedance_pf_12>
+				<power_fraction_1>+0 pu</power_fraction_1>
+				<current_fraction_1>+0 pu</current_fraction_1>
+				<impedance_fraction_1>+0 pu</impedance_fraction_1>
+				<power_fraction_2>+0 pu</power_fraction_2>
+				<current_fraction_2>+0 pu</current_fraction_2>
+				<impedance_fraction_2>+0 pu</impedance_fraction_2>
+				<power_fraction_12>+0 pu</power_fraction_12>
+				<current_fraction_12>+0 pu</current_fraction_12>
+				<impedance_fraction_12>+0 pu</impedance_fraction_12>
+				<bustype>PQ</bustype>
+				<busflags>HASSOURCE</busflags>
+				<maximum_voltage_error>+0.00024 V</maximum_voltage_error>
+				<voltage_1>+120+0d V</voltage_1>
+				<voltage_2>+120+0d V</voltage_2>
+				<voltage_N>+0+0d V</voltage_N>
+				<voltage_12>+240+0d V</voltage_12>
+				<voltage_1N>+120+0d V</voltage_1N>
+				<voltage_2N>+120+0d V</voltage_2N>
+				<prerotated_current_1>+0+0i A</prerotated_current_1>
+				<prerotated_current_2>+0+0i A</prerotated_current_2>
+				<prerotated_current_12>+0+0i A</prerotated_current_12>
+				<deltamode_generator_current_12>+0+0j A</deltamode_generator_current_12>
+				<residential_nominal_current_1>+0+0j A</residential_nominal_current_1>
+				<residential_nominal_current_2>+0+0j A</residential_nominal_current_2>
+				<residential_nominal_current_12>+0+0j A</residential_nominal_current_12>
+				<residential_nominal_current_1_real>+0 A</residential_nominal_current_1_real>
+				<residential_nominal_current_1_imag>+0 A</residential_nominal_current_1_imag>
+				<residential_nominal_current_2_real>+0 A</residential_nominal_current_2_real>
+				<residential_nominal_current_2_imag>+0 A</residential_nominal_current_2_imag>
+				<residential_nominal_current_12_real>+0 A</residential_nominal_current_12_real>
+				<residential_nominal_current_12_imag>+0 A</residential_nominal_current_12_imag>
+				<current_1>+0+0j A</current_1>
+				<current_2>+0+0j A</current_2>
+				<current_N>+0+0j A</current_N>
+				<current_1_real>+0 A</current_1_real>
+				<current_2_real>+0 A</current_2_real>
+				<current_N_real>+0 A</current_N_real>
+				<current_1_reac>+0 A</current_1_reac>
+				<current_2_reac>+0 A</current_2_reac>
+				<current_N_reac>+0 A</current_N_reac>
+				<current_12>+0+0j A</current_12>
+				<current_12_real>+0 A</current_12_real>
+				<current_12_reac>+0 A</current_12_reac>
+				<power_1>+0+0j VA</power_1>
+				<power_2>+0+0j VA</power_2>
+				<power_12>+0+0j VA</power_12>
+				<power_1_real>+0 W</power_1_real>
+				<power_2_real>+0 W</power_2_real>
+				<power_12_real>+0 W</power_12_real>
+				<power_1_reac>+0 VAr</power_1_reac>
+				<power_2_reac>+0 VAr</power_2_reac>
+				<power_12_reac>+0 VAr</power_12_reac>
+				<shunt_1>+0+0j S</shunt_1>
+				<shunt_2>+0+0j S</shunt_2>
+				<shunt_12>+0+0j S</shunt_12>
+				<impedance_1>+0+0j Ohm</impedance_1>
+				<impedance_2>+0+0j Ohm</impedance_2>
+				<impedance_12>+0+0j Ohm</impedance_12>
+				<impedance_1_real>+0 Ohm</impedance_1_real>
+				<impedance_2_real>+0 Ohm</impedance_2_real>
+				<impedance_12_real>+0 Ohm</impedance_12_real>
+				<impedance_1_reac>+0 Ohm</impedance_1_reac>
+				<impedance_2_reac>+0 Ohm</impedance_2_reac>
+				<impedance_12_reac>+0 Ohm</impedance_12_reac>
+				<acc_temp_current_1>+0+0i A</acc_temp_current_1>
+				<acc_temp_current_2>+0+0i A</acc_temp_current_2>
+				<acc_temp_current_N>+0+0i A</acc_temp_current_N>
+				<acc_temp_current_12>+0+0i A</acc_temp_current_12>
+				<acc_temp_power_1>+0+0i VA</acc_temp_power_1>
+				<acc_temp_power_2>+0+0i VA</acc_temp_power_2>
+				<acc_temp_power_12>+0+0i VA</acc_temp_power_12>
+				<acc_temp_shunt_1>+0+0i S</acc_temp_shunt_1>
+				<acc_temp_shunt_2>+0+0i S</acc_temp_shunt_2>
+				<acc_temp_shunt_12>+0+0i S</acc_temp_shunt_12>
+				<house_present>FALSE</house_present>
+				<Norton_dynamic>FALSE</Norton_dynamic>
+				<generator_dynamic>FALSE</generator_dynamic>
+				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
+				<GFA_enable>FALSE</GFA_enable>
+				<GFA_freq_low_trip>+59.5 Hz</GFA_freq_low_trip>
+				<GFA_freq_high_trip>+60.5 Hz</GFA_freq_high_trip>
+				<GFA_volt_low_trip>+0.8 pu</GFA_volt_low_trip>
+				<GFA_volt_high_trip>+1.2 pu</GFA_volt_high_trip>
+				<GFA_reconnect_time>+300 s</GFA_reconnect_time>
+				<GFA_freq_disconnect_time>+0.2 s</GFA_freq_disconnect_time>
+				<GFA_volt_disconnect_time>+0.2 s</GFA_volt_disconnect_time>
+				<GFA_status>TRUE</GFA_status>
+				<GFA_trip_method>NONE</GFA_trip_method>
+				<service_status>IN_SERVICE</service_status>
+				<service_status_double>-1</service_status_double>
+				<previous_uptime>-1 min</previous_uptime>
+				<current_uptime>-1 min</current_uptime>
+				<topological_parent>Load_Meter</topological_parent>
+				<frequency_measure_type>NONE</frequency_measure_type>
+				<sfm_Tf>+0.01 s</sfm_Tf>
+				<pll_Kp>+10 pu</pll_Kp>
+				<pll_Ki>+100 pu</pll_Ki>
+				<measured_angle_1>+0 rad</measured_angle_1>
+				<measured_frequency_1>+60 Hz</measured_frequency_1>
+				<measured_angle_2>+0 rad</measured_angle_2>
+				<measured_frequency_2>+60 Hz</measured_frequency_2>
+				<measured_angle_12>+0 rad</measured_angle_12>
+				<measured_frequency_12>+60 Hz</measured_frequency_12>
+				<measured_frequency>+60 Hz</measured_frequency>
+				<phases>AS</phases>
+				<nominal_voltage>+240 V</nominal_voltage>
+				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
+			</triplex_load>
 		</triplex_load_list>
 		<impedance_dump_list>
 		</impedance_dump_list>
@@ -1556,16 +1720,17 @@
 		</energy_storage_list>
 		<inverter_list>
 			<inverter>
-				<id>21</id>
+				<id>22</id>
 				<rank>1</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:00:00 UTC</clock>
 				<name>inv_bat</name>
 				<inverter_type>FOUR_QUADRANT</inverter_type>
-				<four_quadrant_control_mode>CONSTANT_PQ</four_quadrant_control_mode>
+				<four_quadrant_control_mode>VOLT_VAR</four_quadrant_control_mode>
 				<pf_reg>EXCLUDED</pf_reg>
 				<generator_status>ONLINE</generator_status>
-				<generator_mode>CONSTANT_PQ</generator_mode>
+				<generator_mode>SUPPLY_DRIVEN</generator_mode>
 				<inverter_convergence_criterion>+0.001</inverter_convergence_criterion>
 				<V_In>+0 V</V_In>
 				<I_In>+0 A</I_In>
@@ -1604,8 +1769,8 @@
 				<Q_Out>+0 VAr</Q_Out>
 				<power_in>+0 W</power_in>
 				<rated_power>+10000 VA</rated_power>
-				<rated_battery_power>+0 W</rated_battery_power>
-				<inverter_efficiency>+0.975</inverter_efficiency>
+				<rated_battery_power>+11494.3 W</rated_battery_power>
+				<inverter_efficiency>+0.87</inverter_efficiency>
 				<battery_soc>-1 pu</battery_soc>
 				<soc_reserve>+0 pu</soc_reserve>
 				<power_factor>+1 unit</power_factor>
@@ -1699,7 +1864,7 @@
 				<over_voltage_low_disconnect_time>+1 s</over_voltage_low_disconnect_time>
 				<over_voltage_high_disconnect_time>+0.16 s</over_voltage_high_disconnect_time>
 				<IEEE_1547_trip_method>NONE</IEEE_1547_trip_method>
-				<phases>BA</phases>
+				<phases>SA</phases>
 				<use_multipoint_efficiency>FALSE</use_multipoint_efficiency>
 				<inverter_manufacturer>NONE</inverter_manufacturer>
 				<maximum_dc_power>-1</maximum_dc_power>
@@ -1709,16 +1874,15 @@
 				<c_1>-1</c_1>
 				<c_2>-1</c_2>
 				<c_3>-1</c_3>
-				<sense_object>Load_Meter</sense_object>
-				<max_charge_rate>+10000 W</max_charge_rate>
-				<max_discharge_rate>+10000 W</max_discharge_rate>
-				<charge_on_threshold>-200 W</charge_on_threshold>
+				<max_charge_rate>+0 W</max_charge_rate>
+				<max_discharge_rate>+0 W</max_discharge_rate>
+				<charge_on_threshold>+0 W</charge_on_threshold>
 				<charge_off_threshold>+0 W</charge_off_threshold>
-				<discharge_on_threshold>+6000 W</discharge_on_threshold>
-				<discharge_off_threshold>+4000 W</discharge_off_threshold>
+				<discharge_on_threshold>+0 W</discharge_on_threshold>
+				<discharge_off_threshold>+0 W</discharge_off_threshold>
 				<excess_input_power>+0 W</excess_input_power>
-				<charge_lockout_time>+1 s</charge_lockout_time>
-				<discharge_lockout_time>+1 s</discharge_lockout_time>
+				<charge_lockout_time>+0 s</charge_lockout_time>
+				<discharge_lockout_time>+0 s</discharge_lockout_time>
 				<pf_reg_activate>-2</pf_reg_activate>
 				<pf_reg_deactivate>-1</pf_reg_deactivate>
 				<pf_target>-2</pf_target>
@@ -1736,18 +1900,18 @@
 				<group_max_charge_rate>-1 W</group_max_charge_rate>
 				<group_max_discharge_rate>-1 W</group_max_discharge_rate>
 				<group_rated_power>-1 W</group_rated_power>
-				<V_base>+208 V</V_base>
-				<V1>-2 pu</V1>
-				<Q1>-2 pu</Q1>
-				<V2>-2 pu</V2>
-				<Q2>-2 pu</Q2>
-				<V3>-2 pu</V3>
-				<Q3>-2 pu</Q3>
-				<V4>-2 pu</V4>
-				<Q4>-2 pu</Q4>
+				<V_base>+240 V</V_base>
+				<V1>+0.99 pu</V1>
+				<Q1>+0.7 pu</Q1>
+				<V2>+0.95 pu</V2>
+				<Q2>+0 pu</Q2>
+				<V3>+1.05 pu</V3>
+				<Q3>+0 pu</Q3>
+				<V4>+1.1 pu</V4>
+				<Q4>-0.8 pu</Q4>
 				<volt_var_control_lockout>-1 s</volt_var_control_lockout>
-				<number_of_phases_out>0</number_of_phases_out>
-				<efficiency_value>+0</efficiency_value>
+				<number_of_phases_out>1</number_of_phases_out>
+				<efficiency_value>+0.87</efficiency_value>
 				<VW_V1>-2 pu</VW_V1>
 				<VW_V2>-2 pu</VW_V2>
 				<VW_P1>-2 pu</VW_P1>
@@ -1759,7 +1923,7 @@
 		</rectifier_list>
 		<battery_list>
 			<battery>
-				<id>22</id>
+				<id>23</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>inv_bat</parent>
@@ -1809,8 +1973,8 @@
 				<use_internal_battery_model>TRUE</use_internal_battery_model>
 				<battery_type>LI_ION</battery_type>
 				<nominal_voltage>+48 V</nominal_voltage>
-				<rated_power>+10000 W</rated_power>
-				<battery_capacity>+50000 Wh</battery_capacity>
+				<rated_power>+0 W</rated_power>
+				<battery_capacity>+1000 Wh</battery_capacity>
 				<round_trip_efficiency>+0.86 pu</round_trip_efficiency>
 				<state_of_charge>+1 pu</state_of_charge>
 				<battery_load>+0 W</battery_load>
@@ -1888,12 +2052,24 @@
 		<version.minor>3</version.minor>
 		<player_list>
 			<player>
-				<id>24</id>
+				<id>25</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<name>player_A</name>
 				<property>(undefined)</property>
 				<file>ders.csv</file>
+				<filetype>txt</filetype>
+				<mode>file</mode>
+				<loop>0</loop>
+				<value>+0</value>
+			</player>
+			<player>
+				<id>26</id>
+				<rank>0</rank>
+				<out_svc>NEVER</out_svc>
+				<name>house</name>
+				<property>(undefined)</property>
+				<file>house.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<loop>0</loop>
@@ -1912,7 +2088,7 @@
 				<name>substation_meter_pl</name>
 				<property>measured_voltage_A,measured_voltage_B,measured_voltage_C,measured_power</property>
 				<trigger>""</trigger>
-				<file>substation_meter_data.csv</file>
+				<file>./gld_outputs/substation_meter_data.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<multifile>""</multifile>
@@ -1932,10 +2108,11 @@
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:00:00 UTC</clock>
 				<name>triplex_meter_pl</name>
-				<property>"voltage_1, voltage_2"</property>
+				<property>"measured_real_power, voltage_1, voltage_2"</property>
 				<trigger>""</trigger>
-				<file>triplex_meter.csv</file>
+				<file>./gld_outputs/triplex_meter.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<multifile>""</multifile>
@@ -1951,14 +2128,14 @@
 				<line_units>DEFAULT</line_units>
 			</recorder>
 			<recorder>
-				<id>23</id>
+				<id>24</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>inv_bat</parent>
 				<name>Load_meter_pl</name>
-				<property>P_Out</property>
+				<property>Pref,Qref,VA_Out.real</property>
 				<trigger>""</trigger>
-				<file>load.csv</file>
+				<file>./gld_outputs/load.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<multifile>""</multifile>
@@ -1968,7 +2145,7 @@
 				<columns>""</columns>
 				<flush>-1</flush>
 				<format>FALSE</format>
-				<interval>+60 s</interval>
+				<interval>+1 s</interval>
 				<output>SCREEN</output>
 				<header_units>DEFAULT</header_units>
 				<line_units>DEFAULT</line_units>

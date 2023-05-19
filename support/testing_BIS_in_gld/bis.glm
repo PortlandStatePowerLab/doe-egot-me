@@ -141,7 +141,7 @@ object recorder {
 	name substation_meter_pl;
 	parent substation_meter;
 	property measured_voltage_A,measured_voltage_B,measured_voltage_C,measured_power;
-	file substation_meter_data.csv;
+	file ./gld_outputs/substation_meter_data.csv;
 	interval 60;
   }
 //Branch 1
@@ -192,63 +192,136 @@ object transformer {
 object triplex_meter {
 	name Load_Meter;
 	phases AS;
-	nominal_voltage 120.0;
+	nominal_voltage 240.0;
 }
 object recorder{
-	name triplex_meter_pl;
-	parent Load_Meter;
-	property voltage_1, voltage_2;//measured_power;
-	file triplex_meter.csv;
+	name triplex_meter_pl_1;
+	parent intermed_meter;
+	property measured_real_power.real, voltage_A,voltage_B,voltage_C;
+	// property measured_power.real,measured_power.imag,measured_power, voltage_1, voltage_2;
+	file ./gld_outputs/xfmr_parent_meter.csv;
 	interval 60;
-	}
+}
+
+object recorder{
+	name triplex_meter_pl_2;
+	parent Load_Meter;
+	property measured_real_power.real, voltage_1, voltage_2;
+	// property measured_power.real,measured_power.imag,measured_power, voltage_1, voltage_2;
+	file ./gld_outputs/triplex_meter.csv;
+	interval 60;
+}
+
+object triplex_load {
+	name tlx_1;
+	parent Load_Meter;
+	phases AS;
+	voltage_1 120.0;
+	voltage_2 120.0;
+	constant_power_12 house.value*20;
+	nominal_voltage 240;
+}
+
 
 object inverter {
-  name inv_bat;
-  parent Load_Meter;
-  phases AS;
-  generator_status ONLINE;
-  generator_mode CONSTANT_PQ;
-  inverter_type FOUR_QUADRANT;
-//   four_quadrant_control_mode VOLT_VAR;
-  four_quadrant_control_mode CONSTANT_PQ; // LOAD FOLLOWING
-  charge_lockout_time 1;
-  discharge_lockout_time 1;
-  sense_object Load_Meter;
-  charge_on_threshold -200.000;
-  charge_off_threshold 0.000;
-  discharge_off_threshold 4000.000;
-  discharge_on_threshold 6000.000;
-  inverter_efficiency 0.975;
-  V_base 208.000;
-  rated_power 4500.000;
-  max_charge_rate 10000.000;
-  max_discharge_rate 10000.000;
-  P_Out player_A.value;
-  Q_Out 0.000;
-  object battery {
-    name bat;
-    nominal_voltage 48;
-    battery_capacity 50000.0;
-    state_of_charge 1.0000;
-    use_internal_battery_model true;
-    generator_mode CONSTANT_PQ;
-    generator_status ONLINE;
-    battery_type LI_ION;
-    round_trip_efficiency 0.86;
-    rated_power 10000.000;
-  };
+	name inv_bat;
+	parent Load_Meter;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode VOLT_VAR;
+	generator_status ONLINE;
+	generator_mode SUPPLY_DRIVEN;
+	V_base 240;
+	rated_power 5 kVA;// per phase;
+	inverter_efficiency 0.87;
+	P_Out player_A.value;
+	Q_Out 0.000;
+	//Volt Var parameters;
+	V_base 240;
+	V1 0.90;
+	Q1 0.7;
+	V2 0.95;
+	Q2 0.0;
+	V3 1.05;
+	Q3 0.0;
+	V4 1.10;
+	Q4 -0.8;
+	object battery {
+		name bat;
+		nominal_voltage 48;
+		battery_capacity 7000;
+		state_of_charge 1.0;
+		use_internal_battery_model true;
+		generator_mode CONSTANT_PQ;
+		generator_status ONLINE;
+		battery_type LI_ION;
+		round_trip_efficiency 0.86;
+		// rated_power 5000;
+
+	};
+}
+
+object recorder {
+	name Load_meter_pl;
+	parent inv_bat;
+	property VA_Out, VA_Out.real;
+	// property Pref,Qref,VA_Out.real;
+	// property "power_A.real,power_A.imag, power_B.real,power_B.imag, power_C.real,power_C.imag, VA_Out.real, VA_Out.imag, Pref, Qref";
+	file ./gld_outputs/load.csv;
+	interval 1;
 }
 
 object recorder{
-	name Load_meter_pl;
-	parent inv_bat;
-	property Pref,Qref;
-	// property "power_A.real,power_A.imag, power_B.real,power_B.imag, power_C.real,power_C.imag, VA_Out.real, VA_Out.imag, Pref, Qref";
-	file load.csv;
-	interval 60;
+	name bat_rec;
+	parent bat;
+	property rated_power,state_of_charge,battery_load;
+	file ./gld_outputs/bat.csv;
+	interval 1;
 }
 
 object player {
 	name player_A;
 	file "ders.csv";
 }
+
+object player {
+	name house;
+	file "house.csv";
+}
+
+// object inverter {
+//   name inv_bat;
+//   parent Load_Meter;
+//   phases AS;
+//   generator_status ONLINE;
+//   generator_mode CONSTANT_PQ;
+//   inverter_type FOUR_QUADRANT;
+// //   four_quadrant_control_mode VOLT_VAR;
+//   four_quadrant_control_mode CONSTANT_PQ; // LOAD FOLLOWING
+//   charge_lockout_time 1;
+//   discharge_lockout_time 1;
+//   sense_object Load_Meter;
+//   charge_on_threshold -200.000;
+//   charge_off_threshold 0.000;
+//   discharge_off_threshold 4000.000;
+//   discharge_on_threshold 6000.000;
+//   inverter_efficiency 0.975;
+//   V_base 208.000;
+//   rated_power 4500.000;
+//   max_charge_rate 10000.000;
+//   max_discharge_rate 10000.000;
+//   P_Out player_A.value;
+//   Q_Out 0.000;
+//   object battery {
+//     name bat;
+//     nominal_voltage 48;
+//     battery_capacity 50000.0;
+//     state_of_charge 1.0000;
+//     use_internal_battery_model true;
+//     generator_mode CONSTANT_PQ;
+//     generator_status ONLINE;
+//     battery_type LI_ION;
+//     round_trip_efficiency 0.86;
+//     rated_power 10000.000;
+//   };
+// }

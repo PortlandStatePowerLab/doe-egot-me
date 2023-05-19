@@ -64,7 +64,9 @@ class EDMCore:
         derAssignmentHandler.assign_all_ders()
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
-        # goTopologyProcessor.import_topology_from_file()
+        goTopologyProcessor.import_topology_from_file()
+        # Go Sensor
+        goSensor.set_voltage_thresholds()
         goSensor.load_manual_service_file()
 
 
@@ -270,6 +272,7 @@ class EDMTimeKeeper(object):
         self.edmCoreObj.sim_current_time = self.sim_current_time
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
+        goSensor.update_sensor_states()
         mcOutputLog.update_logs()
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
@@ -403,7 +406,9 @@ class EDMMeasurementProcessor(object):
             except StopIteration:
                 pass
         
-        pp(self.current_measurements)
+        
+        # for key, value in self.current_measurements.items():
+        #     pp(value)
 
 class DERSHistoricalDataInput:
     """
@@ -807,8 +812,9 @@ class GOTopologyProcessor:
     """
     def __init__(self):
         
-        # self.topology_file = './Configuration/psu_feeder_topology.xml'
-        self.topology_file = './Configuration/archive/topology.xml'
+        self.topology_file = './Configuration/psu_feeder_topology.xml'
+        # self.topology_file = './Configuration/archive/topology.xml'
+        
 
     def import_topology_from_file(self):
         """
@@ -816,42 +822,49 @@ class GOTopologyProcessor:
         """
         tree = ET.parse(self.topology_file)
         root = tree.getroot()
+
+        return root
     
-    def get_substation(self, root):
+    def get_substation(self):
         """
         Get the root name
         """
-        return root.tag
+        return self.import_topology_from_file().tag
 
-    def get_group (self, root):
+    def get_groups (self):
         """
         Get groups in root
         """
-        self.group = self.get_elements(root, 'group', 'name')
+        group = self.get_elements(self.import_topology_from_file(), 'group', 'name')
+        return group
 
-    def get_feeder (self, root):
+    def get_feeders (self):
         """
         Get feeder in each group
         """
-        self.feeders = self.get_elements(root, 'feeder', 'name')
+        feeders = self.get_elements(self.import_topology_from_file(), 'feeder', 'name')
+        return feeders
 
-    def get_segment (self, root):
+    def get_segments (self):
         """
         Get segments in each feeder
         """
-        self.segments = self.get_elements(root, 'segment', 'name')
+        segments = self.get_elements(self.import_topology_from_file(), 'segment', 'name')
+        return segments
 
-    def get_xfmrs (self, root):
+    def get_xfmrs (self):
         """
         Get transformers in each segment
         """
-        self.xfmrs = self.get_elements(root, 'xfmr', 'name')
+        xfmrs = self.get_elements(self.import_topology_from_file(), 'xfmr', 'name')
+        return xfmrs
     
-    def get_service_points (self, root):
+    def get_buses (self):
         """
         Get buses in each segment for each DER
         """
-        self.buses = self.get_elements(root, 'bus', 'name')
+        buses = self.get_elements(self.import_topology_from_file(), 'bus', 'name')
+        return buses
 
     def get_elements (self, element, tag, attribute):
         """
@@ -859,7 +872,7 @@ class GOTopologyProcessor:
         """
         attributes = []
 
-        for elem in element.iter (tag):
+        for elem in element.iter(tag):
             attributes.append(elem.get(attribute))
         return attributes
 
@@ -890,10 +903,29 @@ class GOSensor:
     """
     def __init__(self):
 
-        self.current_sensor_states = None
         self.service_request_decision = None
-        self.posted_service_list = []
+        self.current_sensor_states = None
         self.manual_service_xml_data = {}
+        self.posted_service_list = []
+
+        # Set Feeder Parameters
+
+        self.feeder_nominal_voltage = 2401  # Feeder nominal voltage
+        self.voltage_tolerance = 0.05       # 5% is the voltage tolerance as per ANSI C84.1
+
+        # Initialize feeder branches:
+
+        self.segments_list = goTopologyProcessor.get_segments()
+        self.feeders_list = goTopologyProcessor.get_feeders()
+        self.groups_list = goTopologyProcessor.get_groups()
+        self.bus_list = goTopologyProcessor.get_buses()
+
+    def set_voltage_thresholds (self):
+        """
+        Set the maximum and minimum thresholds for volt/var grid service.
+        """
+        self.max_threshold = self.feeder_nominal_voltage + (self.feeder_nominal_voltage * self.voltage_tolerance)
+        self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
 
     def update_sensor_states(self):
         """
@@ -901,10 +933,40 @@ class GOSensor:
         This is only used by AUTOMATIC MODE. In progress.
 
         Progress:
-            1- Get xfmers VAs.
-            2- Check if transformers are overloaded.
+            1- Energy Service: Volt/Var Support:
+                A- Get Feeders PNVs.
+                B- Check if feeder's voltages are +/-5%.
+                C- If so, initialize a volt/var grid service (i.e provide VARs).
+            2- Energy Service: Peak Load Mitigation
+                A- Get xfrmr buses VAs
+                B- Check if xfrmrs are overloaded by 200%.
+                C- If so, initialize a peak load mitigation grid service (i.e shed loads).
         """
-        pass
+        print("Checking for a Grid Service...")
+
+        parsed_measurements = edmMeasurementProcessor.get_current_measurements()
+        if parsed_measurements:
+            try:
+                for key, value in parsed_measurements.items():
+                    if (value.get('MeasType') == 'PNV' and
+                        value.get('Bus') in self.feeders_list
+                        and (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
+                        ):
+                        print(value['Bus'],value['magnitude'])
+
+                        self.initialize_volt_var_support_service()
+            except AttributeError: # eliminating the timestamp column
+                pass
+ 
+    def initialize_volt_var_support_service (self):
+        """
+        Since GridAPPS-D storage objects do not provide volt/var support, we use external GridLAB-D file that provides 
+        the needed VARs to adjust the voltage. 
+        """        
+        print("providing vars support")
+        
+
+        
 
 
 
@@ -1108,7 +1170,7 @@ class MCOutputLog:
         NOTE: The message_size must be hardcoded for long Simulations.
         """
         self.message_size +=1
-        print('Current message size --->', self.message_size)
+        # print('Current message size --->', self.message_size)
         if self.message_size > 10:
             print('Message size threshold reached!', self.message_size)
             print(f"Openning file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")

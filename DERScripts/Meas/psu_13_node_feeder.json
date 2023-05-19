@@ -26794,5 +26794,13 @@
   "PowerElectronicsConnection_BatteryUnit_trip_load_692_c_9_battery:tlx_692_c_h_9:s1:PNV": "_0a550998-108f-4494-9420-26271cb75525",
   "PowerElectronicsConnection_BatteryUnit_trip_load_692_c_9_battery:tlx_692_c_h_9:s1:VA": "_9393b6af-1c32-4353-a56d-44c2916323a5",
   "PowerElectronicsConnection_BatteryUnit_trip_load_692_c_9_battery:tlx_692_c_h_9:s2:PNV": "_10572b1f-3e5e-4e11-8304-93d9130c3244",
-  "PowerElectronicsConnection_BatteryUnit_trip_load_692_c_9_battery:tlx_692_c_h_9:s2:VA": "_26f1a156-6bc7-43d9-87c6-e59d5a6d8481"
+  "PowerElectronicsConnection_BatteryUnit_trip_load_692_c_9_battery:tlx_692_c_h_9:s2:VA": "_26f1a156-6bc7-43d9-87c6-e59d5a6d8481",
+  "PowerElectronicsConnection_PhotovoltaicUnit_pv:tlx_680_a_h_1:s1:PNV": "_ec2d2ea0-e706-4f2f-9515-1249d5bfd3e5",
+  "PowerElectronicsConnection_PhotovoltaicUnit_pv:tlx_680_a_h_1:s1:VA": "_efd0d039-9ab9-43d8-b7c6-d06c87a4cce0",
+  "PowerElectronicsConnection_PhotovoltaicUnit_pv:tlx_680_a_h_1:s2:PNV": "_d2ae697b-b159-4e58-a3e5-98b1b02cf377",
+  "PowerElectronicsConnection_PhotovoltaicUnit_pv:tlx_680_a_h_1:s2:VA": "_2f0bd8ab-4e56-4a14-ac68-b0a29a537e65",
+  "EnergyConsumer_trip_load_680_a_1:tlx_680_a_h_1:s1:PNV": "_21c167b8-8bad-4bee-9693-7e13cbea0a23",
+  "EnergyConsumer_trip_load_680_a_1:tlx_680_a_h_1:s1:VA": "_07e38590-a19d-401e-901b-bd8e68c21410",
+  "EnergyConsumer_trip_load_680_a_1:tlx_680_a_h_1:s2:PNV": "_a74d4126-f599-4f37-9c8a-0749978e8156",
+  "EnergyConsumer_trip_load_680_a_1:tlx_680_a_h_1:s2:VA": "_d3741e74-6c9e-49bb-87df-9402374dc53d"
 }
