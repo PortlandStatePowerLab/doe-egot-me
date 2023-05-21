@@ -26,7 +26,7 @@ class MCConfiguration:
         self.ders_obj_list = {
             'DERSHistoricalDataInput': 'dersHistoricalDataInput'
         }
-        self.go_sensor_decision_making_manual_override = True
+        self.go_sensor_decision_making_manual_override = False
         self.manual_service_filename = "manually_posted_service_input.xml"
         self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs'
 
@@ -66,7 +66,7 @@ class EDMCore:
         mcOutputLog.set_log_name()
         goTopologyProcessor.import_topology_from_file()
         # Go Sensor
-        goSensor.set_voltage_thresholds()
+        # goSensor.set_voltage_thresholds()
         goSensor.load_manual_service_file()
 
 
@@ -907,11 +907,12 @@ class GOSensor:
         self.current_sensor_states = None
         self.manual_service_xml_data = {}
         self.posted_service_list = []
+        self.duplicated_buses = set()
 
         # Set Feeder Parameters
 
-        self.feeder_nominal_voltage = 2401  # Feeder nominal voltage
-        self.voltage_tolerance = 0.05       # 5% is the voltage tolerance as per ANSI C84.1
+        self.feeder_nominal_voltage = 120  # Feeder nominal voltage
+        self.voltage_tolerance = 0.01      # 5% is the voltage tolerance as per ANSI C84.1
 
         # Initialize feeder branches:
 
@@ -920,9 +921,14 @@ class GOSensor:
         self.groups_list = goTopologyProcessor.get_groups()
         self.bus_list = goTopologyProcessor.get_buses()
 
+        # Setup external inverter GridLAB-D file:
+
+        self.inv_file_path = './inverter_control_file'
+
     def set_voltage_thresholds (self):
         """
-        Set the maximum and minimum thresholds for volt/var grid service.
+        Initially, sets the maximum and minimum thresholds for volt/var grid service.
+        Upon completion, this function will set all grid services parameters thresholds (i.e peak demand, voltage support).
         """
         self.max_threshold = self.feeder_nominal_voltage + (self.feeder_nominal_voltage * self.voltage_tolerance)
         self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
@@ -945,30 +951,39 @@ class GOSensor:
         print("Checking for a Grid Service...")
 
         parsed_measurements = edmMeasurementProcessor.get_current_measurements()
+        print("received new measurements")
+        
         if parsed_measurements:
             try:
                 for key, value in parsed_measurements.items():
-                    if (value.get('MeasType') == 'PNV' and
-                        value.get('Bus') in self.feeders_list
-                        and (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
-                        ):
-                        print(value['Bus'],value['magnitude'])
-
-                        self.initialize_volt_var_support_service()
-            except AttributeError: # eliminating the timestamp column
+                        self.filter_measurements(value)
+            except AttributeError: # eliminating the timestamp attribute
                 pass
+    
+    def filter_measurements (self, value):
+        if (value.get('MeasType') == 'PNV' and
+            value.get('Bus') in self.bus_list and
+            (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
+            ):
+
+            if value.get("Bus") not in self.duplicated_buses:
+                self.initialize_volt_var_support_service(bus=value['Bus'],magnitude=value['magnitude'])
+                self.duplicated_buses.add(value.get("Bus"))
+       
  
-    def initialize_volt_var_support_service (self):
+    def initialize_volt_var_support_service (self, bus, magnitude):
         """
         Since GridAPPS-D storage objects do not provide volt/var support, we use external GridLAB-D file that provides 
         the needed VARs to adjust the voltage. 
         """        
-        print("providing vars support")
-        
+        # print("providing vars support")
 
         
-
-
+        self.initialize_ext_inverter_startup_file(bus, magnitude)
+    
+    def initialize_ext_inverter_startup_file (self,bus,value):
+        with open (f"{self.inv_file_path}/model_startup_test.glm", "a") as f:
+            f.write(f"#define {bus}={float(value)*2}\n")
 
     def make_service_request_decision(self):
         """
@@ -984,7 +999,7 @@ class GOSensor:
         if mcConfiguration.go_sensor_decision_making_manual_override is True:
             self.manually_post_service(edmTimekeeper.get_sim_current_time())
         elif mcConfiguration.go_sensor_decision_making_manual_override is False:
-            pass
+            self.set_voltage_thresholds()   # This will be changed to set_grid_services_thresholds ()
         else:
             print("Service request failure. Wrong input.")
 

@@ -1,12 +1,12 @@
 {"feeders":[
 {"name":"psu_13_node_feeder",
-"mRID":"_A99400B0-E5C3-476C-9919-3F5CC25C44EE",
+"mRID":"_ED8087C7-4E5B-4885-AD6D-37DFA9A80C37",
 "substation":"Fictitious",
-"substationID":"_47E19D90-88DB-45AF-BB9E-C5C7CF482009",
+"substationID":"_68FFFC01-01D7-4997-955F-A477DDE75C0F",
 "subregion":"Portland",
-"subregionID":"_3485EF6D-1C68-4AAE-AEE3-218E0AFB843E",
+"subregionID":"_22CEC59C-D244-4B70-A9F4-1D8360A46584",
 "region":"Oregon",
-"regionID":"_C76CB31E-E7F0-44CC-A62C-6B9BAE55A05D",
+"regionID":"_98C2BF1E-7EEB-4018-B8F7-F1ACA2909E23",
 "swing_nodes":[
 {"name":"source","bus":"sourcebus","phases":"ABC","nominal_voltage":66395.3,"x1":3000.0,"y1":1000.0}
 ],

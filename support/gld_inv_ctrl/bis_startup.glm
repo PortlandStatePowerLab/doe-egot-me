@@ -1,0 +1,25 @@
+#set profiler=1
+
+module powerflow {
+     solver_method NR;
+};
+module climate;
+module generators;
+module residential {
+	implicit_enduses NONE;
+};
+module tape;
+
+
+clock {
+	timestamp '2023-01-01 00:00:00';
+	stoptime '2023-01-01 00:10:00';
+	// timezone PST+8PDT;
+}
+
+class player {
+    double value;
+}
+
+// #define v_inv_base=66395.28095680696
+#include "./bis.glm"

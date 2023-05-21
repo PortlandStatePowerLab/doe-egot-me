@@ -5156,6 +5156,7 @@ New Line.trip_line_680_C_h_40 length=50 units=ft
 ~ bus1=trip_node_680_C_5.1.2
 ~ bus2=tlx_680_C_h_40.1.2 switch=n  phases=2 Linecode=2P_Code10
 
+
 New storage.trip_load_680_A_1_Battery  Bus1=tlx_680_A_h_1.1.2 phases=2 Conn=Delta kV=0.240 kW=-4.5 kwhstored=7.0 kwhrated=7.0 LimitCurrent=yes vminpu=0.9001 kva=4.5
 New storage.trip_load_680_A_2_Battery  Bus1=tlx_680_A_h_2.1.2 phases=2 Conn=Delta kV=0.240 kW=-4.5 kwhstored=7.0 kwhrated=7.0 LimitCurrent=yes vminpu=0.9001 kva=4.5
 New storage.trip_load_680_A_3_Battery  Bus1=tlx_680_A_h_3.1.2 phases=2 Conn=Delta kV=0.240 kW=-4.5 kwhstored=7.0 kwhrated=7.0 LimitCurrent=yes vminpu=0.9001 kva=4.5
