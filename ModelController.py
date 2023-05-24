@@ -5,6 +5,7 @@ import csv
 import time
 # import json
 import xmltodict
+import subprocess
 import pandas as pd
 from dict2xml import dict2xml
 from pprint import pprint as pp
@@ -57,6 +58,7 @@ class EDMCore:
         self.establish_mrid_name_lookup_table()
         self.connect_to_simulation()
         self.initialize_sim_start_time()
+        self.initialize_sim_time_step()
         self.initialize_sim_mrid()
         self.create_objects()
         self.initialize_all_der_s()
@@ -96,11 +98,15 @@ class EDMCore:
         self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
         return self.line_mrid
 
-        
-
     def initialize_sim_start_time(self):
 
         self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
+        return self.sim_start_time
+    
+    def initialize_sim_time_step(self):
+
+        self.sim_time_step = self.config_parameters["simulation_config"]["duration"]
+        return self.sim_time_step
 
     def connect_to_simulation(self):
 
@@ -272,7 +278,7 @@ class EDMTimeKeeper(object):
         self.edmCoreObj.sim_current_time = self.sim_current_time
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
-        goSensor.update_sensor_states()
+        # goSensor.update_sensor_states()
         mcOutputLog.update_logs()
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
@@ -331,7 +337,7 @@ class EDMMeasurementProcessor(object):
     def get_current_measurements(self):
         """
         ACCESSOR: Returns the current fully processed measurement dictionary.
-        """
+        """ 
         return self.current_measurements
     
     def parse_message_into_current_measurements(self, measurement_message):
@@ -378,8 +384,7 @@ class EDMMeasurementProcessor(object):
                     'ConnectivityNode']
                 self.current_measurements[key]['Phases'] = measurement_table_dict_containing_mrid[
                     'phases']
-                self.current_measurements[key]['MeasType'] = measurement_table_dict_containing_mrid[
-                    'measurementType']
+                self.current_measurements[key]['MeasType'] = measurement_table_dict_containing_mrid['measurementType']
             except StopIteration:
                 print("\n\n ---------- Measurements updated with amplifying information ---------- \n\n")
 
@@ -446,6 +451,7 @@ class DERSHistoricalDataInput:
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
+        self.new_values_inserted = False
 
     def initialize_der_s(self):
         
@@ -474,7 +480,7 @@ class DERSHistoricalDataInput:
         done using locational data: I.E. a specific DER input should be associated with the mRID of a DER-EM on a given
         bus.
 
-        Midrar Notes:
+        Updates:
 
         - The input_table[0] variable prints all der_loc and der_mag values for a single timestep.
         
@@ -484,7 +490,7 @@ class DERSHistoricalDataInput:
             }
         and so forth.
 
-        - In Sean's ME version, der_being_assigned[i] returns the bus location, which is 632
+        - In previous versions, der_being_assigned[i] returns the bus location, which is 632
         """
         
         for i in self.list_of_ders:
@@ -553,12 +559,18 @@ class DERSHistoricalDataInput:
         Checks the current simulation time against the input table. If a new input exists for the current timestep,
         it is read, converted into an input dictionary, and put in the current der_input_request
         (see MCInputInterface.get_all_der_s_input_requests() )
+
+        Update:
+
+        new_values_listed flag is used for Grid Services. Every time DER-EMs have new inputs, it means the grid
+        states will be updated. Therefore, we need to check for a grid service.
         """
         self.der_em_input_request.clear()
         try:
             input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                      int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             
+            self.new_values_inserted = True
             input_at_time_now = dict(input_at_time_now)
             input_at_time_now.pop('Time')
             for i in self.list_of_ders:
@@ -768,6 +780,7 @@ class MCInputInterface:
         each one. The end result is the inputs are sent to the associated DER-EMs and the grid model is updated with
         the new DER states. This will be reflected in future measurements.
         """
+        
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
         for i in self.current_unified_input_request:
@@ -907,12 +920,12 @@ class GOSensor:
         self.current_sensor_states = None
         self.manual_service_xml_data = {}
         self.posted_service_list = []
-        self.duplicated_buses = set()
+        # self.duplicated_buses = set()
 
         # Set Feeder Parameters
 
         self.feeder_nominal_voltage = 120  # Feeder nominal voltage
-        self.voltage_tolerance = 0.01      # 5% is the voltage tolerance as per ANSI C84.1
+        self.voltage_tolerance = 0.01     # 5% is the voltage tolerance as per ANSI C84.1
 
         # Initialize feeder branches:
 
@@ -922,18 +935,66 @@ class GOSensor:
         self.bus_list = goTopologyProcessor.get_buses()
 
         # Setup external inverter GridLAB-D file:
+        
+        self.current_path = os.getcwd()
+        self.inv_file_path = f'{self.current_path}/inverter_control_file/'
+        self.inv_file_name = 'model_startup_test.glm'
 
-        self.inv_file_path = './inverter_control_file'
+        self.duplicated_buses = set()
+    
+    def make_service_request_decision(self):
+        """
+        Performs the following once per timestep.
+        current_unified_input_request
+        In MANUAL MODE (override is True):
+            Instantiates a grid service
+        In AUTOMATIC MODE (override is False):
+            Will call code to make grid service determination. Currently not implemented.
+        """
+        
+        # meas = mcOutputLog.current_measurement
+        if mcConfiguration.go_sensor_decision_making_manual_override is True:
+            self.manually_post_service(edmTimekeeper.get_sim_current_time())
+        elif mcConfiguration.go_sensor_decision_making_manual_override is False:
+            print("checking decision")
+            self.update_sensor_states() # It is already in the perform_all_on_timestep_updates
+            # self.set_voltage_thresholds()   # This will be changed to set_grid_services_thresholds ()
+            # self.initialize_ext_inv_startup_file()
+        else:
+            print("Service request failure. Wrong input.")
 
     def set_voltage_thresholds (self):
         """
         Initially, sets the maximum and minimum thresholds for volt/var grid service.
-        Upon completion, this function will set all grid services parameters thresholds (i.e peak demand, voltage support).
+        Upon completion, this function will set all grid services parameters thresholds (i.e peak demand, voltage support, etc).
         """
         self.max_threshold = self.feeder_nominal_voltage + (self.feeder_nominal_voltage * self.voltage_tolerance)
         self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
+    
+    def initialize_ext_inv_startup_file (self):
+
+        lines_to_write = """
+clock {
+    starttime '2023-05-19 17:00:00';
+    stoptime '2023-05-19 17:10:00';
+}
+module generators;
+module tape;
+module powerflow {
+    line_capacitance TRUE;
+    solver_method NR;
+}
+#define VSOURCE=66395.28095680696
+#include "./model_base.glm"
+
+                        """
+        
+        with open (f"{self.inv_file_path}{self.inv_file_name}", "w") as f:
+            f.write(lines_to_write)
+        f.close()
 
     def update_sensor_states(self):
+
         """
         Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
         This is only used by AUTOMATIC MODE. In progress.
@@ -949,26 +1010,51 @@ class GOSensor:
                 C- If so, initialize a peak load mitigation grid service (i.e shed loads).
         """
         print("Checking for a Grid Service...")
-
+    
         parsed_measurements = edmMeasurementProcessor.get_current_measurements()
-        print("received new measurements")
-        
         if parsed_measurements:
             try:
                 for key, value in parsed_measurements.items():
-                        self.filter_measurements(value)
+                    self.filter_measurements(value)
             except AttributeError: # eliminating the timestamp attribute
                 pass
     
-    def filter_measurements (self, value):
-        if (value.get('MeasType') == 'PNV' and
-            value.get('Bus') in self.bus_list and
-            (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
-            ):
+    # def check_posted_services_frequency (self, value):
+    #     """
+    #     In each time step, the measurements values are going to be the same. Therefore, if a grid service is needed,
+    #     then we want to initialize the needed grid service only once! 
+        
+    #     This function makes sure the grid service is posted only once.
+    #     """
+    #     if dersHistoricalDataInput.new_values_inserted is True:
+    #         self.duplicated_buses = set()
+    #         self.filter_measurements(value)
 
-            if value.get("Bus") not in self.duplicated_buses:
-                self.initialize_volt_var_support_service(bus=value['Bus'],magnitude=value['magnitude'])
-                self.duplicated_buses.add(value.get("Bus"))
+    def filter_measurements (self, value):
+        if value.get('MeasType') == "PNV":
+            print(value.get('MeasType'))
+        # pp(value['MeasType'])
+        # if value.get('Bus') in self.bus_list and value.get('MeasType') == 'PNV':
+        # # if value.get('MeasType') == 'PNV':
+        #     print(f"the bus is --> {value.get('Bus')}")
+        #     print(f"the meatype is --> {value.get('MeasType')}")
+        #     print(f"Hey I'm filter measurements. The flag is --> {dersHistoricalDataInput.new_values_inserted}")
+            
+        # if self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold:
+        #     print(value.get('magnitude'))
+            
+
+        # if (value.get('MeasType') == 'PNV' and
+        #     value.get('Bus') in self.bus_list and
+        #     dersHistoricalDataInput.new_values_inserted is True and
+        #     (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
+        #     ):
+        #     print(self.duplicated_buses)
+            
+        #     print(f"Hey filter measurements again. bus set sanity check --> {self.duplicated_buses}")
+        #     if value.get("Bus") not in self.duplicated_buses:
+        #         self.initialize_volt_var_support_service(bus=value['Bus'],magnitude=value['magnitude'])
+        #         self.duplicated_buses.add(value.get("Bus"))
        
  
     def initialize_volt_var_support_service (self, bus, magnitude):
@@ -978,32 +1064,27 @@ class GOSensor:
         """        
         # print("providing vars support")
 
-        
         self.initialize_ext_inverter_startup_file(bus, magnitude)
+        self.run_ext_inverter_startup_file()
     
     def initialize_ext_inverter_startup_file (self,bus,value):
-        with open (f"{self.inv_file_path}/model_startup_test.glm", "a") as f:
+
+        with open (f"{self.inv_file_path}{self.inv_file_name}", "a") as f:
             f.write(f"#define {bus}={float(value)*2}\n")
+        f.close()
 
-    def make_service_request_decision(self):
-        """
-        Performs the following once per timestep.
-        current_unified_input_request
-        In MANUAL MODE (override is True):
-            Instantiates a grid service
-        In AUTOMATIC MODE (override is False):
-            Will call code to make grid service determination. Currently not implemented.
-        """
+
+    def run_ext_inverter_startup_file (self):
         
-        meas = mcOutputLog.current_measurement
-        if mcConfiguration.go_sensor_decision_making_manual_override is True:
-            self.manually_post_service(edmTimekeeper.get_sim_current_time())
-        elif mcConfiguration.go_sensor_decision_making_manual_override is False:
-            self.set_voltage_thresholds()   # This will be changed to set_grid_services_thresholds ()
-        else:
-            print("Service request failure. Wrong input.")
+        os.chdir(self.inv_file_path)
+        
+        p1 = subprocess.Popen(f"gridlabd {self.inv_file_name}", shell=True)
+        p1.wait()
 
-        pass
+        os.chdir(self.current_path)
+
+        dersHistoricalDataInput.new_values_inserted = False
+        
 
     def load_manual_service_file(self):
         
