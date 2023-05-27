@@ -34,7 +34,7 @@ object overhead_line_conductor {
 object transformer_configuration {
 	name XFC400;
 	connect_type 2;
-	power_rating 6000;
+	power_rating 600;
 	primary_voltage 12470;
 	secondary_voltage 4160;
 	resistance 0.01;
@@ -44,8 +44,8 @@ object transformer_configuration {
 object transformer_configuration {
 	name PoleTop;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
-	power_rating 400;
-	powerA_rating 400;
+	power_rating 20;
+	powerA_rating 20;
 	primary_voltage 2400;
 	secondary_voltage 120;
 	resistance 0.01;
@@ -169,6 +169,383 @@ object triplex_meter {
 	phases AS;
 	nominal_voltage 240.0;
 }
+
+object triplex_load {
+	name tlx_1;
+	parent Load_Meter;
+	phases AS;
+	voltage_1 120.0;
+	voltage_2 120.0;
+	constant_power_12 house.value*13;
+	nominal_voltage 240.0;
+}
+// Make sure your gridappsd project looks like the following
+object inverter {
+  name inv_bat;
+  parent Load_Meter;
+  phases AS;
+  generator_status ONLINE;
+  generator_mode CONSTANT_PQ;
+  inverter_type FOUR_QUADRANT;
+  four_quadrant_control_mode CONSTANT_PQ; // LOAD_FOLLOWING;
+  charge_lockout_time 1;
+  discharge_lockout_time 1;
+  sense_object Load_Meter;
+//   charge_on_threshold -90.000;
+//   charge_off_threshold 0.000;
+//   discharge_off_threshold 1800.000;
+//   discharge_on_threshold 2700.000;
+  inverter_efficiency 0.975;
+  V_base 240.000;
+  rated_power 24000.000;
+  max_charge_rate 4500.000;
+  max_discharge_rate 4500.000;
+//   Q_Out 0;
+  Q_Out player_inv_q.value;
+  object battery {
+    name bat;
+    nominal_voltage 48;
+    battery_capacity 7000.0;
+    state_of_charge 1.0000;
+    use_internal_battery_model true;
+    generator_mode CONSTANT_PQ;
+    generator_status ONLINE;
+    battery_type LI_ION;
+    round_trip_efficiency 0.86;
+    rated_power 4500.000;
+  };
+}
+
+// make sure your external gridlab-d file looks like the following:
+// object inverter {
+// 	name inv_bat;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	rated_power 80 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240.000;
+// 	P_Out 0;
+// 	// Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.9;
+// 	Q1 0.7;
+// 	V2 0.95;
+// 	Q2 0.0;
+// 	V3 1.05;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat2;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat2;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+
+// object inverter {
+// 	name inv_bat3;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat3;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat4;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat4;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat5;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat5;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat6;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat6;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat7;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat7;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+// object inverter {
+// 	name inv_bat8;
+// 	parent Load_Meter;
+// 	phases AS;
+// 	inverter_type FOUR_QUADRANT;
+// 	four_quadrant_control_mode VOLT_VAR;
+// 	generator_status ONLINE;
+// 	generator_mode CONSTANT_PQ;
+// 	volt_var_control_lockout 60;
+// 	// charge_lockout_time 1;
+//   	// discharge_lockout_time 1;
+// 	rated_power 10 kVA;// per phase;
+// 	inverter_efficiency 0.975;
+// 	sense_object Load_Meter;
+// 	V_base 240;
+// 	P_Out 0;
+// 	Q_Out 0;
+// 	// Q_Out player_inv_q.value;
+// 	V1 0.90;
+// 	Q1 0.7;
+// 	V2 0.97;
+// 	Q2 0.0;
+// 	V3 1.07;
+// 	Q3 0.0;
+// 	V4 1.10;
+// 	Q4 -0.8;
+// 	object battery {
+// 		name bat8;
+// 		nominal_voltage 48;
+// 		battery_capacity 7000;
+// 		state_of_charge 1.0;
+// 		use_internal_battery_model true;
+// 		generator_mode CONSTANT_PQ;
+// 		generator_status ONLINE;
+// 		battery_type LI_ION;
+// 		round_trip_efficiency 0.86;
+// 		// rated_power 5000;
+
+// 	};
+// }
+
+
+
 object recorder {
 	name triplex_meter_pl_1;
 	parent intermed_meter;
@@ -181,83 +558,53 @@ object recorder {
 object recorder {
 	name triplex_meter_pl_2;
 	parent Load_Meter;
-	property measured_real_power.real, voltage_1, voltage_2;
+	property measured_real_power.real, voltage_12.real;
 	// property measured_power.real,measured_power.imag,measured_power, voltage_1, voltage_2;
 	file ./gld_outputs/measures_tlx_inv_1_phase.csv;
-	interval 60;
-}
-
-object triplex_load {
-	name tlx_1;
-	parent Load_Meter;
-	phases AS;
-	voltage_1 120.0;
-	voltage_2 120.0;
-	constant_power_12 house.value*1;
-	nominal_voltage 240;
-}
-
-
-object inverter {
-	name inv_bat;
-	parent Load_Meter;
-	phases AS;
-	inverter_type FOUR_QUADRANT;
-	four_quadrant_control_mode VOLT_VAR;
-	generator_status ONLINE;
-	generator_mode CONSTANT_PQ;
-	charge_lockout_time 1;
-  	discharge_lockout_time 1;
-	rated_power 4.5 kVA;// per phase;
-	inverter_efficiency 0.975;
-	P_Out player_A.value;
-	Q_Out 0.000;
-	//Volt Var parameters;
-	V_base 240;
-	V_base player_inv.value;
-	V1 0.90;
-	Q1 0.7;
-	V2 0.95;
-	Q2 0.0;
-	V3 1.05;
-	Q3 0.0;
-	V4 1.10;
-	Q4 -0.8;
-	object battery {
-		name bat;
-		nominal_voltage 48;
-		battery_capacity 7000;
-		state_of_charge 1.0;
-		use_internal_battery_model true;
-		generator_mode CONSTANT_PQ;
-		generator_status ONLINE;
-		battery_type LI_ION;
-		round_trip_efficiency 0.86;
-		// rated_power 5000;
-
-	};
+	interval 1;
 }
 
 object recorder {
 	name Load_meter_pl;
 	parent inv_bat;
-	// property VA_Out.imag, VA_Out.real, V_base;
-	property VA_Out.imag;
+	// property VA_Out.imag, VA_Out.real, V_base, power_A;
+	property VA_Out.imag,VA_Out.real;
 	file ./gld_outputs/measures_inv.csv;
 	interval 1;
 }
 
-object player {
-	name player_A;
-	file "ders.csv";
-}
-
-object player {
-	name house;
-	file "house.csv";
-}
-
-object player {
-	name player_inv;
-	file "inv_voltage.csv";
-}
+// object inverter {
+//   name inv_bat2;
+//   parent Load_Meter;
+//   phases AS;
+//   generator_status ONLINE;
+//   generator_mode CONSTANT_PQ;
+//   inverter_type FOUR_QUADRANT;
+//   four_quadrant_control_mode CONSTANT_PQ; // LOAD_FOLLOWING;
+//   charge_lockout_time 1;
+//   discharge_lockout_time 1;
+// //   sense_object Load_Meter;
+//   charge_on_threshold -90.000;
+//   charge_off_threshold 0.000;
+//   discharge_off_threshold 1800.000;
+//   discharge_on_threshold 2700.000;
+//   inverter_efficiency 0.975;
+//   V_base 240.000;
+//   rated_power 4500.000;
+//   max_charge_rate 4500.000;
+//   max_discharge_rate 4500.000;
+//   P_Out 0.000;
+//   Q_Out 0.000;
+//   object battery {
+//     name "bat_trip_load_680_c_19_battery";
+//     nominal_voltage 48;
+//     battery_capacity 7000.0;
+//     state_of_charge 1.0000;
+//     use_internal_battery_model true;
+//     generator_mode CONSTANT_PQ;
+//     generator_status ONLINE;
+//     battery_type LI_ION;
+//     round_trip_efficiency 0.86;
+//     rated_power 4500.000;
+//   };
+// }

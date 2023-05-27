@@ -72,7 +72,7 @@ class get_ders_historical_data():
         starting_time = 1672531200
         
         timestamp = pd.date_range(start=pd.to_datetime(starting_time, unit='s'),
-                                  freq='1min', periods=len(self.df['DER0_mag']))
+                                  freq='30S', periods=len(self.df['DER0_mag']))
         # timestamp = pd.date_range(start=pd.to_datetime(starting_time, unit='s'),
         #                           freq='1S', periods=len(self.df['DER0_mag']))
         
@@ -83,7 +83,7 @@ class get_ders_historical_data():
         self.df = pd.concat([time_df, self.df], axis=1)
 
     def wr_csv(self):
-        self.df = self.df.head(10)
+        self.df = self.df.head(20)
         self.df.to_csv(f'{self.me_dir}DERSHistoricalDataInput/psu_feeder_ders_data.csv', index=False)
     
 

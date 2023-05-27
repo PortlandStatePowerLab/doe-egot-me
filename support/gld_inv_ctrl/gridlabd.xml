@@ -28,7 +28,7 @@
 	<pauseatexit>FALSE</pauseatexit>
 	<testoutputfile>test.txt</testoutputfile>
 	<xml_encoding>8</xml_encoding>
-	<clock>2023-01-01 00:00:00 UTC</clock>
+	<clock>2023-01-01 00:05:00 UTC</clock>
 	<starttime>2023-01-01 00:00:00 UTC</starttime>
 	<stoptime>2023-01-01 00:10:00 UTC</stoptime>
 	<double_format>%+lg</double_format>
@@ -42,7 +42,7 @@
 	<strictnames>TRUE</strictnames>
 	<website>http://www.gridlabd.org/</website>
 	<urlbase>http://www.gridlabd.org/</urlbase>
-	<randomseed>-1096121039</randomseed>
+	<randomseed>-1967794458</randomseed>
 	<include>""</include>
 	<trace>""</trace>
 	<gdb_window>FALSE</gdb_window>
@@ -101,12 +101,12 @@
 	<sanitize_prefix>GLD_</sanitize_prefix>
 	<sanitize_index>.txt</sanitize_index>
 	<sanitize_offset>""</sanitize_offset>
-	<simulation_mode>INIT</simulation_mode>
+	<simulation_mode>EVENT</simulation_mode>
 	<deltamode_timestep>+1e+07 ns</deltamode_timestep>
 	<deltamode_maximumtime>+3.6e+12 ns</deltamode_maximumtime>
 	<deltaclock>0</deltaclock>
 	<delta_current_clock>+0</delta_current_clock>
-	<deltamode_updateorder>""</deltamode_updateorder>
+	<deltamode_updateorder>powerflow,generators,residential,tape</deltamode_updateorder>
 	<deltamode_iteration_limit>10</deltamode_iteration_limit>
 	<deltamode_forced_extra_timesteps>0</deltamode_forced_extra_timesteps>
 	<deltamode_forced_always>FALSE</deltamode_forced_always>
@@ -118,6 +118,269 @@
 	<allow_reinclude>FALSE</allow_reinclude>
 	<timezone>UTC0</timezone>
 	<sync-order>
+		<pass>
+			<name>pretopdown</name>
+			<rank>
+				<ordinal>7</ordinal>
+				<object>
+					<name>Node1</name>
+					<id>12</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>5</ordinal>
+				<object>
+					<name>substation_meter</name>
+					<id>16</id>
+				</object>
+				<object>
+					<name>Node2</name>
+					<id>14</id>
+				</object>
+				<object>
+					<name>Node3</name>
+					<id>19</id>
+				</object>
+				<object>
+					<name>intermed_meter</name>
+					<id>21</id>
+				</object>
+				<object>
+					<name>Load_Meter</name>
+					<id>23</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>4</ordinal>
+				<object>
+					<name>tlx_1</name>
+					<id>24</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>2</ordinal>
+				<object>
+					<name>Link12</name>
+					<id>13</id>
+				</object>
+				<object>
+					<name>branch1</name>
+					<id>20</id>
+				</object>
+				<object>
+					<name>branch</name>
+					<id>18</id>
+				</object>
+				<object>
+					<name>Residential_xformer</name>
+					<id>22</id>
+				</object>
+				<object>
+					<name>substation_transformer</name>
+					<id>15</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>1</ordinal>
+				<object>
+					<name>inv_bat</name>
+					<id>25</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>0</ordinal>
+				<object>
+					<name>player_A</name>
+					<id>0</id>
+				</object>
+				<object>
+					<name>house</name>
+					<id>1</id>
+				</object>
+				<object>
+					<name>player_inv</name>
+					<id>2</id>
+				</object>
+				<object>
+					<name>bat</name>
+					<id>26</id>
+				</object>
+				<object>
+					<name>player_inv_q</name>
+					<id>3</id>
+				</object>
+			</rank>
+		</pass>
+		<pass>
+			<name>bottomup</name>
+			<rank>
+				<ordinal>0</ordinal>
+				<object>
+					<name>bat</name>
+					<id>26</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>1</ordinal>
+				<object>
+					<name>inv_bat</name>
+					<id>25</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>2</ordinal>
+				<object>
+					<name>Link12</name>
+					<id>13</id>
+				</object>
+				<object>
+					<name>Residential_xformer</name>
+					<id>22</id>
+				</object>
+				<object>
+					<name>branch1</name>
+					<id>20</id>
+				</object>
+				<object>
+					<name>substation_transformer</name>
+					<id>15</id>
+				</object>
+				<object>
+					<name>branch</name>
+					<id>18</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>4</ordinal>
+				<object>
+					<name>tlx_1</name>
+					<id>24</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>5</ordinal>
+				<object>
+					<name>substation_meter</name>
+					<id>16</id>
+				</object>
+				<object>
+					<name>intermed_meter</name>
+					<id>21</id>
+				</object>
+				<object>
+					<name>Node2</name>
+					<id>14</id>
+				</object>
+				<object>
+					<name>Load_Meter</name>
+					<id>23</id>
+				</object>
+				<object>
+					<name>Node3</name>
+					<id>19</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>7</ordinal>
+				<object>
+					<name>Node1</name>
+					<id>12</id>
+				</object>
+			</rank>
+		</pass>
+		<pass>
+			<name>posttopdown</name>
+			<rank>
+				<ordinal>7</ordinal>
+				<object>
+					<name>Node1</name>
+					<id>12</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>5</ordinal>
+				<object>
+					<name>Node3</name>
+					<id>19</id>
+				</object>
+				<object>
+					<name>substation_meter</name>
+					<id>16</id>
+				</object>
+				<object>
+					<name>Load_Meter</name>
+					<id>23</id>
+				</object>
+				<object>
+					<name>Node2</name>
+					<id>14</id>
+				</object>
+				<object>
+					<name>intermed_meter</name>
+					<id>21</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>4</ordinal>
+				<object>
+					<name>tlx_1</name>
+					<id>24</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>2</ordinal>
+				<object>
+					<name>Residential_xformer</name>
+					<id>22</id>
+				</object>
+				<object>
+					<name>branch</name>
+					<id>18</id>
+				</object>
+				<object>
+					<name>substation_transformer</name>
+					<id>15</id>
+				</object>
+				<object>
+					<name>branch1</name>
+					<id>20</id>
+				</object>
+				<object>
+					<name>Link12</name>
+					<id>13</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>1</ordinal>
+				<object>
+					<name>inv_bat</name>
+					<id>25</id>
+				</object>
+			</rank>
+			<rank>
+				<ordinal>0</ordinal>
+				<object>
+					<name>Load_meter_pl</name>
+					<id>29</id>
+				</object>
+				<object>
+					<name>triplex_meter_pl_1</name>
+					<id>27</id>
+				</object>
+				<object>
+					<name>bat</name>
+					<id>26</id>
+				</object>
+				<object>
+					<name>triplex_meter_pl_2</name>
+					<id>28</id>
+				</object>
+				<object>
+					<name>substation_meter_pl</name>
+					<id>17</id>
+				</object>
+			</rank>
+		</pass>
 	</sync-order>
 	<powerflow>
 		<version.major>4</version.major>
@@ -125,10 +388,10 @@
 		<node_list>
 			<inherits_from>powerflow_object</inherits_from>
 			<node>
-				<id>8</id>
+				<id>12</id>
 				<rank>7</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Node1</name>
 				<bustype>SWING</bustype>
 				<busflags>HASSOURCE</busflags>
@@ -136,9 +399,9 @@
 				<voltage_A>+7199.56+0d V</voltage_A>
 				<voltage_B>+7199.56-120d V</voltage_B>
 				<voltage_C>+7199.56+120d V</voltage_C>
-				<voltage_AB>+0+0d V</voltage_AB>
-				<voltage_BC>+0+0d V</voltage_BC>
-				<voltage_CA>+0+0d V</voltage_CA>
+				<voltage_AB>+12470+30d V</voltage_AB>
+				<voltage_BC>+12470-90d V</voltage_BC>
+				<voltage_CA>+12470+150d V</voltage_CA>
 				<current_A>+0+0i A</current_A>
 				<current_B>+0+0i A</current_B>
 				<current_C>+0+0i A</current_C>
@@ -155,9 +418,9 @@
 				<deltamode_generator_current_B>+0+0j A</deltamode_generator_current_B>
 				<deltamode_generator_current_C>+0+0j A</deltamode_generator_current_C>
 				<deltamode_PGenTotal>+0+0j</deltamode_PGenTotal>
-				<current_inj_A>+0+0i A</current_inj_A>
-				<current_inj_B>+0+0i A</current_inj_B>
-				<current_inj_C>+0+0i A</current_inj_C>
+				<current_inj_A>+8.66629-19.4535j A</current_inj_A>
+				<current_inj_B>+8.29203e-11-1.70501e-10j A</current_inj_B>
+				<current_inj_C>+2.96456e-11-1.12662e-10j A</current_inj_C>
 				<current_AB>+0+0j A</current_AB>
 				<current_BC>+0+0j A</current_BC>
 				<current_CA>+0+0j A</current_CA>
@@ -201,7 +464,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<Norton_dynamic>FALSE</Norton_dynamic>
 				<generator_dynamic>FALSE</generator_dynamic>
 				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
@@ -220,20 +483,20 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</node>
 			<node>
-				<id>10</id>
+				<id>14</id>
 				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Node2</name>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
 				<maximum_voltage_error>+0.00719956 V</maximum_voltage_error>
-				<voltage_A>+7199.56+0d V</voltage_A>
-				<voltage_B>+7199.56-120d V</voltage_B>
-				<voltage_C>+7199.56+120d V</voltage_C>
-				<voltage_AB>+0+0d V</voltage_AB>
-				<voltage_BC>+0+0d V</voltage_BC>
-				<voltage_CA>+0+0d V</voltage_CA>
+				<voltage_A>+7187.83-0.0134101d V</voltage_A>
+				<voltage_B>+7204.67-120.037d V</voltage_B>
+				<voltage_C>+7200.94+120.046d V</voltage_C>
+				<voltage_AB>+12465.8+30.0135d V</voltage_AB>
+				<voltage_BC>+12470.4-90.0042d V</voltage_BC>
+				<voltage_CA>+12464.7+149.986d V</voltage_CA>
 				<current_A>+0+0i A</current_A>
 				<current_B>+0+0i A</current_B>
 				<current_C>+0+0i A</current_C>
@@ -250,9 +513,9 @@
 				<deltamode_generator_current_B>+0+0j A</deltamode_generator_current_B>
 				<deltamode_generator_current_C>+0+0j A</deltamode_generator_current_C>
 				<deltamode_PGenTotal>+0+0j</deltamode_PGenTotal>
-				<current_inj_A>+0+0i A</current_inj_A>
-				<current_inj_B>+0+0i A</current_inj_B>
-				<current_inj_C>+0+0i A</current_inj_C>
+				<current_inj_A>+8.66629-19.4535j A</current_inj_A>
+				<current_inj_B>+2.7031e-13+1.32784e-13j A</current_inj_B>
+				<current_inj_C>+1.94433e-13+5.88042e-13j A</current_inj_C>
 				<current_AB>+0+0j A</current_AB>
 				<current_BC>+0+0j A</current_BC>
 				<current_CA>+0+0j A</current_CA>
@@ -296,7 +559,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<Norton_dynamic>FALSE</Norton_dynamic>
 				<generator_dynamic>FALSE</generator_dynamic>
 				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
@@ -315,20 +578,20 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</node>
 			<node>
-				<id>15</id>
+				<id>19</id>
 				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Node3</name>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
 				<maximum_voltage_error>+0.00416 V</maximum_voltage_error>
-				<voltage_A>+2401.78+0d V</voltage_A>
-				<voltage_B>+2401.78-120d V</voltage_B>
-				<voltage_C>+2401.78+120d V</voltage_C>
-				<voltage_AB>+0+0d V</voltage_AB>
-				<voltage_BC>+0+0d V</voltage_BC>
-				<voltage_CA>+0+0d V</voltage_CA>
+				<voltage_A>+2254.54-0.85752d V</voltage_A>
+				<voltage_B>+2418.84-120.368d V</voltage_B>
+				<voltage_C>+2406.44+120.456d V</voltage_C>
+				<voltage_AB>+4038.09+30.5617d V</voltage_AB>
+				<voltage_BC>+4161.37-90.0422d V</voltage_BC>
+				<voltage_CA>+4063.66+148.75d V</voltage_CA>
 				<current_A>+0+0i A</current_A>
 				<current_B>+0+0i A</current_B>
 				<current_C>+0+0i A</current_C>
@@ -345,9 +608,9 @@
 				<deltamode_generator_current_B>+0+0j A</deltamode_generator_current_B>
 				<deltamode_generator_current_C>+0+0j A</deltamode_generator_current_C>
 				<deltamode_PGenTotal>+0+0j</deltamode_PGenTotal>
-				<current_inj_A>+0+0i A</current_inj_A>
-				<current_inj_B>+0+0i A</current_inj_B>
-				<current_inj_C>+0+0i A</current_inj_C>
+				<current_inj_A>+25.978-58.3137j A</current_inj_A>
+				<current_inj_B>+1.10134e-12-2.06057e-13j A</current_inj_B>
+				<current_inj_C>+7.81597e-13-8.17124e-13j A</current_inj_C>
 				<current_AB>+0+0j A</current_AB>
 				<current_BC>+0+0j A</current_BC>
 				<current_CA>+0+0j A</current_CA>
@@ -391,7 +654,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<Norton_dynamic>FALSE</Norton_dynamic>
 				<generator_dynamic>FALSE</generator_dynamic>
 				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
@@ -422,30 +685,30 @@
 		<meter_list>
 			<inherits_from>node</inherits_from>
 			<meter>
-				<id>12</id>
+				<id>16</id>
 				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>substation_meter</name>
-				<measured_real_energy>+0 Wh</measured_real_energy>
+				<measured_real_energy>+2332.49 Wh</measured_real_energy>
 				<measured_real_energy_delta>+0 Wh</measured_real_energy_delta>
-				<measured_reactive_energy>+0 VAh</measured_reactive_energy>
+				<measured_reactive_energy>+8674.09 VAh</measured_reactive_energy>
 				<measured_reactive_energy_delta>+0 VAh</measured_reactive_energy_delta>
 				<measured_energy_delta_timestep>-1 s</measured_energy_delta_timestep>
-				<measured_power>+0+0j VA</measured_power>
-				<measured_power_A>+0+0i VA</measured_power_A>
-				<measured_power_B>+0+0i VA</measured_power_B>
-				<measured_power_C>+0+0i VA</measured_power_C>
-				<measured_demand>+0 W</measured_demand>
-				<measured_real_power>+0 W</measured_real_power>
-				<measured_reactive_power>+0 VAr</measured_reactive_power>
+				<measured_power>+146167+65.2694d VA</measured_power>
+				<measured_power_A>+146167+65.2694d VA</measured_power_A>
+				<measured_power_B>+2.27091e-09+68.5044d VA</measured_power_B>
+				<measured_power_C>+4.66669e-09+20.9969d VA</measured_power_C>
+				<measured_demand>+741638 W</measured_demand>
+				<measured_real_power>+61149.1 W</measured_real_power>
+				<measured_reactive_power>+132761 VAr</measured_reactive_power>
 				<meter_power_consumption>+0+0j VA</meter_power_consumption>
-				<measured_voltage_A>+0+0d V</measured_voltage_A>
-				<measured_voltage_B>+0+0d V</measured_voltage_B>
-				<measured_voltage_C>+0+0d V</measured_voltage_C>
-				<measured_voltage_AB>+0+0d V</measured_voltage_AB>
-				<measured_voltage_BC>+0+0d V</measured_voltage_BC>
-				<measured_voltage_CA>+0+0d V</measured_voltage_CA>
+				<measured_voltage_A>+2289.64-0.71817d V</measured_voltage_A>
+				<measured_voltage_B>+2403.48-120.037d V</measured_voltage_B>
+				<measured_voltage_C>+2402.24+120.046d V</measured_voltage_C>
+				<measured_voltage_AB>+4050.75+30.4358d V</measured_voltage_AB>
+				<measured_voltage_BC>+4160.14-90.0042d V</measured_voltage_BC>
+				<measured_voltage_CA>+4079.21+148.882d V</measured_voltage_CA>
 				<measured_real_max_voltage_A_in_interval>+0 V</measured_real_max_voltage_A_in_interval>
 				<measured_real_max_voltage_B_in_interval>+0 V</measured_real_max_voltage_B_in_interval>
 				<measured_real_max_voltage_C_in_interval>+0 V</measured_real_max_voltage_C_in_interval>
@@ -483,16 +746,16 @@
 				<measured_avg_real_power_in_interval>+0 W</measured_avg_real_power_in_interval>
 				<measured_avg_reactive_power_in_interval>+0 VAr</measured_avg_reactive_power_in_interval>
 				<measured_stats_interval>-1 s</measured_stats_interval>
-				<measured_current_A>+0+0j A</measured_current_A>
-				<measured_current_B>+0+0j A</measured_current_B>
-				<measured_current_C>+0+0j A</measured_current_C>
+				<measured_current_A>+25.978-58.3137j A</measured_current_A>
+				<measured_current_B>-9.34364e-13+1.40332e-13j A</measured_current_B>
+				<measured_current_C>-3.05533e-13+1.91847e-12j A</measured_current_C>
 				<customer_interrupted>FALSE</customer_interrupted>
 				<customer_interrupted_secondary>FALSE</customer_interrupted_secondary>
 				<monthly_bill>+0 $</monthly_bill>
 				<previous_monthly_bill>+0 $</previous_monthly_bill>
 				<previous_monthly_energy>+0 kWh</previous_monthly_energy>
 				<monthly_fee>+0 $</monthly_fee>
-				<monthly_energy>+0 kWh</monthly_energy>
+				<monthly_energy>+2.33249 kWh</monthly_energy>
 				<bill_mode>NONE</bill_mode>
 				<bill_day>15</bill_day>
 				<price>+0 $/kWh</price>
@@ -506,12 +769,12 @@
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
 				<maximum_voltage_error>+0.00416 V</maximum_voltage_error>
-				<voltage_A>+4160+0d V</voltage_A>
-				<voltage_B>+4160-120d V</voltage_B>
-				<voltage_C>+4160+120d V</voltage_C>
-				<voltage_AB>+0+0d V</voltage_AB>
-				<voltage_BC>+0+0d V</voltage_BC>
-				<voltage_CA>+0+0d V</voltage_CA>
+				<voltage_A>+2289.64-0.71817d V</voltage_A>
+				<voltage_B>+2403.48-120.037d V</voltage_B>
+				<voltage_C>+2402.24+120.046d V</voltage_C>
+				<voltage_AB>+4050.75+30.4358d V</voltage_AB>
+				<voltage_BC>+4160.14-90.0042d V</voltage_BC>
+				<voltage_CA>+4079.21+148.882d V</voltage_CA>
 				<current_A>+0+0i A</current_A>
 				<current_B>+0+0i A</current_B>
 				<current_C>+0+0i A</current_C>
@@ -528,9 +791,9 @@
 				<deltamode_generator_current_B>+0+0j A</deltamode_generator_current_B>
 				<deltamode_generator_current_C>+0+0j A</deltamode_generator_current_C>
 				<deltamode_PGenTotal>+0+0j</deltamode_PGenTotal>
-				<current_inj_A>+0+0i A</current_inj_A>
-				<current_inj_B>+0+0i A</current_inj_B>
-				<current_inj_C>+0+0i A</current_inj_C>
+				<current_inj_A>+25.978-58.3137j A</current_inj_A>
+				<current_inj_B>-9.34364e-13+1.40332e-13j A</current_inj_B>
+				<current_inj_C>-3.05533e-13+1.91847e-12j A</current_inj_C>
 				<current_AB>+0+0j A</current_AB>
 				<current_BC>+0+0j A</current_BC>
 				<current_CA>+0+0j A</current_CA>
@@ -574,7 +837,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<Norton_dynamic>FALSE</Norton_dynamic>
 				<generator_dynamic>FALSE</generator_dynamic>
 				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
@@ -593,29 +856,30 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</meter>
 			<meter>
-				<id>17</id>
-				<rank>1</rank>
+				<id>21</id>
+				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>intermed_meter</name>
-				<measured_real_energy>+0 Wh</measured_real_energy>
+				<measured_real_energy>+2277.14 Wh</measured_real_energy>
 				<measured_real_energy_delta>+0 Wh</measured_real_energy_delta>
-				<measured_reactive_energy>+0 VAh</measured_reactive_energy>
+				<measured_reactive_energy>+8479.17 VAh</measured_reactive_energy>
 				<measured_reactive_energy_delta>+0 VAh</measured_reactive_energy_delta>
 				<measured_energy_delta_timestep>-1 s</measured_energy_delta_timestep>
-				<measured_power>+0+0j VA</measured_power>
-				<measured_power_A>+0+0i VA</measured_power_A>
-				<measured_power_B>+0+0i VA</measured_power_B>
-				<measured_power_C>+0+0i VA</measured_power_C>
-				<measured_demand>+0 W</measured_demand>
-				<measured_real_power>+0 W</measured_real_power>
-				<measured_reactive_power>+0 VAr</measured_reactive_power>
+				<measured_power>+141687+64.9863d VA</measured_power>
+				<measured_power_A>+141687+64.9863d VA</measured_power_A>
+				<measured_power_B>+0+0d VA</measured_power_B>
+				<measured_power_C>+0+0d VA</measured_power_C>
+				<measured_demand>+695571 W</measured_demand>
+				<measured_real_power>+59910.1 W</measured_real_power>
+				<measured_reactive_power>+128398 VAr</measured_reactive_power>
 				<meter_power_consumption>+0+0j VA</meter_power_consumption>
-				<measured_voltage_A>+0+0d V</measured_voltage_A>
-				<measured_voltage_B>+0+0d V</measured_voltage_B>
-				<measured_voltage_C>+0+0d V</measured_voltage_C>
-				<measured_voltage_AB>+0+0d V</measured_voltage_AB>
-				<measured_voltage_BC>+0+0d V</measured_voltage_BC>
-				<measured_voltage_CA>+0+0d V</measured_voltage_CA>
+				<measured_voltage_A>+2219.46-1.00127d V</measured_voltage_A>
+				<measured_voltage_B>+2434.27-120.694d V</measured_voltage_B>
+				<measured_voltage_C>+2410.76+120.865d V</measured_voltage_C>
+				<measured_voltage_AB>+4025.44+30.6884d V</measured_voltage_AB>
+				<measured_voltage_BC>+4162.6-90.0802d V</measured_voltage_BC>
+				<measured_voltage_CA>+4048.12+148.616d V</measured_voltage_CA>
 				<measured_real_max_voltage_A_in_interval>+0 V</measured_real_max_voltage_A_in_interval>
 				<measured_real_max_voltage_B_in_interval>+0 V</measured_real_max_voltage_B_in_interval>
 				<measured_real_max_voltage_C_in_interval>+0 V</measured_real_max_voltage_C_in_interval>
@@ -653,7 +917,7 @@
 				<measured_avg_real_power_in_interval>+0 W</measured_avg_real_power_in_interval>
 				<measured_avg_reactive_power_in_interval>+0 VAr</measured_avg_reactive_power_in_interval>
 				<measured_stats_interval>-1 s</measured_stats_interval>
-				<measured_current_A>+0+0j A</measured_current_A>
+				<measured_current_A>+25.978-58.3137j A</measured_current_A>
 				<measured_current_B>+0+0j A</measured_current_B>
 				<measured_current_C>+0+0j A</measured_current_C>
 				<customer_interrupted>FALSE</customer_interrupted>
@@ -662,7 +926,7 @@
 				<previous_monthly_bill>+0 $</previous_monthly_bill>
 				<previous_monthly_energy>+0 kWh</previous_monthly_energy>
 				<monthly_fee>+0 $</monthly_fee>
-				<monthly_energy>+0 kWh</monthly_energy>
+				<monthly_energy>+2.27714 kWh</monthly_energy>
 				<bill_mode>NONE</bill_mode>
 				<bill_day>15</bill_day>
 				<price>+0 $/kWh</price>
@@ -675,13 +939,13 @@
 				<third_tier_energy>+0 kWh</third_tier_energy>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
-				<maximum_voltage_error>+0 V</maximum_voltage_error>
-				<voltage_A>+0+0d V</voltage_A>
-				<voltage_B>+0+0d V</voltage_B>
-				<voltage_C>+0+0d V</voltage_C>
-				<voltage_AB>+0+0d V</voltage_AB>
-				<voltage_BC>+0+0d V</voltage_BC>
-				<voltage_CA>+0+0d V</voltage_CA>
+				<maximum_voltage_error>+0.00416 V</maximum_voltage_error>
+				<voltage_A>+2219.46-1.00127d V</voltage_A>
+				<voltage_B>+2434.27-120.694d V</voltage_B>
+				<voltage_C>+2410.76+120.865d V</voltage_C>
+				<voltage_AB>+4025.44+30.6884d V</voltage_AB>
+				<voltage_BC>+4162.6-90.0802d V</voltage_BC>
+				<voltage_CA>+4048.12+148.616d V</voltage_CA>
 				<current_A>+0+0i A</current_A>
 				<current_B>+0+0i A</current_B>
 				<current_C>+0+0i A</current_C>
@@ -698,9 +962,9 @@
 				<deltamode_generator_current_B>+0+0j A</deltamode_generator_current_B>
 				<deltamode_generator_current_C>+0+0j A</deltamode_generator_current_C>
 				<deltamode_PGenTotal>+0+0j</deltamode_PGenTotal>
-				<current_inj_A>+0+0i A</current_inj_A>
-				<current_inj_B>+0+0i A</current_inj_B>
-				<current_inj_C>+0+0i A</current_inj_C>
+				<current_inj_A>+25.978-58.3137j A</current_inj_A>
+				<current_inj_B>+0+0j A</current_inj_B>
+				<current_inj_C>+0+0j A</current_inj_C>
 				<current_AB>+0+0j A</current_AB>
 				<current_BC>+0+0j A</current_BC>
 				<current_CA>+0+0j A</current_CA>
@@ -744,7 +1008,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<Norton_dynamic>FALSE</Norton_dynamic>
 				<generator_dynamic>FALSE</generator_dynamic>
 				<reset_disabled_island_state>FALSE</reset_disabled_island_state>
@@ -759,7 +1023,7 @@
 				<GFA_status>TRUE</GFA_status>
 				<GFA_trip_method>NONE</GFA_trip_method>
 				<phases>ABC</phases>
-				<nominal_voltage>+0 V</nominal_voltage>
+				<nominal_voltage>+4160 V</nominal_voltage>
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</meter>
 		</meter_list>
@@ -768,7 +1032,7 @@
 		</line_list>
 		<line_spacing_list>
 			<line_spacing>
-				<id>1</id>
+				<id>5</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -788,35 +1052,35 @@
 		<overhead_line_list>
 			<inherits_from>line</inherits_from>
 			<overhead_line>
-				<id>9</id>
+				<id>13</id>
 				<rank>2</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Link12</name>
 				<configuration>LC300</configuration>
 				<length>+2000 ft</length>
 				<status>CLOSED</status>
 				<from>Node1</from>
 				<to>Node2</to>
-				<power_in>+0+0j VA</power_in>
-				<power_out>+0+0j VA</power_out>
-				<power_out_real>+0 W</power_out_real>
-				<power_losses>+0+0j VA</power_losses>
-				<power_in_A>+0+0j VA</power_in_A>
-				<power_in_B>+0+0j VA</power_in_B>
-				<power_in_C>+0+0j VA</power_in_C>
-				<power_out_A>+0+0j VA</power_out_A>
-				<power_out_B>+0+0j VA</power_out_B>
-				<power_out_C>+0+0j VA</power_out_C>
-				<power_losses_A>+0+0j VA</power_losses_A>
-				<power_losses_B>+0+0j VA</power_losses_B>
-				<power_losses_C>+0+0j VA</power_losses_C>
-				<current_out_A>+0+0i A</current_out_A>
-				<current_out_B>+0+0i A</current_out_B>
-				<current_out_C>+0+0i A</current_out_C>
-				<current_in_A>+0+0i A</current_in_A>
-				<current_in_B>+0+0i A</current_in_B>
-				<current_in_C>+0+0i A</current_in_C>
+				<power_in>+62393.4+140056j VA</power_in>
+				<power_out>+62324.5+139814j VA</power_out>
+				<power_out_real>+62324.5 W</power_out_real>
+				<power_losses>+68.9422+242.799j VA</power_losses>
+				<power_in_A>+62393.4+140056j VA</power_in_A>
+				<power_in_B>+7.64579e-07-1.13077e-06j VA</power_in_B>
+				<power_in_C>-8.09164e-07-2.20717e-07j VA</power_in_C>
+				<power_out_A>+62324.5+139814j VA</power_out_A>
+				<power_out_B>+7.64389e-07-1.13207e-06j VA</power_out_B>
+				<power_out_C>-8.09143e-07-2.21406e-07j VA</power_out_C>
+				<power_losses_A>+68.9422+242.799j VA</power_losses_A>
+				<power_losses_B>+1.89376e-10+1.29676e-09j VA</power_losses_B>
+				<power_losses_C>+2.16043e-11+6.88353e-10j VA</power_losses_C>
+				<current_out_A>+8.66629-19.4535j A</current_out_A>
+				<current_out_B>+8.29203e-11-1.70501e-10j A</current_out_B>
+				<current_out_C>+2.96456e-11-1.12662e-10j A</current_out_C>
+				<current_in_A>+8.66629-19.4535j A</current_in_A>
+				<current_in_B>+8.29203e-11-1.70501e-10j A</current_in_B>
+				<current_in_C>+2.96456e-11-1.12662e-10j A</current_in_C>
 				<fault_current_in_A>+0+0j A</fault_current_in_A>
 				<fault_current_in_B>+0+0j A</fault_current_in_B>
 				<fault_current_in_C>+0+0j A</fault_current_in_C>
@@ -827,7 +1091,7 @@
 				<fault_voltage_B>+0+0i A</fault_voltage_B>
 				<fault_voltage_C>+0+0i A</fault_voltage_C>
 				<overloaded_status>FALSE</overloaded_status>
-				<flow_direction>UNKNOWN</flow_direction>
+				<flow_direction>CN|BN|AF</flow_direction>
 				<mean_repair_time>+0 s</mean_repair_time>
 				<continuous_rating_A>+1000 A</continuous_rating_A>
 				<continuous_rating_B>+1000 A</continuous_rating_B>
@@ -845,35 +1109,35 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</overhead_line>
 			<overhead_line>
-				<id>14</id>
+				<id>18</id>
 				<rank>2</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>branch</name>
 				<configuration>LC300</configuration>
 				<length>+2000 ft</length>
 				<status>CLOSED</status>
 				<from>substation_meter</from>
 				<to>Node3</to>
-				<power_in>+0+0j VA</power_in>
-				<power_out>+0+0j VA</power_out>
-				<power_out_real>+0 W</power_out_real>
-				<power_losses>+0+0j VA</power_losses>
-				<power_in_A>+0+0j VA</power_in_A>
-				<power_in_B>+0+0j VA</power_in_B>
-				<power_in_C>+0+0j VA</power_in_C>
-				<power_out_A>+0+0j VA</power_out_A>
-				<power_out_B>+0+0j VA</power_out_B>
-				<power_out_C>+0+0j VA</power_out_C>
-				<power_losses_A>+0+0j VA</power_losses_A>
-				<power_losses_B>+0+0j VA</power_losses_B>
-				<power_losses_C>+0+0j VA</power_losses_C>
-				<current_out_A>+0+0i A</current_out_A>
-				<current_out_B>+0+0i A</current_out_B>
-				<current_out_C>+0+0i A</current_out_C>
-				<current_in_A>+0+0i A</current_in_A>
-				<current_in_B>+0+0i A</current_in_B>
-				<current_in_C>+0+0i A</current_in_C>
+				<power_in>+146167+65.2694d VA</power_in>
+				<power_out>+60529.6+130579j VA</power_out>
+				<power_out_real>+60529.6 W</power_out_real>
+				<power_losses>+2267.94+74.1482d VA</power_losses>
+				<power_in_A>+146167+65.2694d VA</power_in_A>
+				<power_in_B>+2.27091e-09+68.5044d VA</power_in_B>
+				<power_in_C>+4.66669e-09+20.9969d VA</power_in_C>
+				<power_out_A>+60529.6+130579j VA</power_out_A>
+				<power_out_B>+8.49702e-10+2.12159e-09j VA</power_out_B>
+				<power_out_C>+4.35233e-09+1.70628e-09j VA</power_out_C>
+				<power_losses_A>+2267.94+74.1482d VA</power_losses_A>
+				<power_losses_B>+1.95771e-11-26.1681d VA</power_losses_B>
+				<power_losses_C>+3.44252e-11-82.5087d VA</power_losses_C>
+				<current_out_A>+25.978-58.3137j A</current_out_A>
+				<current_out_B>-9.34364e-13+1.40332e-13j A</current_out_B>
+				<current_out_C>-3.05533e-13+1.91847e-12j A</current_out_C>
+				<current_in_A>+25.978-58.3137j A</current_in_A>
+				<current_in_B>-9.34364e-13+1.40332e-13j A</current_in_B>
+				<current_in_C>-3.05533e-13+1.91847e-12j A</current_in_C>
 				<fault_current_in_A>+0+0j A</fault_current_in_A>
 				<fault_current_in_B>+0+0j A</fault_current_in_B>
 				<fault_current_in_C>+0+0j A</fault_current_in_C>
@@ -884,7 +1148,7 @@
 				<fault_voltage_B>+0+0i A</fault_voltage_B>
 				<fault_voltage_C>+0+0i A</fault_voltage_C>
 				<overloaded_status>FALSE</overloaded_status>
-				<flow_direction>UNKNOWN</flow_direction>
+				<flow_direction>CN|BN|AF</flow_direction>
 				<mean_repair_time>+0 s</mean_repair_time>
 				<continuous_rating_A>+1000 A</continuous_rating_A>
 				<continuous_rating_B>+1000 A</continuous_rating_B>
@@ -902,35 +1166,35 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</overhead_line>
 			<overhead_line>
-				<id>16</id>
+				<id>20</id>
 				<rank>2</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>branch1</name>
 				<configuration>LC300</configuration>
 				<length>+2000 ft</length>
 				<status>CLOSED</status>
 				<from>Node3</from>
 				<to>intermed_meter</to>
-				<power_in>+0+0j VA</power_in>
-				<power_out>+0+0j VA</power_out>
-				<power_out_real>+0 W</power_out_real>
-				<power_losses>+0+0j VA</power_losses>
-				<power_in_A>+0+0j VA</power_in_A>
-				<power_in_B>+0+0j VA</power_in_B>
-				<power_in_C>+0+0j VA</power_in_C>
-				<power_out_A>+0+0j VA</power_out_A>
-				<power_out_B>+0+0j VA</power_out_B>
-				<power_out_C>+0+0j VA</power_out_C>
-				<power_losses_A>+0+0j VA</power_losses_A>
-				<power_losses_B>+0+0j VA</power_losses_B>
-				<power_losses_C>+0+0j VA</power_losses_C>
-				<current_out_A>+0+0i A</current_out_A>
-				<current_out_B>+0+0i A</current_out_B>
-				<current_out_C>+0+0i A</current_out_C>
-				<current_in_A>+0+0i A</current_in_A>
-				<current_in_B>+0+0i A</current_in_B>
-				<current_in_C>+0+0i A</current_in_C>
+				<power_in>+60529.6+130579j VA</power_in>
+				<power_out>+141687+64.9863d VA</power_out>
+				<power_out_real>+59910.1 W</power_out_real>
+				<power_losses>+619.486+2181.69j VA</power_losses>
+				<power_in_A>+60529.6+130579j VA</power_in_A>
+				<power_in_B>-9.16721e-10-2.55044e-09j VA</power_in_B>
+				<power_in_C>-2.6484e-09+6.24639e-10j VA</power_in_C>
+				<power_out_A>+141687+64.9863d VA</power_out_A>
+				<power_out_B>+2.72749e-09-110.097d VA</power_out_B>
+				<power_out_C>+2.72596e-09+167.138d VA</power_out_C>
+				<power_losses_A>+619.486+2181.69j VA</power_losses_A>
+				<power_losses_B>+2.04555e-11+1.09792e-11j VA</power_losses_B>
+				<power_losses_C>+9.15509e-12+1.7824e-11j VA</power_losses_C>
+				<current_out_A>+25.978-58.3137j A</current_out_A>
+				<current_out_B>+1.10134e-12-2.06057e-13j A</current_out_B>
+				<current_out_C>+7.81597e-13-8.17124e-13j A</current_out_C>
+				<current_in_A>+25.978-58.3137j A</current_in_A>
+				<current_in_B>+1.10134e-12-2.06057e-13j A</current_in_B>
+				<current_in_C>+7.81597e-13-8.17124e-13j A</current_in_C>
 				<fault_current_in_A>+0+0j A</fault_current_in_A>
 				<fault_current_in_B>+0+0j A</fault_current_in_B>
 				<fault_current_in_C>+0+0j A</fault_current_in_C>
@@ -941,7 +1205,7 @@
 				<fault_voltage_B>+0+0i A</fault_voltage_B>
 				<fault_voltage_C>+0+0i A</fault_voltage_C>
 				<overloaded_status>FALSE</overloaded_status>
-				<flow_direction>UNKNOWN</flow_direction>
+				<flow_direction>CN|BN|AF</flow_direction>
 				<mean_repair_time>+0 s</mean_repair_time>
 				<continuous_rating_A>+1000 A</continuous_rating_A>
 				<continuous_rating_B>+1000 A</continuous_rating_B>
@@ -964,7 +1228,7 @@
 		</underground_line_list>
 		<overhead_line_conductor_list>
 			<overhead_line_conductor>
-				<id>2</id>
+				<id>6</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -978,7 +1242,7 @@
 				<rating.winter.emergency>+2000 A</rating.winter.emergency>
 			</overhead_line_conductor>
 			<overhead_line_conductor>
-				<id>3</id>
+				<id>7</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -996,7 +1260,7 @@
 		</underground_line_conductor_list>
 		<line_configuration_list>
 			<line_configuration>
-				<id>0</id>
+				<id>4</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -1032,7 +1296,7 @@
 		</line_configuration_list>
 		<transformer_configuration_list>
 			<transformer_configuration>
-				<id>4</id>
+				<id>8</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -1043,10 +1307,10 @@
 				<cooling_type>UNKNOWN</cooling_type>
 				<primary_voltage>+12470 V</primary_voltage>
 				<secondary_voltage>+4160 V</secondary_voltage>
-				<power_rating>+6000 kVA</power_rating>
-				<powerA_rating>+2000 kVA</powerA_rating>
-				<powerB_rating>+2000 kVA</powerB_rating>
-				<powerC_rating>+2000 kVA</powerC_rating>
+				<power_rating>+600 kVA</power_rating>
+				<powerA_rating>+200 kVA</powerA_rating>
+				<powerB_rating>+200 kVA</powerB_rating>
+				<powerC_rating>+200 kVA</powerC_rating>
 				<resistance>+0.01 pu*Ohm</resistance>
 				<reactance>+0.06 pu*Ohm</reactance>
 				<impedance>+0.01+0.06j pu*Ohm</impedance>
@@ -1078,7 +1342,7 @@
 				<T_D>+0.5</T_D>
 			</transformer_configuration>
 			<transformer_configuration>
-				<id>5</id>
+				<id>9</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -1089,8 +1353,8 @@
 				<cooling_type>UNKNOWN</cooling_type>
 				<primary_voltage>+2400 V</primary_voltage>
 				<secondary_voltage>+120 V</secondary_voltage>
-				<power_rating>+400 kVA</power_rating>
-				<powerA_rating>+400 kVA</powerA_rating>
+				<power_rating>+20 kVA</power_rating>
+				<powerA_rating>+20 kVA</powerA_rating>
 				<powerB_rating>+0 kVA</powerB_rating>
 				<powerC_rating>+0 kVA</powerC_rating>
 				<resistance>+0.01 pu*Ohm</resistance>
@@ -1127,10 +1391,10 @@
 		<transformer_list>
 			<inherits_from>link</inherits_from>
 			<transformer>
-				<id>11</id>
+				<id>15</id>
 				<rank>2</rank>
 				<out_svc>NEVER</out_svc>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>substation_transformer</name>
 				<configuration>XFC400</configuration>
 				<ambient_temperature>+0 degC</ambient_temperature>
@@ -1150,25 +1414,25 @@
 				<status>CLOSED</status>
 				<from>Node2</from>
 				<to>substation_meter</to>
-				<power_in>+0+0j VA</power_in>
-				<power_out>+0+0j VA</power_out>
-				<power_out_real>+0 W</power_out_real>
-				<power_losses>+0+0j VA</power_losses>
-				<power_in_A>+0+0j VA</power_in_A>
-				<power_in_B>+0+0j VA</power_in_B>
-				<power_in_C>+0+0j VA</power_in_C>
-				<power_out_A>+0+0j VA</power_out_A>
-				<power_out_B>+0+0j VA</power_out_B>
-				<power_out_C>+0+0j VA</power_out_C>
-				<power_losses_A>+0+0j VA</power_losses_A>
-				<power_losses_B>+0+0j VA</power_losses_B>
-				<power_losses_C>+0+0j VA</power_losses_C>
-				<current_out_A>+0+0i A</current_out_A>
-				<current_out_B>+0+0i A</current_out_B>
-				<current_out_C>+0+0i A</current_out_C>
-				<current_in_A>+0+0i A</current_in_A>
-				<current_in_B>+0+0i A</current_in_B>
-				<current_in_C>+0+0i A</current_in_C>
+				<power_in>+62324.5+139814j VA</power_in>
+				<power_out>+146167+65.2694d VA</power_out>
+				<power_out_real>+61149.1 W</power_out_real>
+				<power_losses>+1175.44+7052.63j VA</power_losses>
+				<power_in_A>+62324.5+139814j VA</power_in_A>
+				<power_in_B>-1.80302e-09-1.20708e-09j VA</power_in_B>
+				<power_in_C>+2.96443e-09+3.33212e-09j VA</power_in_C>
+				<power_out_A>+146167+65.2694d VA</power_out_A>
+				<power_out_B>+2.16978e-09-146.199d VA</power_out_B>
+				<power_out_C>+4.45992e-09+48.342d VA</power_out_C>
+				<power_losses_A>+nan+0j VA</power_losses_A>
+				<power_losses_B>+nan+0j VA</power_losses_B>
+				<power_losses_C>+nan+0j VA</power_losses_C>
+				<current_out_A>+25.978-58.3137j A</current_out_A>
+				<current_out_B>+8.10279e-13+3.98032e-13j A</current_out_B>
+				<current_out_C>+5.82833e-13+1.76271e-12j A</current_out_C>
+				<current_in_A>+8.66629-19.4535j A</current_in_A>
+				<current_in_B>+2.7031e-13+1.32784e-13j A</current_in_B>
+				<current_in_C>+1.94433e-13+5.88042e-13j A</current_in_C>
 				<fault_current_in_A>+0+0j A</fault_current_in_A>
 				<fault_current_in_B>+0+0j A</fault_current_in_B>
 				<fault_current_in_C>+0+0j A</fault_current_in_C>
@@ -1179,12 +1443,12 @@
 				<fault_voltage_B>+0+0i A</fault_voltage_B>
 				<fault_voltage_C>+0+0i A</fault_voltage_C>
 				<overloaded_status>FALSE</overloaded_status>
-				<flow_direction>UNKNOWN</flow_direction>
+				<flow_direction>CN|BN|AF</flow_direction>
 				<mean_repair_time>+0 s</mean_repair_time>
-				<continuous_rating_A>+6000 A</continuous_rating_A>
+				<continuous_rating_A>+600 A</continuous_rating_A>
 				<continuous_rating_B>+1000 A</continuous_rating_B>
 				<continuous_rating_C>+1000 A</continuous_rating_C>
-				<emergency_rating_A>+6000 A</emergency_rating_A>
+				<emergency_rating_A>+600 A</emergency_rating_A>
 				<emergency_rating_B>+2000 A</emergency_rating_B>
 				<emergency_rating_C>+2000 A</emergency_rating_C>
 				<inrush_convergence_value>+0.0001 V</inrush_convergence_value>
@@ -1197,9 +1461,10 @@
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</transformer>
 			<transformer>
-				<id>18</id>
-				<rank>0</rank>
+				<id>22</id>
+				<rank>2</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Residential_xformer</name>
 				<configuration>PoleTop</configuration>
 				<ambient_temperature>+0 degC</ambient_temperature>
@@ -1219,25 +1484,25 @@
 				<status>CLOSED</status>
 				<from>intermed_meter</from>
 				<to>Load_Meter</to>
-				<power_in>+0+0j VA</power_in>
-				<power_out>+0+0j VA</power_out>
-				<power_out_real>+0 W</power_out_real>
-				<power_losses>+0+0j VA</power_losses>
-				<power_in_A>+0+0j VA</power_in_A>
-				<power_in_B>+0+0j VA</power_in_B>
-				<power_in_C>+0+0j VA</power_in_C>
-				<power_out_A>+0+0j VA</power_out_A>
-				<power_out_B>+0+0j VA</power_out_B>
-				<power_out_C>+0+0j VA</power_out_C>
-				<power_losses_A>+0+0j VA</power_losses_A>
+				<power_in>+141687+64.9863d VA</power_in>
+				<power_out>+75377.9+50.2762d VA</power_out>
+				<power_out_real>+48173.1 W</power_out_real>
+				<power_losses>+71393.3+80.5377d VA</power_losses>
+				<power_in_A>+141687+64.9863d VA</power_in_A>
+				<power_in_B>+0+0d VA</power_in_B>
+				<power_in_C>+0+0d VA</power_in_C>
+				<power_out_A>+37689+50.2762d VA</power_out_A>
+				<power_out_B>+24086.5+28987.9j VA</power_out_B>
+				<power_out_C>-0+0j VA</power_out_C>
+				<power_losses_A>+71393.3+80.5377d VA</power_losses_A>
 				<power_losses_B>+0+0j VA</power_losses_B>
 				<power_losses_C>+0+0j VA</power_losses_C>
-				<current_out_A>+0+0i A</current_out_A>
-				<current_out_B>+0+0i A</current_out_B>
-				<current_out_C>+0+0i A</current_out_C>
-				<current_in_A>+0+0i A</current_in_A>
-				<current_in_B>+0+0i A</current_in_B>
-				<current_in_C>+0+0i A</current_in_C>
+				<current_out_A>+638.384-65.9876d A</current_out_A>
+				<current_out_B>+638.384+114.012d A</current_out_B>
+				<current_out_C>+0+0d A</current_out_C>
+				<current_in_A>+63.8384-65.9876d A</current_in_A>
+				<current_in_B>+0+0j A</current_in_B>
+				<current_in_C>+0+0j A</current_in_C>
 				<fault_current_in_A>+0+0j A</fault_current_in_A>
 				<fault_current_in_B>+0+0j A</fault_current_in_B>
 				<fault_current_in_C>+0+0j A</fault_current_in_C>
@@ -1247,13 +1512,13 @@
 				<fault_voltage_A>+0+0i A</fault_voltage_A>
 				<fault_voltage_B>+0+0i A</fault_voltage_B>
 				<fault_voltage_C>+0+0i A</fault_voltage_C>
-				<overloaded_status>FALSE</overloaded_status>
-				<flow_direction>UNKNOWN</flow_direction>
+				<overloaded_status>TRUE</overloaded_status>
+				<flow_direction>CN|BR|AF</flow_direction>
 				<mean_repair_time>+0 s</mean_repair_time>
-				<continuous_rating_A>+1000 A</continuous_rating_A>
+				<continuous_rating_A>+20 A</continuous_rating_A>
 				<continuous_rating_B>+1000 A</continuous_rating_B>
 				<continuous_rating_C>+1000 A</continuous_rating_C>
-				<emergency_rating_A>+2000 A</emergency_rating_A>
+				<emergency_rating_A>+20 A</emergency_rating_A>
 				<emergency_rating_B>+2000 A</emergency_rating_B>
 				<emergency_rating_C>+2000 A</emergency_rating_C>
 				<inrush_convergence_value>+0.0001 V</inrush_convergence_value>
@@ -1280,25 +1545,26 @@
 		<triplex_meter_list>
 			<inherits_from>triplex_node</inherits_from>
 			<triplex_meter>
-				<id>19</id>
-				<rank>3</rank>
+				<id>23</id>
+				<rank>5</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>Load_Meter</name>
-				<measured_real_energy>+0 Wh</measured_real_energy>
+				<measured_real_energy>+1752.83 Wh</measured_real_energy>
 				<measured_real_energy_delta>+0 Wh</measured_real_energy_delta>
-				<measured_reactive_energy>+0 VAh</measured_reactive_energy>
+				<measured_reactive_energy>+5333.33 VAh</measured_reactive_energy>
 				<measured_reactive_energy_delta>+0 VAh</measured_reactive_energy_delta>
 				<measured_energy_delta_timestep>-1 s</measured_energy_delta_timestep>
-				<measured_power>+0+0j VA</measured_power>
-				<indiv_measured_power_1>+0+0i VA</indiv_measured_power_1>
-				<indiv_measured_power_2>+0+0i VA</indiv_measured_power_2>
-				<indiv_measured_power_N>+0+0i VA</indiv_measured_power_N>
-				<measured_demand>+0 W</measured_demand>
-				<measured_real_power>+0 W</measured_real_power>
-				<measured_reactive_power>+0 VAr</measured_reactive_power>
+				<measured_power>+82462.1+50.9061d VA</measured_power>
+				<indiv_measured_power_1>+41231.1+50.9061d VA</indiv_measured_power_1>
+				<indiv_measured_power_2>+26000+32000j VA</indiv_measured_power_2>
+				<indiv_measured_power_N>+0+0d VA</indiv_measured_power_N>
+				<measured_demand>+52000 W</measured_demand>
+				<measured_real_power>+52000 W</measured_real_power>
+				<measured_reactive_power>+64000 VAr</measured_reactive_power>
 				<meter_power_consumption>+0+0j VA</meter_power_consumption>
-				<measured_voltage_1>+0+0d V</measured_voltage_1>
-				<measured_voltage_2>+0+0d V</measured_voltage_2>
+				<measured_voltage_1>+59.0381-15.7114d V</measured_voltage_1>
+				<measured_voltage_2>+59.0381-15.7114d V</measured_voltage_2>
 				<measured_voltage_N>+0+0d V</measured_voltage_N>
 				<measured_real_max_voltage_1_in_interval>+0 V</measured_real_max_voltage_1_in_interval>
 				<measured_real_max_voltage_2_in_interval>+0 V</measured_real_max_voltage_2_in_interval>
@@ -1322,16 +1588,16 @@
 				<measured_avg_real_power_in_interval>+0 W</measured_avg_real_power_in_interval>
 				<measured_avg_reactive_power_in_interval>+0 VAr</measured_avg_reactive_power_in_interval>
 				<measured_stats_interval>+0 s</measured_stats_interval>
-				<measured_current_1>+0+0i A</measured_current_1>
-				<measured_current_2>+0+0i A</measured_current_2>
-				<measured_current_N>+0+0i A</measured_current_N>
+				<measured_current_1>+277.164-641.027j A</measured_current_1>
+				<measured_current_2>-277.164+641.027j A</measured_current_2>
+				<measured_current_N>-0-0j A</measured_current_N>
 				<customer_interrupted>FALSE</customer_interrupted>
 				<customer_interrupted_secondary>FALSE</customer_interrupted_secondary>
 				<monthly_bill>+0 $</monthly_bill>
 				<previous_monthly_bill>+0 $</previous_monthly_bill>
 				<previous_monthly_energy>+0 kWh</previous_monthly_energy>
 				<monthly_fee>+0 $</monthly_fee>
-				<monthly_energy>+0 kWh</monthly_energy>
+				<monthly_energy>+1.75283 kWh</monthly_energy>
 				<bill_mode>NONE</bill_mode>
 				<bill_day>15</bill_day>
 				<price>+0 $/kWh</price>
@@ -1344,13 +1610,13 @@
 				<third_tier_energy>+0 kWh</third_tier_energy>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
-				<maximum_voltage_error>+0 V</maximum_voltage_error>
-				<voltage_1>+0+0d V</voltage_1>
-				<voltage_2>+0+0d V</voltage_2>
+				<maximum_voltage_error>+0.00012 V</maximum_voltage_error>
+				<voltage_1>+59.0381-15.7114d V</voltage_1>
+				<voltage_2>+59.0381-15.7114d V</voltage_2>
 				<voltage_N>+0+0d V</voltage_N>
-				<voltage_12>+0+0d V</voltage_12>
-				<voltage_1N>+0+0d V</voltage_1N>
-				<voltage_2N>+0+0d V</voltage_2N>
+				<voltage_12>+118.076-15.7114d V</voltage_12>
+				<voltage_1N>+59.0381-15.7114d V</voltage_1N>
+				<voltage_2N>+59.0381-15.7114d V</voltage_2N>
 				<prerotated_current_1>+0+0i A</prerotated_current_1>
 				<prerotated_current_2>+0+0i A</prerotated_current_2>
 				<prerotated_current_12>+0+0i A</prerotated_current_12>
@@ -1403,7 +1669,7 @@
 				<acc_temp_current_12>+0+0i A</acc_temp_current_12>
 				<acc_temp_power_1>+0+0i VA</acc_temp_power_1>
 				<acc_temp_power_2>+0+0i VA</acc_temp_power_2>
-				<acc_temp_power_12>+0+0i VA</acc_temp_power_12>
+				<acc_temp_power_12>+0+64000i VA</acc_temp_power_12>
 				<acc_temp_shunt_1>+0+0i S</acc_temp_shunt_1>
 				<acc_temp_shunt_2>+0+0i S</acc_temp_shunt_2>
 				<acc_temp_shunt_12>+0+0i S</acc_temp_shunt_12>
@@ -1424,7 +1690,7 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
 				<frequency_measure_type>NONE</frequency_measure_type>
 				<sfm_Tf>+0.01 s</sfm_Tf>
 				<pll_Kp>+10 pu</pll_Kp>
@@ -1437,7 +1703,7 @@
 				<measured_frequency_12>+60 Hz</measured_frequency_12>
 				<measured_frequency>+60 Hz</measured_frequency>
 				<phases>AS</phases>
-				<nominal_voltage>+240 V</nominal_voltage>
+				<nominal_voltage>+120 V</nominal_voltage>
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</triplex_meter>
 		</triplex_meter_list>
@@ -1446,7 +1712,7 @@
 		</triplex_line_list>
 		<triplex_line_configuration_list>
 			<triplex_line_configuration>
-				<id>6</id>
+				<id>10</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -1468,7 +1734,7 @@
 		</triplex_line_configuration_list>
 		<triplex_line_conductor_list>
 			<triplex_line_conductor>
-				<id>7</id>
+				<id>11</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<clock>2023-01-01 00:00:00 UTC</clock>
@@ -1523,19 +1789,20 @@
 		<triplex_load_list>
 			<inherits_from>triplex_node</inherits_from>
 			<triplex_load>
-				<id>22</id>
-				<rank>0</rank>
+				<id>24</id>
+				<rank>4</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>tlx_1</name>
 				<load_class>U</load_class>
 				<load_priority>DISCRETIONARY</load_priority>
 				<constant_power_1>+0+0i VA</constant_power_1>
 				<constant_power_2>+0+0i VA</constant_power_2>
-				<constant_power_12>+0+0i VA</constant_power_12>
+				<constant_power_12>+52000+0i VA</constant_power_12>
 				<constant_power_1_real>+0 W</constant_power_1_real>
 				<constant_power_2_real>+0 W</constant_power_2_real>
-				<constant_power_12_real>+0 W</constant_power_12_real>
+				<constant_power_12_real>+52000 W</constant_power_12_real>
 				<constant_power_1_reac>+0 VAr</constant_power_1_reac>
 				<constant_power_2_reac>+0 VAr</constant_power_2_reac>
 				<constant_power_12_reac>+0 VAr</constant_power_12_reac>
@@ -1557,13 +1824,13 @@
 				<constant_impedance_1_reac>+0 Ohm</constant_impedance_1_reac>
 				<constant_impedance_2_reac>+0 Ohm</constant_impedance_2_reac>
 				<constant_impedance_12_reac>+0 Ohm</constant_impedance_12_reac>
-				<measured_voltage_1>+0+0d V</measured_voltage_1>
-				<measured_voltage_2>+0+0d V</measured_voltage_2>
-				<measured_voltage_12>+0+0d V</measured_voltage_12>
-				<indiv_measured_power_1>+0+0i VA</indiv_measured_power_1>
-				<indiv_measured_power_2>+0+0i VA</indiv_measured_power_2>
-				<indiv_measured_power_12>+0+0i VA</indiv_measured_power_12>
-				<measured_power>+0+0i VA</measured_power>
+				<measured_voltage_1>+59.0381-15.7114d V</measured_voltage_1>
+				<measured_voltage_2>+59.0381-15.7114d V</measured_voltage_2>
+				<measured_voltage_12>+118.076-15.7114d V</measured_voltage_12>
+				<indiv_measured_power_1>+26000+0d VA</indiv_measured_power_1>
+				<indiv_measured_power_2>+26000-0d VA</indiv_measured_power_2>
+				<indiv_measured_power_12>-0+0j VA</indiv_measured_power_12>
+				<measured_power>+52000+0d VA</measured_power>
 				<base_power_1>+0 VA</base_power_1>
 				<base_power_2>+0 VA</base_power_2>
 				<base_power_12>+0 VA</base_power_12>
@@ -1587,13 +1854,13 @@
 				<impedance_fraction_12>+0 pu</impedance_fraction_12>
 				<bustype>PQ</bustype>
 				<busflags>HASSOURCE</busflags>
-				<maximum_voltage_error>+0 V</maximum_voltage_error>
-				<voltage_1>+120+0d V</voltage_1>
-				<voltage_2>+120+0d V</voltage_2>
+				<maximum_voltage_error>+0.00012 V</maximum_voltage_error>
+				<voltage_1>+59.0381-15.7114d V</voltage_1>
+				<voltage_2>+59.0381-15.7114d V</voltage_2>
 				<voltage_N>+0+0d V</voltage_N>
-				<voltage_12>+0+0d V</voltage_12>
-				<voltage_1N>+0+0d V</voltage_1N>
-				<voltage_2N>+0+0d V</voltage_2N>
+				<voltage_12>+118.076-15.7114d V</voltage_12>
+				<voltage_1N>+59.0381-15.7114d V</voltage_1N>
+				<voltage_2N>+59.0381-15.7114d V</voltage_2N>
 				<prerotated_current_1>+0+0i A</prerotated_current_1>
 				<prerotated_current_2>+0+0i A</prerotated_current_2>
 				<prerotated_current_12>+0+0i A</prerotated_current_12>
@@ -1646,7 +1913,7 @@
 				<acc_temp_current_12>+0+0i A</acc_temp_current_12>
 				<acc_temp_power_1>+0+0i VA</acc_temp_power_1>
 				<acc_temp_power_2>+0+0i VA</acc_temp_power_2>
-				<acc_temp_power_12>+0+0i VA</acc_temp_power_12>
+				<acc_temp_power_12>+52000+0i VA</acc_temp_power_12>
 				<acc_temp_shunt_1>+0+0i S</acc_temp_shunt_1>
 				<acc_temp_shunt_2>+0+0i S</acc_temp_shunt_2>
 				<acc_temp_shunt_12>+0+0i S</acc_temp_shunt_12>
@@ -1667,7 +1934,8 @@
 				<service_status>IN_SERVICE</service_status>
 				<service_status_double>-1</service_status_double>
 				<previous_uptime>-1 min</previous_uptime>
-				<current_uptime>-1 min</current_uptime>
+				<current_uptime>+5 min</current_uptime>
+				<topological_parent>Load_Meter</topological_parent>
 				<frequency_measure_type>NONE</frequency_measure_type>
 				<sfm_Tf>+0.01 s</sfm_Tf>
 				<pll_Kp>+10 pu</pll_Kp>
@@ -1680,7 +1948,7 @@
 				<measured_frequency_12>+60 Hz</measured_frequency_12>
 				<measured_frequency>+60 Hz</measured_frequency>
 				<phases>AS</phases>
-				<nominal_voltage>+240 V</nominal_voltage>
+				<nominal_voltage>+120 V</nominal_voltage>
 				<inrush_integration_method>TRAPEZOIDAL</inrush_integration_method>
 			</triplex_load>
 		</triplex_load_list>
@@ -1715,29 +1983,30 @@
 		</energy_storage_list>
 		<inverter_list>
 			<inverter>
-				<id>23</id>
-				<rank>2</rank>
+				<id>25</id>
+				<rank>1</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>inv_bat</name>
 				<inverter_type>FOUR_QUADRANT</inverter_type>
 				<four_quadrant_control_mode>VOLT_VAR</four_quadrant_control_mode>
 				<pf_reg>EXCLUDED</pf_reg>
 				<generator_status>ONLINE</generator_status>
-				<generator_mode>SUPPLY_DRIVEN</generator_mode>
+				<generator_mode>CONSTANT_PQ</generator_mode>
 				<inverter_convergence_criterion>+0.001</inverter_convergence_criterion>
 				<V_In>+0 V</V_In>
 				<I_In>+0 A</I_In>
 				<P_In>+0 W</P_In>
-				<VA_Out>+0+0i VA</VA_Out>
+				<VA_Out>+0-64000i VA</VA_Out>
 				<Vdc>+480 V</Vdc>
-				<phaseA_V_Out>+0+0d V</phaseA_V_Out>
-				<phaseB_V_Out>+0+0d V</phaseB_V_Out>
-				<phaseC_V_Out>+0+0d V</phaseC_V_Out>
+				<phaseA_V_Out>+444.648-104.373d V</phaseA_V_Out>
+				<phaseB_V_Out>+222.324-104.373d V</phaseB_V_Out>
+				<phaseC_V_Out>+222.324-104.373d V</phaseC_V_Out>
 				<phaseA_I_Out>+0+0d V</phaseA_I_Out>
 				<phaseB_I_Out>+0+0d V</phaseB_I_Out>
 				<phaseC_I_Out>+0+0d V</phaseC_I_Out>
-				<power_A>+0+0i VA</power_A>
+				<power_A>+0-64000i VA</power_A>
 				<power_B>+0+0i VA</power_B>
 				<power_C>+0+0i VA</power_C>
 				<curr_VA_out_A>+0+0j VA</curr_VA_out_A>
@@ -1755,17 +2024,17 @@
 				<phaseA_I_Forming>+0+0i A</phaseA_I_Forming>
 				<phaseB_I_Forming>+0+0i A</phaseB_I_Forming>
 				<phaseC_I_Forming>+0+0i A</phaseC_I_Forming>
-				<phaseA_I_Following>+0+0i A</phaseA_I_Following>
-				<phaseB_I_Following>+0+0i A</phaseB_I_Following>
-				<phaseC_I_Following>+0+0i A</phaseC_I_Following>
+				<phaseA_I_Following>+139.429-35.7303i A</phaseA_I_Following>
+				<phaseB_I_Following>+0+0j A</phaseB_I_Following>
+				<phaseC_I_Following>+0+0j A</phaseC_I_Following>
 				<pCircuit_V_Avg>+0</pCircuit_V_Avg>
 				<P_Out>+0 VA</P_Out>
 				<Q_Out>+0 VAr</Q_Out>
 				<power_in>+0 W</power_in>
-				<rated_power>+4500 VA</rated_power>
-				<rated_battery_power>+0 W</rated_battery_power>
-				<inverter_efficiency>+0.87</inverter_efficiency>
-				<battery_soc>-1 pu</battery_soc>
+				<rated_power>+80000 VA</rated_power>
+				<rated_battery_power>+82051.3 W</rated_battery_power>
+				<inverter_efficiency>+0.975</inverter_efficiency>
+				<battery_soc>+1 pu</battery_soc>
 				<soc_reserve>+0 pu</soc_reserve>
 				<power_factor>+1 unit</power_factor>
 				<islanded_state>FALSE</islanded_state>
@@ -1868,6 +2137,7 @@
 				<c_1>-1</c_1>
 				<c_2>-1</c_2>
 				<c_3>-1</c_3>
+				<sense_object>Load_Meter</sense_object>
 				<max_charge_rate>+0 W</max_charge_rate>
 				<max_discharge_rate>+0 W</max_discharge_rate>
 				<charge_on_threshold>+0 W</charge_on_threshold>
@@ -1894,7 +2164,7 @@
 				<group_max_charge_rate>-1 W</group_max_charge_rate>
 				<group_max_discharge_rate>-1 W</group_max_discharge_rate>
 				<group_rated_power>-1 W</group_rated_power>
-				<V_base>+240 V</V_base>
+				<V_base>+120 V</V_base>
 				<V1>+0.9 pu</V1>
 				<Q1>+0.7 pu</Q1>
 				<V2>+0.95 pu</V2>
@@ -1903,9 +2173,9 @@
 				<Q3>+0 pu</Q3>
 				<V4>+1.1 pu</V4>
 				<Q4>-0.8 pu</Q4>
-				<volt_var_control_lockout>-1 s</volt_var_control_lockout>
-				<number_of_phases_out>0</number_of_phases_out>
-				<efficiency_value>+0</efficiency_value>
+				<volt_var_control_lockout>+60 s</volt_var_control_lockout>
+				<number_of_phases_out>1</number_of_phases_out>
+				<efficiency_value>+0.975</efficiency_value>
 				<VW_V1>-2 pu</VW_V1>
 				<VW_V2>-2 pu</VW_V2>
 				<VW_P1>-2 pu</VW_P1>
@@ -1917,10 +2187,11 @@
 		</rectifier_list>
 		<battery_list>
 			<battery>
-				<id>24</id>
-				<rank>1</rank>
+				<id>26</id>
+				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>inv_bat</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>bat</name>
 				<generator_mode>CONSTANT_PQ</generator_mode>
 				<additional_controls>NONE</additional_controls>
@@ -1967,11 +2238,11 @@
 				<use_internal_battery_model>TRUE</use_internal_battery_model>
 				<battery_type>LI_ION</battery_type>
 				<nominal_voltage>+48 V</nominal_voltage>
-				<rated_power>+0 W</rated_power>
+				<rated_power>+82051.3 W</rated_power>
 				<battery_capacity>+7000 Wh</battery_capacity>
 				<round_trip_efficiency>+0.86 pu</round_trip_efficiency>
 				<state_of_charge>+1 pu</state_of_charge>
-				<battery_load>+0 W</battery_load>
+				<battery_load>-0 W</battery_load>
 				<reserve_state_of_charge>+0 pu</reserve_state_of_charge>
 			</battery>
 		</battery_list>
@@ -2046,51 +2317,67 @@
 		<version.minor>3</version.minor>
 		<player_list>
 			<player>
-				<id>27</id>
+				<id>0</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>player_A</name>
 				<property>(undefined)</property>
 				<file>ders.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<loop>0</loop>
-				<value>+0</value>
+				<value>+4990</value>
 			</player>
 			<player>
-				<id>28</id>
+				<id>1</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>house</name>
 				<property>(undefined)</property>
 				<file>house.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<loop>0</loop>
-				<value>+0</value>
+				<value>+4000</value>
 			</player>
 			<player>
-				<id>29</id>
+				<id>2</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>player_inv</name>
 				<property>(undefined)</property>
-				<file>inv_voltage.csv</file>
+				<file>inv_voltage_2.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<loop>0</loop>
-				<value>+0</value>
+				<value>+240</value>
+			</player>
+			<player>
+				<id>3</id>
+				<rank>0</rank>
+				<out_svc>NEVER</out_svc>
+				<clock>2023-01-01 00:05:00 UTC</clock>
+				<name>player_inv_q</name>
+				<property>(undefined)</property>
+				<file>vars.csv</file>
+				<filetype>txt</filetype>
+				<mode>file</mode>
+				<loop>0</loop>
+				<value>+16770.7</value>
 			</player>
 		</player_list>
 		<shaper_list>
 		</shaper_list>
 		<recorder_list>
 			<recorder>
-				<id>13</id>
+				<id>17</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>substation_meter</parent>
-				<clock>2023-01-01 00:00:00 UTC</clock>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>substation_meter_pl</name>
 				<property>measured_voltage_A,measured_voltage_B,measured_voltage_C,measured_power</property>
 				<trigger>""</trigger>
@@ -2110,10 +2397,11 @@
 				<line_units>DEFAULT</line_units>
 			</recorder>
 			<recorder>
-				<id>20</id>
+				<id>27</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>intermed_meter</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>triplex_meter_pl_1</name>
 				<property>"measured_real_power.real, voltage_A,voltage_B,voltage_C"</property>
 				<trigger>""</trigger>
@@ -2133,37 +2421,15 @@
 				<line_units>DEFAULT</line_units>
 			</recorder>
 			<recorder>
-				<id>21</id>
+				<id>28</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
 				<parent>Load_Meter</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
 				<name>triplex_meter_pl_2</name>
-				<property>"measured_real_power.real, voltage_1, voltage_2"</property>
+				<property>"measured_real_power.real, voltage_12.real"</property>
 				<trigger>""</trigger>
 				<file>./gld_outputs/measures_tlx_inv_1_phase.csv</file>
-				<filetype>txt</filetype>
-				<mode>file</mode>
-				<multifile>""</multifile>
-				<limit>0</limit>
-				<plotcommands>""</plotcommands>
-				<xdata>""</xdata>
-				<columns>""</columns>
-				<flush>-1</flush>
-				<format>FALSE</format>
-				<interval>+60 s</interval>
-				<output>SCREEN</output>
-				<header_units>DEFAULT</header_units>
-				<line_units>DEFAULT</line_units>
-			</recorder>
-			<recorder>
-				<id>25</id>
-				<rank>0</rank>
-				<out_svc>NEVER</out_svc>
-				<parent>inv_bat</parent>
-				<name>Load_meter_pl</name>
-				<property>"VA_Out.imag, VA_Out.real, V_base"</property>
-				<trigger>""</trigger>
-				<file>./gld_outputs/measures_inv.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<multifile>""</multifile>
@@ -2179,14 +2445,15 @@
 				<line_units>DEFAULT</line_units>
 			</recorder>
 			<recorder>
-				<id>26</id>
+				<id>29</id>
 				<rank>0</rank>
 				<out_svc>NEVER</out_svc>
-				<parent>bat</parent>
-				<name>bat_rec</name>
-				<property>rated_power,state_of_charge,battery_load</property>
+				<parent>inv_bat</parent>
+				<clock>2023-01-01 00:05:00 UTC</clock>
+				<name>Load_meter_pl</name>
+				<property>VA_Out.imag,VA_Out.real</property>
 				<trigger>""</trigger>
-				<file>./gld_outputs/measures_bat.csv</file>
+				<file>./gld_outputs/measures_inv.csv</file>
 				<filetype>txt</filetype>
 				<mode>file</mode>
 				<multifile>""</multifile>

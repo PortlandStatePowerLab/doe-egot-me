@@ -67,8 +67,6 @@ class EDMCore:
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
         goTopologyProcessor.import_topology_from_file()
-        # Go Sensor
-        # goSensor.set_voltage_thresholds()
         goSensor.load_manual_service_file()
 
 
@@ -919,29 +917,19 @@ class GOSensor:
         self.service_request_decision = None
         self.current_sensor_states = None
         self.manual_service_xml_data = {}
+        self.voltage_support_buses = []
         self.posted_service_list = []
-        # self.duplicated_buses = set()
 
         # Set Feeder Parameters
 
-        self.feeder_nominal_voltage = 120  # Feeder nominal voltage
         self.voltage_tolerance = 0.01     # 5% is the voltage tolerance as per ANSI C84.1
-
-        # Initialize feeder branches:
-
-        self.segments_list = goTopologyProcessor.get_segments()
-        self.feeders_list = goTopologyProcessor.get_feeders()
-        self.groups_list = goTopologyProcessor.get_groups()
-        self.bus_list = goTopologyProcessor.get_buses()
-
-        # Setup external inverter GridLAB-D file:
         
+        # Set the external inverter files
+
         self.current_path = os.getcwd()
         self.inv_file_path = f'{self.current_path}/inverter_control_file/'
         self.inv_file_name = 'model_startup_test.glm'
-
-        self.duplicated_buses = set()
-    
+            
     def make_service_request_decision(self):
         """
         Performs the following once per timestep.
@@ -952,139 +940,105 @@ class GOSensor:
             Will call code to make grid service determination. Currently not implemented.
         """
         
-        # meas = mcOutputLog.current_measurement
         if mcConfiguration.go_sensor_decision_making_manual_override is True:
             self.manually_post_service(edmTimekeeper.get_sim_current_time())
         elif mcConfiguration.go_sensor_decision_making_manual_override is False:
-            print("checking decision")
-            self.update_sensor_states() # It is already in the perform_all_on_timestep_updates
-            # self.set_voltage_thresholds()   # This will be changed to set_grid_services_thresholds ()
-            # self.initialize_ext_inv_startup_file()
+            self.bus_list = self.setup_feeder_analysis_level()
+            self.set_volt_var_thresholds()
+            self.update_sensor_states()
         else:
             print("Service request failure. Wrong input.")
-
-    def set_voltage_thresholds (self):
+    
+    def setup_feeder_analysis_level (self):
+        """
+        Uncomment the level of where Grid Services should be monitored. All services should be working on substation,
+        segments, and feeders levels. 
+        """
+        level_analysis = {
+            "goTopologyProcessor": {
+                # "self.segments_list": {
+                #     "function": ".get_segments()",
+                #     "threshold": 2401
+                #     },
+                # "self.feeders_list": {
+                #     "function": ".get_feeders()",
+                #     "threshold": 2401
+                #     },
+                # "self.groups_list": {
+                #     "function": ".get_groups()",
+                #     "threshold": 2401
+                #     },
+                "self.bus_list": {
+                    "function": ".get_buses()",
+                    "nominal_voltage": 120
+                    }
+                }
+            }
+        
+        for key, value in level_analysis.items():
+            for clas, func in value.items():
+                self.feeder_nominal_voltage = func['nominal_voltage']
+                return eval(f"{key}{func['function']}")
+        
+    def set_volt_var_thresholds (self):
         """
         Initially, sets the maximum and minimum thresholds for volt/var grid service.
         Upon completion, this function will set all grid services parameters thresholds (i.e peak demand, voltage support, etc).
         """
         self.max_threshold = self.feeder_nominal_voltage + (self.feeder_nominal_voltage * self.voltage_tolerance)
         self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
-    
-    def initialize_ext_inv_startup_file (self):
-
-        lines_to_write = """
-clock {
-    starttime '2023-05-19 17:00:00';
-    stoptime '2023-05-19 17:10:00';
-}
-module generators;
-module tape;
-module powerflow {
-    line_capacitance TRUE;
-    solver_method NR;
-}
-#define VSOURCE=66395.28095680696
-#include "./model_base.glm"
-
-                        """
-        
-        with open (f"{self.inv_file_path}{self.inv_file_name}", "w") as f:
-            f.write(lines_to_write)
-        f.close()
 
     def update_sensor_states(self):
 
-        """
-        Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
-        This is only used by AUTOMATIC MODE. In progress.
-
-        Progress:
-            1- Energy Service: Volt/Var Support:
-                A- Get Feeders PNVs.
-                B- Check if feeder's voltages are +/-5%.
-                C- If so, initialize a volt/var grid service (i.e provide VARs).
-            2- Energy Service: Peak Load Mitigation
-                A- Get xfrmr buses VAs
-                B- Check if xfrmrs are overloaded by 200%.
-                C- If so, initialize a peak load mitigation grid service (i.e shed loads).
-        """
         print("Checking for a Grid Service...")
     
         parsed_measurements = edmMeasurementProcessor.get_current_measurements()
         if parsed_measurements:
+            print(dersHistoricalDataInput.new_values_inserted)
             try:
                 for key, value in parsed_measurements.items():
-                    self.filter_measurements(value)
-            except AttributeError: # eliminating the timestamp attribute
+                    self.detect_grid_service_type (value)
+            except AttributeError:                              # eliminating the timestamp attribute
                 pass
-    
-    # def check_posted_services_frequency (self, value):
-    #     """
-    #     In each time step, the measurements values are going to be the same. Therefore, if a grid service is needed,
-    #     then we want to initialize the needed grid service only once! 
+
+    def detect_grid_service_type (self, value):
+        """
+        Parse the measurements per timestep. If a voltage drop is detected or transformers are overloaded, 
+        other functions are called to respond to the detected drops. Services are posted only once unless
+        a new input value is inserted to the simulation.
         
-    #     This function makes sure the grid service is posted only once.
-    #     """
-    #     if dersHistoricalDataInput.new_values_inserted is True:
-    #         self.duplicated_buses = set()
-    #         self.filter_measurements(value)
-
-    def filter_measurements (self, value):
-        if value.get('MeasType') == "PNV":
-            print(value.get('MeasType'))
-        # pp(value['MeasType'])
-        # if value.get('Bus') in self.bus_list and value.get('MeasType') == 'PNV':
-        # # if value.get('MeasType') == 'PNV':
-        #     print(f"the bus is --> {value.get('Bus')}")
-        #     print(f"the meatype is --> {value.get('MeasType')}")
-        #     print(f"Hey I'm filter measurements. The flag is --> {dersHistoricalDataInput.new_values_inserted}")
+        NOTE: Once a service is needed, it is directly posted to DERMS. Voltage support, however, is an exception.
+        All functions related to voltage service are outlined in initialize_volt_var_support_service() function.
+        """
+    
+        if (value.get('MeasType') == "PNV" and
+            value.get('Bus') in self.bus_list and
+            dersHistoricalDataInput.new_values_inserted is True and 
+            (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
+            ):
             
-        # if self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold:
-        #     print(value.get('magnitude'))
-            
-
-        # if (value.get('MeasType') == 'PNV' and
-        #     value.get('Bus') in self.bus_list and
-        #     dersHistoricalDataInput.new_values_inserted is True and
-        #     (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
-        #     ):
-        #     print(self.duplicated_buses)
-            
-        #     print(f"Hey filter measurements again. bus set sanity check --> {self.duplicated_buses}")
-        #     if value.get("Bus") not in self.duplicated_buses:
-        #         self.initialize_volt_var_support_service(bus=value['Bus'],magnitude=value['magnitude'])
-        #         self.duplicated_buses.add(value.get("Bus"))
+            self.initialize_volt_var_support_service(bus=value['Bus'],magnitude=value['magnitude'])
        
  
     def initialize_volt_var_support_service (self, bus, magnitude):
         """
         Since GridAPPS-D storage objects do not provide volt/var support, we use external GridLAB-D file that provides 
         the needed VARs to adjust the voltage. 
-        """        
-        # print("providing vars support")
+        """
+        self.voltage_support_buses.append(bus)
+        
+        self.set_grid_service_type(grid_service_type='"Voltage service"')
+        
+        # self.setup_ext_inverter_startup_file ()
+        # self.initialize_grid_Service_elements (bus, magnitude)
+        # self.run_ext_inverter_startup_file ()
 
-        self.initialize_ext_inverter_startup_file(bus, magnitude)
-        self.run_ext_inverter_startup_file()
     
-    def initialize_ext_inverter_startup_file (self,bus,value):
-
-        with open (f"{self.inv_file_path}{self.inv_file_name}", "a") as f:
-            f.write(f"#define {bus}={float(value)*2}\n")
-        f.close()
-
-
-    def run_ext_inverter_startup_file (self):
-        
-        os.chdir(self.inv_file_path)
-        
-        p1 = subprocess.Popen(f"gridlabd {self.inv_file_name}", shell=True)
-        p1.wait()
-
-        os.chdir(self.current_path)
-
+    def set_grid_service_type (self, grid_service_type):
+        self.service_type = grid_service_type
+        print(self.service_type)
+        print(self.voltage_support_buses)
         dersHistoricalDataInput.new_values_inserted = False
-        
 
     def load_manual_service_file(self):
         
@@ -1092,10 +1046,13 @@ module powerflow {
         MANUAL MODE: Reads the manually_posted_service_input.xml file during MC initialization and loads it into
         a dictionary for later use.
         """
-        input_file = open(mcConfiguration.manual_service_filename, "r")
-        data = input_file.read()
-        input_file.close()
-        self.manual_service_xml_data = xmltodict.parse(data)
+        # input_file = open(mcConfiguration.manual_service_filename, "r") # manually_posted_service_input.xml
+        # data = input_file.read()
+        # input_file.close()
+        # self.manual_service_xml_data = xmltodict.parse(data)
+        input_file = mcConfiguration.manual_service_filename
+        self.tree = ET.parse(input_file)
+
 
     def manually_post_service(self, sim_time):
         """
@@ -1267,7 +1224,7 @@ class MCOutputLog:
         """
         self.message_size +=1
         # print('Current message size --->', self.message_size)
-        if self.message_size > 10:
+        if self.message_size > 50:
             print('Message size threshold reached!', self.message_size)
             print(f"Openning file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
             self.is_first_measurement = True
