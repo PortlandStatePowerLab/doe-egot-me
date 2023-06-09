@@ -3,7 +3,7 @@
 ##### Sean Keene -  seakeene@pdx.edu
 ##### Portland State University - Power Engineering Group
 
-This repository contains the Modeling Environment for the EGoT project.
+This repository contains the Modeling Environment for the EGoT project. 
 
 ## Description
 
