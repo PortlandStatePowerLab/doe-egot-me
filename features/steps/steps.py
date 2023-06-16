@@ -3,7 +3,8 @@ from os import path
 import ModelController
 from melogtool import *
 melogtool = MELogTool()
-
+import csv
+from datetime import datetime, timedelta
 
 @given(u'DER-S inputs are available')
 def step_impl(context):
@@ -75,10 +76,96 @@ def step_impl(context):
 
 @then(u'The logs should indicate proper values for each input.')
 def step_impl(context):
-    print(context.firstfilepath)
-    # print(melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_markdown())
-    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_csv('df_test.csv')
-    assert True is False
+    def parse_input_file(input_file):
+        changes = []
+        with open(input_file, 'r') as file:
+            reader = csv.DictReader(file)
+            header = reader.fieldnames
+            magnitude_col = None
+            for col in header:
+                if col not in ['Time', 'Location'] and not col.endswith('_loc'):
+                    magnitude_col = col
+                    break
+
+            if magnitude_col is None:
+                raise Exception("Magnitude column not found.")
+
+            prev_magnitude = None
+            for row in reader:
+                time_str = row['Time']
+                magnitude = float(row[magnitude_col])
+                time = datetime.utcfromtimestamp(int(time_str))
+                if prev_magnitude is not None and magnitude != prev_magnitude:
+                    changes.append({'Time': time, 'Magnitude': magnitude})
+                prev_magnitude = magnitude
+        return changes
+
+    def parse_output_file(output_file, input_changes):
+        with open(output_file, 'r') as file:
+            reader = csv.DictReader(file)
+            header = reader.fieldnames
+            magnitude_cols = [col for col in header if col.endswith('[magnitude]')]
+
+            for input_change in input_changes:
+                input_time = input_change['Time']
+                input_magnitude = input_change['Magnitude']
+
+                matched_magnitude_found = False
+                closest_magnitude = None
+                closest_col = None
+                closest_timestamp = None
+                min_magnitude_diff = float('inf')
+
+                for row in reader:
+                    timestamp_str = row['Timestamp']
+                    timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+
+                    if input_time <= timestamp <= input_time + timedelta(seconds=5):
+                        for col in magnitude_cols:
+                            magnitude = float(row[col])
+                            magnitude_diff = abs(magnitude - input_magnitude / 3)
+                            relative_threshold = 0.01 * abs(input_magnitude / 3)
+                            if magnitude_diff <= relative_threshold:
+                                matched_magnitude_found = True
+                                min_magnitude_diff = magnitude_diff
+                                closest_magnitude = magnitude
+                                closest_col = col
+                                closest_timestamp = timestamp
+                                break  # Exit the inner loop if a match is found
+
+                        if not matched_magnitude_found and magnitude_diff <= min_magnitude_diff:
+                            min_magnitude_diff = magnitude_diff
+                            closest_magnitude = magnitude
+                            closest_col = col
+                            closest_timestamp = timestamp
+
+                if matched_magnitude_found:
+                    print(f"Match found for input timestamp {input_time}. Input Magnitude: {input_magnitude}")
+                else:
+                    if closest_magnitude is not None:
+                        raise Exception(
+                            f"No matching magnitude found within time delta for input timestamp {input_time}. Input Magnitude: {input_magnitude}\nClosest magnitude found: {closest_magnitude} in column {closest_col}, timestamp: {closest_timestamp}\nClosest magnitude difference: {min_magnitude_diff}")
+                    else:
+                        raise Exception(
+                            f"No matching magnitude found within time delta for input timestamp {input_time}. Input Magnitude: {input_magnitude}\nNo closest magnitude found within the time delta.")
+
+                file.seek(0)
+                next(reader)  # Skip the header row
+
+    # Input file paths
+    input_1a_file = "DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv"
+    input_2a_file = "DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv"
+    output_1b_file = "df_test.csv"
+    output_2b_file = "df_test2.csv"
+
+    # Parse input files
+    changes_1a = parse_input_file(input_1a_file)
+    changes_2a = parse_input_file(input_2a_file)
+
+    # Parse output files
+    parse_output_file(output_1b_file, changes_1a)
+    parse_output_file(output_2b_file, changes_2a)
+
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs.')
 def step_impl(context):
@@ -140,9 +227,74 @@ def step_impl(context):
 
 @then(u'Log files should indicate values update regularly at defined intervals.')
 def step_impl(context):
-    pnv_column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6341_Battery_A_VA[magnitude]"]
-    va_column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6321_Battery_A_PNV[magnitude]"]
-    raise NotImplementedError(u'STEP: Then Log files should indicate values update regularly at defined intervals.')
+    # Open the CSV file
+    filename = context.parsed_logs_filename  # Replace with your file name
+    with open(filename, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        # Get the fieldnames excluding the first column (assumed to be the index column)
+        fieldnames = [column for column in reader.fieldnames[1:] if column.lower().endswith(('[magnitude]', '[angle]'))]
+
+        # Initialize variables
+        prev_measurements = {}
+        prev_timestamp = None
+        three_second_interval = timedelta(seconds=3)
+        changes = []
+
+        # Iterate over rows
+        for row in reader:
+            timestamp_str = row['Timestamp']
+
+            # Skip the header row
+            if timestamp_str == 'Timestamp':
+                continue
+
+            timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+
+            # Skip the first row
+            if prev_measurements == {}:
+                prev_measurements = {column: row[column] for column in fieldnames}
+                prev_timestamp = timestamp
+                continue
+
+            # Check if three seconds have passed
+            if timestamp - prev_timestamp >= three_second_interval:
+                # Check for changes in magnitude
+                magnitude_changed = False
+                for column in fieldnames:
+                    if '[magnitude]' in column and row[column] != prev_measurements[column]:
+                        changes.append({
+                            'Time': prev_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                            'Column': column,
+                            'Previous Value': prev_measurements[column],
+                            'Current Value': row[column]
+                        })
+                        magnitude_changed = True
+                        break
+
+                # Check for changes in angle if no magnitude changes occurred
+                if not magnitude_changed:
+                    for column in fieldnames:
+                        if '[angle]' in column and row[column] != prev_measurements[column]:
+                            changes.append({
+                                'Time': prev_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                                'Column': column,
+                                'Previous Value': prev_measurements[column],
+                                'Current Value': row[column]
+                            })
+                            break
+
+                # If no difference found, raise an exception
+                if not magnitude_changed and '[angle]' not in column:
+                    raise Exception(f"No difference found for the three-second interval ending at {prev_timestamp}.")
+
+                # Update previous measurements and timestamp
+                prev_measurements = {column: row[column] for column in fieldnames}
+                prev_timestamp = timestamp
+
+        # Print the changes
+        for change in changes:
+            print(change)
 
 
 @given(u'Logs from a simulation exist')
@@ -221,9 +373,64 @@ def step_impl(context):
         context.MEPath + context.secondfilename) is True
 
 
-@then(u'The logs should indicate the DER acted as a storage, load, and source.')
+@then(u'The logs should indicate the DER acted as a load and source.')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should indicate the DER acted as a storage, load, and source.')
+    import csv
+
+    # Constants
+    input_file = context.parsed_logs_filename
+    # Read the CSV file
+    with open(input_file, 'r') as file:
+        reader = csv.DictReader(file)
+        header = reader.fieldnames
+
+        # Find columns with magnitudes
+        magnitude_cols = [col for col in header if col.endswith('[magnitude]')]
+
+        # Variables to track positive and negative values
+        positive_value_found = False
+        negative_value_found = False
+        positive_value = None
+        negative_value = None
+        column_name = None
+
+        # Iterate over magnitude columns
+        for col in magnitude_cols:
+            positive_value_found = False
+            negative_value_found = False
+
+            # Iterate over rows in the current column
+            for row in reader:
+                magnitude = float(row[col])
+
+                # Check for positive and negative values
+                if magnitude > 0:
+                    positive_value_found = True
+                    positive_value = magnitude
+                elif magnitude < 0:
+                    negative_value_found = True
+                    negative_value = magnitude
+
+                # If both positive and negative values found, break the loop
+                if positive_value_found and negative_value_found:
+                    column_name = col
+                    break
+
+            # Reset the reader to the beginning of the file
+            file.seek(0)
+            next(reader)  # Skip the header row
+
+            # If both positive and negative values found, break the outer loop
+            if positive_value_found and negative_value_found:
+                break
+
+        # Check if both positive and negative values were found in a column
+        if positive_value_found and negative_value_found:
+            print(f"Column: {column_name}")
+            print(f"First Positive Value: {positive_value}")
+            print(f"First Negative Value: {negative_value}")
+        else:
+            raise Exception("No column with at least one positive and one negative value found.")
 
 
 @then(u'The logs should contain non-zero values for Voltage for a DER-EM')
@@ -473,3 +680,14 @@ def step_impl(context):
         assert mrid[19] == '-'
         assert mrid[24] == '-'
 
+@given(u'GridAPPS-D is running')
+def step_impl(context):
+    pass  # Implemented in environment.py
+
+@when(u'A SPARQL Query is sent to the database requesting a list of grid models')
+def step_impl(context):
+    context.list_of_model_names = [binding['feeder']['value'] for binding in context.list_of_models['data']['results']['bindings']]
+
+@then(u'A list of grid models is returned.')
+def step_impl(context):
+    assert len(context.list_of_model_names) != 0

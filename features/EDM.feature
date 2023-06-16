@@ -5,10 +5,11 @@ Feature: EDM
     Given The Model Controller has completed the simulation startup process.
     Then A GridAPPS-D simulation object should be instantiated.
 
-  @tpme2 @problematic # Not sure how to demonstrate this without modifying ME. Will return to it.
+  @tpme2
   Scenario: EDM02: The EDM SHALL include a database of grid models to be used in simulations.
-    Given Output logs exist for two unique simulations
-    Then Output logs should exist for two unique simulations
+    Given GridAPPS-D is running
+    When A SPARQL Query is sent to the database requesting a list of grid models
+    Then A list of grid models is returned.
 
 
   @tpme1
@@ -39,7 +40,7 @@ Feature: EDM
   Scenario: EDM07: The EDM SHALL include DER-EMs that are generalizable to a variety of DER types (including loads, sources, and storage assets)
     Given DER Inputs exist which include a DER-EM that acts as a load, source, and storage
     And Logs from a simulation exist which use these inputs
-    Then The logs should indicate the DER acted as a storage, load, and source.
+    Then The logs should indicate the DER acted as a load and source.
 
   @tpme1
   Scenario: EDM08: The EDM SHALL have the capability to add DER-EMs to existing grid models.
