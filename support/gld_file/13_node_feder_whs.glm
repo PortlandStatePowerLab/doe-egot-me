@@ -1,0 +1,8178 @@
+clock {
+	timestamp '2021-12-25 00:00:00';
+	stoptime '2021-12-25 23:59:00';
+};
+module tape {
+};
+
+module powerflow {
+	solver_method FBS;
+	default_maximum_voltage_error 1e-9;
+	line_limits TRUE;
+};
+
+
+module climate {
+};
+
+module residential {
+	implicit_enduses NONE;
+	ANSI_voltage_check TRUE;
+};
+
+#include "./downstream_objects.glm";
+#include "./multi_recorders.glm"
+
+class player {
+    double value;
+}
+
+object player {
+	name wd_652_1;
+	file "../wd_files/psu_feeder_output_profiles/wd_1.csv";
+};
+object player {
+	name wd_652_2;
+	file "../wd_files/psu_feeder_output_profiles/wd_2.csv";
+};
+object player {
+	name wd_652_3;
+	file "../wd_files/psu_feeder_output_profiles/wd_3.csv";
+};
+object player {
+	name wd_652_4;
+	file "../wd_files/psu_feeder_output_profiles/wd_4.csv";
+};
+object player {
+	name wd_652_5;
+	file "../wd_files/psu_feeder_output_profiles/wd_5.csv";
+};
+object player {
+	name wd_652_6;
+	file "../wd_files/psu_feeder_output_profiles/wd_6.csv";
+};
+object player {
+	name wd_652_7;
+	file "../wd_files/psu_feeder_output_profiles/wd_7.csv";
+};
+object player {
+	name wd_652_8;
+	file "../wd_files/psu_feeder_output_profiles/wd_8.csv";
+};
+object player {
+	name wd_652_9;
+	file "../wd_files/psu_feeder_output_profiles/wd_9.csv";
+};
+object player {
+	name wd_652_10;
+	file "../wd_files/psu_feeder_output_profiles/wd_10.csv";
+};
+object player {
+	name wd_652_11;
+	file "../wd_files/psu_feeder_output_profiles/wd_11.csv";
+};
+object player {
+	name wd_652_12;
+	file "../wd_files/psu_feeder_output_profiles/wd_12.csv";
+};
+object player {
+	name wd_652_13;
+	file "../wd_files/psu_feeder_output_profiles/wd_13.csv";
+};
+object player {
+	name wd_652_14;
+	file "../wd_files/psu_feeder_output_profiles/wd_14.csv";
+};
+object player {
+	name wd_652_15;
+	file "../wd_files/psu_feeder_output_profiles/wd_15.csv";
+};
+object player {
+	name wd_652_16;
+	file "../wd_files/psu_feeder_output_profiles/wd_16.csv";
+};
+object player {
+	name wd_652_17;
+	file "../wd_files/psu_feeder_output_profiles/wd_17.csv";
+};
+object player {
+	name wd_652_18;
+	file "../wd_files/psu_feeder_output_profiles/wd_18.csv";
+};
+object player {
+	name wd_652_19;
+	file "../wd_files/psu_feeder_output_profiles/wd_19.csv";
+};
+object player {
+	name wd_652_20;
+	file "../wd_files/psu_feeder_output_profiles/wd_20.csv";
+};
+object player {
+	name wd_652_21;
+	file "../wd_files/psu_feeder_output_profiles/wd_21.csv";
+};
+object player {
+	name wd_652_22;
+	file "../wd_files/psu_feeder_output_profiles/wd_22.csv";
+};
+object player {
+	name wd_652_23;
+	file "../wd_files/psu_feeder_output_profiles/wd_23.csv";
+};
+object player {
+	name wd_652_24;
+	file "../wd_files/psu_feeder_output_profiles/wd_24.csv";
+};
+object player {
+	name wd_652_25;
+	file "../wd_files/psu_feeder_output_profiles/wd_25.csv";
+};
+object player {
+	name wd_652_26;
+	file "../wd_files/psu_feeder_output_profiles/wd_26.csv";
+};
+object player {
+	name wd_652_27;
+	file "../wd_files/psu_feeder_output_profiles/wd_27.csv";
+};
+object player {
+	name wd_652_28;
+	file "../wd_files/psu_feeder_output_profiles/wd_28.csv";
+};
+object player {
+	name wd_652_29;
+	file "../wd_files/psu_feeder_output_profiles/wd_29.csv";
+};
+object player {
+	name wd_652_30;
+	file "../wd_files/psu_feeder_output_profiles/wd_30.csv";
+};
+object player {
+	name wd_652_31;
+	file "../wd_files/psu_feeder_output_profiles/wd_31.csv";
+};
+object player {
+	name wd_652_32;
+	file "../wd_files/psu_feeder_output_profiles/wd_32.csv";
+};
+object player {
+	name wd_652_33;
+	file "../wd_files/psu_feeder_output_profiles/wd_33.csv";
+};
+object player {
+	name wd_652_34;
+	file "../wd_files/psu_feeder_output_profiles/wd_34.csv";
+};
+object player {
+	name wd_652_35;
+	file "../wd_files/psu_feeder_output_profiles/wd_35.csv";
+};
+object player {
+	name wd_652_36;
+	file "../wd_files/psu_feeder_output_profiles/wd_36.csv";
+};
+object player {
+	name wd_652_37;
+	file "../wd_files/psu_feeder_output_profiles/wd_37.csv";
+};
+object player {
+	name wd_652_38;
+	file "../wd_files/psu_feeder_output_profiles/wd_38.csv";
+};
+object player {
+	name wd_652_39;
+	file "../wd_files/psu_feeder_output_profiles/wd_39.csv";
+};
+object player {
+	name wd_652_40;
+	file "../wd_files/psu_feeder_output_profiles/wd_40.csv";
+};
+object player {
+	name wd_611_41;
+	file "../wd_files/psu_feeder_output_profiles/wd_41.csv";
+};
+object player {
+	name wd_611_42;
+	file "../wd_files/psu_feeder_output_profiles/wd_42.csv";
+};
+object player {
+	name wd_611_43;
+	file "../wd_files/psu_feeder_output_profiles/wd_43.csv";
+};
+object player {
+	name wd_611_44;
+	file "../wd_files/psu_feeder_output_profiles/wd_44.csv";
+};
+object player {
+	name wd_611_45;
+	file "../wd_files/psu_feeder_output_profiles/wd_45.csv";
+};
+object player {
+	name wd_611_46;
+	file "../wd_files/psu_feeder_output_profiles/wd_46.csv";
+};
+object player {
+	name wd_611_47;
+	file "../wd_files/psu_feeder_output_profiles/wd_47.csv";
+};
+object player {
+	name wd_611_48;
+	file "../wd_files/psu_feeder_output_profiles/wd_48.csv";
+};
+object player {
+	name wd_611_49;
+	file "../wd_files/psu_feeder_output_profiles/wd_49.csv";
+};
+object player {
+	name wd_611_50;
+	file "../wd_files/psu_feeder_output_profiles/wd_50.csv";
+};
+object player {
+	name wd_611_51;
+	file "../wd_files/psu_feeder_output_profiles/wd_51.csv";
+};
+object player {
+	name wd_611_52;
+	file "../wd_files/psu_feeder_output_profiles/wd_52.csv";
+};
+object player {
+	name wd_611_53;
+	file "../wd_files/psu_feeder_output_profiles/wd_53.csv";
+};
+object player {
+	name wd_611_54;
+	file "../wd_files/psu_feeder_output_profiles/wd_54.csv";
+};
+object player {
+	name wd_611_55;
+	file "../wd_files/psu_feeder_output_profiles/wd_55.csv";
+};
+object player {
+	name wd_611_56;
+	file "../wd_files/psu_feeder_output_profiles/wd_56.csv";
+};
+object player {
+	name wd_611_57;
+	file "../wd_files/psu_feeder_output_profiles/wd_57.csv";
+};
+object player {
+	name wd_611_58;
+	file "../wd_files/psu_feeder_output_profiles/wd_58.csv";
+};
+object player {
+	name wd_611_59;
+	file "../wd_files/psu_feeder_output_profiles/wd_59.csv";
+};
+object player {
+	name wd_611_60;
+	file "../wd_files/psu_feeder_output_profiles/wd_60.csv";
+};
+object player {
+	name wd_611_61;
+	file "../wd_files/psu_feeder_output_profiles/wd_61.csv";
+};
+object player {
+	name wd_611_62;
+	file "../wd_files/psu_feeder_output_profiles/wd_62.csv";
+};
+object player {
+	name wd_611_63;
+	file "../wd_files/psu_feeder_output_profiles/wd_63.csv";
+};
+object player {
+	name wd_611_64;
+	file "../wd_files/psu_feeder_output_profiles/wd_64.csv";
+};
+object player {
+	name wd_611_65;
+	file "../wd_files/psu_feeder_output_profiles/wd_65.csv";
+};
+object player {
+	name wd_611_66;
+	file "../wd_files/psu_feeder_output_profiles/wd_66.csv";
+};
+object player {
+	name wd_611_67;
+	file "../wd_files/psu_feeder_output_profiles/wd_67.csv";
+};
+object player {
+	name wd_611_68;
+	file "../wd_files/psu_feeder_output_profiles/wd_68.csv";
+};
+object player {
+	name wd_611_69;
+	file "../wd_files/psu_feeder_output_profiles/wd_69.csv";
+};
+object player {
+	name wd_611_70;
+	file "../wd_files/psu_feeder_output_profiles/wd_70.csv";
+};
+object player {
+	name wd_611_71;
+	file "../wd_files/psu_feeder_output_profiles/wd_71.csv";
+};
+object player {
+	name wd_611_72;
+	file "../wd_files/psu_feeder_output_profiles/wd_72.csv";
+};
+object player {
+	name wd_611_73;
+	file "../wd_files/psu_feeder_output_profiles/wd_73.csv";
+};
+object player {
+	name wd_611_74;
+	file "../wd_files/psu_feeder_output_profiles/wd_74.csv";
+};
+object player {
+	name wd_611_75;
+	file "../wd_files/psu_feeder_output_profiles/wd_75.csv";
+};
+object player {
+	name wd_611_76;
+	file "../wd_files/psu_feeder_output_profiles/wd_76.csv";
+};
+object player {
+	name wd_611_77;
+	file "../wd_files/psu_feeder_output_profiles/wd_77.csv";
+};
+object player {
+	name wd_611_78;
+	file "../wd_files/psu_feeder_output_profiles/wd_78.csv";
+};
+object player {
+	name wd_611_79;
+	file "../wd_files/psu_feeder_output_profiles/wd_79.csv";
+};
+object player {
+	name wd_611_80;
+	file "../wd_files/psu_feeder_output_profiles/wd_80.csv";
+};
+object player {
+	name wd_684_81;
+	file "../wd_files/psu_feeder_output_profiles/wd_81.csv";
+};
+object player {
+	name wd_684_82;
+	file "../wd_files/psu_feeder_output_profiles/wd_82.csv";
+};
+object player {
+	name wd_684_83;
+	file "../wd_files/psu_feeder_output_profiles/wd_83.csv";
+};
+object player {
+	name wd_684_84;
+	file "../wd_files/psu_feeder_output_profiles/wd_84.csv";
+};
+object player {
+	name wd_684_85;
+	file "../wd_files/psu_feeder_output_profiles/wd_85.csv";
+};
+object player {
+	name wd_684_86;
+	file "../wd_files/psu_feeder_output_profiles/wd_86.csv";
+};
+object player {
+	name wd_684_87;
+	file "../wd_files/psu_feeder_output_profiles/wd_87.csv";
+};
+object player {
+	name wd_684_88;
+	file "../wd_files/psu_feeder_output_profiles/wd_88.csv";
+};
+object player {
+	name wd_684_89;
+	file "../wd_files/psu_feeder_output_profiles/wd_89.csv";
+};
+object player {
+	name wd_684_90;
+	file "../wd_files/psu_feeder_output_profiles/wd_90.csv";
+};
+object player {
+	name wd_684_91;
+	file "../wd_files/psu_feeder_output_profiles/wd_91.csv";
+};
+object player {
+	name wd_684_92;
+	file "../wd_files/psu_feeder_output_profiles/wd_92.csv";
+};
+object player {
+	name wd_684_93;
+	file "../wd_files/psu_feeder_output_profiles/wd_93.csv";
+};
+object player {
+	name wd_684_94;
+	file "../wd_files/psu_feeder_output_profiles/wd_94.csv";
+};
+object player {
+	name wd_684_95;
+	file "../wd_files/psu_feeder_output_profiles/wd_95.csv";
+};
+object player {
+	name wd_684_96;
+	file "../wd_files/psu_feeder_output_profiles/wd_96.csv";
+};
+object player {
+	name wd_684_97;
+	file "../wd_files/psu_feeder_output_profiles/wd_97.csv";
+};
+object player {
+	name wd_684_98;
+	file "../wd_files/psu_feeder_output_profiles/wd_98.csv";
+};
+object player {
+	name wd_684_99;
+	file "../wd_files/psu_feeder_output_profiles/wd_99.csv";
+};
+object player {
+	name wd_684_100;
+	file "../wd_files/psu_feeder_output_profiles/wd_100.csv";
+};
+object player {
+	name wd_684_101;
+	file "../wd_files/psu_feeder_output_profiles/wd_101.csv";
+};
+object player {
+	name wd_684_102;
+	file "../wd_files/psu_feeder_output_profiles/wd_102.csv";
+};
+object player {
+	name wd_684_103;
+	file "../wd_files/psu_feeder_output_profiles/wd_103.csv";
+};
+object player {
+	name wd_684_104;
+	file "../wd_files/psu_feeder_output_profiles/wd_104.csv";
+};
+object player {
+	name wd_684_105;
+	file "../wd_files/psu_feeder_output_profiles/wd_105.csv";
+};
+object player {
+	name wd_684_106;
+	file "../wd_files/psu_feeder_output_profiles/wd_106.csv";
+};
+object player {
+	name wd_684_107;
+	file "../wd_files/psu_feeder_output_profiles/wd_107.csv";
+};
+object player {
+	name wd_684_108;
+	file "../wd_files/psu_feeder_output_profiles/wd_108.csv";
+};
+object player {
+	name wd_684_109;
+	file "../wd_files/psu_feeder_output_profiles/wd_109.csv";
+};
+object player {
+	name wd_684_110;
+	file "../wd_files/psu_feeder_output_profiles/wd_110.csv";
+};
+object player {
+	name wd_684_111;
+	file "../wd_files/psu_feeder_output_profiles/wd_111.csv";
+};
+object player {
+	name wd_684_112;
+	file "../wd_files/psu_feeder_output_profiles/wd_112.csv";
+};
+object player {
+	name wd_684_113;
+	file "../wd_files/psu_feeder_output_profiles/wd_113.csv";
+};
+object player {
+	name wd_684_114;
+	file "../wd_files/psu_feeder_output_profiles/wd_114.csv";
+};
+object player {
+	name wd_684_115;
+	file "../wd_files/psu_feeder_output_profiles/wd_115.csv";
+};
+object player {
+	name wd_684_116;
+	file "../wd_files/psu_feeder_output_profiles/wd_116.csv";
+};
+object player {
+	name wd_684_117;
+	file "../wd_files/psu_feeder_output_profiles/wd_117.csv";
+};
+object player {
+	name wd_684_118;
+	file "../wd_files/psu_feeder_output_profiles/wd_118.csv";
+};
+object player {
+	name wd_684_119;
+	file "../wd_files/psu_feeder_output_profiles/wd_119.csv";
+};
+object player {
+	name wd_684_120;
+	file "../wd_files/psu_feeder_output_profiles/wd_120.csv";
+};
+object player {
+	name wd_684_121;
+	file "../wd_files/psu_feeder_output_profiles/wd_121.csv";
+};
+object player {
+	name wd_684_122;
+	file "../wd_files/psu_feeder_output_profiles/wd_122.csv";
+};
+object player {
+	name wd_684_123;
+	file "../wd_files/psu_feeder_output_profiles/wd_123.csv";
+};
+object player {
+	name wd_684_124;
+	file "../wd_files/psu_feeder_output_profiles/wd_124.csv";
+};
+object player {
+	name wd_684_125;
+	file "../wd_files/psu_feeder_output_profiles/wd_125.csv";
+};
+object player {
+	name wd_684_126;
+	file "../wd_files/psu_feeder_output_profiles/wd_126.csv";
+};
+object player {
+	name wd_684_127;
+	file "../wd_files/psu_feeder_output_profiles/wd_127.csv";
+};
+object player {
+	name wd_684_128;
+	file "../wd_files/psu_feeder_output_profiles/wd_128.csv";
+};
+object player {
+	name wd_684_129;
+	file "../wd_files/psu_feeder_output_profiles/wd_129.csv";
+};
+object player {
+	name wd_684_130;
+	file "../wd_files/psu_feeder_output_profiles/wd_130.csv";
+};
+object player {
+	name wd_684_131;
+	file "../wd_files/psu_feeder_output_profiles/wd_131.csv";
+};
+object player {
+	name wd_684_132;
+	file "../wd_files/psu_feeder_output_profiles/wd_132.csv";
+};
+object player {
+	name wd_684_133;
+	file "../wd_files/psu_feeder_output_profiles/wd_133.csv";
+};
+object player {
+	name wd_684_134;
+	file "../wd_files/psu_feeder_output_profiles/wd_134.csv";
+};
+object player {
+	name wd_684_135;
+	file "../wd_files/psu_feeder_output_profiles/wd_135.csv";
+};
+object player {
+	name wd_684_136;
+	file "../wd_files/psu_feeder_output_profiles/wd_136.csv";
+};
+object player {
+	name wd_684_137;
+	file "../wd_files/psu_feeder_output_profiles/wd_137.csv";
+};
+object player {
+	name wd_684_138;
+	file "../wd_files/psu_feeder_output_profiles/wd_138.csv";
+};
+object player {
+	name wd_684_139;
+	file "../wd_files/psu_feeder_output_profiles/wd_139.csv";
+};
+object player {
+	name wd_684_140;
+	file "../wd_files/psu_feeder_output_profiles/wd_140.csv";
+};
+object player {
+	name wd_684_141;
+	file "../wd_files/psu_feeder_output_profiles/wd_141.csv";
+};
+object player {
+	name wd_684_142;
+	file "../wd_files/psu_feeder_output_profiles/wd_142.csv";
+};
+object player {
+	name wd_684_143;
+	file "../wd_files/psu_feeder_output_profiles/wd_143.csv";
+};
+object player {
+	name wd_684_144;
+	file "../wd_files/psu_feeder_output_profiles/wd_144.csv";
+};
+object player {
+	name wd_684_145;
+	file "../wd_files/psu_feeder_output_profiles/wd_145.csv";
+};
+object player {
+	name wd_684_146;
+	file "../wd_files/psu_feeder_output_profiles/wd_146.csv";
+};
+object player {
+	name wd_684_147;
+	file "../wd_files/psu_feeder_output_profiles/wd_147.csv";
+};
+object player {
+	name wd_684_148;
+	file "../wd_files/psu_feeder_output_profiles/wd_148.csv";
+};
+object player {
+	name wd_684_149;
+	file "../wd_files/psu_feeder_output_profiles/wd_149.csv";
+};
+object player {
+	name wd_684_150;
+	file "../wd_files/psu_feeder_output_profiles/wd_150.csv";
+};
+object player {
+	name wd_684_151;
+	file "../wd_files/psu_feeder_output_profiles/wd_151.csv";
+};
+object player {
+	name wd_684_152;
+	file "../wd_files/psu_feeder_output_profiles/wd_152.csv";
+};
+object player {
+	name wd_684_153;
+	file "../wd_files/psu_feeder_output_profiles/wd_153.csv";
+};
+object player {
+	name wd_684_154;
+	file "../wd_files/psu_feeder_output_profiles/wd_154.csv";
+};
+object player {
+	name wd_684_155;
+	file "../wd_files/psu_feeder_output_profiles/wd_155.csv";
+};
+object player {
+	name wd_684_156;
+	file "../wd_files/psu_feeder_output_profiles/wd_156.csv";
+};
+object player {
+	name wd_684_157;
+	file "../wd_files/psu_feeder_output_profiles/wd_157.csv";
+};
+object player {
+	name wd_684_158;
+	file "../wd_files/psu_feeder_output_profiles/wd_158.csv";
+};
+object player {
+	name wd_684_159;
+	file "../wd_files/psu_feeder_output_profiles/wd_159.csv";
+};
+object player {
+	name wd_684_160;
+	file "../wd_files/psu_feeder_output_profiles/wd_160.csv";
+};
+object player {
+	name wd_645_161;
+	file "../wd_files/psu_feeder_output_profiles/wd_161.csv";
+};
+object player {
+	name wd_645_162;
+	file "../wd_files/psu_feeder_output_profiles/wd_162.csv";
+};
+object player {
+	name wd_645_163;
+	file "../wd_files/psu_feeder_output_profiles/wd_163.csv";
+};
+object player {
+	name wd_645_164;
+	file "../wd_files/psu_feeder_output_profiles/wd_164.csv";
+};
+object player {
+	name wd_645_165;
+	file "../wd_files/psu_feeder_output_profiles/wd_165.csv";
+};
+object player {
+	name wd_645_166;
+	file "../wd_files/psu_feeder_output_profiles/wd_166.csv";
+};
+object player {
+	name wd_645_167;
+	file "../wd_files/psu_feeder_output_profiles/wd_167.csv";
+};
+object player {
+	name wd_645_168;
+	file "../wd_files/psu_feeder_output_profiles/wd_168.csv";
+};
+object player {
+	name wd_645_169;
+	file "../wd_files/psu_feeder_output_profiles/wd_169.csv";
+};
+object player {
+	name wd_645_170;
+	file "../wd_files/psu_feeder_output_profiles/wd_170.csv";
+};
+object player {
+	name wd_645_171;
+	file "../wd_files/psu_feeder_output_profiles/wd_171.csv";
+};
+object player {
+	name wd_645_172;
+	file "../wd_files/psu_feeder_output_profiles/wd_172.csv";
+};
+object player {
+	name wd_645_173;
+	file "../wd_files/psu_feeder_output_profiles/wd_173.csv";
+};
+object player {
+	name wd_645_174;
+	file "../wd_files/psu_feeder_output_profiles/wd_174.csv";
+};
+object player {
+	name wd_645_175;
+	file "../wd_files/psu_feeder_output_profiles/wd_175.csv";
+};
+object player {
+	name wd_645_176;
+	file "../wd_files/psu_feeder_output_profiles/wd_176.csv";
+};
+object player {
+	name wd_645_177;
+	file "../wd_files/psu_feeder_output_profiles/wd_177.csv";
+};
+object player {
+	name wd_645_178;
+	file "../wd_files/psu_feeder_output_profiles/wd_178.csv";
+};
+object player {
+	name wd_645_179;
+	file "../wd_files/psu_feeder_output_profiles/wd_179.csv";
+};
+object player {
+	name wd_645_180;
+	file "../wd_files/psu_feeder_output_profiles/wd_180.csv";
+};
+object player {
+	name wd_645_181;
+	file "../wd_files/psu_feeder_output_profiles/wd_181.csv";
+};
+object player {
+	name wd_645_182;
+	file "../wd_files/psu_feeder_output_profiles/wd_182.csv";
+};
+object player {
+	name wd_645_183;
+	file "../wd_files/psu_feeder_output_profiles/wd_183.csv";
+};
+object player {
+	name wd_645_184;
+	file "../wd_files/psu_feeder_output_profiles/wd_184.csv";
+};
+object player {
+	name wd_645_185;
+	file "../wd_files/psu_feeder_output_profiles/wd_185.csv";
+};
+object player {
+	name wd_645_186;
+	file "../wd_files/psu_feeder_output_profiles/wd_186.csv";
+};
+object player {
+	name wd_645_187;
+	file "../wd_files/psu_feeder_output_profiles/wd_187.csv";
+};
+object player {
+	name wd_645_188;
+	file "../wd_files/psu_feeder_output_profiles/wd_188.csv";
+};
+object player {
+	name wd_645_189;
+	file "../wd_files/psu_feeder_output_profiles/wd_189.csv";
+};
+object player {
+	name wd_645_190;
+	file "../wd_files/psu_feeder_output_profiles/wd_190.csv";
+};
+object player {
+	name wd_645_191;
+	file "../wd_files/psu_feeder_output_profiles/wd_191.csv";
+};
+object player {
+	name wd_645_192;
+	file "../wd_files/psu_feeder_output_profiles/wd_192.csv";
+};
+object player {
+	name wd_645_193;
+	file "../wd_files/psu_feeder_output_profiles/wd_193.csv";
+};
+object player {
+	name wd_645_194;
+	file "../wd_files/psu_feeder_output_profiles/wd_194.csv";
+};
+object player {
+	name wd_645_195;
+	file "../wd_files/psu_feeder_output_profiles/wd_195.csv";
+};
+object player {
+	name wd_645_196;
+	file "../wd_files/psu_feeder_output_profiles/wd_196.csv";
+};
+object player {
+	name wd_645_197;
+	file "../wd_files/psu_feeder_output_profiles/wd_197.csv";
+};
+object player {
+	name wd_645_198;
+	file "../wd_files/psu_feeder_output_profiles/wd_198.csv";
+};
+object player {
+	name wd_645_199;
+	file "../wd_files/psu_feeder_output_profiles/wd_199.csv";
+};
+object player {
+	name wd_645_200;
+	file "../wd_files/psu_feeder_output_profiles/wd_200.csv";
+};
+object player {
+	name wd_645_201;
+	file "../wd_files/psu_feeder_output_profiles/wd_201.csv";
+};
+object player {
+	name wd_645_202;
+	file "../wd_files/psu_feeder_output_profiles/wd_202.csv";
+};
+object player {
+	name wd_645_203;
+	file "../wd_files/psu_feeder_output_profiles/wd_203.csv";
+};
+object player {
+	name wd_645_204;
+	file "../wd_files/psu_feeder_output_profiles/wd_204.csv";
+};
+object player {
+	name wd_645_205;
+	file "../wd_files/psu_feeder_output_profiles/wd_205.csv";
+};
+object player {
+	name wd_645_206;
+	file "../wd_files/psu_feeder_output_profiles/wd_206.csv";
+};
+object player {
+	name wd_645_207;
+	file "../wd_files/psu_feeder_output_profiles/wd_207.csv";
+};
+object player {
+	name wd_645_208;
+	file "../wd_files/psu_feeder_output_profiles/wd_208.csv";
+};
+object player {
+	name wd_645_209;
+	file "../wd_files/psu_feeder_output_profiles/wd_209.csv";
+};
+object player {
+	name wd_645_210;
+	file "../wd_files/psu_feeder_output_profiles/wd_210.csv";
+};
+object player {
+	name wd_645_211;
+	file "../wd_files/psu_feeder_output_profiles/wd_211.csv";
+};
+object player {
+	name wd_645_212;
+	file "../wd_files/psu_feeder_output_profiles/wd_212.csv";
+};
+object player {
+	name wd_645_213;
+	file "../wd_files/psu_feeder_output_profiles/wd_213.csv";
+};
+object player {
+	name wd_645_214;
+	file "../wd_files/psu_feeder_output_profiles/wd_214.csv";
+};
+object player {
+	name wd_645_215;
+	file "../wd_files/psu_feeder_output_profiles/wd_215.csv";
+};
+object player {
+	name wd_645_216;
+	file "../wd_files/psu_feeder_output_profiles/wd_216.csv";
+};
+object player {
+	name wd_645_217;
+	file "../wd_files/psu_feeder_output_profiles/wd_217.csv";
+};
+object player {
+	name wd_645_218;
+	file "../wd_files/psu_feeder_output_profiles/wd_218.csv";
+};
+object player {
+	name wd_645_219;
+	file "../wd_files/psu_feeder_output_profiles/wd_219.csv";
+};
+object player {
+	name wd_645_220;
+	file "../wd_files/psu_feeder_output_profiles/wd_220.csv";
+};
+object player {
+	name wd_645_221;
+	file "../wd_files/psu_feeder_output_profiles/wd_221.csv";
+};
+object player {
+	name wd_645_222;
+	file "../wd_files/psu_feeder_output_profiles/wd_222.csv";
+};
+object player {
+	name wd_645_223;
+	file "../wd_files/psu_feeder_output_profiles/wd_223.csv";
+};
+object player {
+	name wd_645_224;
+	file "../wd_files/psu_feeder_output_profiles/wd_224.csv";
+};
+object player {
+	name wd_645_225;
+	file "../wd_files/psu_feeder_output_profiles/wd_225.csv";
+};
+object player {
+	name wd_645_226;
+	file "../wd_files/psu_feeder_output_profiles/wd_226.csv";
+};
+object player {
+	name wd_645_227;
+	file "../wd_files/psu_feeder_output_profiles/wd_227.csv";
+};
+object player {
+	name wd_645_228;
+	file "../wd_files/psu_feeder_output_profiles/wd_228.csv";
+};
+object player {
+	name wd_645_229;
+	file "../wd_files/psu_feeder_output_profiles/wd_229.csv";
+};
+object player {
+	name wd_645_230;
+	file "../wd_files/psu_feeder_output_profiles/wd_230.csv";
+};
+object player {
+	name wd_645_231;
+	file "../wd_files/psu_feeder_output_profiles/wd_231.csv";
+};
+object player {
+	name wd_645_232;
+	file "../wd_files/psu_feeder_output_profiles/wd_232.csv";
+};
+object player {
+	name wd_645_233;
+	file "../wd_files/psu_feeder_output_profiles/wd_233.csv";
+};
+object player {
+	name wd_645_234;
+	file "../wd_files/psu_feeder_output_profiles/wd_234.csv";
+};
+object player {
+	name wd_645_235;
+	file "../wd_files/psu_feeder_output_profiles/wd_235.csv";
+};
+object player {
+	name wd_645_236;
+	file "../wd_files/psu_feeder_output_profiles/wd_236.csv";
+};
+object player {
+	name wd_645_237;
+	file "../wd_files/psu_feeder_output_profiles/wd_237.csv";
+};
+object player {
+	name wd_645_238;
+	file "../wd_files/psu_feeder_output_profiles/wd_238.csv";
+};
+object player {
+	name wd_645_239;
+	file "../wd_files/psu_feeder_output_profiles/wd_239.csv";
+};
+object player {
+	name wd_645_240;
+	file "../wd_files/psu_feeder_output_profiles/wd_240.csv";
+};
+object player {
+	name wd_633_241;
+	file "../wd_files/psu_feeder_output_profiles/wd_241.csv";
+};
+object player {
+	name wd_633_242;
+	file "../wd_files/psu_feeder_output_profiles/wd_242.csv";
+};
+object player {
+	name wd_633_243;
+	file "../wd_files/psu_feeder_output_profiles/wd_243.csv";
+};
+object player {
+	name wd_633_244;
+	file "../wd_files/psu_feeder_output_profiles/wd_244.csv";
+};
+object player {
+	name wd_633_245;
+	file "../wd_files/psu_feeder_output_profiles/wd_245.csv";
+};
+object player {
+	name wd_633_246;
+	file "../wd_files/psu_feeder_output_profiles/wd_246.csv";
+};
+object player {
+	name wd_633_247;
+	file "../wd_files/psu_feeder_output_profiles/wd_247.csv";
+};
+object player {
+	name wd_633_248;
+	file "../wd_files/psu_feeder_output_profiles/wd_248.csv";
+};
+object player {
+	name wd_633_249;
+	file "../wd_files/psu_feeder_output_profiles/wd_249.csv";
+};
+object player {
+	name wd_633_250;
+	file "../wd_files/psu_feeder_output_profiles/wd_250.csv";
+};
+object player {
+	name wd_633_251;
+	file "../wd_files/psu_feeder_output_profiles/wd_251.csv";
+};
+object player {
+	name wd_633_252;
+	file "../wd_files/psu_feeder_output_profiles/wd_252.csv";
+};
+object player {
+	name wd_633_253;
+	file "../wd_files/psu_feeder_output_profiles/wd_253.csv";
+};
+object player {
+	name wd_633_254;
+	file "../wd_files/psu_feeder_output_profiles/wd_254.csv";
+};
+object player {
+	name wd_633_255;
+	file "../wd_files/psu_feeder_output_profiles/wd_255.csv";
+};
+object player {
+	name wd_633_256;
+	file "../wd_files/psu_feeder_output_profiles/wd_256.csv";
+};
+object player {
+	name wd_633_257;
+	file "../wd_files/psu_feeder_output_profiles/wd_257.csv";
+};
+object player {
+	name wd_633_258;
+	file "../wd_files/psu_feeder_output_profiles/wd_258.csv";
+};
+object player {
+	name wd_633_259;
+	file "../wd_files/psu_feeder_output_profiles/wd_259.csv";
+};
+object player {
+	name wd_633_260;
+	file "../wd_files/psu_feeder_output_profiles/wd_260.csv";
+};
+object player {
+	name wd_633_261;
+	file "../wd_files/psu_feeder_output_profiles/wd_261.csv";
+};
+object player {
+	name wd_633_262;
+	file "../wd_files/psu_feeder_output_profiles/wd_262.csv";
+};
+object player {
+	name wd_633_263;
+	file "../wd_files/psu_feeder_output_profiles/wd_263.csv";
+};
+object player {
+	name wd_633_264;
+	file "../wd_files/psu_feeder_output_profiles/wd_264.csv";
+};
+object player {
+	name wd_633_265;
+	file "../wd_files/psu_feeder_output_profiles/wd_265.csv";
+};
+object player {
+	name wd_633_266;
+	file "../wd_files/psu_feeder_output_profiles/wd_266.csv";
+};
+object player {
+	name wd_633_267;
+	file "../wd_files/psu_feeder_output_profiles/wd_267.csv";
+};
+object player {
+	name wd_633_268;
+	file "../wd_files/psu_feeder_output_profiles/wd_268.csv";
+};
+object player {
+	name wd_633_269;
+	file "../wd_files/psu_feeder_output_profiles/wd_269.csv";
+};
+object player {
+	name wd_633_270;
+	file "../wd_files/psu_feeder_output_profiles/wd_270.csv";
+};
+object player {
+	name wd_633_271;
+	file "../wd_files/psu_feeder_output_profiles/wd_271.csv";
+};
+object player {
+	name wd_633_272;
+	file "../wd_files/psu_feeder_output_profiles/wd_272.csv";
+};
+object player {
+	name wd_633_273;
+	file "../wd_files/psu_feeder_output_profiles/wd_273.csv";
+};
+object player {
+	name wd_633_274;
+	file "../wd_files/psu_feeder_output_profiles/wd_274.csv";
+};
+object player {
+	name wd_633_275;
+	file "../wd_files/psu_feeder_output_profiles/wd_275.csv";
+};
+object player {
+	name wd_633_276;
+	file "../wd_files/psu_feeder_output_profiles/wd_276.csv";
+};
+object player {
+	name wd_633_277;
+	file "../wd_files/psu_feeder_output_profiles/wd_277.csv";
+};
+object player {
+	name wd_633_278;
+	file "../wd_files/psu_feeder_output_profiles/wd_278.csv";
+};
+object player {
+	name wd_633_279;
+	file "../wd_files/psu_feeder_output_profiles/wd_279.csv";
+};
+object player {
+	name wd_633_280;
+	file "../wd_files/psu_feeder_output_profiles/wd_280.csv";
+};
+object player {
+	name wd_633_281;
+	file "../wd_files/psu_feeder_output_profiles/wd_281.csv";
+};
+object player {
+	name wd_633_282;
+	file "../wd_files/psu_feeder_output_profiles/wd_282.csv";
+};
+object player {
+	name wd_633_283;
+	file "../wd_files/psu_feeder_output_profiles/wd_283.csv";
+};
+object player {
+	name wd_633_284;
+	file "../wd_files/psu_feeder_output_profiles/wd_284.csv";
+};
+object player {
+	name wd_633_285;
+	file "../wd_files/psu_feeder_output_profiles/wd_285.csv";
+};
+object player {
+	name wd_633_286;
+	file "../wd_files/psu_feeder_output_profiles/wd_286.csv";
+};
+object player {
+	name wd_633_287;
+	file "../wd_files/psu_feeder_output_profiles/wd_287.csv";
+};
+object player {
+	name wd_633_288;
+	file "../wd_files/psu_feeder_output_profiles/wd_288.csv";
+};
+object player {
+	name wd_633_289;
+	file "../wd_files/psu_feeder_output_profiles/wd_289.csv";
+};
+object player {
+	name wd_633_290;
+	file "../wd_files/psu_feeder_output_profiles/wd_290.csv";
+};
+object player {
+	name wd_633_291;
+	file "../wd_files/psu_feeder_output_profiles/wd_291.csv";
+};
+object player {
+	name wd_633_292;
+	file "../wd_files/psu_feeder_output_profiles/wd_292.csv";
+};
+object player {
+	name wd_633_293;
+	file "../wd_files/psu_feeder_output_profiles/wd_293.csv";
+};
+object player {
+	name wd_633_294;
+	file "../wd_files/psu_feeder_output_profiles/wd_294.csv";
+};
+object player {
+	name wd_633_295;
+	file "../wd_files/psu_feeder_output_profiles/wd_295.csv";
+};
+object player {
+	name wd_633_296;
+	file "../wd_files/psu_feeder_output_profiles/wd_296.csv";
+};
+object player {
+	name wd_633_297;
+	file "../wd_files/psu_feeder_output_profiles/wd_297.csv";
+};
+object player {
+	name wd_633_298;
+	file "../wd_files/psu_feeder_output_profiles/wd_298.csv";
+};
+object player {
+	name wd_633_299;
+	file "../wd_files/psu_feeder_output_profiles/wd_299.csv";
+};
+object player {
+	name wd_633_300;
+	file "../wd_files/psu_feeder_output_profiles/wd_300.csv";
+};
+object player {
+	name wd_633_301;
+	file "../wd_files/psu_feeder_output_profiles/wd_301.csv";
+};
+object player {
+	name wd_633_302;
+	file "../wd_files/psu_feeder_output_profiles/wd_302.csv";
+};
+object player {
+	name wd_633_303;
+	file "../wd_files/psu_feeder_output_profiles/wd_303.csv";
+};
+object player {
+	name wd_633_304;
+	file "../wd_files/psu_feeder_output_profiles/wd_304.csv";
+};
+object player {
+	name wd_633_305;
+	file "../wd_files/psu_feeder_output_profiles/wd_305.csv";
+};
+object player {
+	name wd_633_306;
+	file "../wd_files/psu_feeder_output_profiles/wd_306.csv";
+};
+object player {
+	name wd_633_307;
+	file "../wd_files/psu_feeder_output_profiles/wd_307.csv";
+};
+object player {
+	name wd_633_308;
+	file "../wd_files/psu_feeder_output_profiles/wd_308.csv";
+};
+object player {
+	name wd_633_309;
+	file "../wd_files/psu_feeder_output_profiles/wd_309.csv";
+};
+object player {
+	name wd_633_310;
+	file "../wd_files/psu_feeder_output_profiles/wd_310.csv";
+};
+object player {
+	name wd_633_311;
+	file "../wd_files/psu_feeder_output_profiles/wd_311.csv";
+};
+object player {
+	name wd_633_312;
+	file "../wd_files/psu_feeder_output_profiles/wd_312.csv";
+};
+object player {
+	name wd_633_313;
+	file "../wd_files/psu_feeder_output_profiles/wd_313.csv";
+};
+object player {
+	name wd_633_314;
+	file "../wd_files/psu_feeder_output_profiles/wd_314.csv";
+};
+object player {
+	name wd_633_315;
+	file "../wd_files/psu_feeder_output_profiles/wd_315.csv";
+};
+object player {
+	name wd_633_316;
+	file "../wd_files/psu_feeder_output_profiles/wd_316.csv";
+};
+object player {
+	name wd_633_317;
+	file "../wd_files/psu_feeder_output_profiles/wd_317.csv";
+};
+object player {
+	name wd_633_318;
+	file "../wd_files/psu_feeder_output_profiles/wd_318.csv";
+};
+object player {
+	name wd_633_319;
+	file "../wd_files/psu_feeder_output_profiles/wd_319.csv";
+};
+object player {
+	name wd_633_320;
+	file "../wd_files/psu_feeder_output_profiles/wd_320.csv";
+};
+object player {
+	name wd_633_321;
+	file "../wd_files/psu_feeder_output_profiles/wd_321.csv";
+};
+object player {
+	name wd_633_322;
+	file "../wd_files/psu_feeder_output_profiles/wd_322.csv";
+};
+object player {
+	name wd_633_323;
+	file "../wd_files/psu_feeder_output_profiles/wd_323.csv";
+};
+object player {
+	name wd_633_324;
+	file "../wd_files/psu_feeder_output_profiles/wd_324.csv";
+};
+object player {
+	name wd_633_325;
+	file "../wd_files/psu_feeder_output_profiles/wd_325.csv";
+};
+object player {
+	name wd_633_326;
+	file "../wd_files/psu_feeder_output_profiles/wd_326.csv";
+};
+object player {
+	name wd_633_327;
+	file "../wd_files/psu_feeder_output_profiles/wd_327.csv";
+};
+object player {
+	name wd_633_328;
+	file "../wd_files/psu_feeder_output_profiles/wd_328.csv";
+};
+object player {
+	name wd_633_329;
+	file "../wd_files/psu_feeder_output_profiles/wd_329.csv";
+};
+object player {
+	name wd_633_330;
+	file "../wd_files/psu_feeder_output_profiles/wd_330.csv";
+};
+object player {
+	name wd_633_331;
+	file "../wd_files/psu_feeder_output_profiles/wd_331.csv";
+};
+object player {
+	name wd_633_332;
+	file "../wd_files/psu_feeder_output_profiles/wd_332.csv";
+};
+object player {
+	name wd_633_333;
+	file "../wd_files/psu_feeder_output_profiles/wd_333.csv";
+};
+object player {
+	name wd_633_334;
+	file "../wd_files/psu_feeder_output_profiles/wd_334.csv";
+};
+object player {
+	name wd_633_335;
+	file "../wd_files/psu_feeder_output_profiles/wd_335.csv";
+};
+object player {
+	name wd_633_336;
+	file "../wd_files/psu_feeder_output_profiles/wd_336.csv";
+};
+object player {
+	name wd_633_337;
+	file "../wd_files/psu_feeder_output_profiles/wd_337.csv";
+};
+object player {
+	name wd_633_338;
+	file "../wd_files/psu_feeder_output_profiles/wd_338.csv";
+};
+object player {
+	name wd_633_339;
+	file "../wd_files/psu_feeder_output_profiles/wd_339.csv";
+};
+object player {
+	name wd_633_340;
+	file "../wd_files/psu_feeder_output_profiles/wd_340.csv";
+};
+object player {
+	name wd_633_341;
+	file "../wd_files/psu_feeder_output_profiles/wd_341.csv";
+};
+object player {
+	name wd_633_342;
+	file "../wd_files/psu_feeder_output_profiles/wd_342.csv";
+};
+object player {
+	name wd_633_343;
+	file "../wd_files/psu_feeder_output_profiles/wd_343.csv";
+};
+object player {
+	name wd_633_344;
+	file "../wd_files/psu_feeder_output_profiles/wd_344.csv";
+};
+object player {
+	name wd_633_345;
+	file "../wd_files/psu_feeder_output_profiles/wd_345.csv";
+};
+object player {
+	name wd_633_346;
+	file "../wd_files/psu_feeder_output_profiles/wd_346.csv";
+};
+object player {
+	name wd_633_347;
+	file "../wd_files/psu_feeder_output_profiles/wd_347.csv";
+};
+object player {
+	name wd_633_348;
+	file "../wd_files/psu_feeder_output_profiles/wd_348.csv";
+};
+object player {
+	name wd_633_349;
+	file "../wd_files/psu_feeder_output_profiles/wd_349.csv";
+};
+object player {
+	name wd_633_350;
+	file "../wd_files/psu_feeder_output_profiles/wd_350.csv";
+};
+object player {
+	name wd_633_351;
+	file "../wd_files/psu_feeder_output_profiles/wd_351.csv";
+};
+object player {
+	name wd_633_352;
+	file "../wd_files/psu_feeder_output_profiles/wd_352.csv";
+};
+object player {
+	name wd_633_353;
+	file "../wd_files/psu_feeder_output_profiles/wd_353.csv";
+};
+object player {
+	name wd_633_354;
+	file "../wd_files/psu_feeder_output_profiles/wd_354.csv";
+};
+object player {
+	name wd_633_355;
+	file "../wd_files/psu_feeder_output_profiles/wd_355.csv";
+};
+object player {
+	name wd_633_356;
+	file "../wd_files/psu_feeder_output_profiles/wd_356.csv";
+};
+object player {
+	name wd_633_357;
+	file "../wd_files/psu_feeder_output_profiles/wd_357.csv";
+};
+object player {
+	name wd_633_358;
+	file "../wd_files/psu_feeder_output_profiles/wd_358.csv";
+};
+object player {
+	name wd_633_359;
+	file "../wd_files/psu_feeder_output_profiles/wd_359.csv";
+};
+object player {
+	name wd_633_360;
+	file "../wd_files/psu_feeder_output_profiles/wd_360.csv";
+};
+object player {
+	name wd_632_361;
+	file "../wd_files/psu_feeder_output_profiles/wd_361.csv";
+};
+object player {
+	name wd_632_362;
+	file "../wd_files/psu_feeder_output_profiles/wd_362.csv";
+};
+object player {
+	name wd_632_363;
+	file "../wd_files/psu_feeder_output_profiles/wd_363.csv";
+};
+object player {
+	name wd_632_364;
+	file "../wd_files/psu_feeder_output_profiles/wd_364.csv";
+};
+object player {
+	name wd_632_365;
+	file "../wd_files/psu_feeder_output_profiles/wd_365.csv";
+};
+object player {
+	name wd_632_366;
+	file "../wd_files/psu_feeder_output_profiles/wd_366.csv";
+};
+object player {
+	name wd_632_367;
+	file "../wd_files/psu_feeder_output_profiles/wd_367.csv";
+};
+object player {
+	name wd_632_368;
+	file "../wd_files/psu_feeder_output_profiles/wd_368.csv";
+};
+object player {
+	name wd_632_369;
+	file "../wd_files/psu_feeder_output_profiles/wd_369.csv";
+};
+object player {
+	name wd_632_370;
+	file "../wd_files/psu_feeder_output_profiles/wd_370.csv";
+};
+object player {
+	name wd_632_371;
+	file "../wd_files/psu_feeder_output_profiles/wd_371.csv";
+};
+object player {
+	name wd_632_372;
+	file "../wd_files/psu_feeder_output_profiles/wd_372.csv";
+};
+object player {
+	name wd_632_373;
+	file "../wd_files/psu_feeder_output_profiles/wd_373.csv";
+};
+object player {
+	name wd_632_374;
+	file "../wd_files/psu_feeder_output_profiles/wd_374.csv";
+};
+object player {
+	name wd_632_375;
+	file "../wd_files/psu_feeder_output_profiles/wd_375.csv";
+};
+object player {
+	name wd_632_376;
+	file "../wd_files/psu_feeder_output_profiles/wd_376.csv";
+};
+object player {
+	name wd_632_377;
+	file "../wd_files/psu_feeder_output_profiles/wd_377.csv";
+};
+object player {
+	name wd_632_378;
+	file "../wd_files/psu_feeder_output_profiles/wd_378.csv";
+};
+object player {
+	name wd_632_379;
+	file "../wd_files/psu_feeder_output_profiles/wd_379.csv";
+};
+object player {
+	name wd_632_380;
+	file "../wd_files/psu_feeder_output_profiles/wd_380.csv";
+};
+object player {
+	name wd_632_381;
+	file "../wd_files/psu_feeder_output_profiles/wd_381.csv";
+};
+object player {
+	name wd_632_382;
+	file "../wd_files/psu_feeder_output_profiles/wd_382.csv";
+};
+object player {
+	name wd_632_383;
+	file "../wd_files/psu_feeder_output_profiles/wd_383.csv";
+};
+object player {
+	name wd_632_384;
+	file "../wd_files/psu_feeder_output_profiles/wd_384.csv";
+};
+object player {
+	name wd_632_385;
+	file "../wd_files/psu_feeder_output_profiles/wd_385.csv";
+};
+object player {
+	name wd_632_386;
+	file "../wd_files/psu_feeder_output_profiles/wd_386.csv";
+};
+object player {
+	name wd_632_387;
+	file "../wd_files/psu_feeder_output_profiles/wd_387.csv";
+};
+object player {
+	name wd_632_388;
+	file "../wd_files/psu_feeder_output_profiles/wd_388.csv";
+};
+object player {
+	name wd_632_389;
+	file "../wd_files/psu_feeder_output_profiles/wd_389.csv";
+};
+object player {
+	name wd_632_390;
+	file "../wd_files/psu_feeder_output_profiles/wd_390.csv";
+};
+object player {
+	name wd_632_391;
+	file "../wd_files/psu_feeder_output_profiles/wd_391.csv";
+};
+object player {
+	name wd_632_392;
+	file "../wd_files/psu_feeder_output_profiles/wd_392.csv";
+};
+object player {
+	name wd_632_393;
+	file "../wd_files/psu_feeder_output_profiles/wd_393.csv";
+};
+object player {
+	name wd_632_394;
+	file "../wd_files/psu_feeder_output_profiles/wd_394.csv";
+};
+object player {
+	name wd_632_395;
+	file "../wd_files/psu_feeder_output_profiles/wd_395.csv";
+};
+object player {
+	name wd_632_396;
+	file "../wd_files/psu_feeder_output_profiles/wd_396.csv";
+};
+object player {
+	name wd_632_397;
+	file "../wd_files/psu_feeder_output_profiles/wd_397.csv";
+};
+object player {
+	name wd_632_398;
+	file "../wd_files/psu_feeder_output_profiles/wd_398.csv";
+};
+object player {
+	name wd_632_399;
+	file "../wd_files/psu_feeder_output_profiles/wd_399.csv";
+};
+object player {
+	name wd_632_400;
+	file "../wd_files/psu_feeder_output_profiles/wd_400.csv";
+};
+object player {
+	name wd_632_401;
+	file "../wd_files/psu_feeder_output_profiles/wd_401.csv";
+};
+object player {
+	name wd_632_402;
+	file "../wd_files/psu_feeder_output_profiles/wd_402.csv";
+};
+object player {
+	name wd_632_403;
+	file "../wd_files/psu_feeder_output_profiles/wd_403.csv";
+};
+object player {
+	name wd_632_404;
+	file "../wd_files/psu_feeder_output_profiles/wd_404.csv";
+};
+object player {
+	name wd_632_405;
+	file "../wd_files/psu_feeder_output_profiles/wd_405.csv";
+};
+object player {
+	name wd_632_406;
+	file "../wd_files/psu_feeder_output_profiles/wd_406.csv";
+};
+object player {
+	name wd_632_407;
+	file "../wd_files/psu_feeder_output_profiles/wd_407.csv";
+};
+object player {
+	name wd_632_408;
+	file "../wd_files/psu_feeder_output_profiles/wd_408.csv";
+};
+object player {
+	name wd_632_409;
+	file "../wd_files/psu_feeder_output_profiles/wd_409.csv";
+};
+object player {
+	name wd_632_410;
+	file "../wd_files/psu_feeder_output_profiles/wd_410.csv";
+};
+object player {
+	name wd_632_411;
+	file "../wd_files/psu_feeder_output_profiles/wd_411.csv";
+};
+object player {
+	name wd_632_412;
+	file "../wd_files/psu_feeder_output_profiles/wd_412.csv";
+};
+object player {
+	name wd_632_413;
+	file "../wd_files/psu_feeder_output_profiles/wd_413.csv";
+};
+object player {
+	name wd_632_414;
+	file "../wd_files/psu_feeder_output_profiles/wd_414.csv";
+};
+object player {
+	name wd_632_415;
+	file "../wd_files/psu_feeder_output_profiles/wd_415.csv";
+};
+object player {
+	name wd_632_416;
+	file "../wd_files/psu_feeder_output_profiles/wd_416.csv";
+};
+object player {
+	name wd_632_417;
+	file "../wd_files/psu_feeder_output_profiles/wd_417.csv";
+};
+object player {
+	name wd_632_418;
+	file "../wd_files/psu_feeder_output_profiles/wd_418.csv";
+};
+object player {
+	name wd_632_419;
+	file "../wd_files/psu_feeder_output_profiles/wd_419.csv";
+};
+object player {
+	name wd_632_420;
+	file "../wd_files/psu_feeder_output_profiles/wd_420.csv";
+};
+object player {
+	name wd_632_421;
+	file "../wd_files/psu_feeder_output_profiles/wd_421.csv";
+};
+object player {
+	name wd_632_422;
+	file "../wd_files/psu_feeder_output_profiles/wd_422.csv";
+};
+object player {
+	name wd_632_423;
+	file "../wd_files/psu_feeder_output_profiles/wd_423.csv";
+};
+object player {
+	name wd_632_424;
+	file "../wd_files/psu_feeder_output_profiles/wd_424.csv";
+};
+object player {
+	name wd_632_425;
+	file "../wd_files/psu_feeder_output_profiles/wd_425.csv";
+};
+object player {
+	name wd_632_426;
+	file "../wd_files/psu_feeder_output_profiles/wd_426.csv";
+};
+object player {
+	name wd_632_427;
+	file "../wd_files/psu_feeder_output_profiles/wd_427.csv";
+};
+object player {
+	name wd_632_428;
+	file "../wd_files/psu_feeder_output_profiles/wd_428.csv";
+};
+object player {
+	name wd_632_429;
+	file "../wd_files/psu_feeder_output_profiles/wd_429.csv";
+};
+object player {
+	name wd_632_430;
+	file "../wd_files/psu_feeder_output_profiles/wd_430.csv";
+};
+object player {
+	name wd_632_431;
+	file "../wd_files/psu_feeder_output_profiles/wd_431.csv";
+};
+object player {
+	name wd_632_432;
+	file "../wd_files/psu_feeder_output_profiles/wd_432.csv";
+};
+object player {
+	name wd_632_433;
+	file "../wd_files/psu_feeder_output_profiles/wd_433.csv";
+};
+object player {
+	name wd_632_434;
+	file "../wd_files/psu_feeder_output_profiles/wd_434.csv";
+};
+object player {
+	name wd_632_435;
+	file "../wd_files/psu_feeder_output_profiles/wd_435.csv";
+};
+object player {
+	name wd_632_436;
+	file "../wd_files/psu_feeder_output_profiles/wd_436.csv";
+};
+object player {
+	name wd_632_437;
+	file "../wd_files/psu_feeder_output_profiles/wd_437.csv";
+};
+object player {
+	name wd_632_438;
+	file "../wd_files/psu_feeder_output_profiles/wd_438.csv";
+};
+object player {
+	name wd_632_439;
+	file "../wd_files/psu_feeder_output_profiles/wd_439.csv";
+};
+object player {
+	name wd_632_440;
+	file "../wd_files/psu_feeder_output_profiles/wd_440.csv";
+};
+object player {
+	name wd_632_441;
+	file "../wd_files/psu_feeder_output_profiles/wd_441.csv";
+};
+object player {
+	name wd_632_442;
+	file "../wd_files/psu_feeder_output_profiles/wd_442.csv";
+};
+object player {
+	name wd_632_443;
+	file "../wd_files/psu_feeder_output_profiles/wd_443.csv";
+};
+object player {
+	name wd_632_444;
+	file "../wd_files/psu_feeder_output_profiles/wd_444.csv";
+};
+object player {
+	name wd_632_445;
+	file "../wd_files/psu_feeder_output_profiles/wd_445.csv";
+};
+object player {
+	name wd_632_446;
+	file "../wd_files/psu_feeder_output_profiles/wd_446.csv";
+};
+object player {
+	name wd_632_447;
+	file "../wd_files/psu_feeder_output_profiles/wd_447.csv";
+};
+object player {
+	name wd_632_448;
+	file "../wd_files/psu_feeder_output_profiles/wd_448.csv";
+};
+object player {
+	name wd_632_449;
+	file "../wd_files/psu_feeder_output_profiles/wd_449.csv";
+};
+object player {
+	name wd_632_450;
+	file "../wd_files/psu_feeder_output_profiles/wd_450.csv";
+};
+object player {
+	name wd_632_451;
+	file "../wd_files/psu_feeder_output_profiles/wd_451.csv";
+};
+object player {
+	name wd_632_452;
+	file "../wd_files/psu_feeder_output_profiles/wd_452.csv";
+};
+object player {
+	name wd_632_453;
+	file "../wd_files/psu_feeder_output_profiles/wd_453.csv";
+};
+object player {
+	name wd_632_454;
+	file "../wd_files/psu_feeder_output_profiles/wd_454.csv";
+};
+object player {
+	name wd_632_455;
+	file "../wd_files/psu_feeder_output_profiles/wd_455.csv";
+};
+object player {
+	name wd_632_456;
+	file "../wd_files/psu_feeder_output_profiles/wd_456.csv";
+};
+object player {
+	name wd_632_457;
+	file "../wd_files/psu_feeder_output_profiles/wd_457.csv";
+};
+object player {
+	name wd_632_458;
+	file "../wd_files/psu_feeder_output_profiles/wd_458.csv";
+};
+object player {
+	name wd_632_459;
+	file "../wd_files/psu_feeder_output_profiles/wd_459.csv";
+};
+object player {
+	name wd_632_460;
+	file "../wd_files/psu_feeder_output_profiles/wd_460.csv";
+};
+object player {
+	name wd_632_461;
+	file "../wd_files/psu_feeder_output_profiles/wd_461.csv";
+};
+object player {
+	name wd_632_462;
+	file "../wd_files/psu_feeder_output_profiles/wd_462.csv";
+};
+object player {
+	name wd_632_463;
+	file "../wd_files/psu_feeder_output_profiles/wd_463.csv";
+};
+object player {
+	name wd_632_464;
+	file "../wd_files/psu_feeder_output_profiles/wd_464.csv";
+};
+object player {
+	name wd_632_465;
+	file "../wd_files/psu_feeder_output_profiles/wd_465.csv";
+};
+object player {
+	name wd_632_466;
+	file "../wd_files/psu_feeder_output_profiles/wd_466.csv";
+};
+object player {
+	name wd_632_467;
+	file "../wd_files/psu_feeder_output_profiles/wd_467.csv";
+};
+object player {
+	name wd_632_468;
+	file "../wd_files/psu_feeder_output_profiles/wd_468.csv";
+};
+object player {
+	name wd_632_469;
+	file "../wd_files/psu_feeder_output_profiles/wd_469.csv";
+};
+object player {
+	name wd_632_470;
+	file "../wd_files/psu_feeder_output_profiles/wd_470.csv";
+};
+object player {
+	name wd_632_471;
+	file "../wd_files/psu_feeder_output_profiles/wd_471.csv";
+};
+object player {
+	name wd_632_472;
+	file "../wd_files/psu_feeder_output_profiles/wd_472.csv";
+};
+object player {
+	name wd_632_473;
+	file "../wd_files/psu_feeder_output_profiles/wd_473.csv";
+};
+object player {
+	name wd_632_474;
+	file "../wd_files/psu_feeder_output_profiles/wd_474.csv";
+};
+object player {
+	name wd_632_475;
+	file "../wd_files/psu_feeder_output_profiles/wd_475.csv";
+};
+object player {
+	name wd_632_476;
+	file "../wd_files/psu_feeder_output_profiles/wd_476.csv";
+};
+object player {
+	name wd_632_477;
+	file "../wd_files/psu_feeder_output_profiles/wd_477.csv";
+};
+object player {
+	name wd_632_478;
+	file "../wd_files/psu_feeder_output_profiles/wd_478.csv";
+};
+object player {
+	name wd_632_479;
+	file "../wd_files/psu_feeder_output_profiles/wd_479.csv";
+};
+object player {
+	name wd_632_480;
+	file "../wd_files/psu_feeder_output_profiles/wd_480.csv";
+};
+object player {
+	name wd_692_481;
+	file "../wd_files/psu_feeder_output_profiles/wd_481.csv";
+};
+object player {
+	name wd_692_482;
+	file "../wd_files/psu_feeder_output_profiles/wd_482.csv";
+};
+object player {
+	name wd_692_483;
+	file "../wd_files/psu_feeder_output_profiles/wd_483.csv";
+};
+object player {
+	name wd_692_484;
+	file "../wd_files/psu_feeder_output_profiles/wd_484.csv";
+};
+object player {
+	name wd_692_485;
+	file "../wd_files/psu_feeder_output_profiles/wd_485.csv";
+};
+object player {
+	name wd_692_486;
+	file "../wd_files/psu_feeder_output_profiles/wd_486.csv";
+};
+object player {
+	name wd_692_487;
+	file "../wd_files/psu_feeder_output_profiles/wd_487.csv";
+};
+object player {
+	name wd_692_488;
+	file "../wd_files/psu_feeder_output_profiles/wd_488.csv";
+};
+object player {
+	name wd_692_489;
+	file "../wd_files/psu_feeder_output_profiles/wd_489.csv";
+};
+object player {
+	name wd_692_490;
+	file "../wd_files/psu_feeder_output_profiles/wd_490.csv";
+};
+object player {
+	name wd_692_491;
+	file "../wd_files/psu_feeder_output_profiles/wd_491.csv";
+};
+object player {
+	name wd_692_492;
+	file "../wd_files/psu_feeder_output_profiles/wd_492.csv";
+};
+object player {
+	name wd_692_493;
+	file "../wd_files/psu_feeder_output_profiles/wd_493.csv";
+};
+object player {
+	name wd_692_494;
+	file "../wd_files/psu_feeder_output_profiles/wd_494.csv";
+};
+object player {
+	name wd_692_495;
+	file "../wd_files/psu_feeder_output_profiles/wd_495.csv";
+};
+object player {
+	name wd_692_496;
+	file "../wd_files/psu_feeder_output_profiles/wd_496.csv";
+};
+object player {
+	name wd_692_497;
+	file "../wd_files/psu_feeder_output_profiles/wd_497.csv";
+};
+object player {
+	name wd_692_498;
+	file "../wd_files/psu_feeder_output_profiles/wd_498.csv";
+};
+object player {
+	name wd_692_499;
+	file "../wd_files/psu_feeder_output_profiles/wd_499.csv";
+};
+object player {
+	name wd_692_500;
+	file "../wd_files/psu_feeder_output_profiles/wd_500.csv";
+};
+object player {
+	name wd_692_501;
+	file "../wd_files/psu_feeder_output_profiles/wd_501.csv";
+};
+object player {
+	name wd_692_502;
+	file "../wd_files/psu_feeder_output_profiles/wd_502.csv";
+};
+object player {
+	name wd_692_503;
+	file "../wd_files/psu_feeder_output_profiles/wd_503.csv";
+};
+object player {
+	name wd_692_504;
+	file "../wd_files/psu_feeder_output_profiles/wd_504.csv";
+};
+object player {
+	name wd_692_505;
+	file "../wd_files/psu_feeder_output_profiles/wd_505.csv";
+};
+object player {
+	name wd_692_506;
+	file "../wd_files/psu_feeder_output_profiles/wd_506.csv";
+};
+object player {
+	name wd_692_507;
+	file "../wd_files/psu_feeder_output_profiles/wd_507.csv";
+};
+object player {
+	name wd_692_508;
+	file "../wd_files/psu_feeder_output_profiles/wd_508.csv";
+};
+object player {
+	name wd_692_509;
+	file "../wd_files/psu_feeder_output_profiles/wd_509.csv";
+};
+object player {
+	name wd_692_510;
+	file "../wd_files/psu_feeder_output_profiles/wd_510.csv";
+};
+object player {
+	name wd_692_511;
+	file "../wd_files/psu_feeder_output_profiles/wd_511.csv";
+};
+object player {
+	name wd_692_512;
+	file "../wd_files/psu_feeder_output_profiles/wd_512.csv";
+};
+object player {
+	name wd_692_513;
+	file "../wd_files/psu_feeder_output_profiles/wd_513.csv";
+};
+object player {
+	name wd_692_514;
+	file "../wd_files/psu_feeder_output_profiles/wd_514.csv";
+};
+object player {
+	name wd_692_515;
+	file "../wd_files/psu_feeder_output_profiles/wd_515.csv";
+};
+object player {
+	name wd_692_516;
+	file "../wd_files/psu_feeder_output_profiles/wd_516.csv";
+};
+object player {
+	name wd_692_517;
+	file "../wd_files/psu_feeder_output_profiles/wd_517.csv";
+};
+object player {
+	name wd_692_518;
+	file "../wd_files/psu_feeder_output_profiles/wd_518.csv";
+};
+object player {
+	name wd_692_519;
+	file "../wd_files/psu_feeder_output_profiles/wd_519.csv";
+};
+object player {
+	name wd_692_520;
+	file "../wd_files/psu_feeder_output_profiles/wd_520.csv";
+};
+object player {
+	name wd_692_521;
+	file "../wd_files/psu_feeder_output_profiles/wd_521.csv";
+};
+object player {
+	name wd_692_522;
+	file "../wd_files/psu_feeder_output_profiles/wd_522.csv";
+};
+object player {
+	name wd_692_523;
+	file "../wd_files/psu_feeder_output_profiles/wd_523.csv";
+};
+object player {
+	name wd_692_524;
+	file "../wd_files/psu_feeder_output_profiles/wd_524.csv";
+};
+object player {
+	name wd_692_525;
+	file "../wd_files/psu_feeder_output_profiles/wd_525.csv";
+};
+object player {
+	name wd_692_526;
+	file "../wd_files/psu_feeder_output_profiles/wd_526.csv";
+};
+object player {
+	name wd_692_527;
+	file "../wd_files/psu_feeder_output_profiles/wd_527.csv";
+};
+object player {
+	name wd_692_528;
+	file "../wd_files/psu_feeder_output_profiles/wd_528.csv";
+};
+object player {
+	name wd_692_529;
+	file "../wd_files/psu_feeder_output_profiles/wd_529.csv";
+};
+object player {
+	name wd_692_530;
+	file "../wd_files/psu_feeder_output_profiles/wd_530.csv";
+};
+object player {
+	name wd_692_531;
+	file "../wd_files/psu_feeder_output_profiles/wd_531.csv";
+};
+object player {
+	name wd_692_532;
+	file "../wd_files/psu_feeder_output_profiles/wd_532.csv";
+};
+object player {
+	name wd_692_533;
+	file "../wd_files/psu_feeder_output_profiles/wd_533.csv";
+};
+object player {
+	name wd_692_534;
+	file "../wd_files/psu_feeder_output_profiles/wd_534.csv";
+};
+object player {
+	name wd_692_535;
+	file "../wd_files/psu_feeder_output_profiles/wd_535.csv";
+};
+object player {
+	name wd_692_536;
+	file "../wd_files/psu_feeder_output_profiles/wd_536.csv";
+};
+object player {
+	name wd_692_537;
+	file "../wd_files/psu_feeder_output_profiles/wd_537.csv";
+};
+object player {
+	name wd_692_538;
+	file "../wd_files/psu_feeder_output_profiles/wd_538.csv";
+};
+object player {
+	name wd_692_539;
+	file "../wd_files/psu_feeder_output_profiles/wd_539.csv";
+};
+object player {
+	name wd_692_540;
+	file "../wd_files/psu_feeder_output_profiles/wd_540.csv";
+};
+object player {
+	name wd_692_541;
+	file "../wd_files/psu_feeder_output_profiles/wd_541.csv";
+};
+object player {
+	name wd_692_542;
+	file "../wd_files/psu_feeder_output_profiles/wd_542.csv";
+};
+object player {
+	name wd_692_543;
+	file "../wd_files/psu_feeder_output_profiles/wd_543.csv";
+};
+object player {
+	name wd_692_544;
+	file "../wd_files/psu_feeder_output_profiles/wd_544.csv";
+};
+object player {
+	name wd_692_545;
+	file "../wd_files/psu_feeder_output_profiles/wd_545.csv";
+};
+object player {
+	name wd_692_546;
+	file "../wd_files/psu_feeder_output_profiles/wd_546.csv";
+};
+object player {
+	name wd_692_547;
+	file "../wd_files/psu_feeder_output_profiles/wd_547.csv";
+};
+object player {
+	name wd_692_548;
+	file "../wd_files/psu_feeder_output_profiles/wd_548.csv";
+};
+object player {
+	name wd_692_549;
+	file "../wd_files/psu_feeder_output_profiles/wd_549.csv";
+};
+object player {
+	name wd_692_550;
+	file "../wd_files/psu_feeder_output_profiles/wd_550.csv";
+};
+object player {
+	name wd_692_551;
+	file "../wd_files/psu_feeder_output_profiles/wd_551.csv";
+};
+object player {
+	name wd_692_552;
+	file "../wd_files/psu_feeder_output_profiles/wd_552.csv";
+};
+object player {
+	name wd_692_553;
+	file "../wd_files/psu_feeder_output_profiles/wd_553.csv";
+};
+object player {
+	name wd_692_554;
+	file "../wd_files/psu_feeder_output_profiles/wd_554.csv";
+};
+object player {
+	name wd_692_555;
+	file "../wd_files/psu_feeder_output_profiles/wd_555.csv";
+};
+object player {
+	name wd_692_556;
+	file "../wd_files/psu_feeder_output_profiles/wd_556.csv";
+};
+object player {
+	name wd_692_557;
+	file "../wd_files/psu_feeder_output_profiles/wd_557.csv";
+};
+object player {
+	name wd_692_558;
+	file "../wd_files/psu_feeder_output_profiles/wd_558.csv";
+};
+object player {
+	name wd_692_559;
+	file "../wd_files/psu_feeder_output_profiles/wd_559.csv";
+};
+object player {
+	name wd_692_560;
+	file "../wd_files/psu_feeder_output_profiles/wd_560.csv";
+};
+object player {
+	name wd_692_561;
+	file "../wd_files/psu_feeder_output_profiles/wd_561.csv";
+};
+object player {
+	name wd_692_562;
+	file "../wd_files/psu_feeder_output_profiles/wd_562.csv";
+};
+object player {
+	name wd_692_563;
+	file "../wd_files/psu_feeder_output_profiles/wd_563.csv";
+};
+object player {
+	name wd_692_564;
+	file "../wd_files/psu_feeder_output_profiles/wd_564.csv";
+};
+object player {
+	name wd_692_565;
+	file "../wd_files/psu_feeder_output_profiles/wd_565.csv";
+};
+object player {
+	name wd_692_566;
+	file "../wd_files/psu_feeder_output_profiles/wd_566.csv";
+};
+object player {
+	name wd_692_567;
+	file "../wd_files/psu_feeder_output_profiles/wd_567.csv";
+};
+object player {
+	name wd_692_568;
+	file "../wd_files/psu_feeder_output_profiles/wd_568.csv";
+};
+object player {
+	name wd_692_569;
+	file "../wd_files/psu_feeder_output_profiles/wd_569.csv";
+};
+object player {
+	name wd_692_570;
+	file "../wd_files/psu_feeder_output_profiles/wd_570.csv";
+};
+object player {
+	name wd_692_571;
+	file "../wd_files/psu_feeder_output_profiles/wd_571.csv";
+};
+object player {
+	name wd_692_572;
+	file "../wd_files/psu_feeder_output_profiles/wd_572.csv";
+};
+object player {
+	name wd_692_573;
+	file "../wd_files/psu_feeder_output_profiles/wd_573.csv";
+};
+object player {
+	name wd_692_574;
+	file "../wd_files/psu_feeder_output_profiles/wd_574.csv";
+};
+object player {
+	name wd_692_575;
+	file "../wd_files/psu_feeder_output_profiles/wd_575.csv";
+};
+object player {
+	name wd_692_576;
+	file "../wd_files/psu_feeder_output_profiles/wd_576.csv";
+};
+object player {
+	name wd_692_577;
+	file "../wd_files/psu_feeder_output_profiles/wd_577.csv";
+};
+object player {
+	name wd_692_578;
+	file "../wd_files/psu_feeder_output_profiles/wd_578.csv";
+};
+object player {
+	name wd_692_579;
+	file "../wd_files/psu_feeder_output_profiles/wd_579.csv";
+};
+object player {
+	name wd_692_580;
+	file "../wd_files/psu_feeder_output_profiles/wd_580.csv";
+};
+object player {
+	name wd_692_581;
+	file "../wd_files/psu_feeder_output_profiles/wd_581.csv";
+};
+object player {
+	name wd_692_582;
+	file "../wd_files/psu_feeder_output_profiles/wd_582.csv";
+};
+object player {
+	name wd_692_583;
+	file "../wd_files/psu_feeder_output_profiles/wd_583.csv";
+};
+object player {
+	name wd_692_584;
+	file "../wd_files/psu_feeder_output_profiles/wd_584.csv";
+};
+object player {
+	name wd_692_585;
+	file "../wd_files/psu_feeder_output_profiles/wd_585.csv";
+};
+object player {
+	name wd_692_586;
+	file "../wd_files/psu_feeder_output_profiles/wd_586.csv";
+};
+object player {
+	name wd_692_587;
+	file "../wd_files/psu_feeder_output_profiles/wd_587.csv";
+};
+object player {
+	name wd_692_588;
+	file "../wd_files/psu_feeder_output_profiles/wd_588.csv";
+};
+object player {
+	name wd_692_589;
+	file "../wd_files/psu_feeder_output_profiles/wd_589.csv";
+};
+object player {
+	name wd_692_590;
+	file "../wd_files/psu_feeder_output_profiles/wd_590.csv";
+};
+object player {
+	name wd_692_591;
+	file "../wd_files/psu_feeder_output_profiles/wd_591.csv";
+};
+object player {
+	name wd_692_592;
+	file "../wd_files/psu_feeder_output_profiles/wd_592.csv";
+};
+object player {
+	name wd_692_593;
+	file "../wd_files/psu_feeder_output_profiles/wd_593.csv";
+};
+object player {
+	name wd_692_594;
+	file "../wd_files/psu_feeder_output_profiles/wd_594.csv";
+};
+object player {
+	name wd_692_595;
+	file "../wd_files/psu_feeder_output_profiles/wd_595.csv";
+};
+object player {
+	name wd_692_596;
+	file "../wd_files/psu_feeder_output_profiles/wd_596.csv";
+};
+object player {
+	name wd_692_597;
+	file "../wd_files/psu_feeder_output_profiles/wd_597.csv";
+};
+object player {
+	name wd_692_598;
+	file "../wd_files/psu_feeder_output_profiles/wd_598.csv";
+};
+object player {
+	name wd_692_599;
+	file "../wd_files/psu_feeder_output_profiles/wd_599.csv";
+};
+object player {
+	name wd_692_600;
+	file "../wd_files/psu_feeder_output_profiles/wd_600.csv";
+};
+object player {
+	name wd_675_601;
+	file "../wd_files/psu_feeder_output_profiles/wd_601.csv";
+};
+object player {
+	name wd_675_602;
+	file "../wd_files/psu_feeder_output_profiles/wd_602.csv";
+};
+object player {
+	name wd_675_603;
+	file "../wd_files/psu_feeder_output_profiles/wd_603.csv";
+};
+object player {
+	name wd_675_604;
+	file "../wd_files/psu_feeder_output_profiles/wd_604.csv";
+};
+object player {
+	name wd_675_605;
+	file "../wd_files/psu_feeder_output_profiles/wd_605.csv";
+};
+object player {
+	name wd_675_606;
+	file "../wd_files/psu_feeder_output_profiles/wd_606.csv";
+};
+object player {
+	name wd_675_607;
+	file "../wd_files/psu_feeder_output_profiles/wd_607.csv";
+};
+object player {
+	name wd_675_608;
+	file "../wd_files/psu_feeder_output_profiles/wd_608.csv";
+};
+object player {
+	name wd_675_609;
+	file "../wd_files/psu_feeder_output_profiles/wd_609.csv";
+};
+object player {
+	name wd_675_610;
+	file "../wd_files/psu_feeder_output_profiles/wd_610.csv";
+};
+object player {
+	name wd_675_611;
+	file "../wd_files/psu_feeder_output_profiles/wd_611.csv";
+};
+object player {
+	name wd_675_612;
+	file "../wd_files/psu_feeder_output_profiles/wd_612.csv";
+};
+object player {
+	name wd_675_613;
+	file "../wd_files/psu_feeder_output_profiles/wd_613.csv";
+};
+object player {
+	name wd_675_614;
+	file "../wd_files/psu_feeder_output_profiles/wd_614.csv";
+};
+object player {
+	name wd_675_615;
+	file "../wd_files/psu_feeder_output_profiles/wd_615.csv";
+};
+object player {
+	name wd_675_616;
+	file "../wd_files/psu_feeder_output_profiles/wd_616.csv";
+};
+object player {
+	name wd_675_617;
+	file "../wd_files/psu_feeder_output_profiles/wd_617.csv";
+};
+object player {
+	name wd_675_618;
+	file "../wd_files/psu_feeder_output_profiles/wd_618.csv";
+};
+object player {
+	name wd_675_619;
+	file "../wd_files/psu_feeder_output_profiles/wd_619.csv";
+};
+object player {
+	name wd_675_620;
+	file "../wd_files/psu_feeder_output_profiles/wd_620.csv";
+};
+object player {
+	name wd_675_621;
+	file "../wd_files/psu_feeder_output_profiles/wd_621.csv";
+};
+object player {
+	name wd_675_622;
+	file "../wd_files/psu_feeder_output_profiles/wd_622.csv";
+};
+object player {
+	name wd_675_623;
+	file "../wd_files/psu_feeder_output_profiles/wd_623.csv";
+};
+object player {
+	name wd_675_624;
+	file "../wd_files/psu_feeder_output_profiles/wd_624.csv";
+};
+object player {
+	name wd_675_625;
+	file "../wd_files/psu_feeder_output_profiles/wd_625.csv";
+};
+object player {
+	name wd_675_626;
+	file "../wd_files/psu_feeder_output_profiles/wd_626.csv";
+};
+object player {
+	name wd_675_627;
+	file "../wd_files/psu_feeder_output_profiles/wd_627.csv";
+};
+object player {
+	name wd_675_628;
+	file "../wd_files/psu_feeder_output_profiles/wd_628.csv";
+};
+object player {
+	name wd_675_629;
+	file "../wd_files/psu_feeder_output_profiles/wd_629.csv";
+};
+object player {
+	name wd_675_630;
+	file "../wd_files/psu_feeder_output_profiles/wd_630.csv";
+};
+object player {
+	name wd_675_631;
+	file "../wd_files/psu_feeder_output_profiles/wd_631.csv";
+};
+object player {
+	name wd_675_632;
+	file "../wd_files/psu_feeder_output_profiles/wd_632.csv";
+};
+object player {
+	name wd_675_633;
+	file "../wd_files/psu_feeder_output_profiles/wd_633.csv";
+};
+object player {
+	name wd_675_634;
+	file "../wd_files/psu_feeder_output_profiles/wd_634.csv";
+};
+object player {
+	name wd_675_635;
+	file "../wd_files/psu_feeder_output_profiles/wd_635.csv";
+};
+object player {
+	name wd_675_636;
+	file "../wd_files/psu_feeder_output_profiles/wd_636.csv";
+};
+object player {
+	name wd_675_637;
+	file "../wd_files/psu_feeder_output_profiles/wd_637.csv";
+};
+object player {
+	name wd_675_638;
+	file "../wd_files/psu_feeder_output_profiles/wd_638.csv";
+};
+object player {
+	name wd_675_639;
+	file "../wd_files/psu_feeder_output_profiles/wd_639.csv";
+};
+object player {
+	name wd_675_640;
+	file "../wd_files/psu_feeder_output_profiles/wd_640.csv";
+};
+object player {
+	name wd_675_641;
+	file "../wd_files/psu_feeder_output_profiles/wd_641.csv";
+};
+object player {
+	name wd_675_642;
+	file "../wd_files/psu_feeder_output_profiles/wd_642.csv";
+};
+object player {
+	name wd_675_643;
+	file "../wd_files/psu_feeder_output_profiles/wd_643.csv";
+};
+object player {
+	name wd_675_644;
+	file "../wd_files/psu_feeder_output_profiles/wd_644.csv";
+};
+object player {
+	name wd_675_645;
+	file "../wd_files/psu_feeder_output_profiles/wd_645.csv";
+};
+object player {
+	name wd_675_646;
+	file "../wd_files/psu_feeder_output_profiles/wd_646.csv";
+};
+object player {
+	name wd_675_647;
+	file "../wd_files/psu_feeder_output_profiles/wd_647.csv";
+};
+object player {
+	name wd_675_648;
+	file "../wd_files/psu_feeder_output_profiles/wd_648.csv";
+};
+object player {
+	name wd_675_649;
+	file "../wd_files/psu_feeder_output_profiles/wd_649.csv";
+};
+object player {
+	name wd_675_650;
+	file "../wd_files/psu_feeder_output_profiles/wd_650.csv";
+};
+object player {
+	name wd_675_651;
+	file "../wd_files/psu_feeder_output_profiles/wd_651.csv";
+};
+object player {
+	name wd_675_652;
+	file "../wd_files/psu_feeder_output_profiles/wd_652.csv";
+};
+object player {
+	name wd_675_653;
+	file "../wd_files/psu_feeder_output_profiles/wd_653.csv";
+};
+object player {
+	name wd_675_654;
+	file "../wd_files/psu_feeder_output_profiles/wd_654.csv";
+};
+object player {
+	name wd_675_655;
+	file "../wd_files/psu_feeder_output_profiles/wd_655.csv";
+};
+object player {
+	name wd_675_656;
+	file "../wd_files/psu_feeder_output_profiles/wd_656.csv";
+};
+object player {
+	name wd_675_657;
+	file "../wd_files/psu_feeder_output_profiles/wd_657.csv";
+};
+object player {
+	name wd_675_658;
+	file "../wd_files/psu_feeder_output_profiles/wd_658.csv";
+};
+object player {
+	name wd_675_659;
+	file "../wd_files/psu_feeder_output_profiles/wd_659.csv";
+};
+object player {
+	name wd_675_660;
+	file "../wd_files/psu_feeder_output_profiles/wd_660.csv";
+};
+object player {
+	name wd_675_661;
+	file "../wd_files/psu_feeder_output_profiles/wd_661.csv";
+};
+object player {
+	name wd_675_662;
+	file "../wd_files/psu_feeder_output_profiles/wd_662.csv";
+};
+object player {
+	name wd_675_663;
+	file "../wd_files/psu_feeder_output_profiles/wd_663.csv";
+};
+object player {
+	name wd_675_664;
+	file "../wd_files/psu_feeder_output_profiles/wd_664.csv";
+};
+object player {
+	name wd_675_665;
+	file "../wd_files/psu_feeder_output_profiles/wd_665.csv";
+};
+object player {
+	name wd_675_666;
+	file "../wd_files/psu_feeder_output_profiles/wd_666.csv";
+};
+object player {
+	name wd_675_667;
+	file "../wd_files/psu_feeder_output_profiles/wd_667.csv";
+};
+object player {
+	name wd_675_668;
+	file "../wd_files/psu_feeder_output_profiles/wd_668.csv";
+};
+object player {
+	name wd_675_669;
+	file "../wd_files/psu_feeder_output_profiles/wd_669.csv";
+};
+object player {
+	name wd_675_670;
+	file "../wd_files/psu_feeder_output_profiles/wd_670.csv";
+};
+object player {
+	name wd_675_671;
+	file "../wd_files/psu_feeder_output_profiles/wd_671.csv";
+};
+object player {
+	name wd_675_672;
+	file "../wd_files/psu_feeder_output_profiles/wd_672.csv";
+};
+object player {
+	name wd_675_673;
+	file "../wd_files/psu_feeder_output_profiles/wd_673.csv";
+};
+object player {
+	name wd_675_674;
+	file "../wd_files/psu_feeder_output_profiles/wd_674.csv";
+};
+object player {
+	name wd_675_675;
+	file "../wd_files/psu_feeder_output_profiles/wd_675.csv";
+};
+object player {
+	name wd_675_676;
+	file "../wd_files/psu_feeder_output_profiles/wd_676.csv";
+};
+object player {
+	name wd_675_677;
+	file "../wd_files/psu_feeder_output_profiles/wd_677.csv";
+};
+object player {
+	name wd_675_678;
+	file "../wd_files/psu_feeder_output_profiles/wd_678.csv";
+};
+object player {
+	name wd_675_679;
+	file "../wd_files/psu_feeder_output_profiles/wd_679.csv";
+};
+object player {
+	name wd_675_680;
+	file "../wd_files/psu_feeder_output_profiles/wd_680.csv";
+};
+object player {
+	name wd_675_681;
+	file "../wd_files/psu_feeder_output_profiles/wd_681.csv";
+};
+object player {
+	name wd_675_682;
+	file "../wd_files/psu_feeder_output_profiles/wd_682.csv";
+};
+object player {
+	name wd_675_683;
+	file "../wd_files/psu_feeder_output_profiles/wd_683.csv";
+};
+object player {
+	name wd_675_684;
+	file "../wd_files/psu_feeder_output_profiles/wd_684.csv";
+};
+object player {
+	name wd_675_685;
+	file "../wd_files/psu_feeder_output_profiles/wd_685.csv";
+};
+object player {
+	name wd_675_686;
+	file "../wd_files/psu_feeder_output_profiles/wd_686.csv";
+};
+object player {
+	name wd_675_687;
+	file "../wd_files/psu_feeder_output_profiles/wd_687.csv";
+};
+object player {
+	name wd_675_688;
+	file "../wd_files/psu_feeder_output_profiles/wd_688.csv";
+};
+object player {
+	name wd_675_689;
+	file "../wd_files/psu_feeder_output_profiles/wd_689.csv";
+};
+object player {
+	name wd_675_690;
+	file "../wd_files/psu_feeder_output_profiles/wd_690.csv";
+};
+object player {
+	name wd_675_691;
+	file "../wd_files/psu_feeder_output_profiles/wd_691.csv";
+};
+object player {
+	name wd_675_692;
+	file "../wd_files/psu_feeder_output_profiles/wd_692.csv";
+};
+object player {
+	name wd_675_693;
+	file "../wd_files/psu_feeder_output_profiles/wd_693.csv";
+};
+object player {
+	name wd_675_694;
+	file "../wd_files/psu_feeder_output_profiles/wd_694.csv";
+};
+object player {
+	name wd_675_695;
+	file "../wd_files/psu_feeder_output_profiles/wd_695.csv";
+};
+object player {
+	name wd_675_696;
+	file "../wd_files/psu_feeder_output_profiles/wd_696.csv";
+};
+object player {
+	name wd_675_697;
+	file "../wd_files/psu_feeder_output_profiles/wd_697.csv";
+};
+object player {
+	name wd_675_698;
+	file "../wd_files/psu_feeder_output_profiles/wd_698.csv";
+};
+object player {
+	name wd_675_699;
+	file "../wd_files/psu_feeder_output_profiles/wd_699.csv";
+};
+object player {
+	name wd_675_700;
+	file "../wd_files/psu_feeder_output_profiles/wd_700.csv";
+};
+object player {
+	name wd_675_701;
+	file "../wd_files/psu_feeder_output_profiles/wd_701.csv";
+};
+object player {
+	name wd_675_702;
+	file "../wd_files/psu_feeder_output_profiles/wd_702.csv";
+};
+object player {
+	name wd_675_703;
+	file "../wd_files/psu_feeder_output_profiles/wd_703.csv";
+};
+object player {
+	name wd_675_704;
+	file "../wd_files/psu_feeder_output_profiles/wd_704.csv";
+};
+object player {
+	name wd_675_705;
+	file "../wd_files/psu_feeder_output_profiles/wd_705.csv";
+};
+object player {
+	name wd_675_706;
+	file "../wd_files/psu_feeder_output_profiles/wd_706.csv";
+};
+object player {
+	name wd_675_707;
+	file "../wd_files/psu_feeder_output_profiles/wd_707.csv";
+};
+object player {
+	name wd_675_708;
+	file "../wd_files/psu_feeder_output_profiles/wd_708.csv";
+};
+object player {
+	name wd_675_709;
+	file "../wd_files/psu_feeder_output_profiles/wd_709.csv";
+};
+object player {
+	name wd_675_710;
+	file "../wd_files/psu_feeder_output_profiles/wd_710.csv";
+};
+object player {
+	name wd_675_711;
+	file "../wd_files/psu_feeder_output_profiles/wd_711.csv";
+};
+object player {
+	name wd_675_712;
+	file "../wd_files/psu_feeder_output_profiles/wd_712.csv";
+};
+object player {
+	name wd_675_713;
+	file "../wd_files/psu_feeder_output_profiles/wd_713.csv";
+};
+object player {
+	name wd_675_714;
+	file "../wd_files/psu_feeder_output_profiles/wd_714.csv";
+};
+object player {
+	name wd_675_715;
+	file "../wd_files/psu_feeder_output_profiles/wd_715.csv";
+};
+object player {
+	name wd_675_716;
+	file "../wd_files/psu_feeder_output_profiles/wd_716.csv";
+};
+object player {
+	name wd_675_717;
+	file "../wd_files/psu_feeder_output_profiles/wd_717.csv";
+};
+object player {
+	name wd_675_718;
+	file "../wd_files/psu_feeder_output_profiles/wd_718.csv";
+};
+object player {
+	name wd_675_719;
+	file "../wd_files/psu_feeder_output_profiles/wd_719.csv";
+};
+object player {
+	name wd_675_720;
+	file "../wd_files/psu_feeder_output_profiles/wd_720.csv";
+};
+object player {
+	name wd_671_721;
+	file "../wd_files/psu_feeder_output_profiles/wd_721.csv";
+};
+object player {
+	name wd_671_722;
+	file "../wd_files/psu_feeder_output_profiles/wd_722.csv";
+};
+object player {
+	name wd_671_723;
+	file "../wd_files/psu_feeder_output_profiles/wd_723.csv";
+};
+object player {
+	name wd_671_724;
+	file "../wd_files/psu_feeder_output_profiles/wd_724.csv";
+};
+object player {
+	name wd_671_725;
+	file "../wd_files/psu_feeder_output_profiles/wd_725.csv";
+};
+object player {
+	name wd_671_726;
+	file "../wd_files/psu_feeder_output_profiles/wd_726.csv";
+};
+object player {
+	name wd_671_727;
+	file "../wd_files/psu_feeder_output_profiles/wd_727.csv";
+};
+object player {
+	name wd_671_728;
+	file "../wd_files/psu_feeder_output_profiles/wd_728.csv";
+};
+object player {
+	name wd_671_729;
+	file "../wd_files/psu_feeder_output_profiles/wd_729.csv";
+};
+object player {
+	name wd_671_730;
+	file "../wd_files/psu_feeder_output_profiles/wd_730.csv";
+};
+object player {
+	name wd_671_731;
+	file "../wd_files/psu_feeder_output_profiles/wd_731.csv";
+};
+object player {
+	name wd_671_732;
+	file "../wd_files/psu_feeder_output_profiles/wd_732.csv";
+};
+object player {
+	name wd_671_733;
+	file "../wd_files/psu_feeder_output_profiles/wd_733.csv";
+};
+object player {
+	name wd_671_734;
+	file "../wd_files/psu_feeder_output_profiles/wd_734.csv";
+};
+object player {
+	name wd_671_735;
+	file "../wd_files/psu_feeder_output_profiles/wd_735.csv";
+};
+object player {
+	name wd_671_736;
+	file "../wd_files/psu_feeder_output_profiles/wd_736.csv";
+};
+object player {
+	name wd_671_737;
+	file "../wd_files/psu_feeder_output_profiles/wd_737.csv";
+};
+object player {
+	name wd_671_738;
+	file "../wd_files/psu_feeder_output_profiles/wd_738.csv";
+};
+object player {
+	name wd_671_739;
+	file "../wd_files/psu_feeder_output_profiles/wd_739.csv";
+};
+object player {
+	name wd_671_740;
+	file "../wd_files/psu_feeder_output_profiles/wd_740.csv";
+};
+object player {
+	name wd_671_741;
+	file "../wd_files/psu_feeder_output_profiles/wd_741.csv";
+};
+object player {
+	name wd_671_742;
+	file "../wd_files/psu_feeder_output_profiles/wd_742.csv";
+};
+object player {
+	name wd_671_743;
+	file "../wd_files/psu_feeder_output_profiles/wd_743.csv";
+};
+object player {
+	name wd_671_744;
+	file "../wd_files/psu_feeder_output_profiles/wd_744.csv";
+};
+object player {
+	name wd_671_745;
+	file "../wd_files/psu_feeder_output_profiles/wd_745.csv";
+};
+object player {
+	name wd_671_746;
+	file "../wd_files/psu_feeder_output_profiles/wd_746.csv";
+};
+object player {
+	name wd_671_747;
+	file "../wd_files/psu_feeder_output_profiles/wd_747.csv";
+};
+object player {
+	name wd_671_748;
+	file "../wd_files/psu_feeder_output_profiles/wd_748.csv";
+};
+object player {
+	name wd_671_749;
+	file "../wd_files/psu_feeder_output_profiles/wd_749.csv";
+};
+object player {
+	name wd_671_750;
+	file "../wd_files/psu_feeder_output_profiles/wd_750.csv";
+};
+object player {
+	name wd_671_751;
+	file "../wd_files/psu_feeder_output_profiles/wd_751.csv";
+};
+object player {
+	name wd_671_752;
+	file "../wd_files/psu_feeder_output_profiles/wd_752.csv";
+};
+object player {
+	name wd_671_753;
+	file "../wd_files/psu_feeder_output_profiles/wd_753.csv";
+};
+object player {
+	name wd_671_754;
+	file "../wd_files/psu_feeder_output_profiles/wd_754.csv";
+};
+object player {
+	name wd_671_755;
+	file "../wd_files/psu_feeder_output_profiles/wd_755.csv";
+};
+object player {
+	name wd_671_756;
+	file "../wd_files/psu_feeder_output_profiles/wd_756.csv";
+};
+object player {
+	name wd_671_757;
+	file "../wd_files/psu_feeder_output_profiles/wd_757.csv";
+};
+object player {
+	name wd_671_758;
+	file "../wd_files/psu_feeder_output_profiles/wd_758.csv";
+};
+object player {
+	name wd_671_759;
+	file "../wd_files/psu_feeder_output_profiles/wd_759.csv";
+};
+object player {
+	name wd_671_760;
+	file "../wd_files/psu_feeder_output_profiles/wd_760.csv";
+};
+object player {
+	name wd_671_761;
+	file "../wd_files/psu_feeder_output_profiles/wd_761.csv";
+};
+object player {
+	name wd_671_762;
+	file "../wd_files/psu_feeder_output_profiles/wd_762.csv";
+};
+object player {
+	name wd_671_763;
+	file "../wd_files/psu_feeder_output_profiles/wd_763.csv";
+};
+object player {
+	name wd_671_764;
+	file "../wd_files/psu_feeder_output_profiles/wd_764.csv";
+};
+object player {
+	name wd_671_765;
+	file "../wd_files/psu_feeder_output_profiles/wd_765.csv";
+};
+object player {
+	name wd_671_766;
+	file "../wd_files/psu_feeder_output_profiles/wd_766.csv";
+};
+object player {
+	name wd_671_767;
+	file "../wd_files/psu_feeder_output_profiles/wd_767.csv";
+};
+object player {
+	name wd_671_768;
+	file "../wd_files/psu_feeder_output_profiles/wd_768.csv";
+};
+object player {
+	name wd_671_769;
+	file "../wd_files/psu_feeder_output_profiles/wd_769.csv";
+};
+object player {
+	name wd_671_770;
+	file "../wd_files/psu_feeder_output_profiles/wd_770.csv";
+};
+object player {
+	name wd_671_771;
+	file "../wd_files/psu_feeder_output_profiles/wd_771.csv";
+};
+object player {
+	name wd_671_772;
+	file "../wd_files/psu_feeder_output_profiles/wd_772.csv";
+};
+object player {
+	name wd_671_773;
+	file "../wd_files/psu_feeder_output_profiles/wd_773.csv";
+};
+object player {
+	name wd_671_774;
+	file "../wd_files/psu_feeder_output_profiles/wd_774.csv";
+};
+object player {
+	name wd_671_775;
+	file "../wd_files/psu_feeder_output_profiles/wd_775.csv";
+};
+object player {
+	name wd_671_776;
+	file "../wd_files/psu_feeder_output_profiles/wd_776.csv";
+};
+object player {
+	name wd_671_777;
+	file "../wd_files/psu_feeder_output_profiles/wd_777.csv";
+};
+object player {
+	name wd_671_778;
+	file "../wd_files/psu_feeder_output_profiles/wd_778.csv";
+};
+object player {
+	name wd_671_779;
+	file "../wd_files/psu_feeder_output_profiles/wd_779.csv";
+};
+object player {
+	name wd_671_780;
+	file "../wd_files/psu_feeder_output_profiles/wd_780.csv";
+};
+object player {
+	name wd_671_781;
+	file "../wd_files/psu_feeder_output_profiles/wd_781.csv";
+};
+object player {
+	name wd_671_782;
+	file "../wd_files/psu_feeder_output_profiles/wd_782.csv";
+};
+object player {
+	name wd_671_783;
+	file "../wd_files/psu_feeder_output_profiles/wd_783.csv";
+};
+object player {
+	name wd_671_784;
+	file "../wd_files/psu_feeder_output_profiles/wd_784.csv";
+};
+object player {
+	name wd_671_785;
+	file "../wd_files/psu_feeder_output_profiles/wd_785.csv";
+};
+object player {
+	name wd_671_786;
+	file "../wd_files/psu_feeder_output_profiles/wd_786.csv";
+};
+object player {
+	name wd_671_787;
+	file "../wd_files/psu_feeder_output_profiles/wd_787.csv";
+};
+object player {
+	name wd_671_788;
+	file "../wd_files/psu_feeder_output_profiles/wd_788.csv";
+};
+object player {
+	name wd_671_789;
+	file "../wd_files/psu_feeder_output_profiles/wd_789.csv";
+};
+object player {
+	name wd_671_790;
+	file "../wd_files/psu_feeder_output_profiles/wd_790.csv";
+};
+object player {
+	name wd_671_791;
+	file "../wd_files/psu_feeder_output_profiles/wd_791.csv";
+};
+object player {
+	name wd_671_792;
+	file "../wd_files/psu_feeder_output_profiles/wd_792.csv";
+};
+object player {
+	name wd_671_793;
+	file "../wd_files/psu_feeder_output_profiles/wd_793.csv";
+};
+object player {
+	name wd_671_794;
+	file "../wd_files/psu_feeder_output_profiles/wd_794.csv";
+};
+object player {
+	name wd_671_795;
+	file "../wd_files/psu_feeder_output_profiles/wd_795.csv";
+};
+object player {
+	name wd_671_796;
+	file "../wd_files/psu_feeder_output_profiles/wd_796.csv";
+};
+object player {
+	name wd_671_797;
+	file "../wd_files/psu_feeder_output_profiles/wd_797.csv";
+};
+object player {
+	name wd_671_798;
+	file "../wd_files/psu_feeder_output_profiles/wd_798.csv";
+};
+object player {
+	name wd_671_799;
+	file "../wd_files/psu_feeder_output_profiles/wd_799.csv";
+};
+object player {
+	name wd_671_800;
+	file "../wd_files/psu_feeder_output_profiles/wd_800.csv";
+};
+object player {
+	name wd_671_801;
+	file "../wd_files/psu_feeder_output_profiles/wd_801.csv";
+};
+object player {
+	name wd_671_802;
+	file "../wd_files/psu_feeder_output_profiles/wd_802.csv";
+};
+object player {
+	name wd_671_803;
+	file "../wd_files/psu_feeder_output_profiles/wd_803.csv";
+};
+object player {
+	name wd_671_804;
+	file "../wd_files/psu_feeder_output_profiles/wd_804.csv";
+};
+object player {
+	name wd_671_805;
+	file "../wd_files/psu_feeder_output_profiles/wd_805.csv";
+};
+object player {
+	name wd_671_806;
+	file "../wd_files/psu_feeder_output_profiles/wd_806.csv";
+};
+object player {
+	name wd_671_807;
+	file "../wd_files/psu_feeder_output_profiles/wd_807.csv";
+};
+object player {
+	name wd_671_808;
+	file "../wd_files/psu_feeder_output_profiles/wd_808.csv";
+};
+object player {
+	name wd_671_809;
+	file "../wd_files/psu_feeder_output_profiles/wd_809.csv";
+};
+object player {
+	name wd_671_810;
+	file "../wd_files/psu_feeder_output_profiles/wd_810.csv";
+};
+object player {
+	name wd_671_811;
+	file "../wd_files/psu_feeder_output_profiles/wd_811.csv";
+};
+object player {
+	name wd_671_812;
+	file "../wd_files/psu_feeder_output_profiles/wd_812.csv";
+};
+object player {
+	name wd_671_813;
+	file "../wd_files/psu_feeder_output_profiles/wd_813.csv";
+};
+object player {
+	name wd_671_814;
+	file "../wd_files/psu_feeder_output_profiles/wd_814.csv";
+};
+object player {
+	name wd_671_815;
+	file "../wd_files/psu_feeder_output_profiles/wd_815.csv";
+};
+object player {
+	name wd_671_816;
+	file "../wd_files/psu_feeder_output_profiles/wd_816.csv";
+};
+object player {
+	name wd_671_817;
+	file "../wd_files/psu_feeder_output_profiles/wd_817.csv";
+};
+object player {
+	name wd_671_818;
+	file "../wd_files/psu_feeder_output_profiles/wd_818.csv";
+};
+object player {
+	name wd_671_819;
+	file "../wd_files/psu_feeder_output_profiles/wd_819.csv";
+};
+object player {
+	name wd_671_820;
+	file "../wd_files/psu_feeder_output_profiles/wd_820.csv";
+};
+object player {
+	name wd_671_821;
+	file "../wd_files/psu_feeder_output_profiles/wd_821.csv";
+};
+object player {
+	name wd_671_822;
+	file "../wd_files/psu_feeder_output_profiles/wd_822.csv";
+};
+object player {
+	name wd_671_823;
+	file "../wd_files/psu_feeder_output_profiles/wd_823.csv";
+};
+object player {
+	name wd_671_824;
+	file "../wd_files/psu_feeder_output_profiles/wd_824.csv";
+};
+object player {
+	name wd_671_825;
+	file "../wd_files/psu_feeder_output_profiles/wd_825.csv";
+};
+object player {
+	name wd_671_826;
+	file "../wd_files/psu_feeder_output_profiles/wd_826.csv";
+};
+object player {
+	name wd_671_827;
+	file "../wd_files/psu_feeder_output_profiles/wd_827.csv";
+};
+object player {
+	name wd_671_828;
+	file "../wd_files/psu_feeder_output_profiles/wd_828.csv";
+};
+object player {
+	name wd_671_829;
+	file "../wd_files/psu_feeder_output_profiles/wd_829.csv";
+};
+object player {
+	name wd_671_830;
+	file "../wd_files/psu_feeder_output_profiles/wd_830.csv";
+};
+object player {
+	name wd_671_831;
+	file "../wd_files/psu_feeder_output_profiles/wd_831.csv";
+};
+object player {
+	name wd_671_832;
+	file "../wd_files/psu_feeder_output_profiles/wd_832.csv";
+};
+object player {
+	name wd_671_833;
+	file "../wd_files/psu_feeder_output_profiles/wd_833.csv";
+};
+object player {
+	name wd_671_834;
+	file "../wd_files/psu_feeder_output_profiles/wd_834.csv";
+};
+object player {
+	name wd_671_835;
+	file "../wd_files/psu_feeder_output_profiles/wd_835.csv";
+};
+object player {
+	name wd_671_836;
+	file "../wd_files/psu_feeder_output_profiles/wd_836.csv";
+};
+object player {
+	name wd_671_837;
+	file "../wd_files/psu_feeder_output_profiles/wd_837.csv";
+};
+object player {
+	name wd_671_838;
+	file "../wd_files/psu_feeder_output_profiles/wd_838.csv";
+};
+object player {
+	name wd_671_839;
+	file "../wd_files/psu_feeder_output_profiles/wd_839.csv";
+};
+object player {
+	name wd_671_840;
+	file "../wd_files/psu_feeder_output_profiles/wd_840.csv";
+};
+object player {
+	name wd_680_841;
+	file "../wd_files/psu_feeder_output_profiles/wd_841.csv";
+};
+object player {
+	name wd_680_842;
+	file "../wd_files/psu_feeder_output_profiles/wd_842.csv";
+};
+object player {
+	name wd_680_843;
+	file "../wd_files/psu_feeder_output_profiles/wd_843.csv";
+};
+object player {
+	name wd_680_844;
+	file "../wd_files/psu_feeder_output_profiles/wd_844.csv";
+};
+object player {
+	name wd_680_845;
+	file "../wd_files/psu_feeder_output_profiles/wd_845.csv";
+};
+object player {
+	name wd_680_846;
+	file "../wd_files/psu_feeder_output_profiles/wd_846.csv";
+};
+object player {
+	name wd_680_847;
+	file "../wd_files/psu_feeder_output_profiles/wd_847.csv";
+};
+object player {
+	name wd_680_848;
+	file "../wd_files/psu_feeder_output_profiles/wd_848.csv";
+};
+object player {
+	name wd_680_849;
+	file "../wd_files/psu_feeder_output_profiles/wd_849.csv";
+};
+object player {
+	name wd_680_850;
+	file "../wd_files/psu_feeder_output_profiles/wd_850.csv";
+};
+object player {
+	name wd_680_851;
+	file "../wd_files/psu_feeder_output_profiles/wd_851.csv";
+};
+object player {
+	name wd_680_852;
+	file "../wd_files/psu_feeder_output_profiles/wd_852.csv";
+};
+object player {
+	name wd_680_853;
+	file "../wd_files/psu_feeder_output_profiles/wd_853.csv";
+};
+object player {
+	name wd_680_854;
+	file "../wd_files/psu_feeder_output_profiles/wd_854.csv";
+};
+object player {
+	name wd_680_855;
+	file "../wd_files/psu_feeder_output_profiles/wd_855.csv";
+};
+object player {
+	name wd_680_856;
+	file "../wd_files/psu_feeder_output_profiles/wd_856.csv";
+};
+object player {
+	name wd_680_857;
+	file "../wd_files/psu_feeder_output_profiles/wd_857.csv";
+};
+object player {
+	name wd_680_858;
+	file "../wd_files/psu_feeder_output_profiles/wd_858.csv";
+};
+object player {
+	name wd_680_859;
+	file "../wd_files/psu_feeder_output_profiles/wd_859.csv";
+};
+object player {
+	name wd_680_860;
+	file "../wd_files/psu_feeder_output_profiles/wd_860.csv";
+};
+object player {
+	name wd_680_861;
+	file "../wd_files/psu_feeder_output_profiles/wd_861.csv";
+};
+object player {
+	name wd_680_862;
+	file "../wd_files/psu_feeder_output_profiles/wd_862.csv";
+};
+object player {
+	name wd_680_863;
+	file "../wd_files/psu_feeder_output_profiles/wd_863.csv";
+};
+object player {
+	name wd_680_864;
+	file "../wd_files/psu_feeder_output_profiles/wd_864.csv";
+};
+object player {
+	name wd_680_865;
+	file "../wd_files/psu_feeder_output_profiles/wd_865.csv";
+};
+object player {
+	name wd_680_866;
+	file "../wd_files/psu_feeder_output_profiles/wd_866.csv";
+};
+object player {
+	name wd_680_867;
+	file "../wd_files/psu_feeder_output_profiles/wd_867.csv";
+};
+object player {
+	name wd_680_868;
+	file "../wd_files/psu_feeder_output_profiles/wd_868.csv";
+};
+object player {
+	name wd_680_869;
+	file "../wd_files/psu_feeder_output_profiles/wd_869.csv";
+};
+object player {
+	name wd_680_870;
+	file "../wd_files/psu_feeder_output_profiles/wd_870.csv";
+};
+object player {
+	name wd_680_871;
+	file "../wd_files/psu_feeder_output_profiles/wd_871.csv";
+};
+object player {
+	name wd_680_872;
+	file "../wd_files/psu_feeder_output_profiles/wd_872.csv";
+};
+object player {
+	name wd_680_873;
+	file "../wd_files/psu_feeder_output_profiles/wd_873.csv";
+};
+object player {
+	name wd_680_874;
+	file "../wd_files/psu_feeder_output_profiles/wd_874.csv";
+};
+object player {
+	name wd_680_875;
+	file "../wd_files/psu_feeder_output_profiles/wd_875.csv";
+};
+object player {
+	name wd_680_876;
+	file "../wd_files/psu_feeder_output_profiles/wd_876.csv";
+};
+object player {
+	name wd_680_877;
+	file "../wd_files/psu_feeder_output_profiles/wd_877.csv";
+};
+object player {
+	name wd_680_878;
+	file "../wd_files/psu_feeder_output_profiles/wd_878.csv";
+};
+object player {
+	name wd_680_879;
+	file "../wd_files/psu_feeder_output_profiles/wd_879.csv";
+};
+object player {
+	name wd_680_880;
+	file "../wd_files/psu_feeder_output_profiles/wd_880.csv";
+};
+object player {
+	name wd_680_881;
+	file "../wd_files/psu_feeder_output_profiles/wd_881.csv";
+};
+object player {
+	name wd_680_882;
+	file "../wd_files/psu_feeder_output_profiles/wd_882.csv";
+};
+object player {
+	name wd_680_883;
+	file "../wd_files/psu_feeder_output_profiles/wd_883.csv";
+};
+object player {
+	name wd_680_884;
+	file "../wd_files/psu_feeder_output_profiles/wd_884.csv";
+};
+object player {
+	name wd_680_885;
+	file "../wd_files/psu_feeder_output_profiles/wd_885.csv";
+};
+object player {
+	name wd_680_886;
+	file "../wd_files/psu_feeder_output_profiles/wd_886.csv";
+};
+object player {
+	name wd_680_887;
+	file "../wd_files/psu_feeder_output_profiles/wd_887.csv";
+};
+object player {
+	name wd_680_888;
+	file "../wd_files/psu_feeder_output_profiles/wd_888.csv";
+};
+object player {
+	name wd_680_889;
+	file "../wd_files/psu_feeder_output_profiles/wd_889.csv";
+};
+object player {
+	name wd_680_890;
+	file "../wd_files/psu_feeder_output_profiles/wd_890.csv";
+};
+object player {
+	name wd_680_891;
+	file "../wd_files/psu_feeder_output_profiles/wd_891.csv";
+};
+object player {
+	name wd_680_892;
+	file "../wd_files/psu_feeder_output_profiles/wd_892.csv";
+};
+object player {
+	name wd_680_893;
+	file "../wd_files/psu_feeder_output_profiles/wd_893.csv";
+};
+object player {
+	name wd_680_894;
+	file "../wd_files/psu_feeder_output_profiles/wd_894.csv";
+};
+object player {
+	name wd_680_895;
+	file "../wd_files/psu_feeder_output_profiles/wd_895.csv";
+};
+object player {
+	name wd_680_896;
+	file "../wd_files/psu_feeder_output_profiles/wd_896.csv";
+};
+object player {
+	name wd_680_897;
+	file "../wd_files/psu_feeder_output_profiles/wd_897.csv";
+};
+object player {
+	name wd_680_898;
+	file "../wd_files/psu_feeder_output_profiles/wd_898.csv";
+};
+object player {
+	name wd_680_899;
+	file "../wd_files/psu_feeder_output_profiles/wd_899.csv";
+};
+object player {
+	name wd_680_900;
+	file "../wd_files/psu_feeder_output_profiles/wd_900.csv";
+};
+object player {
+	name wd_680_901;
+	file "../wd_files/psu_feeder_output_profiles/wd_901.csv";
+};
+object player {
+	name wd_680_902;
+	file "../wd_files/psu_feeder_output_profiles/wd_902.csv";
+};
+object player {
+	name wd_680_903;
+	file "../wd_files/psu_feeder_output_profiles/wd_903.csv";
+};
+object player {
+	name wd_680_904;
+	file "../wd_files/psu_feeder_output_profiles/wd_904.csv";
+};
+object player {
+	name wd_680_905;
+	file "../wd_files/psu_feeder_output_profiles/wd_905.csv";
+};
+object player {
+	name wd_680_906;
+	file "../wd_files/psu_feeder_output_profiles/wd_906.csv";
+};
+object player {
+	name wd_680_907;
+	file "../wd_files/psu_feeder_output_profiles/wd_907.csv";
+};
+object player {
+	name wd_680_908;
+	file "../wd_files/psu_feeder_output_profiles/wd_908.csv";
+};
+object player {
+	name wd_680_909;
+	file "../wd_files/psu_feeder_output_profiles/wd_909.csv";
+};
+object player {
+	name wd_680_910;
+	file "../wd_files/psu_feeder_output_profiles/wd_910.csv";
+};
+object player {
+	name wd_680_911;
+	file "../wd_files/psu_feeder_output_profiles/wd_911.csv";
+};
+object player {
+	name wd_680_912;
+	file "../wd_files/psu_feeder_output_profiles/wd_912.csv";
+};
+object player {
+	name wd_680_913;
+	file "../wd_files/psu_feeder_output_profiles/wd_913.csv";
+};
+object player {
+	name wd_680_914;
+	file "../wd_files/psu_feeder_output_profiles/wd_914.csv";
+};
+object player {
+	name wd_680_915;
+	file "../wd_files/psu_feeder_output_profiles/wd_915.csv";
+};
+object player {
+	name wd_680_916;
+	file "../wd_files/psu_feeder_output_profiles/wd_916.csv";
+};
+object player {
+	name wd_680_917;
+	file "../wd_files/psu_feeder_output_profiles/wd_917.csv";
+};
+object player {
+	name wd_680_918;
+	file "../wd_files/psu_feeder_output_profiles/wd_918.csv";
+};
+object player {
+	name wd_680_919;
+	file "../wd_files/psu_feeder_output_profiles/wd_919.csv";
+};
+object player {
+	name wd_680_920;
+	file "../wd_files/psu_feeder_output_profiles/wd_920.csv";
+};
+object player {
+	name wd_680_921;
+	file "../wd_files/psu_feeder_output_profiles/wd_921.csv";
+};
+object player {
+	name wd_680_922;
+	file "../wd_files/psu_feeder_output_profiles/wd_922.csv";
+};
+object player {
+	name wd_680_923;
+	file "../wd_files/psu_feeder_output_profiles/wd_923.csv";
+};
+object player {
+	name wd_680_924;
+	file "../wd_files/psu_feeder_output_profiles/wd_924.csv";
+};
+object player {
+	name wd_680_925;
+	file "../wd_files/psu_feeder_output_profiles/wd_925.csv";
+};
+object player {
+	name wd_680_926;
+	file "../wd_files/psu_feeder_output_profiles/wd_926.csv";
+};
+object player {
+	name wd_680_927;
+	file "../wd_files/psu_feeder_output_profiles/wd_927.csv";
+};
+object player {
+	name wd_680_928;
+	file "../wd_files/psu_feeder_output_profiles/wd_928.csv";
+};
+object player {
+	name wd_680_929;
+	file "../wd_files/psu_feeder_output_profiles/wd_929.csv";
+};
+object player {
+	name wd_680_930;
+	file "../wd_files/psu_feeder_output_profiles/wd_930.csv";
+};
+object player {
+	name wd_680_931;
+	file "../wd_files/psu_feeder_output_profiles/wd_931.csv";
+};
+object player {
+	name wd_680_932;
+	file "../wd_files/psu_feeder_output_profiles/wd_932.csv";
+};
+object player {
+	name wd_680_933;
+	file "../wd_files/psu_feeder_output_profiles/wd_933.csv";
+};
+object player {
+	name wd_680_934;
+	file "../wd_files/psu_feeder_output_profiles/wd_934.csv";
+};
+object player {
+	name wd_680_935;
+	file "../wd_files/psu_feeder_output_profiles/wd_935.csv";
+};
+object player {
+	name wd_680_936;
+	file "../wd_files/psu_feeder_output_profiles/wd_936.csv";
+};
+object player {
+	name wd_680_937;
+	file "../wd_files/psu_feeder_output_profiles/wd_937.csv";
+};
+object player {
+	name wd_680_938;
+	file "../wd_files/psu_feeder_output_profiles/wd_938.csv";
+};
+object player {
+	name wd_680_939;
+	file "../wd_files/psu_feeder_output_profiles/wd_939.csv";
+};
+object player {
+	name wd_680_940;
+	file "../wd_files/psu_feeder_output_profiles/wd_940.csv";
+};
+object player {
+	name wd_680_941;
+	file "../wd_files/psu_feeder_output_profiles/wd_941.csv";
+};
+object player {
+	name wd_680_942;
+	file "../wd_files/psu_feeder_output_profiles/wd_942.csv";
+};
+object player {
+	name wd_680_943;
+	file "../wd_files/psu_feeder_output_profiles/wd_943.csv";
+};
+object player {
+	name wd_680_944;
+	file "../wd_files/psu_feeder_output_profiles/wd_944.csv";
+};
+object player {
+	name wd_680_945;
+	file "../wd_files/psu_feeder_output_profiles/wd_945.csv";
+};
+object player {
+	name wd_680_946;
+	file "../wd_files/psu_feeder_output_profiles/wd_946.csv";
+};
+object player {
+	name wd_680_947;
+	file "../wd_files/psu_feeder_output_profiles/wd_947.csv";
+};
+object player {
+	name wd_680_948;
+	file "../wd_files/psu_feeder_output_profiles/wd_948.csv";
+};
+object player {
+	name wd_680_949;
+	file "../wd_files/psu_feeder_output_profiles/wd_949.csv";
+};
+object player {
+	name wd_680_950;
+	file "../wd_files/psu_feeder_output_profiles/wd_950.csv";
+};
+object player {
+	name wd_680_951;
+	file "../wd_files/psu_feeder_output_profiles/wd_951.csv";
+};
+object player {
+	name wd_680_952;
+	file "../wd_files/psu_feeder_output_profiles/wd_952.csv";
+};
+object player {
+	name wd_680_953;
+	file "../wd_files/psu_feeder_output_profiles/wd_953.csv";
+};
+object player {
+	name wd_680_954;
+	file "../wd_files/psu_feeder_output_profiles/wd_954.csv";
+};
+object player {
+	name wd_680_955;
+	file "../wd_files/psu_feeder_output_profiles/wd_955.csv";
+};
+object player {
+	name wd_680_956;
+	file "../wd_files/psu_feeder_output_profiles/wd_956.csv";
+};
+object player {
+	name wd_680_957;
+	file "../wd_files/psu_feeder_output_profiles/wd_957.csv";
+};
+object player {
+	name wd_680_958;
+	file "../wd_files/psu_feeder_output_profiles/wd_958.csv";
+};
+object player {
+	name wd_680_959;
+	file "../wd_files/psu_feeder_output_profiles/wd_959.csv";
+};
+object player {
+	name wd_680_960;
+	file "../wd_files/psu_feeder_output_profiles/wd_960.csv";
+};
+
+object triplex_line_conductor {
+	name tp_line_conductor;
+	resistance 0.97;
+	geometric_mean_radius 0.0111;
+};
+
+object triplex_line_configuration {
+	name triplex_line_configuration_1;
+	conductor_1 tp_line_conductor;
+	conductor_2 tp_line_conductor;
+	conductor_N tp_line_conductor;
+	insulation_thickness 0.08;
+	diameter 0.168;
+};
+
+object overhead_line_conductor:6010 {
+	geometric_mean_radius 0.031300;
+	resistance 0.185900;
+};
+
+object overhead_line_conductor:6020 {
+	geometric_mean_radius 0.00814;
+	resistance 0.592000;
+};
+
+object overhead_line_conductor:6030 {
+	geometric_mean_radius 0.004460;
+	resistance 1.120000;
+};
+
+object underground_line_conductor:6060 {
+	outer_diameter 1.290000;
+	conductor_gmr 0.017100;
+	conductor_diameter 0.567000;
+	conductor_resistance 0.410000;
+	neutral_gmr 0.0020800;
+	neutral_resistance 14.87200;
+	neutral_diameter 0.0640837;
+	neutral_strands 13.000000;
+	shield_gmr 0.000000;
+	shield_resistance 0.000000;
+};
+
+object underground_line_conductor:6070 {
+	outer_diameter 1.060000;
+	conductor_gmr 0.011100;
+	conductor_diameter 0.368000;
+	conductor_resistance 0.970000;
+	neutral_gmr 0.011100;
+	neutral_resistance 0.970000;
+	neutral_diameter 0.0640837;
+	neutral_strands 6.000000;
+	shield_gmr 0.000000;
+	shield_resistance 0.000000;
+};
+
+object line_spacing:500601 {
+	distance_AB 2.5;
+	distance_AC 4.5;
+	distance_BC 7.0;
+	distance_BN 5.656854;
+	distance_AN 4.272002;
+	distance_CN 5.0;
+};
+
+object line_spacing:500602 {
+	distance_AC 2.5;
+	distance_AB 4.5;
+	distance_BC 7.0;
+	distance_CN 5.656854;
+	distance_AN 4.272002;
+	distance_BN 5.0;
+};
+
+object line_spacing:505603 {
+	distance_AC 0.0;
+	distance_AB 0.0;
+	distance_BC 7.0;
+	distance_AN 0.0;
+	distance_CN 5.656854;
+	distance_BN 5.0;
+};
+
+object line_spacing:505604 {
+	distance_AC 7.0;
+	distance_AB 0.0;
+	distance_BC 0.0;
+	distance_AN 5.656854;
+	distance_CN 5.0;
+	distance_BN 0.0;
+};
+
+object line_spacing:510 {
+	distance_AC 0.0;
+	distance_AB 0.0;
+	distance_BC 0.0;
+	distance_AN 0.0;
+	distance_CN 5.0;
+	distance_BN 0.0;
+};
+
+object line_configuration:601 {
+	conductor_A overhead_line_conductor:6010;
+	conductor_B overhead_line_conductor:6010;
+	conductor_C overhead_line_conductor:6010;
+	conductor_N overhead_line_conductor:6020;
+	spacing line_spacing:500601;
+};
+
+object line_configuration:602 {
+	conductor_A overhead_line_conductor:6020;
+	conductor_B overhead_line_conductor:6020;
+	conductor_C overhead_line_conductor:6020;
+	conductor_N overhead_line_conductor:6020;
+	spacing line_spacing:500602;
+};
+
+object line_configuration:603 {
+	conductor_B overhead_line_conductor:6030;
+	conductor_C overhead_line_conductor:6030;
+	conductor_N overhead_line_conductor:6030;
+	spacing line_spacing:505603;
+};
+
+object line_configuration:604 {
+	conductor_A overhead_line_conductor:6030;
+	conductor_C overhead_line_conductor:6030;
+	conductor_N overhead_line_conductor:6030;
+	spacing line_spacing:505604;
+};
+
+object line_configuration:605 {
+	conductor_C overhead_line_conductor:6030;
+	conductor_N overhead_line_conductor:6030;
+	spacing line_spacing:510;
+};
+
+object line_configuration:655 {
+	conductor_A overhead_line_conductor:6030;
+	conductor_N overhead_line_conductor:6030;
+	spacing line_spacing:510;
+};
+
+object line_configuration:656 {
+	conductor_B overhead_line_conductor:6030;
+	conductor_N overhead_line_conductor:6030;
+	spacing line_spacing:510;
+};
+
+object line_spacing:515 {
+	distance_AB 0.500000;
+	distance_BC 0.500000;
+	distance_AC 1.000000;
+	distance_AN 0.000000;
+	distance_BN 0.000000;
+	distance_CN 0.000000;
+};
+
+object line_spacing:520 {
+	distance_AB 0.000000;
+	distance_BC 0.000000;
+	distance_AC 0.000000;
+	distance_AN 0.083333;
+	distance_BN 0.000000;
+	distance_CN 0.000000;
+};
+
+object line_configuration:606 {
+	conductor_A underground_line_conductor:6060;
+	conductor_B underground_line_conductor:6060;
+	conductor_C underground_line_conductor:6060;
+	spacing line_spacing:515;
+};
+
+object line_configuration:607 {
+	conductor_A underground_line_conductor:6070;
+	conductor_N underground_line_conductor:6070;
+	spacing line_spacing:520;
+};
+
+object overhead_line:632645 {
+	phases BCN;
+	name OL632-645;
+	from node:632;
+	to node:645;
+	length 500;
+	configuration line_configuration:603;
+};
+
+object overhead_line:645646 {
+	phases BCN;
+	name OL645-646;
+	from node:645;
+	to node:646;
+	length 300;
+	configuration line_configuration:603;
+};
+
+object overhead_line:630632 {
+	phases ABCN;
+	name OL630-632;
+	from node:630;
+	to node:632;
+	length 2000;
+	configuration line_configuration:601;
+};
+
+object overhead_line:6326321 {
+	phases ABCN;
+	name OL632-6321;
+	from node:632;
+	to node:6321;
+	length 500;
+	configuration line_configuration:601;
+};
+
+object overhead_line:6321671 {
+	phases ABCN;
+	name OL6321-671;
+	from node:6321;
+	to node:671;
+	length 1500;
+	configuration line_configuration:601;
+};
+
+object overhead_line:671680 {
+	phases ABCN;
+	name OL671-680;
+	from node:671;
+	to node:680;
+	length 1000;
+	configuration line_configuration:601;
+};
+
+object overhead_line:671684 {
+	phases ACN;
+	name OL671-684;
+	from node:671;
+	to node:684;
+	length 300;
+	configuration line_configuration:604;
+};
+
+object overhead_line:684611 {
+	phases CN;
+	name OL684-611;
+	from node:684;
+	to node:611;
+	length 300;
+	configuration line_configuration:605;
+};
+
+object underground_line:684652 {
+	phases AN;
+	name UL684-652;
+	from node:684;
+	to node:652;
+	length 800;
+	configuration line_configuration:607;
+};
+
+object underground_line:692675 {
+	phases ABC;
+	name UL692-675;
+	from node:692;
+	to node:675;
+	length 500;
+	configuration line_configuration:606;
+};
+
+object overhead_line:632633 {
+	phases ABCN;
+	name UL632-633;
+	from node:632;
+	to node:633;
+	length 500;
+	configuration line_configuration:602;
+};
+
+object node:630 {
+	name N630;
+	phases ABCN;
+	voltage_A 2401.7771+0j;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object node:650 {
+	name N650;
+	phases ABCN;
+	bustype SWING;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object node:6711 {
+	name N6711;
+	parent N611;
+	phases CN;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object node:6321 {
+	name N6321;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object node:634 {
+	name N634;
+	phases ABCN;
+	voltage_A 480.000+0j;
+	voltage_B -240.000-415.6922j;
+	voltage_C -240.000+415.6922j;
+	nominal_voltage 480.000;
+};
+
+object switch:671692 {
+	phases ABCN;
+	name S671-692;
+	from node:671;
+	to node:692;
+	status OPEN;
+};
+
+object transformer_configuration:400 {
+	connect_type WYE_WYE;
+	install_type PADMOUNT;
+	power_rating 500;
+	primary_voltage 4160;
+	secondary_voltage 480;
+	resistance 0.011;
+	reactance 0.02;
+};
+
+object transformer:633634 {
+	phases ABCN;
+	name T633-634;
+	from node:633;
+	to node:634;
+	configuration transformer_configuration:400;
+};
+
+object transformer_configuration {
+	name AS100_config;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerA_rating 100;
+	primary_voltage 2401;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object transformer_configuration {
+	name BS100_config;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerB_rating 100;
+	primary_voltage 2401;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object transformer_configuration {
+	name CS100_config;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerC_rating 100;
+	primary_voltage 2401;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object transformer_configuration {
+	name AS_config_node634;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerA_rating 75;
+	primary_voltage 480.0000;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object transformer_configuration {
+	name BS_config_node634;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerB_rating 75;
+	primary_voltage 480.0000;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object transformer_configuration {
+	name CS_config_node634;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerC_rating 75;
+	primary_voltage 480.0000;
+	secondary_voltage 120.000;
+	impedance 0.006+0.0136j;
+};
+
+object regulator_configuration:6506321 {
+	connect_type WYE_WYE;
+	band_center 122.000;
+	band_width 2.0;
+	time_delay 0.0;
+	dwell_time 0.0;
+	raise_taps 16;
+	lower_taps 16;
+	current_transducer_ratio 700;
+	power_transducer_ratio 20;
+	compensator_r_setting_A 3.0;
+	compensator_x_setting_A 9.0;
+	compensator_r_setting_B 3.0;
+	compensator_x_setting_B 9.0;
+	compensator_r_setting_C 3.0;
+	compensator_x_setting_C 9.0;
+	CT_phase ABC;
+	PT_phase ABC;
+	Control MANUAL;
+	control_level INDIVIDUAL;
+	Type A;
+	tap_pos_A 0;
+	tap_pos_B 0;
+	tap_pos_C 0;
+	regulation 0.10;
+};
+
+object regulator:650630 {
+	phases ABCN;
+	from node:650;
+	to node:630;
+	sense_node N671;
+	configuration regulator_configuration:6506321;
+};
+
+object capacitor {
+	phases ABCN;
+	name CAP1;
+	pt_phase ABCN;
+	parent N675;
+	phases_connected ABCN;
+	control VOLT;
+	voltage_set_high 2500.0;
+	voltage_set_low 1950.0;
+	capacitor_A "0.300 MVAr";
+	capacitor_B "0.300 MVAr";
+	capacitor_C "0.300 MVAr";
+	control_level INDIVIDUAL;
+	time_delay 0.0;
+	dwell_time 0.0;
+	switchA CLOSED;
+	switchB CLOSED;
+	switchC CLOSED;
+	nominal_voltage 2401.7771;
+};
+
+object capacitor {
+	phases ABCN;
+	name CAP2;
+	pt_phase ABCN;
+	parent N675;
+	phases_connected ABCN;
+	control VOLT;
+	voltage_set_high 2600.0;
+	voltage_set_low 2050.0;
+	capacitor_A "0.250 MVAr";
+	capacitor_B "0.250 MVAr";
+	capacitor_C "0.250 MVAr";
+	control_level INDIVIDUAL;
+	time_delay 300.0;
+	dwell_time 0.0;
+	switchA CLOSED;
+	switchB CLOSED;
+	switchC CLOSED;
+	nominal_voltage 2401.7771;
+};
+
+object node:646 {
+	name N646;
+	phases BCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object node:652 {
+	name N652;
+	phases AN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_652_A;
+	phases AN;
+	from N652;
+	to meter_652_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name meter_652_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object node:611 {
+	name N611;
+	phases CN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_611_C;
+	phases CN;
+	from N611;
+	to meter_611_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_611_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:684 {
+	name N684;
+	phases ACN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_684_A;
+	phases AN;
+	from N684;
+	to meter_684_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_684_C;
+	phases CN;
+	from N684;
+	to meter_684_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_684_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_684_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:645 {
+	name N645;
+	phases BCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_645_B;
+	phases BN;
+	from N645;
+	to meter_645_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_645_C;
+	phases CN;
+	from N645;
+	to meter_645_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_645_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_645_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:633 {
+	name N633;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_633_A;
+	phases AN;
+	from N633;
+	to meter_633_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_633_B;
+	phases BN;
+	from N633;
+	to meter_633_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_633_C;
+	phases CN;
+	from N633;
+	to meter_633_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_633_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_633_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_633_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:632 {
+	name N632;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_632_A;
+	phases AN;
+	from N632;
+	to meter_632_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_632_B;
+	phases BN;
+	from N632;
+	to meter_632_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_632_C;
+	phases CN;
+	from N632;
+	to meter_632_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_632_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_632_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_632_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:692 {
+	name N692;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_692_A;
+	phases AN;
+	from N692;
+	to meter_692_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_692_B;
+	phases BN;
+	from N692;
+	to meter_692_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_692_C;
+	phases CN;
+	from N692;
+	to meter_692_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_692_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_692_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_692_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:675 {
+	name N675;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_675_A;
+	phases AN;
+	from N675;
+	to meter_675_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_675_B;
+	phases BN;
+	from N675;
+	to meter_675_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_675_C;
+	phases CN;
+	from N675;
+	to meter_675_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_675_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_675_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_675_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:671 {
+	name N671;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_671_A;
+	phases AN;
+	from N671;
+	to meter_671_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_671_B;
+	phases BN;
+	from N671;
+	to meter_671_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_671_C;
+	phases CN;
+	from N671;
+	to meter_671_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_671_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_671_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_671_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object node:680 {
+	name N680;
+	phases ABCN;
+	voltage_A 2401.7771;
+	voltage_B -1200.8886-2080.000j;
+	voltage_C -1200.8886+2080.000j;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_680_A;
+	phases AN;
+	from N680;
+	to meter_680_A;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object overhead_line {
+	name OL_680_B;
+	phases BN;
+	from N680;
+	to meter_680_B;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object overhead_line {
+	name OL_680_C;
+	phases CN;
+	from N680;
+	to meter_680_C;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name meter_680_A;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_680_B;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object meter {
+	name meter_680_C;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object overhead_line {
+	name OL_652_A_xfmr_652_A_1;
+	phases AN;
+	from meter_652_A;
+	to xfmr_meter_652_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_652_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_652_A_1;
+	phases AS;
+	from xfmr_meter_652_A_1;
+	to trip_node_652_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_652_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_652_A_xfmr_652_A_2;
+	phases AN;
+	from meter_652_A;
+	to xfmr_meter_652_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_652_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_652_A_2;
+	phases AS;
+	from xfmr_meter_652_A_2;
+	to trip_node_652_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_652_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_652_A_xfmr_652_A_3;
+	phases AN;
+	from meter_652_A;
+	to xfmr_meter_652_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_652_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_652_A_3;
+	phases AS;
+	from xfmr_meter_652_A_3;
+	to trip_node_652_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_652_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_652_A_xfmr_652_A_4;
+	phases AN;
+	from meter_652_A;
+	to xfmr_meter_652_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_652_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_652_A_4;
+	phases AS;
+	from xfmr_meter_652_A_4;
+	to trip_node_652_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_652_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_652_A_xfmr_652_A_5;
+	phases AN;
+	from meter_652_A;
+	to xfmr_meter_652_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_652_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_652_A_5;
+	phases AS;
+	from xfmr_meter_652_A_5;
+	to trip_node_652_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_652_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_611_C_xfmr_611_C_1;
+	phases CN;
+	from meter_611_C;
+	to xfmr_meter_611_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_611_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_611_C_1;
+	phases CS;
+	from xfmr_meter_611_C_1;
+	to trip_node_611_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_611_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_611_C_xfmr_611_C_2;
+	phases CN;
+	from meter_611_C;
+	to xfmr_meter_611_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_611_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_611_C_2;
+	phases CS;
+	from xfmr_meter_611_C_2;
+	to trip_node_611_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_611_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_611_C_xfmr_611_C_3;
+	phases CN;
+	from meter_611_C;
+	to xfmr_meter_611_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_611_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_611_C_3;
+	phases CS;
+	from xfmr_meter_611_C_3;
+	to trip_node_611_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_611_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_611_C_xfmr_611_C_4;
+	phases CN;
+	from meter_611_C;
+	to xfmr_meter_611_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_611_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_611_C_4;
+	phases CS;
+	from xfmr_meter_611_C_4;
+	to trip_node_611_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_611_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_611_C_xfmr_611_C_5;
+	phases CN;
+	from meter_611_C;
+	to xfmr_meter_611_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_611_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_611_C_5;
+	phases CS;
+	from xfmr_meter_611_C_5;
+	to trip_node_611_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_611_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_C_xfmr_684_C_1;
+	phases CN;
+	from meter_684_C;
+	to xfmr_meter_684_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_684_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_C_1;
+	phases CS;
+	from xfmr_meter_684_C_1;
+	to trip_node_684_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_C_xfmr_684_C_2;
+	phases CN;
+	from meter_684_C;
+	to xfmr_meter_684_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_684_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_C_2;
+	phases CS;
+	from xfmr_meter_684_C_2;
+	to trip_node_684_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_C_xfmr_684_C_3;
+	phases CN;
+	from meter_684_C;
+	to xfmr_meter_684_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_684_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_C_3;
+	phases CS;
+	from xfmr_meter_684_C_3;
+	to trip_node_684_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_C_xfmr_684_C_4;
+	phases CN;
+	from meter_684_C;
+	to xfmr_meter_684_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_684_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_C_4;
+	phases CS;
+	from xfmr_meter_684_C_4;
+	to trip_node_684_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_C_xfmr_684_C_5;
+	phases CN;
+	from meter_684_C;
+	to xfmr_meter_684_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_684_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_C_5;
+	phases CS;
+	from xfmr_meter_684_C_5;
+	to trip_node_684_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_A_xfmr_684_A_1;
+	phases AN;
+	from meter_684_A;
+	to xfmr_meter_684_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_684_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_A_1;
+	phases AS;
+	from xfmr_meter_684_A_1;
+	to trip_node_684_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_A_xfmr_684_A_2;
+	phases AN;
+	from meter_684_A;
+	to xfmr_meter_684_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_684_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_A_2;
+	phases AS;
+	from xfmr_meter_684_A_2;
+	to trip_node_684_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_A_xfmr_684_A_3;
+	phases AN;
+	from meter_684_A;
+	to xfmr_meter_684_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_684_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_A_3;
+	phases AS;
+	from xfmr_meter_684_A_3;
+	to trip_node_684_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_A_xfmr_684_A_4;
+	phases AN;
+	from meter_684_A;
+	to xfmr_meter_684_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_684_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_A_4;
+	phases AS;
+	from xfmr_meter_684_A_4;
+	to trip_node_684_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_684_A_xfmr_684_A_5;
+	phases AN;
+	from meter_684_A;
+	to xfmr_meter_684_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_684_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_684_A_5;
+	phases AS;
+	from xfmr_meter_684_A_5;
+	to trip_node_684_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_684_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_B_xfmr_645_B_1;
+	phases BN;
+	from meter_645_B;
+	to xfmr_meter_645_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_645_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_B_1;
+	phases BS;
+	from xfmr_meter_645_B_1;
+	to trip_node_645_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_B_xfmr_645_B_2;
+	phases BN;
+	from meter_645_B;
+	to xfmr_meter_645_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_645_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_B_2;
+	phases BS;
+	from xfmr_meter_645_B_2;
+	to trip_node_645_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_B_xfmr_645_B_3;
+	phases BN;
+	from meter_645_B;
+	to xfmr_meter_645_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_645_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_B_3;
+	phases BS;
+	from xfmr_meter_645_B_3;
+	to trip_node_645_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_B_xfmr_645_B_4;
+	phases BN;
+	from meter_645_B;
+	to xfmr_meter_645_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_645_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_B_4;
+	phases BS;
+	from xfmr_meter_645_B_4;
+	to trip_node_645_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_B_xfmr_645_B_5;
+	phases BN;
+	from meter_645_B;
+	to xfmr_meter_645_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_645_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_B_5;
+	phases BS;
+	from xfmr_meter_645_B_5;
+	to trip_node_645_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_C_xfmr_645_C_1;
+	phases CN;
+	from meter_645_C;
+	to xfmr_meter_645_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_645_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_C_1;
+	phases CS;
+	from xfmr_meter_645_C_1;
+	to trip_node_645_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_C_xfmr_645_C_2;
+	phases CN;
+	from meter_645_C;
+	to xfmr_meter_645_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_645_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_C_2;
+	phases CS;
+	from xfmr_meter_645_C_2;
+	to trip_node_645_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_C_xfmr_645_C_3;
+	phases CN;
+	from meter_645_C;
+	to xfmr_meter_645_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_645_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_C_3;
+	phases CS;
+	from xfmr_meter_645_C_3;
+	to trip_node_645_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_C_xfmr_645_C_4;
+	phases CN;
+	from meter_645_C;
+	to xfmr_meter_645_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_645_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_C_4;
+	phases CS;
+	from xfmr_meter_645_C_4;
+	to trip_node_645_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_645_C_xfmr_645_C_5;
+	phases CN;
+	from meter_645_C;
+	to xfmr_meter_645_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_645_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_645_C_5;
+	phases CS;
+	from xfmr_meter_645_C_5;
+	to trip_node_645_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_645_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_A_xfmr_633_A_1;
+	phases AN;
+	from meter_633_A;
+	to xfmr_meter_633_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_633_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_A_1;
+	phases AS;
+	from xfmr_meter_633_A_1;
+	to trip_node_633_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_A_xfmr_633_A_2;
+	phases AN;
+	from meter_633_A;
+	to xfmr_meter_633_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_633_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_A_2;
+	phases AS;
+	from xfmr_meter_633_A_2;
+	to trip_node_633_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_A_xfmr_633_A_3;
+	phases AN;
+	from meter_633_A;
+	to xfmr_meter_633_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_633_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_A_3;
+	phases AS;
+	from xfmr_meter_633_A_3;
+	to trip_node_633_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_A_xfmr_633_A_4;
+	phases AN;
+	from meter_633_A;
+	to xfmr_meter_633_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_633_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_A_4;
+	phases AS;
+	from xfmr_meter_633_A_4;
+	to trip_node_633_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_A_xfmr_633_A_5;
+	phases AN;
+	from meter_633_A;
+	to xfmr_meter_633_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_633_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_A_5;
+	phases AS;
+	from xfmr_meter_633_A_5;
+	to trip_node_633_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_B_xfmr_633_B_1;
+	phases BN;
+	from meter_633_B;
+	to xfmr_meter_633_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_633_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_B_1;
+	phases BS;
+	from xfmr_meter_633_B_1;
+	to trip_node_633_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_B_xfmr_633_B_2;
+	phases BN;
+	from meter_633_B;
+	to xfmr_meter_633_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_633_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_B_2;
+	phases BS;
+	from xfmr_meter_633_B_2;
+	to trip_node_633_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_B_xfmr_633_B_3;
+	phases BN;
+	from meter_633_B;
+	to xfmr_meter_633_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_633_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_B_3;
+	phases BS;
+	from xfmr_meter_633_B_3;
+	to trip_node_633_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_B_xfmr_633_B_4;
+	phases BN;
+	from meter_633_B;
+	to xfmr_meter_633_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_633_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_B_4;
+	phases BS;
+	from xfmr_meter_633_B_4;
+	to trip_node_633_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_B_xfmr_633_B_5;
+	phases BN;
+	from meter_633_B;
+	to xfmr_meter_633_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_633_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_B_5;
+	phases BS;
+	from xfmr_meter_633_B_5;
+	to trip_node_633_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_C_xfmr_633_C_1;
+	phases CN;
+	from meter_633_C;
+	to xfmr_meter_633_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_633_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_C_1;
+	phases CS;
+	from xfmr_meter_633_C_1;
+	to trip_node_633_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_C_xfmr_633_C_2;
+	phases CN;
+	from meter_633_C;
+	to xfmr_meter_633_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_633_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_C_2;
+	phases CS;
+	from xfmr_meter_633_C_2;
+	to trip_node_633_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_C_xfmr_633_C_3;
+	phases CN;
+	from meter_633_C;
+	to xfmr_meter_633_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_633_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_C_3;
+	phases CS;
+	from xfmr_meter_633_C_3;
+	to trip_node_633_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_C_xfmr_633_C_4;
+	phases CN;
+	from meter_633_C;
+	to xfmr_meter_633_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_633_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_C_4;
+	phases CS;
+	from xfmr_meter_633_C_4;
+	to trip_node_633_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_633_C_xfmr_633_C_5;
+	phases CN;
+	from meter_633_C;
+	to xfmr_meter_633_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_633_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_633_C_5;
+	phases CS;
+	from xfmr_meter_633_C_5;
+	to trip_node_633_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_633_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_A_xfmr_632_A_1;
+	phases AN;
+	from meter_632_A;
+	to xfmr_meter_632_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_632_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_A_1;
+	phases AS;
+	from xfmr_meter_632_A_1;
+	to trip_node_632_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_A_xfmr_632_A_2;
+	phases AN;
+	from meter_632_A;
+	to xfmr_meter_632_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_632_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_A_2;
+	phases AS;
+	from xfmr_meter_632_A_2;
+	to trip_node_632_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_A_xfmr_632_A_3;
+	phases AN;
+	from meter_632_A;
+	to xfmr_meter_632_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_632_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_A_3;
+	phases AS;
+	from xfmr_meter_632_A_3;
+	to trip_node_632_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_A_xfmr_632_A_4;
+	phases AN;
+	from meter_632_A;
+	to xfmr_meter_632_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_632_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_A_4;
+	phases AS;
+	from xfmr_meter_632_A_4;
+	to trip_node_632_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_A_xfmr_632_A_5;
+	phases AN;
+	from meter_632_A;
+	to xfmr_meter_632_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_632_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_A_5;
+	phases AS;
+	from xfmr_meter_632_A_5;
+	to trip_node_632_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_B_xfmr_632_B_1;
+	phases BN;
+	from meter_632_B;
+	to xfmr_meter_632_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_632_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_B_1;
+	phases BS;
+	from xfmr_meter_632_B_1;
+	to trip_node_632_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_B_xfmr_632_B_2;
+	phases BN;
+	from meter_632_B;
+	to xfmr_meter_632_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_632_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_B_2;
+	phases BS;
+	from xfmr_meter_632_B_2;
+	to trip_node_632_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_B_xfmr_632_B_3;
+	phases BN;
+	from meter_632_B;
+	to xfmr_meter_632_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_632_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_B_3;
+	phases BS;
+	from xfmr_meter_632_B_3;
+	to trip_node_632_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_B_xfmr_632_B_4;
+	phases BN;
+	from meter_632_B;
+	to xfmr_meter_632_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_632_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_B_4;
+	phases BS;
+	from xfmr_meter_632_B_4;
+	to trip_node_632_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_B_xfmr_632_B_5;
+	phases BN;
+	from meter_632_B;
+	to xfmr_meter_632_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_632_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_B_5;
+	phases BS;
+	from xfmr_meter_632_B_5;
+	to trip_node_632_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_C_xfmr_632_C_1;
+	phases CN;
+	from meter_632_C;
+	to xfmr_meter_632_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_632_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_C_1;
+	phases CS;
+	from xfmr_meter_632_C_1;
+	to trip_node_632_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_C_xfmr_632_C_2;
+	phases CN;
+	from meter_632_C;
+	to xfmr_meter_632_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_632_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_C_2;
+	phases CS;
+	from xfmr_meter_632_C_2;
+	to trip_node_632_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_C_xfmr_632_C_3;
+	phases CN;
+	from meter_632_C;
+	to xfmr_meter_632_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_632_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_C_3;
+	phases CS;
+	from xfmr_meter_632_C_3;
+	to trip_node_632_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_C_xfmr_632_C_4;
+	phases CN;
+	from meter_632_C;
+	to xfmr_meter_632_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_632_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_C_4;
+	phases CS;
+	from xfmr_meter_632_C_4;
+	to trip_node_632_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_632_C_xfmr_632_C_5;
+	phases CN;
+	from meter_632_C;
+	to xfmr_meter_632_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_632_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_632_C_5;
+	phases CS;
+	from xfmr_meter_632_C_5;
+	to trip_node_632_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_632_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_A_xfmr_692_A_1;
+	phases AN;
+	from meter_692_A;
+	to xfmr_meter_692_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_692_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_A_1;
+	phases AS;
+	from xfmr_meter_692_A_1;
+	to trip_node_692_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_A_xfmr_692_A_2;
+	phases AN;
+	from meter_692_A;
+	to xfmr_meter_692_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_692_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_A_2;
+	phases AS;
+	from xfmr_meter_692_A_2;
+	to trip_node_692_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_A_xfmr_692_A_3;
+	phases AN;
+	from meter_692_A;
+	to xfmr_meter_692_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_692_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_A_3;
+	phases AS;
+	from xfmr_meter_692_A_3;
+	to trip_node_692_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_A_xfmr_692_A_4;
+	phases AN;
+	from meter_692_A;
+	to xfmr_meter_692_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_692_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_A_4;
+	phases AS;
+	from xfmr_meter_692_A_4;
+	to trip_node_692_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_A_xfmr_692_A_5;
+	phases AN;
+	from meter_692_A;
+	to xfmr_meter_692_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_692_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_A_5;
+	phases AS;
+	from xfmr_meter_692_A_5;
+	to trip_node_692_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_B_xfmr_692_B_1;
+	phases BN;
+	from meter_692_B;
+	to xfmr_meter_692_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_692_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_B_1;
+	phases BS;
+	from xfmr_meter_692_B_1;
+	to trip_node_692_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_B_xfmr_692_B_2;
+	phases BN;
+	from meter_692_B;
+	to xfmr_meter_692_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_692_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_B_2;
+	phases BS;
+	from xfmr_meter_692_B_2;
+	to trip_node_692_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_B_xfmr_692_B_3;
+	phases BN;
+	from meter_692_B;
+	to xfmr_meter_692_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_692_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_B_3;
+	phases BS;
+	from xfmr_meter_692_B_3;
+	to trip_node_692_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_B_xfmr_692_B_4;
+	phases BN;
+	from meter_692_B;
+	to xfmr_meter_692_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_692_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_B_4;
+	phases BS;
+	from xfmr_meter_692_B_4;
+	to trip_node_692_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_B_xfmr_692_B_5;
+	phases BN;
+	from meter_692_B;
+	to xfmr_meter_692_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_692_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_B_5;
+	phases BS;
+	from xfmr_meter_692_B_5;
+	to trip_node_692_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_C_xfmr_692_C_1;
+	phases CN;
+	from meter_692_C;
+	to xfmr_meter_692_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_692_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_C_1;
+	phases CS;
+	from xfmr_meter_692_C_1;
+	to trip_node_692_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_C_xfmr_692_C_2;
+	phases CN;
+	from meter_692_C;
+	to xfmr_meter_692_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_692_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_C_2;
+	phases CS;
+	from xfmr_meter_692_C_2;
+	to trip_node_692_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_C_xfmr_692_C_3;
+	phases CN;
+	from meter_692_C;
+	to xfmr_meter_692_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_692_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_C_3;
+	phases CS;
+	from xfmr_meter_692_C_3;
+	to trip_node_692_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_C_xfmr_692_C_4;
+	phases CN;
+	from meter_692_C;
+	to xfmr_meter_692_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_692_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_C_4;
+	phases CS;
+	from xfmr_meter_692_C_4;
+	to trip_node_692_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_692_C_xfmr_692_C_5;
+	phases CN;
+	from meter_692_C;
+	to xfmr_meter_692_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_692_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_692_C_5;
+	phases CS;
+	from xfmr_meter_692_C_5;
+	to trip_node_692_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_692_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_A_xfmr_675_A_1;
+	phases AN;
+	from meter_675_A;
+	to xfmr_meter_675_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_675_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_A_1;
+	phases AS;
+	from xfmr_meter_675_A_1;
+	to trip_node_675_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_A_xfmr_675_A_2;
+	phases AN;
+	from meter_675_A;
+	to xfmr_meter_675_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_675_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_A_2;
+	phases AS;
+	from xfmr_meter_675_A_2;
+	to trip_node_675_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_A_xfmr_675_A_3;
+	phases AN;
+	from meter_675_A;
+	to xfmr_meter_675_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_675_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_A_3;
+	phases AS;
+	from xfmr_meter_675_A_3;
+	to trip_node_675_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_A_xfmr_675_A_4;
+	phases AN;
+	from meter_675_A;
+	to xfmr_meter_675_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_675_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_A_4;
+	phases AS;
+	from xfmr_meter_675_A_4;
+	to trip_node_675_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_A_xfmr_675_A_5;
+	phases AN;
+	from meter_675_A;
+	to xfmr_meter_675_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_675_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_A_5;
+	phases AS;
+	from xfmr_meter_675_A_5;
+	to trip_node_675_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_B_xfmr_675_B_1;
+	phases BN;
+	from meter_675_B;
+	to xfmr_meter_675_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_675_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_B_1;
+	phases BS;
+	from xfmr_meter_675_B_1;
+	to trip_node_675_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_B_xfmr_675_B_2;
+	phases BN;
+	from meter_675_B;
+	to xfmr_meter_675_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_675_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_B_2;
+	phases BS;
+	from xfmr_meter_675_B_2;
+	to trip_node_675_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_B_xfmr_675_B_3;
+	phases BN;
+	from meter_675_B;
+	to xfmr_meter_675_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_675_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_B_3;
+	phases BS;
+	from xfmr_meter_675_B_3;
+	to trip_node_675_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_B_xfmr_675_B_4;
+	phases BN;
+	from meter_675_B;
+	to xfmr_meter_675_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_675_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_B_4;
+	phases BS;
+	from xfmr_meter_675_B_4;
+	to trip_node_675_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_B_xfmr_675_B_5;
+	phases BN;
+	from meter_675_B;
+	to xfmr_meter_675_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_675_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_B_5;
+	phases BS;
+	from xfmr_meter_675_B_5;
+	to trip_node_675_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_C_xfmr_675_C_1;
+	phases CN;
+	from meter_675_C;
+	to xfmr_meter_675_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_675_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_C_1;
+	phases CS;
+	from xfmr_meter_675_C_1;
+	to trip_node_675_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_C_xfmr_675_C_2;
+	phases CN;
+	from meter_675_C;
+	to xfmr_meter_675_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_675_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_C_2;
+	phases CS;
+	from xfmr_meter_675_C_2;
+	to trip_node_675_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_C_xfmr_675_C_3;
+	phases CN;
+	from meter_675_C;
+	to xfmr_meter_675_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_675_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_C_3;
+	phases CS;
+	from xfmr_meter_675_C_3;
+	to trip_node_675_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_C_xfmr_675_C_4;
+	phases CN;
+	from meter_675_C;
+	to xfmr_meter_675_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_675_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_C_4;
+	phases CS;
+	from xfmr_meter_675_C_4;
+	to trip_node_675_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_675_C_xfmr_675_C_5;
+	phases CN;
+	from meter_675_C;
+	to xfmr_meter_675_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_675_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_675_C_5;
+	phases CS;
+	from xfmr_meter_675_C_5;
+	to trip_node_675_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_675_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_A_xfmr_671_A_1;
+	phases AN;
+	from meter_671_A;
+	to xfmr_meter_671_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_671_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_A_1;
+	phases AS;
+	from xfmr_meter_671_A_1;
+	to trip_node_671_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_A_xfmr_671_A_2;
+	phases AN;
+	from meter_671_A;
+	to xfmr_meter_671_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_671_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_A_2;
+	phases AS;
+	from xfmr_meter_671_A_2;
+	to trip_node_671_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_A_xfmr_671_A_3;
+	phases AN;
+	from meter_671_A;
+	to xfmr_meter_671_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_671_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_A_3;
+	phases AS;
+	from xfmr_meter_671_A_3;
+	to trip_node_671_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_A_xfmr_671_A_4;
+	phases AN;
+	from meter_671_A;
+	to xfmr_meter_671_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_671_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_A_4;
+	phases AS;
+	from xfmr_meter_671_A_4;
+	to trip_node_671_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_A_xfmr_671_A_5;
+	phases AN;
+	from meter_671_A;
+	to xfmr_meter_671_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_671_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_A_5;
+	phases AS;
+	from xfmr_meter_671_A_5;
+	to trip_node_671_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_B_xfmr_671_B_1;
+	phases BN;
+	from meter_671_B;
+	to xfmr_meter_671_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_671_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_B_1;
+	phases BS;
+	from xfmr_meter_671_B_1;
+	to trip_node_671_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_B_xfmr_671_B_2;
+	phases BN;
+	from meter_671_B;
+	to xfmr_meter_671_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_671_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_B_2;
+	phases BS;
+	from xfmr_meter_671_B_2;
+	to trip_node_671_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_B_xfmr_671_B_3;
+	phases BN;
+	from meter_671_B;
+	to xfmr_meter_671_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_671_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_B_3;
+	phases BS;
+	from xfmr_meter_671_B_3;
+	to trip_node_671_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_B_xfmr_671_B_4;
+	phases BN;
+	from meter_671_B;
+	to xfmr_meter_671_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_671_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_B_4;
+	phases BS;
+	from xfmr_meter_671_B_4;
+	to trip_node_671_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_B_xfmr_671_B_5;
+	phases BN;
+	from meter_671_B;
+	to xfmr_meter_671_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_671_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_B_5;
+	phases BS;
+	from xfmr_meter_671_B_5;
+	to trip_node_671_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_C_xfmr_671_C_1;
+	phases CN;
+	from meter_671_C;
+	to xfmr_meter_671_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_671_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_C_1;
+	phases CS;
+	from xfmr_meter_671_C_1;
+	to trip_node_671_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_C_xfmr_671_C_2;
+	phases CN;
+	from meter_671_C;
+	to xfmr_meter_671_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_671_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_C_2;
+	phases CS;
+	from xfmr_meter_671_C_2;
+	to trip_node_671_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_C_xfmr_671_C_3;
+	phases CN;
+	from meter_671_C;
+	to xfmr_meter_671_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_671_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_C_3;
+	phases CS;
+	from xfmr_meter_671_C_3;
+	to trip_node_671_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_C_xfmr_671_C_4;
+	phases CN;
+	from meter_671_C;
+	to xfmr_meter_671_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_671_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_C_4;
+	phases CS;
+	from xfmr_meter_671_C_4;
+	to trip_node_671_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_671_C_xfmr_671_C_5;
+	phases CN;
+	from meter_671_C;
+	to xfmr_meter_671_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_671_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_671_C_5;
+	phases CS;
+	from xfmr_meter_671_C_5;
+	to trip_node_671_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_671_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_A_xfmr_680_A_1;
+	phases AN;
+	from meter_680_A;
+	to xfmr_meter_680_A_1;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_680_A_1;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_A_1;
+	phases AS;
+	from xfmr_meter_680_A_1;
+	to trip_node_680_A_1;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_A_1;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_A_xfmr_680_A_2;
+	phases AN;
+	from meter_680_A;
+	to xfmr_meter_680_A_2;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_680_A_2;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_A_2;
+	phases AS;
+	from xfmr_meter_680_A_2;
+	to trip_node_680_A_2;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_A_2;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_A_xfmr_680_A_3;
+	phases AN;
+	from meter_680_A;
+	to xfmr_meter_680_A_3;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_680_A_3;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_A_3;
+	phases AS;
+	from xfmr_meter_680_A_3;
+	to trip_node_680_A_3;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_A_3;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_A_xfmr_680_A_4;
+	phases AN;
+	from meter_680_A;
+	to xfmr_meter_680_A_4;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_680_A_4;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_A_4;
+	phases AS;
+	from xfmr_meter_680_A_4;
+	to trip_node_680_A_4;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_A_4;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_A_xfmr_680_A_5;
+	phases AN;
+	from meter_680_A;
+	to xfmr_meter_680_A_5;
+	length 10;
+	configuration line_configuration:655;
+};
+
+object meter {
+	name xfmr_meter_680_A_5;
+	phases AN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_A_5;
+	phases AS;
+	from xfmr_meter_680_A_5;
+	to trip_node_680_A_5;
+	configuration AS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_A_5;
+	phases AS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_B_xfmr_680_B_1;
+	phases BN;
+	from meter_680_B;
+	to xfmr_meter_680_B_1;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_680_B_1;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_B_1;
+	phases BS;
+	from xfmr_meter_680_B_1;
+	to trip_node_680_B_1;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_B_1;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_B_xfmr_680_B_2;
+	phases BN;
+	from meter_680_B;
+	to xfmr_meter_680_B_2;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_680_B_2;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_B_2;
+	phases BS;
+	from xfmr_meter_680_B_2;
+	to trip_node_680_B_2;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_B_2;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_B_xfmr_680_B_3;
+	phases BN;
+	from meter_680_B;
+	to xfmr_meter_680_B_3;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_680_B_3;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_B_3;
+	phases BS;
+	from xfmr_meter_680_B_3;
+	to trip_node_680_B_3;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_B_3;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_B_xfmr_680_B_4;
+	phases BN;
+	from meter_680_B;
+	to xfmr_meter_680_B_4;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_680_B_4;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_B_4;
+	phases BS;
+	from xfmr_meter_680_B_4;
+	to trip_node_680_B_4;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_B_4;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_B_xfmr_680_B_5;
+	phases BN;
+	from meter_680_B;
+	to xfmr_meter_680_B_5;
+	length 10;
+	configuration line_configuration:656;
+};
+
+object meter {
+	name xfmr_meter_680_B_5;
+	phases BN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_B_5;
+	phases BS;
+	from xfmr_meter_680_B_5;
+	to trip_node_680_B_5;
+	configuration BS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_B_5;
+	phases BS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_C_xfmr_680_C_1;
+	phases CN;
+	from meter_680_C;
+	to xfmr_meter_680_C_1;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_680_C_1;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_C_1;
+	phases CS;
+	from xfmr_meter_680_C_1;
+	to trip_node_680_C_1;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_C_1;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_C_xfmr_680_C_2;
+	phases CN;
+	from meter_680_C;
+	to xfmr_meter_680_C_2;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_680_C_2;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_C_2;
+	phases CS;
+	from xfmr_meter_680_C_2;
+	to trip_node_680_C_2;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_C_2;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_C_xfmr_680_C_3;
+	phases CN;
+	from meter_680_C;
+	to xfmr_meter_680_C_3;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_680_C_3;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_C_3;
+	phases CS;
+	from xfmr_meter_680_C_3;
+	to trip_node_680_C_3;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_C_3;
+	phases CS;
+	nominal_voltage 120;
+};
+object overhead_line {
+	name OL_680_C_xfmr_680_C_4;
+	phases CN;
+	from meter_680_C;
+	to xfmr_meter_680_C_4;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_680_C_4;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_C_4;
+	phases CS;
+	from xfmr_meter_680_C_4;
+	to trip_node_680_C_4;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_C_4;
+	phases CS;
+	nominal_voltage 120;
+};
+
+object overhead_line {
+	name OL_680_C_xfmr_680_C_5;
+	phases CN;
+	from meter_680_C;
+	to xfmr_meter_680_C_5;
+	length 10;
+	configuration line_configuration:605;
+};
+
+object meter {
+	name xfmr_meter_680_C_5;
+	phases CN;
+	nominal_voltage 2401.7771;
+};
+
+object transformer {
+	name xfmr_680_C_5;
+	phases CS;
+	from xfmr_meter_680_C_5;
+	to trip_node_680_C_5;
+	configuration CS100_config;
+};
+
+object triplex_node {
+	name trip_node_680_C_5;
+	phases CS;
+	nominal_voltage 120;
+};
+

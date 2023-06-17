@@ -1,0 +1,2293 @@
+clear
+New circuit.psu_13_node_feeder
+~ basekv=115 pu=1.00 phases=3 bus1=SourceBus
+~ Angle=30
+~ MVAsc3=20000 MVASC1=21000
+
+// Feeder Head xfmrs config:
+New XfmrCode.SubXfmr Phases=3 Windings=2  XHL=(8 1000 /)
+~ wdg=1 conn=delta kv=115  kva=5000  %r=(.5 1000 /)
+~ wdg=2 conn=wye   kv=4.16 kva=5000  %r=(.5 1000 /)
+
+New XfmrCode.FdrXfmr Phases=3   Windings=2  XHL=2  %NoLoadLoss=0.6 %imag=1.1
+~ wdg=1 conn=Wye kv=4.16   kva=500   %r=.55
+~ wdg=2 conn=Wye kv=0.480  kva=500   %r=.55
+
+New XfmrCode.RegLeg  phases=1 xhl=0.01 kvas=[1666 1666] kvs=[2.4 2.4] %LoadLoss=0.01
+
+
+//Sub Xfmr:
+New Transformer.trans_source_N650 XfmrCode=SubXfmr Buses=[SourceBus N650]
+New Transformer.XFM1 XfmrCode=FdrXfmr Buses=[N633 N634]
+
+//Reg legs:
+New Transformer.Reg1 XfmrCode=RegLeg Bank=Reg Buses=[N650.1 RG60.1]
+New Transformer.Reg2 XfmrCode=RegLeg Bank=Reg Buses=[N650.2 RG60.2]
+New Transformer.Reg3 XfmrCode=RegLeg Bank=Reg Buses=[N650.3 RG60.3]
+
+//Reg Controls
+
+new regcontrol.Reg1  transformer=Reg1 winding=2  vreg=122  band=2  ptratio=20 ctprim=700  R=3   X=9 
+new regcontrol.Reg2  transformer=Reg2 winding=2  vreg=122  band=2  ptratio=20 ctprim=700  R=3   X=9 
+new regcontrol.Reg3  transformer=Reg3 winding=2  vreg=122  band=2  ptratio=20 ctprim=700  R=3   X=9
+
+
+// Line codes:
+New Linecode.2P_OH_Code0 units=km nphases=2
+~ rmatrix = [0.086666667 | 0.02907197  0.087405303]
+~ xmatrix = [0.204166667 | 0.072897727  0.201723485]
+~ cmatrix = [2.569829596 | -0.52995137  2.597460011]
+
+New Linecode.3P_OH_Code1 units=km nphases=3
+~ rmatrix = [0.086666667 | 0.029545455 0.088371212 | 0.02907197 0.029924242 0.087405303]
+~ xmatrix = [0.204166667 | 0.095018939 0.198522727 | 0.072897727 0.080227273 0.201723485]
+~ cmatrix = [2.851710072 | -0.920293787  3.004631862 | -0.350755566  -0.585011253 2.71134756]
+
+
+New Linecode.2P_OH_Code2 units=km nphases=2
+~ rmatrix = [0.086666667 | 0.02907197  0.087405303]
+~ xmatrix = [0.204166667 | 0.072897727  0.201723485]
+~ cmatrix = [2.569829596 | -0.52995137  2.597460011]
+
+New Linecode.1P_OH_Code3 units=km nphases=1
+~ rmatrix = [0.251742424]
+~ xmatrix = [0.255208333]
+~ cmatrix = [2.270366128]
+
+
+New Linecode.1P_UG_Code4 units=km nphases=1
+~ rmatrix = [0.251742424]
+~ xmatrix = [0.255208333]
+~ cmatrix = [2.270366128]
+
+New Linecode.3P_UG_Code5 units=km nphases=3
+~ rmatrix = [0.086666667 | 0.029545455 0.088371212 | 0.02907197 0.029924242 0.087405303]
+~ xmatrix = [0.204166667 | 0.095018939 0.198522727 | 0.072897727 0.080227273 0.201723485]
+~ cmatrix = [2.851710072 | -0.920293787  3.004631862 | -0.350755566  -0.585011253 2.71134756]
+
+New Linecode.3P_OH_Code6 units=km nphases=3
+~ rmatrix = [0.086666667 | 0.029545455 0.088371212 | 0.02907197 0.029924242 0.087405303]
+~ xmatrix = [0.204166667 | 0.095018939 0.198522727 | 0.072897727 0.080227273 0.201723485]
+~ cmatrix = [2.851710072 | -0.920293787  3.004631862 | -0.350755566  -0.585011253 2.71134756]
+
+New Linecode.3P_Code7 units=km nphases=3
+~ rmatrix = [0.086666667 | 0.029545455 0.088371212 | 0.02907197 0.029924242 0.087405303]
+~ xmatrix = [0.204166667 | 0.095018939 0.198522727 | 0.072897727 0.080227273 0.201723485]
+~ cmatrix = [2.851710072 | -0.920293787  3.004631862 | -0.350755566  -0.585011253 2.71134756]
+
+New Linecode.1P_OH_Code8 units=km nphases=1
+~ rmatrix = [0.251742424]
+~ xmatrix = [0.255208333]
+~ cmatrix = [2.270366128]
+
+New Linecode.1P_OH_Code9 units=km nphases=1
+~ rmatrix = [0.251742424]
+~ xmatrix = [0.255208333]
+~ cmatrix = [2.270366128]
+
+New Linecode.2P_Code10 units=km nphases=2
+~ rmatrix = [0.086666667 | 0.02907197  0.087405303]
+~ xmatrix = [0.204166667 | 0.072897727  0.201723485]
+~ cmatrix = [2.569829596 | -0.52995137  2.597460011]
+
+
+// Line Objects:
+New Line.OL630-632 Units=km Length=0.6096
+~ bus1=RG60.1.2.3
+~ bus2=N632.1.2.3 switch=n  phases=3 Linecode=3P_OH_Code1
+
+New Line.OL632-645 Units=km Length=0.1524
+~ bus1=N632.2.3
+~ bus2=N645.2.3 switch=n  phases=2 Linecode=2P_OH_Code0
+
+New Line.OL645-646 Units=km Length=0.09144
+~ bus1=N645.2.3
+~ bus2=N646.2.3 switch=n  phases=2 Linecode=2P_OH_Code0
+
+New Line.OL632-6321 Units=km Length=0.1524
+~ bus1=N632.1.2.3
+~ bus2=N6321.1.2.3 switch=n  phases=3 Linecode=3P_OH_Code1
+
+New Line.OL6321-671 Units=km Length=0.457
+~ bus1=N6321.1.2.3
+~ bus2=N671.1.2.3 switch=n  phases=3 Linecode=3P_OH_Code1
+
+New Line.OL671-680 Units=km Length=0.3048
+~ bus1=N671.1.2.3
+~ bus2=N680.1.2.3 switch=n  phases=3 Linecode=3P_OH_Code1
+
+New Line.OL671-684 Units=km Length=0.09144
+~ bus1=N671.1.3
+~ bus2=N684.1.3 switch=n  phases=2 Linecode=2P_OH_Code2
+
+New Line.ol684611 Units=km Length=0.09144
+~ bus1=N684.3
+~ bus2=N611.3 phases=1 Linecode=1P_OH_Code3
+
+New Line.UL684-652 Units=km Length=0.24384
+~ bus1=N684.1
+~ bus2=N652.1 switch=n  phases=1 Linecode=1P_UG_Code4
+
+New Line.UL692-675 Units=km Length=0.1524
+~ bus1=N692.1.2.3
+~ bus2=N675.1.2.3 switch=n  phases=3 Linecode=3P_UG_Code5
+
+New Line.UL632-633 Units=km Length=0.1524
+~ bus1=N632.1.2.3
+~ bus2=N633.1.2.3 switch=n  phases=3 Linecode=3P_OH_Code6
+
+New Line.S671-692 Units=km Length=0.001
+~ bus1=N671.1.2.3
+~ bus2=N692.1.2.3 switch=n phases=3 Linecode=3P_Code7
+
+New Line.OL_652_A length=50 units=ft
+~ bus1=N652.1
+~ bus2=meter_652_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_611_C length=50 units=ft
+~ bus1=N611.3
+~ bus2=meter_611_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_A length=50 units=ft
+~ bus1=N684.1
+~ bus2=meter_684_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_684_C length=50 units=ft
+~ bus1=N684.3
+~ bus2=meter_684_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_645_B length=50 units=ft
+~ bus1=N645.2
+~ bus2=meter_645_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_C length=50 units=ft
+~ bus1=N645.3
+~ bus2=meter_645_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_A length=50 units=ft
+~ bus1=N633.1
+~ bus2=meter_633_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_B length=50 units=ft
+~ bus1=N633.2
+~ bus2=meter_633_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_C length=50 units=ft
+~ bus1=N633.3
+~ bus2=meter_633_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_A length=50 units=ft
+~ bus1=N632.1
+~ bus2=meter_632_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_B length=50 units=ft
+~ bus1=N632.2
+~ bus2=meter_632_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_632_C length=50 units=ft
+~ bus1=N632.3
+~ bus2=meter_632_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_A length=50 units=ft
+~ bus1=N692.1
+~ bus2=meter_692_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_B length=50 units=ft
+~ bus1=N692.2
+~ bus2=meter_692_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_C length=50 units=ft
+~ bus1=N692.3
+~ bus2=meter_692_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_A length=50 units=ft
+~ bus1=N675.1
+~ bus2=meter_675_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_B length=50 units=ft
+~ bus1=N675.2
+~ bus2=meter_675_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_C length=50 units=ft
+~ bus1=N675.3
+~ bus2=meter_675_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_A length=50 units=ft
+~ bus1=N671.1
+~ bus2=meter_671_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_B length=50 units=ft
+~ bus1=N671.2
+~ bus2=meter_671_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_C length=50 units=ft
+~ bus1=N671.3
+~ bus2=meter_671_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_A length=50 units=ft
+~ bus1=N680.1
+~ bus2=meter_680_A.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_B length=50 units=ft
+~ bus1=N680.2
+~ bus2=meter_680_B.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_C length=50 units=ft
+~ bus1=N680.3
+~ bus2=meter_680_C.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_652_A_xfmr_652_A_1 length=50 units=ft
+~ bus1=meter_652_A.1
+~ bus2=xfmr_meter_652_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_652_A_xfmr_652_A_2 length=50 units=ft
+~ bus1=meter_652_A.1
+~ bus2=xfmr_meter_652_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_652_A_xfmr_652_A_3 length=50 units=ft
+~ bus1=meter_652_A.1
+~ bus2=xfmr_meter_652_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_652_A_xfmr_652_A_4 length=50 units=ft
+~ bus1=meter_652_A.1
+~ bus2=xfmr_meter_652_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_652_A_xfmr_652_A_5 length=50 units=ft
+~ bus1=meter_652_A.1
+~ bus2=xfmr_meter_652_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_611_C_xfmr_611_C_1 length=50 units=ft
+~ bus1=meter_611_C.3
+~ bus2=xfmr_meter_611_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_611_C_xfmr_611_C_2 length=50 units=ft
+~ bus1=meter_611_C.3
+~ bus2=xfmr_meter_611_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_611_C_xfmr_611_C_3 length=50 units=ft
+~ bus1=meter_611_C.3
+~ bus2=xfmr_meter_611_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_611_C_xfmr_611_C_4 length=50 units=ft
+~ bus1=meter_611_C.3
+~ bus2=xfmr_meter_611_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_611_C_xfmr_611_C_5 length=50 units=ft
+~ bus1=meter_611_C.3
+~ bus2=xfmr_meter_611_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_C_xfmr_684_C_1 length=50 units=ft
+~ bus1=meter_684_C.3
+~ bus2=xfmr_meter_684_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_C_xfmr_684_C_2 length=50 units=ft
+~ bus1=meter_684_C.3
+~ bus2=xfmr_meter_684_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_C_xfmr_684_C_3 length=50 units=ft
+~ bus1=meter_684_C.3
+~ bus2=xfmr_meter_684_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_C_xfmr_684_C_4 length=50 units=ft
+~ bus1=meter_684_C.3
+~ bus2=xfmr_meter_684_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_C_xfmr_684_C_5 length=50 units=ft
+~ bus1=meter_684_C.3
+~ bus2=xfmr_meter_684_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_684_A_xfmr_684_A_1 length=50 units=ft
+~ bus1=meter_684_A.1
+~ bus2=xfmr_meter_684_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_684_A_xfmr_684_A_2 length=50 units=ft
+~ bus1=meter_684_A.1
+~ bus2=xfmr_meter_684_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_684_A_xfmr_684_A_3 length=50 units=ft
+~ bus1=meter_684_A.1
+~ bus2=xfmr_meter_684_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_684_A_xfmr_684_A_4 length=50 units=ft
+~ bus1=meter_684_A.1
+~ bus2=xfmr_meter_684_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_684_A_xfmr_684_A_5 length=50 units=ft
+~ bus1=meter_684_A.1
+~ bus2=xfmr_meter_684_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_645_B_xfmr_645_B_1 length=50 units=ft
+~ bus1=meter_645_B.2
+~ bus2=xfmr_meter_645_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_B_xfmr_645_B_2 length=50 units=ft
+~ bus1=meter_645_B.2
+~ bus2=xfmr_meter_645_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_B_xfmr_645_B_3 length=50 units=ft
+~ bus1=meter_645_B.2
+~ bus2=xfmr_meter_645_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_B_xfmr_645_B_4 length=50 units=ft
+~ bus1=meter_645_B.2
+~ bus2=xfmr_meter_645_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_B_xfmr_645_B_5 length=50 units=ft
+~ bus1=meter_645_B.2
+~ bus2=xfmr_meter_645_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_645_C_xfmr_645_C_1 length=50 units=ft
+~ bus1=meter_645_C.3
+~ bus2=xfmr_meter_645_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_645_C_xfmr_645_C_2 length=50 units=ft
+~ bus1=meter_645_C.3
+~ bus2=xfmr_meter_645_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_645_C_xfmr_645_C_3 length=50 units=ft
+~ bus1=meter_645_C.3
+~ bus2=xfmr_meter_645_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_645_C_xfmr_645_C_4 length=50 units=ft
+~ bus1=meter_645_C.3
+~ bus2=xfmr_meter_645_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_645_C_xfmr_645_C_5 length=50 units=ft
+~ bus1=meter_645_C.3
+~ bus2=xfmr_meter_645_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_A_xfmr_633_A_1 length=50 units=ft
+~ bus1=meter_633_A.1
+~ bus2=xfmr_meter_633_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_A_xfmr_633_A_2 length=50 units=ft
+~ bus1=meter_633_A.1
+~ bus2=xfmr_meter_633_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_A_xfmr_633_A_3 length=50 units=ft
+~ bus1=meter_633_A.1
+~ bus2=xfmr_meter_633_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_A_xfmr_633_A_4 length=50 units=ft
+~ bus1=meter_633_A.1
+~ bus2=xfmr_meter_633_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_A_xfmr_633_A_5 length=50 units=ft
+~ bus1=meter_633_A.1
+~ bus2=xfmr_meter_633_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_633_B_xfmr_633_B_1 length=50 units=ft
+~ bus1=meter_633_B.2
+~ bus2=xfmr_meter_633_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_B_xfmr_633_B_2 length=50 units=ft
+~ bus1=meter_633_B.2
+~ bus2=xfmr_meter_633_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_B_xfmr_633_B_3 length=50 units=ft
+~ bus1=meter_633_B.2
+~ bus2=xfmr_meter_633_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_B_xfmr_633_B_4 length=50 units=ft
+~ bus1=meter_633_B.2
+~ bus2=xfmr_meter_633_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_B_xfmr_633_B_5 length=50 units=ft
+~ bus1=meter_633_B.2
+~ bus2=xfmr_meter_633_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_633_C_xfmr_633_C_1 length=50 units=ft
+~ bus1=meter_633_C.3
+~ bus2=xfmr_meter_633_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_C_xfmr_633_C_2 length=50 units=ft
+~ bus1=meter_633_C.3
+~ bus2=xfmr_meter_633_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_C_xfmr_633_C_3 length=50 units=ft
+~ bus1=meter_633_C.3
+~ bus2=xfmr_meter_633_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_C_xfmr_633_C_4 length=50 units=ft
+~ bus1=meter_633_C.3
+~ bus2=xfmr_meter_633_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_633_C_xfmr_633_C_5 length=50 units=ft
+~ bus1=meter_633_C.3
+~ bus2=xfmr_meter_633_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_A_xfmr_632_A_1 length=50 units=ft
+~ bus1=meter_632_A.1
+~ bus2=xfmr_meter_632_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_A_xfmr_632_A_2 length=50 units=ft
+~ bus1=meter_632_A.1
+~ bus2=xfmr_meter_632_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_A_xfmr_632_A_3 length=50 units=ft
+~ bus1=meter_632_A.1
+~ bus2=xfmr_meter_632_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_A_xfmr_632_A_4 length=50 units=ft
+~ bus1=meter_632_A.1
+~ bus2=xfmr_meter_632_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_A_xfmr_632_A_5 length=50 units=ft
+~ bus1=meter_632_A.1
+~ bus2=xfmr_meter_632_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_632_B_xfmr_632_B_1 length=50 units=ft
+~ bus1=meter_632_B.2
+~ bus2=xfmr_meter_632_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_632_B_xfmr_632_B_2 length=50 units=ft
+~ bus1=meter_632_B.2
+~ bus2=xfmr_meter_632_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9 
+
+New Line.OL_632_B_xfmr_632_B_3 length=50 units=ft
+~ bus1=meter_632_B.2
+~ bus2=xfmr_meter_632_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_632_B_xfmr_632_B_4 length=50 units=ft
+~ bus1=meter_632_B.2
+~ bus2=xfmr_meter_632_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_632_B_xfmr_632_B_5 length=50 units=ft
+~ bus1=meter_632_B.2
+~ bus2=xfmr_meter_632_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_632_C_xfmr_632_C_1 length=50 units=ft
+~ bus1=meter_632_C.3
+~ bus2=xfmr_meter_632_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_C_xfmr_632_C_2 length=50 units=ft
+~ bus1=meter_632_C.3
+~ bus2=xfmr_meter_632_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_C_xfmr_632_C_3 length=50 units=ft
+~ bus1=meter_632_C.3
+~ bus2=xfmr_meter_632_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_C_xfmr_632_C_4 length=50 units=ft
+~ bus1=meter_632_C.3
+~ bus2=xfmr_meter_632_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_632_C_xfmr_632_C_5 length=50 units=ft
+~ bus1=meter_632_C.3
+~ bus2=xfmr_meter_632_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_A_xfmr_692_A_1 length=50 units=ft
+~ bus1=meter_692_A.1
+~ bus2=xfmr_meter_692_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_A_xfmr_692_A_2 length=50 units=ft
+~ bus1=meter_692_A.1
+~ bus2=xfmr_meter_692_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_A_xfmr_692_A_3 length=50 units=ft
+~ bus1=meter_692_A.1
+~ bus2=xfmr_meter_692_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_A_xfmr_692_A_4 length=50 units=ft
+~ bus1=meter_692_A.1
+~ bus2=xfmr_meter_692_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_A_xfmr_692_A_5 length=50 units=ft
+~ bus1=meter_692_A.1
+~ bus2=xfmr_meter_692_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_692_B_xfmr_692_B_1 length=50 units=ft
+~ bus1=meter_692_B.2
+~ bus2=xfmr_meter_692_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_B_xfmr_692_B_2 length=50 units=ft
+~ bus1=meter_692_B.2
+~ bus2=xfmr_meter_692_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_B_xfmr_692_B_3 length=50 units=ft
+~ bus1=meter_692_B.2
+~ bus2=xfmr_meter_692_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_B_xfmr_692_B_4 length=50 units=ft
+~ bus1=meter_692_B.2
+~ bus2=xfmr_meter_692_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_B_xfmr_692_B_5 length=50 units=ft
+~ bus1=meter_692_B.2
+~ bus2=xfmr_meter_692_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_692_C_xfmr_692_C_1 length=50 units=ft
+~ bus1=meter_692_C.3
+~ bus2=xfmr_meter_692_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_C_xfmr_692_C_2 length=50 units=ft
+~ bus1=meter_692_C.3
+~ bus2=xfmr_meter_692_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_C_xfmr_692_C_3 length=50 units=ft
+~ bus1=meter_692_C.3
+~ bus2=xfmr_meter_692_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_C_xfmr_692_C_4 length=50 units=ft
+~ bus1=meter_692_C.3
+~ bus2=xfmr_meter_692_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_692_C_xfmr_692_C_5 length=50 units=ft
+~ bus1=meter_692_C.3
+~ bus2=xfmr_meter_692_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_A_xfmr_675_A_1 length=50 units=ft
+~ bus1=meter_675_A.1
+~ bus2=xfmr_meter_675_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_A_xfmr_675_A_2 length=50 units=ft
+~ bus1=meter_675_A.1
+~ bus2=xfmr_meter_675_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_A_xfmr_675_A_3 length=50 units=ft
+~ bus1=meter_675_A.1
+~ bus2=xfmr_meter_675_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_A_xfmr_675_A_4 length=50 units=ft
+~ bus1=meter_675_A.1
+~ bus2=xfmr_meter_675_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_A_xfmr_675_A_5 length=50 units=ft
+~ bus1=meter_675_A.1
+~ bus2=xfmr_meter_675_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_675_B_xfmr_675_B_1 length=50 units=ft
+~ bus1=meter_675_B.2
+~ bus2=xfmr_meter_675_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_B_xfmr_675_B_2 length=50 units=ft
+~ bus1=meter_675_B.2
+~ bus2=xfmr_meter_675_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_B_xfmr_675_B_3 length=50 units=ft
+~ bus1=meter_675_B.2
+~ bus2=xfmr_meter_675_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_B_xfmr_675_B_4 length=50 units=ft
+~ bus1=meter_675_B.2
+~ bus2=xfmr_meter_675_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_B_xfmr_675_B_5 length=50 units=ft
+~ bus1=meter_675_B.2
+~ bus2=xfmr_meter_675_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_675_C_xfmr_675_C_1 length=50 units=ft
+~ bus1=meter_675_C.3
+~ bus2=xfmr_meter_675_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_C_xfmr_675_C_2 length=50 units=ft
+~ bus1=meter_675_C.3
+~ bus2=xfmr_meter_675_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_C_xfmr_675_C_3 length=50 units=ft
+~ bus1=meter_675_C.3
+~ bus2=xfmr_meter_675_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_C_xfmr_675_C_4 length=50 units=ft
+~ bus1=meter_675_C.3
+~ bus2=xfmr_meter_675_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_675_C_xfmr_675_C_5 length=50 units=ft
+~ bus1=meter_675_C.3
+~ bus2=xfmr_meter_675_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_A_xfmr_671_A_1 length=50 units=ft
+~ bus1=meter_671_A.1
+~ bus2=xfmr_meter_671_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_A_xfmr_671_A_2 length=50 units=ft
+~ bus1=meter_671_A.1
+~ bus2=xfmr_meter_671_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_A_xfmr_671_A_3 length=50 units=ft
+~ bus1=meter_671_A.1
+~ bus2=xfmr_meter_671_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_A_xfmr_671_A_4 length=50 units=ft
+~ bus1=meter_671_A.1
+~ bus2=xfmr_meter_671_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_A_xfmr_671_A_5 length=50 units=ft
+~ bus1=meter_671_A.1
+~ bus2=xfmr_meter_671_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_671_B_xfmr_671_B_1 length=50 units=ft
+~ bus1=meter_671_B.2
+~ bus2=xfmr_meter_671_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_B_xfmr_671_B_2 length=50 units=ft
+~ bus1=meter_671_B.2
+~ bus2=xfmr_meter_671_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_B_xfmr_671_B_3 length=50 units=ft
+~ bus1=meter_671_B.2
+~ bus2=xfmr_meter_671_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_B_xfmr_671_B_4 length=50 units=ft
+~ bus1=meter_671_B.2
+~ bus2=xfmr_meter_671_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_B_xfmr_671_B_5 length=50 units=ft
+~ bus1=meter_671_B.2
+~ bus2=xfmr_meter_671_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_671_C_xfmr_671_C_1 length=50 units=ft
+~ bus1=meter_671_C.3
+~ bus2=xfmr_meter_671_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_C_xfmr_671_C_2 length=50 units=ft
+~ bus1=meter_671_C.3
+~ bus2=xfmr_meter_671_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_C_xfmr_671_C_3 length=50 units=ft
+~ bus1=meter_671_C.3
+~ bus2=xfmr_meter_671_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_C_xfmr_671_C_4 length=50 units=ft
+~ bus1=meter_671_C.3
+~ bus2=xfmr_meter_671_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_671_C_xfmr_671_C_5 length=50 units=ft
+~ bus1=meter_671_C.3
+~ bus2=xfmr_meter_671_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_A_xfmr_680_A_1 length=50 units=ft
+~ bus1=meter_680_A.1
+~ bus2=xfmr_meter_680_A_1.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_A_xfmr_680_A_2 length=50 units=ft
+~ bus1=meter_680_A.1
+~ bus2=xfmr_meter_680_A_2.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_A_xfmr_680_A_3 length=50 units=ft
+~ bus1=meter_680_A.1
+~ bus2=xfmr_meter_680_A_3.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_A_xfmr_680_A_4 length=50 units=ft
+~ bus1=meter_680_A.1
+~ bus2=xfmr_meter_680_A_4.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_A_xfmr_680_A_5 length=50 units=ft
+~ bus1=meter_680_A.1
+~ bus2=xfmr_meter_680_A_5.1 switch=n  phases=1 Linecode=1P_OH_Code8
+
+New Line.OL_680_B_xfmr_680_B_1 length=50 units=ft
+~ bus1=meter_680_B.2
+~ bus2=xfmr_meter_680_B_1.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_B_xfmr_680_B_2 length=50 units=ft
+~ bus1=meter_680_B.2
+~ bus2=xfmr_meter_680_B_2.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_B_xfmr_680_B_3 length=50 units=ft
+~ bus1=meter_680_B.2
+~ bus2=xfmr_meter_680_B_3.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_B_xfmr_680_B_4 length=50 units=ft
+~ bus1=meter_680_B.2
+~ bus2=xfmr_meter_680_B_4.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_B_xfmr_680_B_5 length=50 units=ft
+~ bus1=meter_680_B.2
+~ bus2=xfmr_meter_680_B_5.2 switch=n  phases=1 Linecode=1P_OH_Code9
+
+New Line.OL_680_C_xfmr_680_C_1 length=50 units=ft
+~ bus1=meter_680_C.3
+~ bus2=xfmr_meter_680_C_1.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_C_xfmr_680_C_2 length=50 units=ft
+~ bus1=meter_680_C.3
+~ bus2=xfmr_meter_680_C_2.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_C_xfmr_680_C_3 length=50 units=ft
+~ bus1=meter_680_C.3
+~ bus2=xfmr_meter_680_C_3.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_C_xfmr_680_C_4 length=50 units=ft
+~ bus1=meter_680_C.3
+~ bus2=xfmr_meter_680_C_4.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Line.OL_680_C_xfmr_680_C_5 length=50 units=ft
+~ bus1=meter_680_C.3
+~ bus2=xfmr_meter_680_C_5.3 switch=n  phases=1 Linecode=1P_OH_Code3
+
+New Transformer.xfmr_652_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_652_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_652_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_652_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_652_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_652_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_652_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_652_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_652_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_652_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_652_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_652_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_652_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_652_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_652_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_652_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_652_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_652_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_652_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_652_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_611_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_611_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_611_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_611_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_611_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_611_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_611_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_611_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_611_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_611_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_611_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_611_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_611_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_611_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_611_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_611_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_611_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_611_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_611_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_611_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_684_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_684_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_684_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_684_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_645_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_645_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_645_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_645_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_633_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_633_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_633_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_633_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_632_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_632_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_632_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_632_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_692_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_692_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_692_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_692_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_675_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_675_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_675_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_675_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_671_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_671_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_671_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_671_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_A_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_A_1.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_A_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_A_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_A_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_A_2.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_A_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_A_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_A_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_A_3.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_A_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_A_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_A_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_A_4.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_A_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_A_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_A_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_A_5.1 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_A_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_A_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_B_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_B_1.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_B_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_B_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_B_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_B_2.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_B_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_B_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_B_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_B_3.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_B_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_B_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_B_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_B_4.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_B_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_B_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_B_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_B_5.2 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_B_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_B_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_C_1 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_C_1.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_C_1.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_C_1.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_C_2 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_C_2.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_C_2.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_C_2.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_C_3 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_C_3.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_C_3.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_C_3.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_C_4 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_C_4.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_C_4.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_C_4.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New Transformer.xfmr_680_C_5 phases=1 windings=3
+~ wdg=1 bus=xfmr_meter_680_C_5.3 Kv=2.4 kva=10000.0 %r=0.003
+~ wdg=2 bus=trip_node_680_C_5.1.0 Kv=0.12 kva=1000.0 %r=0.006
+~ wdg=3 bus=trip_node_680_C_5.0.2 Kv=0.12 kva=1000.0 %r=0.006 Xhl=2.04  Xht=2.04  Xlt=1.36
+
+New storage.trip_load_680_A_1_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_2_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_3_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_4_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_5_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_6_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_7_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_8_Battery  bus1=trip_node_680_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_9_Battery  bus1=trip_node_680_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_10_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_11_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_12_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_13_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_14_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_15_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_16_Battery bus1=trip_node_680_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_17_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_18_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_19_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_20_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_21_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_22_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_23_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_24_Battery bus1=trip_node_680_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_25_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_26_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_27_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_28_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_29_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_30_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_31_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_32_Battery bus1=trip_node_680_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_33_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_34_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_35_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_36_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_37_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_38_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_39_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_A_40_Battery bus1=trip_node_680_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_1_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_2_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_3_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_4_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_5_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_6_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_7_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_8_Battery  bus1=trip_node_633_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_9_Battery  bus1=trip_node_633_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_10_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_11_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_12_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_13_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_14_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_15_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_16_Battery bus1=trip_node_633_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_17_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_18_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_19_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_20_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_21_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_22_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_23_Battery bus1=trip_node_633_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_24_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_25_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_26_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_27_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_28_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_29_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_30_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_31_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_32_Battery bus1=trip_node_633_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_33_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_34_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_35_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_36_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_37_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_38_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_39_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_A_40_Battery bus1=trip_node_633_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_1_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_2_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_3_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_4_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_5_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_6_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_7_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_8_Battery  bus1=trip_node_632_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_9_Battery  bus1=trip_node_632_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_10_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_11_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_12_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_13_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_14_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_15_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_16_Battery bus1=trip_node_632_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_17_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_18_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_19_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_20_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_21_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_22_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_23_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_24_Battery bus1=trip_node_632_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_25_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_26_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_27_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_28_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_29_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_30_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_31_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_32_Battery bus1=trip_node_632_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_33_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_34_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_35_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_36_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_37_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_38_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_39_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_A_40_Battery bus1=trip_node_632_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_1_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_2_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_3_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_4_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_5_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_6_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_7_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_8_Battery  bus1=trip_node_692_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_9_Battery  bus1=trip_node_692_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_10_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_11_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_12_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_13_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_14_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_15_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_16_Battery bus1=trip_node_692_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_17_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_18_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_19_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_20_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_21_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_22_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_23_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_24_Battery bus1=trip_node_692_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_25_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_26_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_27_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_28_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_29_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_30_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_31_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_32_Battery bus1=trip_node_692_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_33_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_34_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_35_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_36_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_37_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_38_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_39_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_A_40_Battery bus1=trip_node_692_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_1_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_2_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_3_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_4_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_5_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_6_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_7_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_8_Battery  bus1=trip_node_675_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_9_Battery  bus1=trip_node_675_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_10_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_11_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_12_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_13_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_14_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_15_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_16_Battery bus1=trip_node_675_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_17_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_18_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_19_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_20_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_21_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_22_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_23_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_24_Battery bus1=trip_node_675_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_25_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_26_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_27_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_28_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_29_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_30_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_31_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_32_Battery bus1=trip_node_675_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_33_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_34_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_35_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_36_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_37_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_38_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_39_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_A_40_Battery bus1=trip_node_675_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_1_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_2_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_3_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_4_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_5_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_6_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_7_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_8_Battery  bus1=trip_node_671_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_9_Battery  bus1=trip_node_671_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_10_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_11_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_12_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_13_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_14_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_15_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_16_Battery bus1=trip_node_671_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_17_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_18_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_19_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_20_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_21_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_22_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_23_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_24_Battery bus1=trip_node_671_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_25_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_26_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_27_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_28_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_29_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_30_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_31_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_32_Battery bus1=trip_node_671_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_33_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_34_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_35_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_36_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_37_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_38_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_39_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_A_40_Battery bus1=trip_node_671_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_1_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_2_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_3_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_4_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_5_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_6_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_7_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_8_Battery  bus1=trip_node_684_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_9_Battery  bus1=trip_node_684_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_10_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_11_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_12_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_13_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_14_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_15_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_16_Battery bus1=trip_node_684_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_17_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_18_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_19_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_20_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_21_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_22_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_23_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_24_Battery bus1=trip_node_684_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_25_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_26_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_27_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_28_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_29_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_30_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_31_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_32_Battery bus1=trip_node_684_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_33_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_34_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_35_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_36_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_37_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_38_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_39_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_A_40_Battery bus1=trip_node_684_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_1_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_2_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_3_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_4_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_5_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_6_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_7_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_8_Battery  bus1=trip_node_652_A_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_9_Battery  bus1=trip_node_652_A_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_10_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_11_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_12_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_13_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_14_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_15_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_16_Battery bus1=trip_node_652_A_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_17_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_18_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_19_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_20_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_21_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_22_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_23_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_24_Battery bus1=trip_node_652_A_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_25_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_26_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_27_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_28_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_29_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_30_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_31_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_32_Battery bus1=trip_node_652_A_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_33_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_34_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_35_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_36_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_37_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_38_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_39_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_652_A_40_Battery bus1=trip_node_652_A_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_1_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_2_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_3_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_4_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_5_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_6_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_7_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_8_Battery  bus1=trip_node_680_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_9_Battery  bus1=trip_node_680_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_10_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_11_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_12_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_13_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_14_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_15_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_16_Battery bus1=trip_node_680_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_17_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_18_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_19_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_20_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_21_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_22_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_23_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_24_Battery bus1=trip_node_680_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_25_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_26_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_27_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_28_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_29_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_30_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_31_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_32_Battery bus1=trip_node_680_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_33_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_34_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_35_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_36_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_37_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_38_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_39_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_B_40_Battery bus1=trip_node_680_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_1_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_2_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_3_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_4_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_5_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_6_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_7_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_8_Battery  bus1=trip_node_633_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_9_Battery  bus1=trip_node_633_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_10_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_11_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_12_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_13_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_14_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_15_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_16_Battery bus1=trip_node_633_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_17_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_18_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_19_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_20_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_21_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_22_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_23_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_24_Battery bus1=trip_node_633_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_25_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_26_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_27_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_28_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_29_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_30_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_31_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_32_Battery bus1=trip_node_633_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_33_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_34_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_35_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_36_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_37_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_38_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_39_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_B_40_Battery bus1=trip_node_633_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_1_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_2_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_3_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_4_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_5_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_6_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_7_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_8_Battery  bus1=trip_node_632_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_9_Battery  bus1=trip_node_632_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_10_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_11_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_12_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_13_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_14_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_15_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_16_Battery bus1=trip_node_632_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_17_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_18_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_19_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_20_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_21_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_22_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_23_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_24_Battery bus1=trip_node_632_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_25_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_26_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_27_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_28_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_29_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_30_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_31_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_32_Battery bus1=trip_node_632_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_33_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_34_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_35_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_36_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_37_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_38_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_39_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_B_40_Battery bus1=trip_node_632_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_1_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_2_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_3_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_4_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_5_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_6_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_7_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_8_Battery  bus1=trip_node_692_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_9_Battery  bus1=trip_node_692_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_10_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_11_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_12_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_13_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_14_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_15_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_16_Battery bus1=trip_node_692_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_17_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_18_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_19_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_20_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_21_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_22_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_23_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_24_Battery bus1=trip_node_692_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_25_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_26_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_27_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_28_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_29_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_30_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_31_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_32_Battery bus1=trip_node_692_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_33_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_34_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_35_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_36_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_37_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_38_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_39_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_B_40_Battery bus1=trip_node_692_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_1_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_2_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_3_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_4_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_5_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_6_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_7_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_8_Battery  bus1=trip_node_675_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_9_Battery  bus1=trip_node_675_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_10_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_11_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_12_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_13_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_14_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_15_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_16_Battery bus1=trip_node_675_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_17_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_18_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_19_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_20_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_21_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_22_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_23_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_24_Battery bus1=trip_node_675_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_25_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_26_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_27_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_28_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_29_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_30_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_31_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_32_Battery bus1=trip_node_675_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_33_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_34_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_35_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_36_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_37_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_38_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_39_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_B_40_Battery bus1=trip_node_675_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_1_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_2_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_3_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_4_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_5_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_6_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_7_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_8_Battery  bus1=trip_node_671_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_9_Battery  bus1=trip_node_671_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_10_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_11_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_12_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_13_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_14_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_15_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_16_Battery bus1=trip_node_671_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_17_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_18_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_19_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_20_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_21_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_22_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_23_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_24_Battery bus1=trip_node_671_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_25_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_26_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_27_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_28_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_29_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_30_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_31_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_32_Battery bus1=trip_node_671_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_33_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_34_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_35_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_36_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_37_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_38_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_39_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_B_40_Battery bus1=trip_node_671_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_1_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_2_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_3_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_4_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_5_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_6_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_7_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_8_Battery  bus1=trip_node_645_B_1.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_9_Battery  bus1=trip_node_645_B_2.1.2    phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_10_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_11_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_12_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_13_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_14_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_15_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_16_Battery bus1=trip_node_645_B_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_17_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_18_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_19_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_20_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_21_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_22_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_23_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_24_Battery bus1=trip_node_645_B_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_25_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_26_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_27_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_28_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_29_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_30_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_31_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_32_Battery bus1=trip_node_645_B_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_33_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_34_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_35_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_36_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_37_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_38_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_39_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_B_40_Battery bus1=trip_node_645_B_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_1_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_2_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_3_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_4_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_5_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_6_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_7_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_8_Battery  bus1=trip_node_680_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_9_Battery  bus1=trip_node_680_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_10_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_11_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_12_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_13_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_14_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_15_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_16_Battery bus1=trip_node_680_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_17_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_18_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_19_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_20_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_21_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_22_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_23_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_24_Battery bus1=trip_node_680_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_25_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_26_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_27_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_28_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_29_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_30_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_31_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_32_Battery bus1=trip_node_680_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_33_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_34_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_35_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_36_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_37_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_38_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_39_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_680_C_40_Battery bus1=trip_node_680_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_1_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_2_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_3_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_4_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_5_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_6_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_7_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_8_Battery  bus1=trip_node_633_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_9_Battery  bus1=trip_node_633_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_10_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_11_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_12_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_13_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_14_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_15_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_16_Battery bus1=trip_node_633_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_17_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_18_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_19_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_20_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_21_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_22_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_23_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_24_Battery bus1=trip_node_633_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_25_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_26_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_27_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_28_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_29_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_30_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_31_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_32_Battery bus1=trip_node_633_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_33_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_34_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_35_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_36_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_37_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_38_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_39_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_633_C_40_Battery bus1=trip_node_633_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_1_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_2_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_3_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_4_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_5_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_6_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_7_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_8_Battery  bus1=trip_node_632_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_9_Battery  bus1=trip_node_632_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_10_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_11_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_12_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_13_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_14_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_15_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_16_Battery bus1=trip_node_632_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_17_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_18_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_19_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_20_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_21_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_22_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_23_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_24_Battery bus1=trip_node_632_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_25_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_26_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_27_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_28_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_29_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_30_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_31_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_32_Battery bus1=trip_node_632_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_33_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_34_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_35_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_36_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_37_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_38_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_39_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_632_C_40_Battery bus1=trip_node_632_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_1_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_2_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_3_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_4_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_5_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_6_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_7_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_8_Battery  bus1=trip_node_692_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_9_Battery  bus1=trip_node_692_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_10_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_11_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_12_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_13_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_14_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_15_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_16_Battery bus1=trip_node_692_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_17_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_18_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_19_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_20_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_21_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_22_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_23_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_24_Battery bus1=trip_node_692_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_25_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_26_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_27_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_28_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_29_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_30_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_31_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_32_Battery bus1=trip_node_692_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_33_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_34_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_35_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_36_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_37_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_38_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_39_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_692_C_40_Battery bus1=trip_node_692_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_1_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_2_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_3_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_4_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_5_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_6_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_7_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_8_Battery  bus1=trip_node_675_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_9_Battery  bus1=trip_node_675_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_10_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_11_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_12_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_13_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_14_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_15_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_16_Battery bus1=trip_node_675_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_17_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_18_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_19_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_20_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_21_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_22_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_23_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_24_Battery bus1=trip_node_675_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_25_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_26_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_27_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_28_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_29_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_30_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_31_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_32_Battery bus1=trip_node_675_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_33_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_34_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_35_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_36_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_37_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_38_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_39_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_675_C_40_Battery bus1=trip_node_675_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_1_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_2_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_3_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_4_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_5_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_6_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_7_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_8_Battery  bus1=trip_node_671_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_9_Battery  bus1=trip_node_671_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_10_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_11_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_12_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_13_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_14_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_15_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_16_Battery bus1=trip_node_671_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_17_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_18_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_19_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_20_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_21_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_22_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_23_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_24_Battery bus1=trip_node_671_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_25_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_26_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_27_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_28_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_29_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_30_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_31_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_32_Battery bus1=trip_node_671_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_33_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_34_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_35_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_36_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_37_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_38_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_39_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_671_C_40_Battery bus1=trip_node_671_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_1_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_2_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_3_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_4_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_5_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_6_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_7_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_8_Battery  bus1=trip_node_684_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_9_Battery  bus1=trip_node_684_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_10_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_11_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_12_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_13_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_14_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_15_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_16_Battery bus1=trip_node_684_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_17_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_18_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_19_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_20_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_21_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_22_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_23_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_24_Battery bus1=trip_node_684_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_25_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_26_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_27_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_28_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_29_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_30_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_31_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_32_Battery bus1=trip_node_684_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_33_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_34_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_35_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_36_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_37_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_38_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_39_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_684_C_40_Battery bus1=trip_node_684_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_1_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_2_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_3_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_4_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_5_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_6_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_7_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_8_Battery  bus1=trip_node_645_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_9_Battery  bus1=trip_node_645_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_10_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_11_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_12_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_13_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_14_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_15_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_16_Battery bus1=trip_node_645_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_17_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_18_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_19_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_20_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_21_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_22_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_23_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_24_Battery bus1=trip_node_645_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_25_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_26_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_27_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_28_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_29_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_30_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_31_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_32_Battery bus1=trip_node_645_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_33_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_34_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_35_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_36_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_37_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_38_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_39_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_645_C_40_Battery bus1=trip_node_645_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_1_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_2_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_3_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_4_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_5_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_6_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_7_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_8_Battery  bus1=trip_node_611_C_1.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_9_Battery  bus1=trip_node_611_C_2.1.2  phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_10_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_11_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_12_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_13_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_14_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_15_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_16_Battery bus1=trip_node_611_C_2.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_17_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_18_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_19_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_20_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_21_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_22_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_23_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_24_Battery bus1=trip_node_611_C_3.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_25_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_26_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_27_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_28_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_29_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_30_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_31_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_32_Battery bus1=trip_node_611_C_4.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_33_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_34_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_35_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_36_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_37_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_38_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_39_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+New storage.trip_load_611_C_40_Battery bus1=trip_node_611_C_5.1.2   phases=2 Conn=Wye  kV=0.208 kW=0 kwhstored=250.0 kwhrated=500.0 pf=1.0
+
+New Capacitor.Cap1 Bus1=N675 phases=3 kVAR=600 kV=4.16
+New Capacitor.Cap2 Bus1=N611.3 phases=1 kVAR=100 kV=2.4
+New CapControl.Cap1 capacitor=cap1 type=time on=8 off=19 element=capacitor.cap1
+New CapControl.Cap2 capacitor=cap2 type=voltage on=115 off=125 ptratio=20 ptphase=1 element=Line.ol684611 terminal=2
+
+Set Voltagebases=[115, 4.16, 2.4, 0.480, 0.208]
+calcv
+solve
+BusCoords psu_feeder_coordinates.csv
+Transformer.Reg1.Taps=[1.0 1.03]
+Transformer.Reg2.Taps=[1.0 1.0300]
+Transformer.Reg3.Taps=[1.0 1.03]
+set controlmode=OFF
+solve

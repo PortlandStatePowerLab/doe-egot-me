@@ -1,0 +1,9 @@
+redirect Master.dss
+solve
+export cim100 substation=Fictitious subgeo=Portland geo=Oregon file=Master.xml
+export uuids Master_uuids.dat
+export summary   Master_s.csv
+export voltages  Master_v.csv
+export currents  Master_i.csv
+export taps      Master_t.csv
+export nodeorder Master_n.csv
