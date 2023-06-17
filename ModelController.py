@@ -60,7 +60,7 @@ class MCConfiguration:
 
 class EDMCore:
     """
-    Provides central, core functionality to the MC. Responsible for the startup process and storing the GridAPPS-D
+    Provides central core functionality to the MC. Responsible for the startup process and storing the GridAPPS-D
     connection and simulation mRIDs and objects.
     """
 
