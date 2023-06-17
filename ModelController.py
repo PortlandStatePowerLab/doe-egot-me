@@ -636,6 +636,7 @@ class DERSHistoricalDataInput:
         self.input_table = None
         self.list_of_ders = []
         self.location_lookup_dictionary = {}
+        self.test_first_row = None
 
     def initialize_der_s(self):
         """
@@ -675,6 +676,8 @@ class DERSHistoricalDataInput:
         """
         Opens the historical data input file, read it as a .csv file, and parses it into a list of dicts.
         """
+        print("Opening:\n")
+        print(self.historical_data_file_path)
         with open(self.historical_data_file_path) as csvfile:
             r = csv.DictReader(csvfile)
             x = []
@@ -700,6 +703,7 @@ class DERSHistoricalDataInput:
         first_row.pop('Time')
         print("First row:")
         print(first_row)
+        self.test_first_row = first_row
         log_der_keys = list(first_row.keys())
         # print(log_der_keys)
         for i in range(len(log_der_keys)):
@@ -779,6 +783,8 @@ class DERIdentificationManager:
         Retrieves the association table from the assignment handler.
         """
         self.association_lookup_table = derAssignmentHandler.association_table
+        print("Association Lookup Table (For Testing)")
+        print(self.association_lookup_table)
 
 
 class DERAssignmentHandler:
@@ -856,6 +862,8 @@ class DERAssignmentHandler:
                       'Bus': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['bus']['value'],
                       'mRID': der_em_mrid_per_bus_query_output['data']['results']['bindings'][i]['id']['value']})
         self.assignment_lookup_table = x
+        print("Assignment Lookup Table (For Testing)")
+        print(self.assignment_lookup_table)
 
     def assign_all_ders(self):
         """
@@ -908,6 +916,7 @@ class MCInputInterface:
 
     def __init__(self):
         self.current_unified_input_request = []
+        self.test_tpme1_unified_input_request = []
 
     def update_all_der_em_status(self):
         """
@@ -936,6 +945,10 @@ class MCInputInterface:
             self.current_unified_input_request = self.current_unified_input_request + eval(value).get_input_request()
         print("Current unified input request:")
         print(self.current_unified_input_request)
+        # For TP-ME1-DER01:
+        if edmCore.sim_current_time == "1570041120":
+            self.test_tpme1_unified_input_request = list(self.current_unified_input_request)
+
 
     def update_der_ems(self):
         """
@@ -944,16 +957,50 @@ class MCInputInterface:
         the new DER states. This will be reflected in future measurements.
         """
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
         for i in self.current_unified_input_request:
             der_name_to_look_up = list(i.keys())
             der_name_to_look_up = der_name_to_look_up[0]
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
-            my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
             my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
                                          int(i[der_name_to_look_up]), 0)
-            message = my_diff_build.get_message()
-            edmCore.gapps_session.send(input_topic, message)
+        message = my_diff_build.get_message()
+        print("Input message [FOR TESTING]:")
+        print(message)
+        edmCore.gapps_session.send(input_topic, message)
+        my_diff_build.clear()
         self.current_unified_input_request.clear()
+
+    # def update_der_ems(self):
+    #     # FOR TESTING DO NOT USE
+    #     """
+    #     Reads each line in the unified input request and uses the GridAPPS-D library to generate EDM input messages for
+    #     each one. The end result is the inputs are sent to the associated DER-EMs and the grid model is updated with
+    #     the new DER states. This will be reflected in future measurements.
+    #     """
+    #     print("update_der_ems TEST MODE ENABLED. IF YOU ARE READING THIS, TURN IT OFF.")
+    #     input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+    #     last_digit = int(str(edmCore.sim_current_time[-1]))
+    #     if (last_digit == 0 or last_digit == 3 or last_digit == 6 or last_digit == 9):
+    #         i = self.current_unified_input_request[0]
+    #     if (last_digit == 1 or last_digit == 4 or last_digit == 7):
+    #         i = self.current_unified_input_request[1]
+    #     if (last_digit == 2 or last_digit == 5 or last_digit == 8):
+    #         try:
+    #             i = self.current_unified_input_request[2]
+    #         except:
+    #             i = self.current_unified_input_request[0]
+    #     der_name_to_look_up = list(i.keys())
+    #     der_name_to_look_up = der_name_to_look_up[0]
+    #     associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(der_name_to_look_up)
+    #     my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+    #     my_diff_build.add_difference(associated_der_em_mrid, "PowerElectronicsConnection.p",
+    #                                  int(i[der_name_to_look_up]), 0)
+    #     message = my_diff_build.get_message()
+    #     print("Input message [FOR TESTING]:")
+    #     print(message)
+    #     edmCore.gapps_session.send(input_topic, message)
+    #     self.current_unified_input_request.clear()
 
 
 class GOTopologyProcessor:

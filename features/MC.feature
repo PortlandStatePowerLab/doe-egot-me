@@ -16,7 +16,7 @@ Feature: MC
     Then The EDMMeasurementProcessor should provide measurements by a function call
     And The measurements should have human-readable names (not mRIDs).
 
-  @notdone @tpme3
+  @notdone @tpme3/home/seanjkeene/PycharmProjects/doe-egot-melogtool
   Scenario: MC03: The MC SHALL provide input and output interfaces.
     Given DER-S inputs are available
     And A manually posted service input file is available
@@ -25,12 +25,12 @@ Feature: MC
     Then The unified input request should update
     And The GO should output an XML file available for use by the GSP.
 
-  @tpme1 @problematic # Requires extensive log parsing. Consider rewriting.
+  @tpme1  # Requires extensive log parsing. Consider rewriting.
   Scenario: MC04: The MC SHALL recognize if DER-Ss have changed state since the prior timestep.
     Given Logs from a simulation exist
     Then The logs should indicate a DER-S changed state from one timestep to the next.
 
-  @tpme1 @problematic # Requires extensive log parsing. Consider rewriting.
+  @tpme1  @wip
   Scenario: MC05: The MC SHALL update DER-EMs as necessary.
     Given Logs from a simulation exist
     Then The logs should indicate a DER-S changed state from one timestep to the next.
@@ -50,7 +50,7 @@ Feature: MC
   @tpme1
   Scenario: MC08: The MC SHALL provide an automated method to assign DER-EMs to DER-Ss (based on locational data.)
     Given DER-S inputs are available
-    When A DER-S calls the assignment function
+    When The DER assignment process is called
     Then The DER association table contains keys for each input DER name
     And The DER association table contains mRIDs associated with each name
 
