@@ -7,10 +7,6 @@ import cimhub.CIMHubConfig as CIMHubConfig
  - This script uploads a customized IEEE-13 Node Feeder to GridAPPS-D Blazegraph. 
  - The Blazegraph contains several feeders. This script deletes all other feeders and upload only the IEEE 13-Node Feeder.
  - If you'd like to keep the other feeders, comment out remove_all_feeders() in main.
-
-
-
-
 '''
 class upload_feeder_blazegraph:
 
@@ -36,9 +32,9 @@ class upload_feeder_blazegraph:
     
     def list_feeders(self):
         cimhub.list_feeders (self.cfg_json)
-    
-    def insert_measurements(self):
-        os.chdir(f"{self.main_dir}/measurements/")
+
+    def insert_der_and_measurements(self):
+        os.chdir("./measurements/")
         p1 = subprocess.Popen('./run_measurements.sh', shell=True)
         p1.wait()
 
@@ -48,5 +44,5 @@ if __name__ == '__main__':
     feeder.remove_all_feeders()
     feeder.upload_model_to_blazegraph()
     feeder.list_feeders()
-    feeder.insert_measurements()
+    # feeder.insert_der_and_measurements()
 

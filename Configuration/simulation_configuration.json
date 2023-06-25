@@ -1,8 +1,8 @@
 {
     "power_system_config": {
-        "GeographicalRegion_name": "_932EFB30-97DD-46A0-9D8D-7A6BE809BD08",
-        "SubGeographicalRegion_name": "_6870115E-0F95-40D0-B8E6-2B53690E3FE3",
-        "Line_name": "_1EC21B12-895B-4BE2-A065-DD53C8B97B2D"
+        "GeographicalRegion_name": "_6E464057-9D3D-45A1-A031-DE1850872CB7",
+        "SubGeographicalRegion_name": "_4864C961-F660-4CB1-990E-96FC077635B2",
+        "Line_name": "_7CC7F9FC-9838-4908-8E45-931913DAFBA4"
     },
     "application_config": {
         "applications": []
@@ -22,8 +22,8 @@
             "z_fraction": "0",
             "i_fraction": "1",
             "p_fraction": "0",
-            "randomize_zipload_fractions": "false",
-            "use_houses": "false"
+            "randomize_zipload_fractions": "True",
+            "use_houses": "True"
         }
     }
 }

@@ -23,7 +23,6 @@ class MCConfiguration:
     def __init__(self):
         self.mc_file_directory = os.getcwd()
         self.config_file_path = f"{self.mc_file_directory}/Configuration/simulation_configuration.json"
-        # midrar is not using the WH emulators. So remove the RWHDERS and its respective key.
         self.ders_obj_list = {
             'DERSHistoricalDataInput': 'dersHistoricalDataInput'
         }
@@ -376,6 +375,7 @@ class EDMMeasurementProcessor(object):
 
         '''
         self.measurement_lookup_table = edmCore.get_cim_measurement_dict()
+        
         '''
         Returns a detailed info about the model. A snapshot is shown below:
 
@@ -416,7 +416,7 @@ class EDMMeasurementProcessor(object):
                 measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
                                                               if item['mRID'] == key)
                 
-                self.current_measurements[key]['Meas Name'] = measurement_table_dict_containing_mrid['name']
+                # self.current_measurements[key]['Meas Name'] = measurement_table_dict_containing_mrid['name']
                 
                 self.current_measurements[key]['Conducting Equipment Name'] = measurement_table_dict_containing_mrid[
                     'ConductingEquipment_name']
@@ -500,8 +500,8 @@ class DERSHistoricalDataInput:
     def __init__(self, mcConfiguration):
         
         
-        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
-        # self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/ders_testing/"
+        # self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
+        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/ders_testing/"
         self.location_lookup_dictionary = {}
         self.new_values_inserted = False
         self.der_em_input_request = []
@@ -620,16 +620,7 @@ class DERSHistoricalDataInput:
 
         Update:
 
-        The updates in this funtion are twofold:
-            
-            1- The new inputs have to be unique in order for them to be put in the current der_input_request.
-
-                A- Say we update DER0_real with 3000 in the first time step. If DER0_real has the same input the
-                    following time step, it is excluded from current_der_input_request.
-                B- This is done to optimize the process time to update the der_input_request as well as simulation
-                    time.
-
-            2- new_values_listed flag is used for Grid Services. Every time DER-EMs have new inputs, it means the grid
+            1- new_values_listed flag is used for Grid Services. Every time DER-EMs have new inputs, it means the grid
             states will be updated. Therefore, we need to check for a grid service.
         """
         
@@ -657,11 +648,6 @@ class DERSHistoricalDataInput:
         """
         We iterate through the input table, extract the DER type loads and non-DER type loads, and put each type 
         in its own der_em_input_request.
-
-        Since there are many inputs for each control attribute, this function also compares the previous input_table
-        values with the new input)table values. If they are the same, meaning there are no changes in the der_em_requests
-        from the previous time step, then the similar values will be removed from the der_em_input_request and only the
-        unique values are sent to the model.
         """
         previous_inputs = attribute.get(new_inputs_keys)
         if previous_inputs is None or previous_inputs != new_inputs_values:
@@ -764,7 +750,7 @@ class DERAssignmentHandler:
          ?s c:IdentifiedObject.name ?name.
           ?s c:IdentifiedObject.mRID ?id.
          ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
-         VALUES ?fdrid {{"_1EC21B12-895B-4BE2-A065-DD53C8B97B2D"}}  # psu_feeder
+         VALUES ?fdrid {{"_7CC7F9FC-9838-4908-8E45-931913DAFBA4"}}  # psu_feeder
          ?pec c:Equipment.EquipmentContainer ?fdr.
          ?fdr c:IdentifiedObject.mRID ?fdrid.
          ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
@@ -788,7 +774,7 @@ class DERAssignmentHandler:
         PREFIX c: <http://iec.ch/TC57/CIM100#>
         SELECT ?type ?name ?id ?bus
         WHERE {{
-        VALUES ?fdrid {{"_1EC21B12-895B-4BE2-A065-DD53C8B97B2D"}}
+        VALUES ?fdrid {{"_7CC7F9FC-9838-4908-8E45-931913DAFBA4"}}
         ?s2 r:type c:EnergyConsumer.
         ?s2 c:IdentifiedObject.name ?name.
         ?s2 c:IdentifiedObject.mRID ?id.
@@ -912,10 +898,21 @@ class MCInputInterface:
         Currently, calls the update_der_ems() method. In the future, may be used to call methods for different input
         types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
-
-        self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
-        self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
-        self.update_der_ems(loads_dict=self.current_energyconsumers_input_request, control_attribute="EnergyConsumer.p")
+        # self.update_der_em_watts()
+        # time.sleep(1)
+        # self.update_der_em_vars()
+        # time.sleep(1)
+        # self.current_watts_input_request.clear()
+        self.current_energyconsumers_input_request.clear()
+        self.current_vars_input_request.clear()
+        self.update_der_em_watts()
+        # self.update_energyconsumers()
+        # self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
+        # time.sleep(3)
+        # self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
+        # time.sleep(3)
+        # self.update_der_ems(loads_dict=self.current_energyconsumers_input_request, control_attribute="EnergyConsumer.p")
+        # self.my_diff_build.clear()
 
 
     def update_all_der_s_status(self):
@@ -923,6 +920,7 @@ class MCInputInterface:
         Gets the DER-S input requests.
         """
         self.get_all_der_s_input_requests()
+
 
     def get_all_der_s_input_requests(self):
         """
@@ -940,7 +938,59 @@ class MCInputInterface:
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
             self.current_watts_input_request, self.current_vars_input_request, self.current_energyconsumers_input_request = eval(value).get_input_request()
+        
+        # self.current_vars_input_request.clear()
+        # self.current_energyconsumers_input_request.clear()
+    def update_der_em_watts(self):
 
+        input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        for key, value in self.current_watts_input_request.items():
+
+            associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+            print(int(value))
+
+            my_diff_build.add_difference(associated_der_em_mrid,
+                                         "PowerElectronicsConnection.p",
+                                         int(value), 0)
+            
+        message = my_diff_build.get_message()
+        pp(message)
+        edmCore.gapps_session.send(input_topic, message)
+        my_diff_build.clear()
+        self.current_watts_input_request.clear()
+
+    def update_der_em_vars(self):
+
+        input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        for key, value in self.current_vars_input_request.items():
+
+            associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+
+            my_diff_build.add_difference(associated_der_em_mrid,
+                                         "PowerElectronicsConnection.q",
+                                         int(value), 0)
+            
+        message = my_diff_build.get_message()
+        edmCore.gapps_session.send(input_topic, message)
+        my_diff_build.clear()
+        self.current_vars_input_request.clear()
+
+    def update_energyconsumers(self):
+
+        input_topic = t.simulation_input_topic(edmCore.sim_mrid)
+        my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        for key, value in self.current_energyconsumers_input_request.items():
+
+            associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+            my_diff_build.add_difference(associated_der_em_mrid,"EnergyConsumer.p",
+                                         int(value), 2)
+        message = my_diff_build.get_message()
+        pp(message)
+        edmCore.gapps_session.send(input_topic, message)
+        my_diff_build.clear()
+        self.current_energyconsumers_input_request.clear()
 
     def update_der_ems(self, loads_dict, control_attribute):
         """
@@ -974,6 +1024,7 @@ class MCInputInterface:
         for key, value in loads_dict.items():
 
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+
             my_diff_build.add_difference(associated_der_em_mrid,
                                          control_attribute,
                                          int(value), 0)
@@ -1177,20 +1228,22 @@ class GOSensor:
         self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
 
     def update_sensor_states(self):
+        pass
 
-        print("Checking for a Grid Service...")
+        # print("Checking for a Grid Service...")
     
-        parsed_measurements = edmMeasurementProcessor.get_current_measurements()
-        if parsed_measurements:
-            print(dersHistoricalDataInput.new_values_inserted)
-            try:
-                for key, value in parsed_measurements.items():
-                    self.detect_grid_service_type (value)
-            except AttributeError:                              # eliminating the timestamp attribute
-                pass
+        # parsed_measurements = edmMeasurementProcessor.get_current_measurements()
+        # if parsed_measurements:
+        #     print(dersHistoricalDataInput.new_values_inserted)
+        #     try:
+        #         for key, value in parsed_measurements.items():
+        #             self.detect_grid_service_type (value)
+        #     except AttributeError:                              # eliminating the timestamp attribute
+        #         pass
             
-            self.voltage_support_buses = list(set(self.voltage_support_buses))
-            print(self.voltage_support_buses)
+        #     self.voltage_support_buses = list(set(self.voltage_support_buses))
+            # print(self.voltage_support_buses)
+            
 
     def detect_grid_service_type (self, value):
         
@@ -1203,14 +1256,21 @@ class GOSensor:
         All functions related to voltage service are outlined in initialize_volt_var_support_service() function.
         """
     
+        # if (value.get('MeasType') == "PNV" and
+        #     value.get('Bus') in self.bus_list and
+        #     dersHistoricalDataInput.new_values_inserted is True and 
+        #     (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
+        #     ):
         if (value.get('MeasType') == "PNV" and
             value.get('Bus') in self.bus_list and
-            dersHistoricalDataInput.new_values_inserted is True and 
-            (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
-            ):
+            dersHistoricalDataInput.new_values_inserted is True):
+            
+            # print(self.min_threshold,'\t',value.get('magnitude', float('inf')))
 
-            print('\n\nBus --> ',value.get('Bus'), 'magnitude --> ', value.get('magnitude'))
-            self.voltage_support_buses.append(value.get('Bus'))
+            if self.min_threshold > value.get('magnitude', float('inf')):
+                print("\n\n VOLTAGE DROP\n\n")
+                print('\n\nBus --> ',value.get('Bus'), 'magnitude --> ', value.get('magnitude'))
+                self.voltage_support_buses.append(value.get('Bus'))
 
         # self.initialize_volt_var_support_service(bus=value.get('Bus'),magnitude=value.get('magnitude'))
        
@@ -1367,7 +1427,7 @@ class MCOutputLog:
             - More than one log file are now exported. Easier to parse, less time when reading each file in Python, and memory-convienient during and post simulation.
                 - A Python parsing script is available in python_support folder as an example.
             - After several trials-and-errors, it was noted that exporting a log file after 100 timesteps is sufficient. (Depends on Computer features and OS)
-            - message_size_checkpoint() is a function that monitors the simulation time steps, closing old files, openning new files,
+            - message_size_checkpoint() is a function that monitors the simulation time steps, closing old files, opening new files,
             and updating needed class parameters.
     """
 
@@ -1425,7 +1485,7 @@ class MCOutputLog:
         # print('Current message size --->', self.message_size)
         if self.message_size > 20:
             print('Message size threshold reached!', self.message_size)
-            print(f"Openning file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
+            print(f"Opening file ---> {mcConfiguration.output_log_name}_{self.file_num}.csv")
             self.is_first_measurement = True
             self.message_size = 0
             self.close_out_logs()
