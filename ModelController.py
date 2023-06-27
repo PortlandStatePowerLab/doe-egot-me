@@ -768,7 +768,22 @@ class DERAssignmentHandler:
         GROUP by ?name ?id ?bus ?ratedS ?ratedU ?ipu ?p ?q ?fdrid
         ORDER by ?name
         '''
-
+        # self.house_mrid_per_bus_query_message = f'''
+        # PREFIX r:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        # PREFIX c:  <http://iec.ch/TC57/CIM100#>
+        # SELECT ?fdrname ?name ?id ?fdrid 
+        # WHERE {{
+        # #VALUES ?fdrid {{"_E407CBB6-8C8D-9BC9-589C-AB83FBF0826D"}}  # IEEE123 PV/Triplex
+        # ?h r:type c:House.
+        # ?h c:IdentifiedObject.name ?name.
+        # ?h c:IdentifiedObject.mRID ?id.
+        #     bind(strafter(str(?thermalIntegrityRaw),"HouseThermalIntegrity.") as ?thermalIntegrity)
+        # ?h c:House.EnergyConsumer ?econ.
+        # ?fdr c:IdentifiedObject.mRID ?fdrid.
+        # ?fdr c:IdentifiedObject.name ?fdrname.
+        # ?econ c:Equipment.EquipmentContainer ?fdr.
+        # }} ORDER BY ?fdrname ?name
+        # '''
         self.house_mrid_per_bus_query_message = f'''
         PREFIX r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX c: <http://iec.ch/TC57/CIM100#>
@@ -902,11 +917,12 @@ class MCInputInterface:
         # time.sleep(1)
         # self.update_der_em_vars()
         # time.sleep(1)
-        # self.current_watts_input_request.clear()
-        self.current_energyconsumers_input_request.clear()
+        self.current_watts_input_request.clear()
+        # self.current_energyconsumers_input_request.clear()
         self.current_vars_input_request.clear()
-        self.update_der_em_watts()
-        # self.update_energyconsumers()
+        # self.update_der_em_watts()
+        self.update_energyconsumers()
+        
         # self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
         # time.sleep(3)
         # self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")

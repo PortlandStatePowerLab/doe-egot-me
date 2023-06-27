@@ -9,7 +9,7 @@
     },
     "simulation_config": {
         "start_time": "1672531200",
-        "duration": "120",
+        "duration": "400",
         "simulator": "GridLAB-D",
         "timestep_frequency": "1000",
         "timestep_increment": "1000",
@@ -22,8 +22,8 @@
             "z_fraction": "0",
             "i_fraction": "1",
             "p_fraction": "0",
-            "randomize_zipload_fractions": "True",
-            "use_houses": "True"
+            "randomize_zipload_fractions": "False",
+            "use_houses": "False"
         }
     }
 }
