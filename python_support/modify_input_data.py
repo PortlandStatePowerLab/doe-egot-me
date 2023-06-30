@@ -8,10 +8,10 @@ class add_remove_modify_data:
         
         self.main_dir = os.getcwd()
         self.input_files_path = "../DERSHistoricalDataInput/"
-        self.input_files_destination = "../ders_testing/"
+        self.input_files_destination = "../DERSHistoricalDataInput/"
     
-    def add_rows(self, df, time, watts, vars, mag, loc):
-        new_row = pd.DataFrame([[time, watts, vars, mag, loc]], columns=df.columns)
+    def add_rows(self, df, time, watts, vars, loc):
+        new_row = pd.DataFrame([[time, watts, vars, loc]], columns=df.columns)
         df = pd.concat([df, new_row], ignore_index=True)
         return df
 
@@ -20,6 +20,9 @@ class add_remove_modify_data:
 
     def remove_rows(self, df):
         return df.head(0)
+    
+    def remove_columns(self, df):
+        return df.drop(df.columns[3], axis=1)
 
     def read_files(self, file):
         df = pd.read_csv(self.input_files_path+file)
@@ -36,11 +39,8 @@ class add_remove_modify_data:
             if file.startswith("ders"):
                 df = self.read_files(file)
                 df = self.remove_rows(df)
-                # df = self.add_rows(df=df, time=1672531206 ,watts=4500, vars=0, mag=0, loc=self.constant_value)
-                df = self.add_rows(df=df, time=1672531206 ,watts=4500, vars=0, mag=5000, loc=self.constant_value)
-                # df = self.add_rows(df=df, time=1672531209 ,watts=0, vars=0, mag=5000, loc=self.constant_value)
-                # df = self.add_rows(df=df, time=1672531206 ,watts=4500, vars=0, mag=0, loc=self.constant_value)
-                # df = self.add_rows(df=df, time=1672531220 ,watts=0, vars=0, mag=5000, loc=self.constant_value)
+                df = self.remove_columns(df)
+                df = self.add_rows(df=df, time=1672531206 ,watts=4500, vars=0, loc=self.constant_value)
                 self.write_files(df=df, files_name=file)
                 
 

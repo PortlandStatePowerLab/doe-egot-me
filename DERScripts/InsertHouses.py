@@ -16,6 +16,7 @@ import math
 from uuid import uuid4
 import json
 import os
+import warnings
 
 # Installed packages:
 import numpy as np
@@ -23,6 +24,8 @@ import pandas as pd
 from CreateHouses import CreateHouses
 from SPARQLWrapper import SPARQLWrapper2
 import CIMHubConfig
+
+warnings.filterwarnings('ignore')
 
 # insert groups of triples to minimize the number of queries
 batch_size = 100

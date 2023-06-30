@@ -13,11 +13,14 @@ import os
 # Installed packages:
 import numpy as np
 import pandas as pd
+import warnings
 
 # Modules in this repository:
 #
 # Import some EIA RECS data constants from housingData.py.
 from housingData import OUTFILE, TYPEHUQ, CLIMATE_REGION_PUB
+
+warnings.filterwarnings('ignore')
 
 # Get path to this directory
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -82,13 +85,7 @@ class CreateHouses():
         
         # Read data.
         # data = pd.read_json(THIS_DIR + os.sep + DATA_DIR + os.sep + OUTFILE)
-        print("\n\n\n")
-        print(THIS_DIR)
-        print("\n\n\n")
-        print(OUTFILE)
-        print("\n\n\n")
         data = pd.read_json(THIS_DIR + os.sep + OUTFILE)
-        print(data)
         
         # Extract data only for the given region.
         self.data = data.loc[:, regionStr]
