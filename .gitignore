@@ -12,6 +12,9 @@
 
 # Remove large csv files
 **/Logged_Grid_State_Data/**
+**/ders_testing/**
+**/cimhub_docker/**
+
 
 # Remove debugging files (imported gridappsd models from blazegraph)
 
