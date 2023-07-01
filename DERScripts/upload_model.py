@@ -37,6 +37,6 @@ class upload_feeder_blazegraph:
 if __name__ == '__main__':
     feeder = upload_feeder_blazegraph()
     feeder.get_blazegraph_link()
-    # feeder.remove_all_feeders()
+    feeder.remove_all_feeders()
     feeder.upload_model_to_blazegraph()
     feeder.list_feeders()

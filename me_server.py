@@ -38,13 +38,13 @@ class handler(BaseHTTPRequestHandler):
             self.send_response(201)
             self.end_headers()
 
-            with open('./RWHDERS Inputs/'+query_string+'.csv','w') as file:
+            with open('./RWHDERS_Inputs/'+query_string+'.csv','w') as file:
                 content_length = int(self.headers['Content-Length'])
                 file.write(self.rfile.read(content_length).decode("utf-8"))
 
 if __name__ == "__main__":
     server = HTTPServer(('', 8000), handler)
-    print(f"Server started http://{HOST_NAME}:{PORT}")
+    print(f"\nServer started http://{HOST_NAME}:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

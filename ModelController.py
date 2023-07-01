@@ -23,10 +23,10 @@ class MCConfiguration:
         self.mc_file_directory = os.getcwd()
         self.config_file_path = f"{self.mc_file_directory}/Configuration/simulation_configuration.json"
         self.ders_obj_list = {
-            # 'DERSHistoricalDataInput': 'dersHistoricalDataInput',
-            'RWHDERS': 'rwhDERS'
+            'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            # 'RWHDERS': 'rwhDERS'
         }
-        self.go_sensor_decision_making_manual_override = False
+        self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
         self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs'
 
@@ -1147,9 +1147,10 @@ class GOSensor:
         if mcConfiguration.go_sensor_decision_making_manual_override is True:
             self.manually_post_service(edmTimekeeper.get_sim_current_time())
         elif mcConfiguration.go_sensor_decision_making_manual_override is False:
-            self.bus_list = self.setup_feeder_analysis_level()
-            self.set_volt_var_thresholds()
-            self.update_sensor_states()
+            pass
+            # self.bus_list = self.setup_feeder_analysis_level()
+            # self.set_volt_var_thresholds()
+            # self.update_sensor_states()
         else:
             print("Service request failure. Wrong input.")
     
@@ -1270,12 +1271,10 @@ class GOSensor:
         MANUAL MODE: Reads the manually_posted_service_input.xml file during MC initialization and loads it into
         a dictionary for later use.
         """
-        # input_file = open(mcConfiguration.manual_service_filename, "r") # manually_posted_service_input.xml
-        # data = input_file.read()
-        # input_file.close()
-        # self.manual_service_xml_data = xmltodict.parse(data)
-        input_file = mcConfiguration.manual_service_filename
-        self.tree = ET.parse(input_file)
+        input_file = open(mcConfiguration.manual_service_filename, "r")
+        data = input_file.read()
+        input_file.close()
+        self.manual_service_xml_data = xmltodict.parse(data)
 
 
     def manually_post_service(self, sim_time):
@@ -1284,7 +1283,6 @@ class GOSensor:
         dictionary, draws all relevant data points for each service, and instantiates a GOPostedService object for each
         one, appending the objects to a list.
         """
-    
         for key, item in self.manual_service_xml_data['services'].items():
             if int(item['start_time']) == int(sim_time):
                 name = str(key)
