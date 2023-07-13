@@ -1,5 +1,5 @@
-echo "\n\n----> inserting Houses <----\n\n"
-bash ./insert_houses.sh
+#echo "\n\n----> inserting Houses <----\n\n"
+#bash ./insert_houses.sh
 echo "\n\n----> inserting DERs <----\n\n"
 bash ./insert_der.sh
 echo "\n\n----> listing Measurements.sh file <----\n\n"

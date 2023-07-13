@@ -23,8 +23,8 @@ class MCConfiguration:
         self.mc_file_directory = os.getcwd()
         self.config_file_path = f"{self.mc_file_directory}/Configuration/simulation_configuration.json"
         self.ders_obj_list = {
-            'DERSHistoricalDataInput': 'dersHistoricalDataInput'
-            # 'RWHDERS': 'rwhDERS'
+            # 'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            'RWHDERS': 'rwhDERS'
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
@@ -448,12 +448,45 @@ class RWHDERS:
         .input_identification_dict: a dictionary of identification information for each DER input. The keys are the
            serial numbers parsed from each file name, and the values include the buses and the filename. Used during
            assignment, and also on time step to get the right data from the right file for each DER's unique ID.
+    
+    UPDATE:
+
+    All water heater usage profiles are in Gallon-Per-Minute (gpm). Since GridAPPS-D does not support water_heater
+    objects, there are no control attributes for gpm. Hence, we have come up with another solution.
+
+        The Alternative Solution:
+
+        Our water draw profiles can be imported from https://github.com/PortlandStatePowerLab/water-draw-generator.
+        We parse these water draw profiles as necessary (check the README file in the above link) and run the exported
+        gpm values through a GridLAB-D model that contains bunch of water heater objects. At the end of the simulation,
+        we record the power consumption of each water heater object that correspond to the given gpm value, in Watts.
+        The results of the simulation are used as input requests to the GridAPPS-D model.
+
+        ASSUMPTIONS:
+
+            - We assume each water heater has a setpoint of 120 degrees F.
+            - The thermostat deadband is 2 degrees F.
+            - All water heater objects are fully charged. Meaning that the initial water temprature within the tank
+            is equal to the setpoint.
+            - The rated Power for each heating element is 4.5 kW.
+            - All water heaters are of size 50 Gallon since it is the most prominent size in the residential sector.
+        
+        FACTS:
+
+            - The idling behavior of each water heater object is also captured.
+            - The water draw profiles are the results of a survey conducted by Department of Energy, the office of
+            Energy Efficiency & Renewable Energy. 
+            - The water draw profiles correspond to the Portland area, along with the weather data which directly
+            impacts each water heater idling behavior.
+        
+        NOTE: The GridAPPS-D model and the model used to obtain the power consumption profiles are identical.
     """
 
     def __init__(self, mcConfiguration):
         self.der_em_input_request = []
         self.input_file_path = f"{mcConfiguration.mc_file_directory}/RWHDERS_Inputs/"
         self.input_identification_dict = {}
+
 
     def initialize_der_s(self):
         """
@@ -497,22 +530,29 @@ class RWHDERS:
         filename_list = os.listdir(self.input_file_path)
         parsed_filename_list = []
         for i in filename_list:
-            g = re.match(r"DER(\d+)_Bus([^.]+)\.csv",i)
+            g = re.match(r"DER(\w+)_Bus([^.]+)\.csv",i)
             if g:
                 g1 = g.group(1) # Serial number for each der (LFDI)
-                print(g1)
                 g2 = g.group(2) # Location for each der
-                print(g2)
 
             parsed_filename_list.append({g1: {"Filepath": i, "Bus": g2}})
         for item in parsed_filename_list:
             self.input_identification_dict.update(item) # DER serial number as keys, values are dict (bus and file names as keys)
+        
+        
 
     def update_der_em_input_request(self):
         """
         Reads the input data from each file in the input identification dict, and puts it in a list readable by the
         MCInputInterface.
+
+        UPDATE:
+
+        Since the input files are updated in real time, the DERMS appends the new values to the existing input files.
+        Therefore, this function reads the last line from each file in the input identification dict, and puts it
+        in a list of readable by the MCInputInterface.
         """
+
         self.der_em_input_request.clear()
         for key, value in self.input_identification_dict.items():
             with open(self.input_file_path + value['Filepath'], newline='') as csvfile:
@@ -521,10 +561,25 @@ class RWHDERS:
                     current_der_input = {row[0]: row[1]}
             current_der_real_power = current_der_input['P']
             current_der_input_request = {key: current_der_real_power}
-            self.der_em_input_request = current_der_input_request
-            # self.der_em_input_request.append(current_der_input_request)
+            # self.der_em_input_request = current_der_input_request
+            self.der_em_input_request.append(current_der_input_request)
+        # self.der_em_input_request.clear()
 
+        # for key, value in self.input_identification_dict.items():
+        #     current_der_input = pd.read_csv(self.input_file_path+value['Filepath'], header=None)
+            
+        #     if not current_der_input.empty:
+                
+        #         if len(current_der_input) > 1:
+        #             current_der_input = current_der_input.iloc[-1]
+        #             current_der_input_request = {key:current_der_input[1]}
+        #         else:
+        #             current_der_input_request = {key:current_der_input.values[0][1]}
+            
+        #     else:
+        #         print("RWH_Input file is empty!")
 
+        #     self.der_em_input_request.append(current_der_input_request)
 
 
     def get_input_request(self):
@@ -947,8 +1002,8 @@ class MCInputInterface:
         UPDATE:
 
         Since the control_attributes are different depending on the DER-EM type, the input requests are now filtered
-        into three attributes, Watts, VARs, and Magnitudes (EnergyConsumers). If a model does not include a DER type, 
-        then the dictionary is empty and, therefore, nothing gets sent to its associated DER-EM.
+        into two attributes, Watts and VARs. If a model does not include a DER type, then the dictionary is empty and,
+        therefore, nothing gets sent to its associated DER-EM.
 
         """
         online_ders = mcConfiguration.ders_obj_list
@@ -986,14 +1041,15 @@ class MCInputInterface:
 
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
-        for key, value in loads_dict.items():
+        for der in loads_dict:
+            for key, value in der.items():
 
-            associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+                associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
 
-            my_diff_build.add_difference(associated_der_em_mrid,
-                                         control_attribute,
-                                         int(value), 0)
-            
+                my_diff_build.add_difference(associated_der_em_mrid,
+                                            control_attribute,
+                                            int(value), 0)
+                
         message = my_diff_build.get_message()
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()

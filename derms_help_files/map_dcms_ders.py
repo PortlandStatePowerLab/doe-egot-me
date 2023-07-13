@@ -1,5 +1,7 @@
 import os
 import csv
+import random
+import hashlib
 import pandas as pd
 from cryptography import x509
 import xml.etree.ElementTree as ET
@@ -20,8 +22,8 @@ class Mapping_DCMs_And_DERs:
     What does this script do?
         - DOs:
             1- Checks how many certificates are generated.
-            2- Get DCMs LFIDs.
-            3- Obtains DER buses from OpenDSS xml file to avoid any adding DERs to non-existent buses.
+            2- Get DCMs LFDIs.
+            3- Obtains DER buses from DERs_full_list.txt in DERScripts. 
             4- Configure the EGoT13_der_psu.txt file with DERs, buses, and other attributes.
         
         - DON'Ts:
@@ -41,15 +43,16 @@ class Mapping_DCMs_And_DERs:
     def __init__(self):
         
         # Set ME Paths:
-        self.main_dir = os.getcwd()
-        self.dss_dir = "../dss_files"
-        self.ders_config_file_dir = "../DERScripts"
+        self.me_dir = "/home/deras/Desktop/midrar_work_github/doe-egot-me"
 
         # Set DERMS Paths:
         self.derms_dir = "/home/deras/Desktop/midrar_work_github/doe-egot-system"
         
         # DER names and buses:
         self.ders_names = []
+
+        # Digesting LFDIs from each certificate:
+        self.lfdis = []
 
     def GetCertificates(self):
         """
@@ -59,36 +62,66 @@ class Mapping_DCMs_And_DERs:
                       certs.startswith("client") and 
                       certs.endswith("crt")]
 
-    def GetLFIDs(self):
+    def GetLFDIs(self):
         """
         Import LFDIs from each certificate file. Will be used later to map DERs with each client.
         """
-        self.lfids = [lfid for lfid in os.listdir(f"{self.derms_dir}/ssl/root-ca/certs/")]
+        
+        for file in self.certs:
+            data = open(f"{self.derms_dir}/ssl/root-ca/{file}","rb")
+            crt_file = data.read()
+            sha_hash = hashlib.sha256(crt_file).digest()
+            self.lfdis.append(sha_hash[:20].hex())
 
-    def MapDERsAndBuses(self):
-        self.open_egot13_der_psu_file()
-        self.GetCertificates()
 
-        df = pd.read_csv(f"{self.ders_config_file_dir}/DERs_full_list.txt", sep="\t")
-        for index, row in df.iterrows():
+    def Open_EGoT13_Der_File(self):
+        """
+        Open the full list of DERs file. Grab feeder mRID, headers, and all buses within the model.
+        """
+        der_file = pd.read_csv(f"{self.me_dir}/support/config_files/DERs_full_list.txt", sep="\t")
+
+        for index, row in der_file.iterrows():
             if row.values[0].startswith("feederID"):
-                self.WriteNewDERsFile(line= row.values[0])
+                self.feeder_id = row.values[0]
             elif row.values[0].startswith("//name"):
-                self.WriteNewDERsFile(line=row.values[0])
+                self.headers = row.values[0]
             else:
                 self.ders_names.append(row.values[0])
-        
-        self.ders_names = self.ders_names[:len(self.certs)]
+    
+    def randomize_ders_and_trim_der_list(self):
+        """
+        This is just a preferance. The full der file contains all ders for the first node, all ders for the second node,
+        and so forth. In this function, we'll just make sure that each LFDI assigned to a unique DER (location wise). For example, each LFDI should be
+        assigned to a unique node. 
+        """
+        random.shuffle(self.ders_names)
+        self.ders_names = self.ders_names[:len(self.lfdis)]
+        # self.ders_names = self.ders_names[:2]
 
-        for rows in self.ders_names:
-            self.WriteNewDERsFile(line=rows)
+    def assign_LFDIs_and_DERs(self):
+        """
+        There are no restrictions in terms of what LFDI should be assigned to which DER. In this function, we create
+        the csv input file names and assign each DER its own unique LFDI.
+        """
         
-    def open_egot13_der_psu_file(self):
-        self.ders_file = open(f"test.txt", "w")
+        for der in range(len(self.ders_names)):
+            der_bus = self.ders_names[der].split(",")[1]
+            rwh_file_name = f"DER{self.lfdis[der]}_Bus{der_bus}.csv"
+            self.WriteNewDERsFile(line="P,0", file_name=rwh_file_name)
 
-    def WriteNewDERsFile(self, line):
+    def MapDERsAndBuses(self):
+        self.GetCertificates()
+        self.GetLFDIs()
+        self.Open_EGoT13_Der_File()
+        self.randomize_ders_and_trim_der_list()
+        self.assign_LFDIs_and_DERs()
         
-        print(line, file=self.ders_file)
+
+    def WriteNewDERsFile(self, line, file_name):
+        
+        der_file = open(f"{self.me_dir}/RWHDERS_Inputs/{file_name}", "w")
+        print(line, file=der_file)
+        der_file.close()
 
 if __name__ == '__main__':
     maps = Mapping_DCMs_And_DERs()
