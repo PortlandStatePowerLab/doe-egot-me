@@ -60,11 +60,11 @@ class MCConfiguration:
 
             .output_log_name: The name and location of the output logs. Rename before simulation with date/time, for example.
         """
-        self.mc_file_directory = r"/home/seanjkeene/PycharmProjects/doe-egot-me/"
+        self.mc_file_directory = r"/root/PycharmProjects/doe-egot-me/"
         self.config_file_path = self.mc_file_directory + r"Configuration/Config.txt"
         self.ders_obj_list = {
-            'DERSHistoricalDataInput': 'dersHistoricalDataInput',
-            'RWHDERS': 'rwhDERS'
+            'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            # 'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
@@ -318,6 +318,7 @@ class EDMTimeKeeper(object):
             Increments the timestep only if "incrementing to " is within the log_message; otherwise does nothing.
             """
             if "incrementing to " in log_message:
+                print(log_message)
                 if log_message != self.previous_log_message:  # Msgs get spit out twice for some reason. Only reads one.
                     self.increment_sim_current_time()
                     print("\nCurrent timestep:\t" + self.sim_current_time)
@@ -544,12 +545,14 @@ class EDMMeasurementProcessor(object):
         for key, value in self.current_measurements.items(): # current_measurements contains all loads
 
             try: # assignment_dict_with_given_name has all energyconsumers and ders
-                assignment_dict_with_given_name = next(item for item in self.assignment_lookup_table if
-                                                        item['DER_name'] == self.current_measurements[key][
-                                                            'Conducting Equipment Name']
-                                                            or
-                                                        item['house_name'] == self.current_measurements[key][
-                                                            'Conducting Equipment Name'])
+                assignment_dict_with_given_name = next(
+                    item for item in self.assignment_lookup_table if
+                    ('DER_name' in item and item['DER_name'] == self.current_measurements[key][
+                        'Conducting Equipment Name'])
+                    or
+                    ('house_name' in item and item['house_name'] == self.current_measurements[key][
+                        'Conducting Equipment Name'])
+                )
 
                 if 'EnergyConsumer' in value['Measurement name']:
                     self.current_measurements[key]['EnergyConsumer Control mRID'] = assignment_dict_with_given_name['house_mRID']
@@ -712,7 +715,7 @@ class DERSHistoricalDataInput:
     def __init__(self, mcConfiguration):
         
         
-        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
+        self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}DERSHistoricalDataInput/"
         # self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/ders_testing/"
         self.location_lookup_dictionary = {}
         self.test_first_row = None
@@ -763,6 +766,7 @@ class DERSHistoricalDataInput:
         
         der_being_assigned = {}
         der_being_assigned[loads] = self.input_table[0][(self.location_lookup_dictionary[loads])] # returns ders' bus
+        print(der_being_assigned)
         der_being_assigned[loads] = derAssignmentHandler.get_mRID_for_der_on_bus(Bus=der_being_assigned[loads], mrid=mrid, assignment_table=assignment_table)
         assigned_der = dict([(value, key) for value, key in der_being_assigned.items()])
         derAssignmentHandler.append_new_values_to_association_table(values = assigned_der)
@@ -1063,6 +1067,7 @@ class DERAssignmentHandler:
         Calls the assignment process for each DER-S. Uses the DER-S list from MCConfiguration, so no additions are
         needed here if new DER-Ss are added.
         """
+        print(self.ders_assignment_lookup_table)
         self.der_assignment_table = self.ders_assignment_lookup_table
         self.loads_assignment_table = self.loads_assignment_lookup_table
 
@@ -1466,12 +1471,12 @@ class GOSensor:
         MANUAL MODE: Reads the manually_posted_service_input.xml file during MC initialization and loads it into
         a dictionary for later use.
         """
-        # input_file = open(mcConfiguration.manual_service_filename, "r") # manually_posted_service_input.xml
-        # data = input_file.read()
-        # input_file.close()
-        # self.manual_service_xml_data = xmltodict.parse(data)
-        input_file = mcConfiguration.manual_service_filename
-        self.tree = ET.parse(input_file)
+        input_file = open(mcConfiguration.manual_service_filename, "r") # manually_posted_service_input.xml
+        data = input_file.read()
+        input_file.close()
+        self.manual_service_xml_data = xmltodict.parse(data)
+        # input_file = mcConfiguration.manual_service_filename
+        # self.tree = ET.parse(input_file)
 
 
     def manually_post_service(self, sim_time):

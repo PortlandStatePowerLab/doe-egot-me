@@ -422,5 +422,14 @@
   "PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery:675:B:PNV": "_94ca3813-4476-44ef-a420-a07ab3173b30",
   "PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery:675:B:VA": "_16e3161b-2644-46a0-8c58-038cdc55ae81",
   "PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery:675:C:PNV": "_25861355-23a2-437d-866c-981159ab993c",
-  "PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery:675:C:VA": "_b3d80810-1498-4692-b0b5-295cdff53a25"
+  "PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery:675:C:VA": "_b3d80810-1498-4692-b0b5-295cdff53a25",
+  "Recloser_rec1:v1:A:PNV": "_4f33edcd-d737-4b71-a6db-c44ecb539924",
+  "Recloser_rec1:v1:B:PNV": "_7f87a6ce-fa11-462b-aa9c-0391b9ad2f38",
+  "Recloser_rec1:v1:C:PNV": "_0aafe7e8-aa52-4028-bcca-3729272eb535",
+  "ACLineSegment_632633:v2:A:PNV": "_43f38450-f50d-4a1e-b1e4-1984155771c1",
+  "ACLineSegment_632633:v2:B:PNV": "_0d993ef8-7263-4af1-b890-0cee0fa9f504",
+  "ACLineSegment_632633:v2:C:PNV": "_a0516ce7-974d-40cc-a6db-62e6a040c8b8",
+  "PowerTransformer_xfm1:634:A:PNV": "_59b58572-8708-4c35-a651-d193aaba14b0",
+  "PowerTransformer_xfm1:634:B:PNV": "_cf89d21b-41a8-4842-9fcc-4b300925368c",
+  "PowerTransformer_xfm1:634:C:PNV": "_68224597-c2fb-430c-9214-3a6659679923"
 }

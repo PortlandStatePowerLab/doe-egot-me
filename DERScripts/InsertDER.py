@@ -217,7 +217,8 @@ for ln in lines:
       else:
         ratedkwh = 0.0
         storedkwh = 0.0
-      nmUnit = name + '_' + unit
+      # nmUnit = name + '_' + unit
+      nmUnit = name
       nmTrm = name + '_T1'
       nmLoc = name + '_Loc'
       idUnit = GetCIMID(unit + 'Unit', nmUnit, uuids)
@@ -328,4 +329,3 @@ if fuidname is not None:
   for key, val in uuids.items():
     print ('{:s},{:s}'.format (key.replace(':', ',', 1), val), file=fuid)
   fuid.close()
-

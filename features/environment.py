@@ -3,13 +3,48 @@ import ModelController
 import pandas
 from melogtool import *
 melogtool = MELogTool()
+import os
+import glob
 
+def concatenate_logs(full_filepath):
+    folder_path, filename = os.path.split(full_filepath)
+    base_filename = os.path.splitext(filename)[0]
+
+    # Find all files matching the pattern
+    file_pattern = f"{base_filename}.csv_*"
+    files = glob.glob(f"{folder_path}/{file_pattern}")
+
+    # Sort the files in ascending order
+    files.sort()
+
+    # Create the new file
+    new_filename = f"{folder_path}/{base_filename}.csv"
+    with open(new_filename, 'w') as new_file:
+        # Flag to indicate if header has been written
+        header_written = False
+
+        # Iterate over each file and append its contents to the new file
+        for file in files:
+            with open(file, 'r') as log_file:
+                # Skip header row if already written
+                if header_written:
+                    next(log_file)
+
+                # Write the contents of the file to the new file
+                new_file.write(log_file.read())
+
+                # Set header_written to True after writing the first file
+                if not header_written:
+                    header_written = True
+
+    return new_filename
 
 def before_all(context):
-    context.MEPath = "/root/PycharmProjects/doe-egot-me/"
+    context.MEPath = r"/root/PycharmProjects/doe-egot-me/"
+    print(context.MEPath)
     context.firstinputfilepath = r"DERSHistoricalDataInput/TP_ME1_A_LogInput.csv"
     context.secondinputfilepath = r"DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv"
-    context.outputxmlpath = r"Outputs To DERMS/OutputtoGSP.xml"
+    context.outputxmlpath = r"output_to_DERMS/OutputtoGSP.xml"
     context.unique_ids = ['LOGDER0001', '00000', '00001']
 
     print("First run...")
@@ -18,6 +53,7 @@ def before_all(context):
     except SystemExit:
         context.firstfilename = ModelController.mcConfiguration.output_log_name
         context.firstfilepath = context.MEPath + context.firstfilename
+        print(context.firstfilepath)
         context.firstTPME1UIR = ModelController.mcInputInterface.test_tpme1_unified_input_request
 
     try:
@@ -28,17 +64,22 @@ def before_all(context):
         context.secondTPME1UIR = ModelController.mcInputInterface.test_tpme1_unified_input_request
 
     context.first_parsed_output_df = melogtool.parse_logs(
-        context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath)
-    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_csv(
+        context.MEPath + "Log Tool Options Files/options.xml", concatenate_logs(context.firstfilepath))
+    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", concatenate_logs(context.firstfilepath)).to_csv(
         'df_test.csv')
-    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", context.firstfilepath).to_csv(
+    melogtool.parse_logs(context.MEPath + "Log Tool Options Files/options.xml", concatenate_logs(context.firstfilepath)).to_csv(
         'df_test2.csv')
     context.parsed_logs_filename = 'df_test.csv'
     context.parsed_logs_filename2 = 'df_test2.csv'
 
     context.assignment_lookup_table = {}
     for item in ModelController.derAssignmentHandler.assignment_lookup_table:
-        context.assignment_lookup_table[item['Name']] = {'Bus': item['Bus'], 'mRID': item['mRID'], 'DER-EM Name': item['DER-EM Name']}
+        if 'house_name' in item:
+            context.assignment_lookup_table[item['house_name']] = {'Bus': item['Bus'], 'mRID': item['house_mRID'],
+                                                             'DER-EM Name': item['house_name']}
+        elif 'DER_name' in item:
+            context.assignment_lookup_table[item['DER_name']] = {'Bus': item['Bus'], 'mRID': item['DER_mRID'],
+                                                             'DER-EM Name': item['DER_name']}
     context.association_lookup_table = ModelController.derIdentificationManager.association_lookup_table
     context.der_input_list = [
         'LOGDER0001',

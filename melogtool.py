@@ -68,6 +68,8 @@ class MELogTool:
         if log_filename_arg is not None:
             self.log_filepath = log_filename_arg
         # Read logs
+        print("FOR TESTING PURPOSES")
+        print(self.log_filepath)
         try:
             log_df = pd.read_csv(self.log_filepath)
         except pandas.errors.ParserError:
@@ -77,6 +79,7 @@ class MELogTool:
             quit()
         # Filter time
         if (self.option_start_time != None) and (self.option_end_time != None):
+            print(self.option_start_time)
             timeindex_dict = {}
             for i in log_df.index:
                 timeindex_dict[log_df["Timestamp"][i]] = i

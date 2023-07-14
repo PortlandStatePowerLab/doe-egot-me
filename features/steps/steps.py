@@ -9,13 +9,13 @@ from datetime import datetime, timedelta
 @given(u'DER-S inputs are available')
 def step_impl(context):
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv") is True
+        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput.csv") is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv") is True
+        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv") is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00000_Bus632.csv") is True
+        "/root/PycharmProjects/doe-egot-me/RWHDERS_Inputs/DER00000_Bus632.csv") is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/RWHDERS Inputs/DER00001_Bus633.csv") is True
+        "/root/PycharmProjects/doe-egot-me/RWHDERS_Inputs/DER00001_Bus633.csv") is True
 
 
 @when(u'A DER-S update occurs')
@@ -52,7 +52,7 @@ def step_impl(context):
     assert path.exists(
         context.MEPath + context.firstfilename) is True
     assert path.exists(
-        context.MEPath + context.secondfilename) is True
+        context.MEPath + context.secondfilename + "_1.csv") is True
 
 
 @given(u'DER Inputs for each simulation were not identical')
@@ -153,8 +153,8 @@ def step_impl(context):
                 next(reader)  # Skip the header row
 
     # Input file paths
-    input_1a_file = "DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv"
-    input_2a_file = "DERSHistoricalData Inputs/TP_ME1_A_LogInput2.csv"
+    input_1a_file = "DERSHistoricalDataInput/TP_ME1_A_LogInput.csv"
+    input_2a_file = "DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv"
     output_1b_file = "df_test.csv"
     output_2b_file = "df_test2.csv"
 
@@ -212,9 +212,9 @@ def step_impl(context):
 @then(u'Output logs should exist for two unique simulations')
 def step_impl(context):
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/" + context.firstfilename) is True
+        "/root/PycharmProjects/doe-egot-me/" + context.firstfilename) is True
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/" + context.secondfilename) is True
+        "/root/PycharmProjects/doe-egot-me/" + context.secondfilename) is True
 
 
 @given(u'Logs from a simulation using these DER Input files exist')
@@ -222,7 +222,7 @@ def step_impl(context):
     assert path.exists(
         context.MEPath + context.firstfilename) is True
     assert path.exists(
-        context.MEPath + context.secondfilename) is True
+        context.MEPath + context.secondfilename + "_1.csv") is True
 
 
 @then(u'Log files should indicate values update regularly at defined intervals.')
@@ -300,7 +300,7 @@ def step_impl(context):
 @given(u'Logs from a simulation exist')
 def step_impl(context):
     assert path.exists(
-        context.MEPath + context.secondfilename) is True
+        context.MEPath + context.secondfilename + "_1.csv") is True
 
 
 @then(u'Log files should indicate power and voltage readings exist for three phases of any bus.')
@@ -365,12 +365,12 @@ def step_impl(context):
 @given(u'DER Inputs exist which include a DER-EM that acts as a load, source, and storage')
 def step_impl(context):
     assert path.exists(
-        "/home/seanjkeene/PycharmProjects/doe-egot-me/DERSHistoricalData Inputs/TP_ME1_A_LogInput.csv") is True
+        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput.csv") is True
 
 @given(u'Logs from a simulation exist which use these inputs')
 def step_impl(context):
     assert path.exists(
-        context.MEPath + context.secondfilename) is True
+        context.MEPath + context.secondfilename + "_1.csv") is True
 
 
 @then(u'The logs should indicate the DER acted as a load and source.')
@@ -478,6 +478,7 @@ def step_impl(context):
 
 @then(u'The Assignment Lookup table should contain the name of each DER-EM')
 def step_impl(context):
+    # print(context.der_em_list)
     for i in context.der_em_list:
         assert context.assignment_lookup_table[i]
 
@@ -587,7 +588,8 @@ def step_impl(context):
 @then(u'The measurements should have human-readable names (not mRIDs).')
 def step_impl(context):
     for keys, values in context.measurement_set.items():
-        assert values['Measurement name']
+        if keys is not "Timestamp":
+            assert values['Measurement name']
 
 
 @when(u'The DER-S input processing method is called')
@@ -601,6 +603,7 @@ def step_impl(context):
 
 @then(u'The unified input request should update')
 def step_impl(context):
+    print(context.firstTPME1UIR)
     assert context.firstTPME1UIR
 
 
@@ -659,7 +662,7 @@ def step_impl(context):
 
 @then(u'The DER association table contains keys for each input DER name')
 def step_impl(context):
-    print(context.association_lookup_table)
+    # print(context.association_lookup_table)
     context.table_der_dict = {}
     for item in context.association_lookup_table:
         for key, value in item.items():
