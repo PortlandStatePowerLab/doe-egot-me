@@ -12,8 +12,11 @@
 **/Logged_Grid_State_Data/*csv
 **/ders_testing/**
 **/cimhub_docker/**
-**/DERSHistoricalDataInput/*.csv
-**/RWHDERS_Inputs/*.csv
+/DERSHistoricalDataInput/*.csv
+/RWHDERS_Inputs/*.csv
+/dss_files/python_scripts/
+/dss_files/testing_files/
+**/support/**
 
 
 # Remove debugging files (imported gridappsd models from blazegraph)
