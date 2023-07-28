@@ -86,7 +86,7 @@ class EDMCore:
         self.mrid_name_lookup_table = []
         self.cim_measurement_dict = []
         self.is_in_test_mode = False
-    
+
     # @profile
     def get_sim_start_time(self):
         """
@@ -101,6 +101,7 @@ class EDMCore:
         """
         return self.line_mrid
 
+    # @profile
     # @profile
     def sim_start_up_process(self):
         """
@@ -135,7 +136,7 @@ class EDMCore:
         with open(mcConfiguration.config_file_path) as f:
             config_string = f.read()
             self.config_parameters = ast.literal_eval(config_string)
-    
+
     # @profile
     def connect_to_gridapps(self):
 
@@ -403,7 +404,7 @@ class EDMTimeKeeper(object):
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
         goOutputInterface.send_service_request_messages()
-        
+
 
 class EDMMeasurementProcessor(object):
     """
@@ -437,7 +438,7 @@ class EDMMeasurementProcessor(object):
         .assignment_lookup_table: Read from DERAssignmentHandler. Used to append DER-S to DER-EM association data to
             each measurement for logging and troubleshooting purposes.
     """
-    
+
     # @profile
     def __init__(self):
         self.measurement_timestamp = None
@@ -447,18 +448,21 @@ class EDMMeasurementProcessor(object):
         self.measurement_mrids = []
         self.measurement_names = []
         self.der_assignment_lookup_table = []
+
     # @profile
     def on_message(self, headers, measurements):
         """
         CALLBACK METHOD: receives the measurements once every three seconds, and passes them to the parsing method.
         """
+        print("Parsing measurements...")
         self.parse_message_into_current_measurements(measurements)
 
     # @profile
     def get_current_measurements(self):
         """
         ACCESSOR: Returns the current fully processed measurement dictionary.
-        """ 
+        """
+        print("Current measurements:")
         return self.current_measurements
     
     # @profile
@@ -470,6 +474,16 @@ class EDMMeasurementProcessor(object):
         """
         
         self.current_measurements = measurement_message['message']['measurements']
+        '''
+        The self.current_measurements returns all measurements. These need to be translated as they
+        are just mRIDs (as keys) and angle, magnitude, and measurement_mrid as values. Here is a snapshot:
+        {'_000128ab-d462-4760-8ba9-86b1998b7a13': {'angle': -150.19352563698408,
+                                           'magnitude': 120.54877615146816,
+                                           'measurement_mrid': '_000128ab-d462-4760-8ba9-86b1998b7a13'},
+        '_0003a3fd-89dc-49c6-bc8d-8ed43e44873d': {'angle': 0.0,
+                                           'magnitude': 0.0,
+                                           'measurement_mrid': '_0003a3fd-89dc-49c6-bc8d-8ed43e44873d'},
+        '''
         self.measurement_timestamp = measurement_message['message']['timestamp']
         self.append_names()
         self.append_association_data()
@@ -495,18 +509,16 @@ class EDMMeasurementProcessor(object):
         
         self.measurement_mrids = self.current_measurements
         self.measurement_mrids = self.current_measurements.keys()
-
-
+        
         for i in self.measurement_mrids:
             try:
                 lookup_mrid = mrid_name_lookup_dict[i]
                 # lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
-                
-            except StopIteration:
+            except StopIteration: #  This may be deprecated.
                 print(f"\n\n-------- lookup_mrid --------")
             lookup_name = lookup_mrid['name']
             self.measurement_names.append(lookup_name)
-        
+
         self.measurement_mrids = dict(zip(list(self.measurement_mrids), self.measurement_names))
         '''
         List all mRIDs (keys) associated with their equipment names(values) --> (Dictionary type obviously!)
@@ -515,8 +527,9 @@ class EDMMeasurementProcessor(object):
             try:
                 self.current_measurements[key]['Measurement name'] = value
                 measurement_table_dict_containing_mrid = mrid_measurement_lookup_dict[key]
-
-
+                # measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
+                #                                               if item['mRID'] == key)
+                self.current_measurements[key]['Meas Name'] = measurement_table_dict_containing_mrid['name']
                 self.current_measurements[key]['Conducting Equipment Name'] = measurement_table_dict_containing_mrid[
                     'ConductingEquipment_name']
                 self.current_measurements[key]['Bus'] = measurement_table_dict_containing_mrid[
@@ -537,14 +550,45 @@ class EDMMeasurementProcessor(object):
         self.assignment_lookup_table = derAssignmentHandler.get_assignment_lookup_table()
         assignment_lookup_dict = {}
         for item in self.assignment_lookup_table:
-            
+
             name = item['DER_name']
             assignment_lookup_dict[name] = item
+        assignment_lookup_dict = {}
+        for item in self.assignment_lookup_table:
+            try:
+                name = item['DER_name']
+                assignment_lookup_dict[name] = item
+            except KeyError:
+                try:
+                    name = item['house_name']
+                    assignment_lookup_dict[name] = item
+                except:
+                    raise('Error in assignment lookup table')
+
+        # for item in self.assignment_lookup_table:
 
         for key, value in self.current_measurements.items(): # current_measurements contains all loads
 
-            try:
+            try: # assignment_dict_with_given_name has all energyconsumers and ders
+                # print(assignment_lookup_dict)
+                # print(key)
+                # print(value)
+
                 assignment_dict_with_given_name = assignment_lookup_dict[self.current_measurements[key]['Conducting Equipment Name']]
+
+                # assignment_dict_with_given_name = next(
+                #     item for item in self.assignment_lookup_table if
+                #     ('DER_name' in item and item['DER_name'] == self.current_measurements[key][
+                #         'Conducting Equipment Name'])
+                #     or
+                #     ('house_name' in item and item['house_name'] == self.current_measurements[key][
+                #         'Conducting Equipment Name'])
+                # )
+
+                if 'EnergyConsumer' in value['Measurement name']:
+                    self.current_measurements[key]['EnergyConsumer Control mRID'] = assignment_dict_with_given_name['house_mRID']
+                    house_input_name = derIdentificationManager.get_meas_name(assignment_dict_with_given_name['house_mRID'])
+                    self.current_measurements[key]['house Input Unique ID'] = house_input_name
 
                 if 'BatteryUnit' in value['Measurement name']:
                     self.current_measurements[key]['Inverter Control mRID'] = assignment_dict_with_given_name['DER_mRID']
@@ -552,7 +596,7 @@ class EDMMeasurementProcessor(object):
                     self.current_measurements[key]['DER Input Unique ID'] = DER_input_name
 
             except KeyError:
-                pass        
+                pass
 
 class RWHDERS:
     """
@@ -593,7 +637,7 @@ class RWHDERS:
         .input_identification_dict: a dictionary of identification information for each DER input. The keys are the
            serial numbers parsed from each file name, and the values include the buses and the filename. Used during
            assignment, and also on time step to get the right data from the right file for each DER's unique ID.
-    
+
     UPDATE:
 
     All water heater usage profiles are in Gallon-Per-Minute (gpm). Since GridAPPS-D does not support water_heater
@@ -615,15 +659,15 @@ class RWHDERS:
             is equal to the setpoint.
             - The rated Power for each heating element is 4.5 kW.
             - All water heaters are of size 50 Gallon since it is the most prominent size in the residential sector.
-        
+
         FACTS:
 
             - The idling behavior of each water heater object is also captured.
             - The water draw profiles are the results of a survey conducted by Department of Energy, the office of
-            Energy Efficiency & Renewable Energy. 
+            Energy Efficiency & Renewable Energy.
             - The water draw profiles correspond to the Portland area, along with the weather data which directly
             impacts each water heater idling behavior.
-        
+
         NOTE: The GridAPPS-D model and the model used to obtain the power consumption profiles are identical.
     """
 
@@ -631,7 +675,6 @@ class RWHDERS:
         self.der_em_input_request = {}
         self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS Inputs/"
         self.input_identification_dict = {}
-
 
     def initialize_der_s(self):
         """
@@ -686,8 +729,8 @@ class RWHDERS:
             parsed_filename_list.append({g1: {"Filepath": i, "Bus": g2}})
         for item in parsed_filename_list:
             self.input_identification_dict.update(item) # DER serial number as keys, values are dict (bus and file names as keys)
-        
-        
+
+
 
     def update_der_em_input_request(self):
         """
@@ -758,13 +801,15 @@ class DERSHistoricalDataInput:
 
         self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/DERSHistoricalData Inputs/"
         self.location_lookup_dictionary = {}
+        self.test_first_row = None
         self.new_values_inserted = False
         self.der_em_input_request = []
         self.input_table = None
         self.list_of_ders = []
+        self.energy_consumers = {}
         self.ders_watts = {}
         self.ders_vars = {}
-    
+
     # @profile
     def initialize_der_s(self):
         
@@ -775,7 +820,7 @@ class DERSHistoricalDataInput:
         the read_input_file() function. See below.
         """
         self.read_input_file()
-    
+
     # @profile
     def get_input_request(self):
         
@@ -803,7 +848,7 @@ class DERSHistoricalDataInput:
             der_being_assigned[loads] = derAssignmentHandler.get_mRID_for_der_on_bus(Bus=der_being_assigned[loads])
             assigned_der = dict([(value, key) for value, key in der_being_assigned.items()])
             derAssignmentHandler.append_new_values_to_association_table(values = assigned_der)
-        
+
     # @profile
     def open_input_file(self):
         """
@@ -826,11 +871,13 @@ class DERSHistoricalDataInput:
             df = pd.read_csv(self.historical_data_file_path+file)
             df = df.drop('Time', axis=1)
             df_all = pd.concat([df_all, df], axis=1)
-        
-        df_all = df_all.fillna(0)        
+
+        df_all = df_all.fillna(0)
         return df_all.to_dict(orient='records')
+
     
 
+    # @profile
     def read_input_file(self):
 
         """
@@ -840,8 +887,11 @@ class DERSHistoricalDataInput:
         of dictionaries to be passed to the assignment handler (which takes the locations for each DER name and assigns
         a DER-EM mRID at the proper location to the name, this allows the MC to provide updated DER states to the DER-EM
         without requiring the inputs to know DER-EM mRIDs.)
-        """        
+        """
         self.input_table = self.open_input_file()
+        first_row = next(item for item in self.input_table)
+        first_row = dict(first_row)
+        self.test_first_row = first_row
         first_row_time = self.input_table[0]['Time']
         self.input_table[0].pop('Time')
         for key in self.input_table[0].keys():
@@ -849,6 +899,9 @@ class DERSHistoricalDataInput:
                 der_name = key
                 der_loc = key.replace('_Watts','_loc')
                 self.location_lookup_dictionary[der_name] = der_loc
+            if 'HOUSE' in key:
+                house = key
+                self.location_lookup_dictionary[house] = der_loc
             if 'VARs' in key:
                 imag = key
                 self.location_lookup_dictionary[imag] = der_loc
@@ -873,12 +926,12 @@ class DERSHistoricalDataInput:
             if force_first_row is True:
                 print("DERHistoricalDataInput TEST MODE: retrieving first item from input log")
                 input_at_time_now = next(item for item in self.input_table)
-            
+
             else:
                 print(edmCore.sim_current_time)
                 print(next(item for item in self.input_table)['Time'])
                 input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
-                                         int(item['Time']) < (int(edmCore.sim_current_time) + 1))
+                                     int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             self.new_values_inserted = True
             input_at_time_now = dict(input_at_time_now)
             input_at_time_now.pop('Time')
@@ -889,13 +942,18 @@ class DERSHistoricalDataInput:
                     self.optimize_der_ems_inputs(attribute=self.ders_vars, new_inputs_keys=key, new_inputs_values=value)
 
         except StopIteration:
-            return 
+            return
 
     # @profile
     def optimize_der_ems_inputs(self, attribute, new_inputs_keys, new_inputs_values):
         """
-        We iterate through the input table, extract the DER type loads and non-DER type loads, and put each type 
+        We iterate through the input table, extract the DER type loads and non-DER type loads, and put each type
         in its own der_em_input_request.
+
+        Since there are many inputs for each control attribute, this function also compares the previous input_table
+        values with the new input)table values. If they are the same, meaning there are no changes in the der_em_requests
+        from the previous time step, then the similar values will be removed from the der_em_input_request and only the
+        unique values are sent to the model.
         """
         previous_inputs = attribute.get(new_inputs_keys)
         if previous_inputs is None or previous_inputs != new_inputs_values:
@@ -933,7 +991,7 @@ class DERIdentificationManager:
             return input_unique_id
         except UnboundLocalError:
             return 'Unassigned'
-    
+
     # @profile
     def get_der_em_mrid(self, name):
         """
@@ -974,8 +1032,21 @@ class DERAssignmentHandler:
             DERIdentificationManager.
 
         .der_em_mrid_per_bus_query_message: SPARQL Query used to gather the DER-EM info for the assignment tables from the model database.
+
+    UPDATE:
+    There are several ways to pull the information from the Blazegraph. We can pull all the model information
+    and filter the results here. Or, we can design one query to pull the DERs and triplex_loads information. The last
+    solution is to send two queries, the first one pulls the batteries and the second query pulls the triplex_loads. I
+    went with the last solution for the following reasons:
+
+        - Both the first and second solutions take around 2 seconds.
+        - Sending two queries individually takes:
+            * 174 ms each. Compared to the one query, this is way less significant time.
+        - Later, we combine the results of the two queries in one list.
+
+    NOTE: Both equipments (batteries and triplex_loads) have the same buses.
     """
-    
+
     # @profile
     def __init__(self):
         self.assignment_lookup_table = None
@@ -990,7 +1061,7 @@ class DERAssignmentHandler:
          ?s c:IdentifiedObject.name ?name.
           ?s c:IdentifiedObject.mRID ?id.
          ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
-         VALUES ?fdrid {{"_7CC7F9FC-9838-4908-8E45-931913DAFBA4"}}  # psu_feeder
+        VALUES ?fdrid {{"{edmCore.line_mrid}"}}  # psu_feeder
          ?pec c:Equipment.EquipmentContainer ?fdr.
          ?fdr c:IdentifiedObject.mRID ?fdrid.
          ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
@@ -1027,7 +1098,7 @@ class DERAssignmentHandler:
                                                name = 'DER_name',
                                                mrid= 'DER_mRID',
                                                merge_queries=False)
-        
+
         self.assignment_lookup_table = self.iterate_over_queryy_response_info(query_response=der_em_mrid_per_bus_query_output,
                                                name = 'DER_name',
                                                mrid= 'DER_mRID',
@@ -1041,13 +1112,13 @@ class DERAssignmentHandler:
             bus = query_response['data']['results']['bindings'][i]['bus']['value']
             if bus not in self.merged_loads:
                 self.merged_loads[bus] = {}
-            
+
             self.merged_loads[bus]['Bus'] = bus
             self.merged_loads[bus][name] = query_response['data']['results']['bindings'][i]['name']['value']
             self.merged_loads[bus][mrid] = query_response['data']['results']['bindings'][i]['id']['value']
-        
+
         return list(self.merged_loads.values())
-    
+
     # @profile
     def assign_all_ders(self):
 
@@ -1068,7 +1139,7 @@ class DERAssignmentHandler:
         For a given Bus, checks if a DER-EM exists on that bus and is available for assignment. If so, returns its mRID
         and removes it from the list (so a DER-EM can't be assigned twice).
 
-        The self.assignment_table variable contains the feeder information queries from blazegraph within 
+        The self.assignment_table variable contains the feeder information queries from blazegraph within
         the derassignmenthandler initialiation function
         """
 
@@ -1106,12 +1177,12 @@ class MCInputInterface:
         .current_unified_input_request: A list of all input requests currently being provided to the Input Interface
             by all active DER-Ss.
     """
-    
+
     # @profile
     def __init__(self):
         self.current_unified_input_request = []
         self.test_tpme1_unified_input_request = []
-    
+
     # @profile
     def update_all_der_em_status(self):
         """
@@ -1119,7 +1190,7 @@ class MCInputInterface:
         types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
         self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
-        
+
 
     # @profile
     def update_all_der_s_status(self):
@@ -1143,7 +1214,7 @@ class MCInputInterface:
         print(edmCore.sim_current_time)
         if edmCore.sim_current_time == "1570041120":
             self.test_tpme1_unified_input_request = dict(self.current_watts_input_request)
-    
+
     # @profile
     def update_der_ems(self, loads_dict, control_attribute):
         """
@@ -1181,7 +1252,7 @@ class MCInputInterface:
             my_diff_build.add_difference(associated_der_em_mrid,
                                          control_attribute,
                                          int(value), 0)
-            
+
         message = my_diff_build.get_message()
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
@@ -1384,7 +1455,7 @@ class GOSensor:
             for clas, func in value.items():
                 self.feeder_nominal_voltage = func['nominal_voltage']
                 return eval(f"{key}{func['function']}")
-
+        
     # @profile
     def set_volt_var_thresholds (self):
         """
@@ -1397,7 +1468,7 @@ class GOSensor:
     # @profile
     def update_sensor_states(self):
         pass
-    
+
     # @profile
     def detect_grid_service_type (self, value):
         """
@@ -1411,13 +1482,13 @@ class GOSensor:
     
         # if (value.get('MeasType') == "PNV" and
         #     value.get('Bus') in self.bus_list and
-        #     dersHistoricalDataInput.new_values_inserted is True and 
+        #     dersHistoricalDataInput.new_values_inserted is True and
         #     (self.min_threshold > value.get('magnitude', float('inf')) or value.get('magnitude', float('-inf')) > self.max_threshold)
         #     ):
         if (value.get('MeasType') == "PNV" and
             value.get('Bus') in self.bus_list and
             dersHistoricalDataInput.new_values_inserted is True):
-            
+
             # print(self.min_threshold,'\t',value.get('magnitude', float('inf')))
 
             if self.min_threshold > value.get('magnitude', float('inf')):
@@ -1426,7 +1497,7 @@ class GOSensor:
                 self.voltage_support_buses.append(value.get('Bus'))
 
         # self.initialize_volt_var_support_service(bus=value.get('Bus'),magnitude=value.get('magnitude'))
-       
+
     # @profile
     def initialize_volt_var_support_service (self, bus, magnitude):
         """
@@ -1515,7 +1586,7 @@ class GOOutputInterface:
                 item.set_status(True)
             else:
                 print("----------------All already posted----------------")
-                
+
     # @profile
     def generate_service_messages(self):
         """
@@ -1676,7 +1747,7 @@ class MCOutputLog:
         for item in self.mrid_name_lookup_table:
             measid = item['measid']
             mrid_name_lookup_dict[measid] = item
-        
+
         for i in self.header_mrids:
             if i != 'Timestamp':
                 try:
@@ -1809,6 +1880,7 @@ class GOPostedService:
 
 # ------------------------------------------------Function Definitions------------------------------------------------
 
+
 # @profile
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     """
@@ -1830,7 +1902,7 @@ def set_testing_conditions():
     classes and specifications to be tested by importing ModelController.py as a module and using this method
     to set initial conditions.
     """
-    
+
     global mcConfiguration
     mcConfiguration = MCConfiguration()
     global edmCore
@@ -1854,6 +1926,7 @@ def _main(test_mode = False, DERSHDI_FilePath = None):
     mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    # test_mode = True
     if test_mode is True:
         edmCore.put_in_test_mode()
     edmCore.sim_start_up_process()

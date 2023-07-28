@@ -42,8 +42,9 @@ def step_impl(context):
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.')
 def step_impl(context):
-    assert {'LOGDER0001': '10000000'} in context.firstTPME1UIR
-    assert {'00000': '100000'} in context.firstTPME1UIR
+    print(context.firstTPME1UIR)
+    assert context.firstTPME1UIR['LOGDER0001_Watts'] == 10000000
+    assert context.firstTPME1UIR['00000_Watts'] == 100000
 
 
 
