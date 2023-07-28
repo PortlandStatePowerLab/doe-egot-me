@@ -1,17 +1,17 @@
 import re
-import os
 import ast
 import csv
-import time
-import xmltodict
-import subprocess
+import os
+import sys
 import pandas as pd
-from dict2xml import dict2xml
-from pprint import pprint as pp
-from gridappsd import topics as t
-import xml.etree.ElementTree as ET
-from gridappsd.simulation import Simulation
 from gridappsd import GridAPPSD, DifferenceBuilder
+from gridappsd import topics as t
+from gridappsd.simulation import Simulation
+import time
+import xml.etree.ElementTree as ET
+import xmltodict
+from dict2xml import dict2xml
+from datetime import datetime
 
 end_program = False
 
@@ -19,20 +19,51 @@ end_program = False
 
 
 class MCConfiguration:
+    """
+    Provides user configurability of the MC when appropriate. Not to be confused with the GridAPPS-D configuration
+    process, this provides global configuration for the MC as a whole. DER-S configuration should be handled within
+    the DER-S Class definition, and not here.
+    """
+    # @profile
     def __init__(self):
+        """
+        ATTRIBUTES:
+
+            .mc_file_directory: The root folder where the ME is located.
+
+            .config_file_path: The text file containing the GridAPPS-D configuration info.
+
+            .ders_obj_list: A dictionary containing the DER-S classes and objects *that will be used in the current
+                simulation*. Add or comment out as appropriate for new DER-Ss or for different tests.
+
+            .go_sensor_decision_making_manual_override: Set to True to use manual GOSensor decision making (That is,
+                grid services are called by a text file rather than based on grid conditions.
+                NOTE: Automatic mode is not currently implemented, so this should ALWAYS be set to True.
+
+            .manual_service_filename: the .xml filename of the GOSensor manual service input file. Should be in MC root.
+
+            .output_log_name: The name and location of the output logs. Rename before simulation with date/time, for example.
+        """
+
         self.mc_file_directory = os.getcwd()
-        self.config_file_path = f"{self.mc_file_directory}/Configuration/simulation_configuration.json"
+        self.config_file_path = f"{self.mc_file_directory}/Configuration/Config.txt"
         self.ders_obj_list = {
-            # 'DERSHistoricalDataInput': 'dersHistoricalDataInput'
-            'RWHDERS': 'rwhDERS'
+            'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            # 'RWHDERS': 'rwhDERS'
+            # ,
+            # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs'
+        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M")
 
 
 class EDMCore:
-
+    """
+    Provides central core functionality to the MC. Responsible for the startup process and storing the GridAPPS-D
+    connection and simulation mRIDs and objects.
+    """
+    # @profile
     def __init__(self):
         self.gapps_session = None
         self.sim_session = None
@@ -43,20 +74,39 @@ class EDMCore:
         self.config_parameters = None
         self.mrid_name_lookup_table = []
         self.cim_measurement_dict = []
-
+        self.is_in_test_mode = False
+    
+    # @profile
     def get_sim_start_time(self):
-        self.sim_start_time
-
+        """
+        ACCESSOR METHOD: returns the simulation start time (per the configuration file, not realtime)
+        """
         return self.sim_start_time
 
-    def sim_start_up_process(self):
+    # @profile
+    def get_line_mrid(self):
+        """
+        ACCESSOR METHOD: Returns the mRID for the current model (I.E. the IEEE 13-node test feeder).
+        """
+        return self.line_mrid
 
+    # @profile
+    # @profile
+    def sim_start_up_process(self):
+        """
+        ENCAPSULATION METHOD: calls all methods required to set up the simulation process. Does not start the simulation
+        itself, but performs the "startup checklist". This includes connecting to GridAPPS-D and the simulation, loading
+        configuration from the file, instantiating all the (non-callback) objects, initializing DER-Ss, assigning
+        DER-EMs and creating the association table, and connecting to the aggregator among others. See each method's
+        docstring for more details.
+        """
         self.connect_to_gridapps()
         self.load_config_from_file()
         self.initialize_line_mrid()
         self.establish_mrid_name_lookup_table()
         self.connect_to_simulation()
         self.initialize_sim_start_time()
+        self.initialize_sim_time_step()
         self.initialize_sim_mrid()
         self.create_objects()
         self.initialize_all_der_s()
@@ -67,13 +117,16 @@ class EDMCore:
         goTopologyProcessor.import_topology_from_file()
         goSensor.load_manual_service_file()
 
-
+    # @profile
     def load_config_from_file(self):
-
+        """
+        Loads the GridAPPS-D configuration string from a file and places the parameters in a variable for later use.
+        """
         with open(mcConfiguration.config_file_path) as f:
             config_string = f.read()
             self.config_parameters = ast.literal_eval(config_string)
-
+    
+    # @profile
     def connect_to_gridapps(self):
 
         os.environ['GRIDAPPSD_USER'] = 'tutorial_user'
@@ -85,27 +138,42 @@ class EDMCore:
         self.gapps_session = GridAPPSD()
         assert self.gapps_session.connected
 
+    # @profile
     def initialize_sim_mrid(self):
 
         self.sim_mrid = self.sim_session.simulation_id
 
+    # @profile
     def initialize_line_mrid(self):
 
         self.line_mrid = self.config_parameters["power_system_config"]["Line_name"]
         return self.line_mrid
 
+    # @profile
     def initialize_sim_start_time(self):
 
         self.sim_start_time = self.config_parameters["simulation_config"]["start_time"]
-        # return self.sim_start_time
+        return self.sim_start_time
 
+    # @profile
+    def initialize_sim_time_step(self):
+
+        self.sim_time_step = self.config_parameters["simulation_config"]["duration"]
+        return self.sim_time_step
+
+    # @profile
     def connect_to_simulation(self):
 
         self.sim_session = Simulation(self.gapps_session, self.config_parameters)
 
 
+    # @profile
     def create_objects(self):
-
+        """
+        Instantiates all non-callback classes. All objects are global to simplify arguments and facilitate decoupling.
+        (Note: EDMCore is manually instantiated first, in the main loop function. This is part of the startup process.
+        The callback classes need to be instantiated separately to ensure the callback methods work properly.)
+        """
         global mcOutputLog
         mcOutputLog = MCOutputLog()
         global mcInputInterface
@@ -125,17 +193,43 @@ class EDMCore:
         global goOutputInterface
         goOutputInterface = GOOutputInterface()
 
+    # @profile
     def initialize_all_der_s(self):
+        """
+        Calls the initialize_der_s() method for each DER-S listed in mcConfiguration.ders_obj_list.
+        """
         for key, value in mcConfiguration.ders_obj_list.items():
             eval(value).initialize_der_s()
 
+    # @profile
     def start_simulation(self):
-
+        """
+        Performs one final initialization of the simulation start time (fixes a bug related to our use of the logging
+        API tricking the timekeeper into thinking it's later than it is) and calls the method to start the actual
+        simulation.
+        """
         self.initialize_sim_start_time()
         self.sim_session.start_simulation()
 
-    def establish_mrid_name_lookup_table(self):
+    # @profile
+    def start_simulation_and_pause(self):
+        """
+        Performs one final initialization of the simulation start time (fixes a bug related to our use of the logging
+        API tricking the timekeeper into thinking it's later than it is) and calls the method to start the actual
+        simulation. Then, immediately pauses the simulation. This allows test harnesses to test a fully set up
+        simulation without necessarily requiring the entire simulation process to run.
+        """
+        self.initialize_sim_start_time()
+        self.sim_session.start_simulation()
+        self.sim_session.pause()
 
+    # @profile
+    def establish_mrid_name_lookup_table(self):
+        """
+        This currently creates two lookup dictionaries. mrid_name_lookup_table gets the real names of measurements for
+        the measurement processor/logger. cim_measurement_dict gives a more fully fleshed out dictionary containing
+        several parameters related to measurements that are appended to the measurement processor's current readings.
+        """
         topic = "goss.gridappsd.process.request.data.powergridmodel"
         message = {
             "modelId": edmCore.initialize_line_mrid(),
@@ -144,7 +238,6 @@ class EDMCore:
         }
         object_meas = edmCore.gapps_session.get_response(topic, message)
         self.mrid_name_lookup_table = object_meas['data']
-
         config_api_topic = 'goss.gridappsd.process.request.config'
         message = {
             'configurationType': 'CIM Dictionary',
@@ -154,19 +247,24 @@ class EDMCore:
         cim_dict = edmCore.gapps_session.get_response(config_api_topic, message, timeout=20)
         measdict = cim_dict['data']['feeders'][0]['measurements']
         self.cim_measurement_dict = measdict
-
+    # @profile
     def get_mrid_name_lookup_table(self):
         """
         ACCESSOR METHOD: Returns the mrid_name_lookup_table.
         """
         return self.mrid_name_lookup_table
 
+    # @profile
     def get_cim_measurement_dict(self):
 
         """
         ACCESSOR METHOD: Returns the cim_measurement.dict.
         """
         return self.cim_measurement_dict
+
+    # @profile
+    def put_in_test_mode(self):
+        self.is_in_test_mode = True
 
 
 class EDMTimeKeeper(object):
@@ -194,12 +292,14 @@ class EDMTimeKeeper(object):
         .edmCoreObj: edmCore is fed through an argument directly since it doesn't function properly as a global object.
     """
 
+    # @profile
     def __init__(self, edmCoreObj):
         self.sim_start_time = edmCoreObj.get_sim_start_time()
         self.sim_current_time = self.sim_start_time
         self.previous_log_message = None
         self.edmCoreObj = edmCoreObj
 
+    # @profile
     def on_message(self, sim, message):
         """
         CALLBACK METHOD: the "message" argument contains the full text of the Log messages provided by GridAPPS-D. This
@@ -211,6 +311,7 @@ class EDMTimeKeeper(object):
 
         # on_message function definitions:
 
+        # @profile
         def end_program():
             """
             Ends the program by closing out the logs and setting the global end program flag to true, breaking the
@@ -220,16 +321,30 @@ class EDMTimeKeeper(object):
             global end_program
             end_program = True
 
+        # @profile
         def update_and_increment_timestep(log_message, self):
             """
             Increments the timestep only if "incrementing to " is within the log_message; otherwise does nothing.
             """
             if "incrementing to " in log_message:
+                print(log_message)
                 if log_message != self.previous_log_message:  # Msgs get spit out twice for some reason. Only reads one.
                     self.increment_sim_current_time()
                     print("\nCurrent timestep:\t" + self.sim_current_time)
                     self.perform_all_on_timestep_updates()
                     self.previous_log_message = log_message
+                    if edmCore.is_in_test_mode is True:
+                        print("PAUSING SIMULATION FOR TESTING")
+                        edmCore.sim_session.stop()
+
+                        # for i in rwhDERS.input_identification_dict:
+                        #     print(rwhDERS.input_identification_dict[i]['Filepath'])
+
+                        # print(rwhDERS.input_identification_dict[list(rwhDERS.input_identification_dict.keys())[0]]['Filepath'])
+                        global end_program
+                        end_program = True
+
+        # on_message() function body:
 
         log_message = message["logMessage"]
         process_status = message['processStatus']
@@ -243,6 +358,7 @@ class EDMTimeKeeper(object):
             print("KeyError!")
             print(message)
 
+    # @profile
     def increment_sim_current_time(self):
         """
         Increments the current simulation time by 1.
@@ -251,12 +367,14 @@ class EDMTimeKeeper(object):
         current_int_time += 1
         self.sim_current_time = str(current_int_time)
 
+    # @profile
     def get_sim_current_time(self):
         """
         ACCESSOR: Returns the current simulation time. (Not real time.)
         """
         return self.sim_current_time
 
+    # @profile
     def perform_all_on_timestep_updates(self):
         """
         ENCAPSULATION: Calls all methods that update the system each timestep (second). New processes should be added
@@ -265,11 +383,12 @@ class EDMTimeKeeper(object):
         NOTE: DOES NOT INCLUDE MEASUREMENT READING/PROCESSING. Those are done once every three seconds due to the way
         GridAPPS-D is designed and are independent of the simulation timekeeper processes. See EDMMeasurementProcessor.
         """
-        
+        print("Performing on-timestep updates:")
         self.edmCoreObj.sim_current_time = self.sim_current_time
         mcInputInterface.update_all_der_s_status()
         mcInputInterface.update_all_der_em_status()
         # goSensor.update_sensor_states()
+        print("Calling log update...")
         mcOutputLog.update_logs()
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
@@ -309,7 +428,8 @@ class EDMMeasurementProcessor(object):
         .assignment_lookup_table: Read from DERAssignmentHandler. Used to append DER-S to DER-EM association data to
             each measurement for logging and troubleshooting purposes.
     """
-
+    
+    # @profile
     def __init__(self):
         self.measurement_timestamp = None
         self.current_measurements = None
@@ -318,19 +438,21 @@ class EDMMeasurementProcessor(object):
         self.measurement_mrids = []
         self.measurement_names = []
         self.der_assignment_lookup_table = []
-
+    # @profile
     def on_message(self, headers, measurements):
         """
         CALLBACK METHOD: receives the measurements once every three seconds, and passes them to the parsing method.
         """
         self.parse_message_into_current_measurements(measurements)
 
+    # @profile
     def get_current_measurements(self):
         """
         ACCESSOR: Returns the current fully processed measurement dictionary.
         """ 
         return self.current_measurements
     
+    # @profile
     def parse_message_into_current_measurements(self, measurement_message):
         """
         The measurement message from GridAPPS-D is pretty ugly. This method pulls out just the stuff we need, and then
@@ -343,18 +465,33 @@ class EDMMeasurementProcessor(object):
         self.append_names()
         self.append_association_data()
 
+    # @profile
     def append_names(self):
         """
         Adds a bunch of extra important information to each measurement's value dictionary.
         """
         self.mrid_name_lookup_table = edmCore.get_mrid_name_lookup_table()
+        mrid_name_lookup_dict = {}
+        
+        for item in self.mrid_name_lookup_table:
+            measid = item['measid']
+            mrid_name_lookup_dict[measid] = item
+        
         self.measurement_lookup_table = edmCore.get_cim_measurement_dict()
+        mrid_measurement_lookup_dict = {}
+        
+        for item in self.measurement_lookup_table:
+            mrid = item['mRID']
+            mrid_measurement_lookup_dict[mrid] = item
+        
         self.measurement_mrids = self.current_measurements
         self.measurement_mrids = self.current_measurements.keys()
-        
+
+
         for i in self.measurement_mrids:
             try:
-                lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+                lookup_mrid = mrid_name_lookup_dict[i]
+                # lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
                 
             except StopIteration:
                 print(f"\n\n-------- lookup_mrid --------")
@@ -370,9 +507,10 @@ class EDMMeasurementProcessor(object):
         for key, value in self.measurement_mrids.items():
             try:
                 self.current_measurements[key]['Measurement name'] = value
+                measurement_table_dict_containing_mrid = mrid_measurement_lookup_dict[key]
                 
-                measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
-                                                              if item['mRID'] == key)
+                # measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
+                #                                               if item['mRID'] == key)
                 
                 self.current_measurements[key]['Conducting Equipment Name'] = measurement_table_dict_containing_mrid[
                     'ConductingEquipment_name']
@@ -385,29 +523,31 @@ class EDMMeasurementProcessor(object):
             except StopIteration:
                 print("\n\n ---------- Measurements updated with amplifying information ---------- \n\n")
 
+    # @profile
     def append_association_data(self):
         """
         Appends association data.
         """
 
         self.assignment_lookup_table = derAssignmentHandler.get_assignment_lookup_table()
-        
+        assignment_lookup_dict = {}
+        for item in self.assignment_lookup_table:
+            
+            name = item['DER_name']
+            assignment_lookup_dict[name] = item
 
-        for key, value in self.current_measurements.items():
+        for key, value in self.current_measurements.items(): # current_measurements contains all loads
 
             try:
-                assignment_dict_with_given_name = next(item for item in self.assignment_lookup_table if
-                                                        item['DER_name'] == self.current_measurements[key][
-                                                            'Conducting Equipment Name'])
-                    
+                assignment_dict_with_given_name = assignment_lookup_dict[self.current_measurements[key]['Conducting Equipment Name']]
+
                 if 'BatteryUnit' in value['Measurement name']:
                     self.current_measurements[key]['Inverter Control mRID'] = assignment_dict_with_given_name['DER_mRID']
                     DER_input_name = derIdentificationManager.get_meas_name(assignment_dict_with_given_name['DER_mRID'])
                     self.current_measurements[key]['DER Input Unique ID'] = DER_input_name
 
-            except StopIteration:
-                pass
-        
+            except KeyError:
+                pass        
 
 class RWHDERS:
     """
@@ -483,7 +623,7 @@ class RWHDERS:
     """
 
     def __init__(self, mcConfiguration):
-        self.der_em_input_request = {}
+        self.der_em_input_request = []
         self.input_file_path = f"{mcConfiguration.mc_file_directory}/RWHDERS_Inputs/"
         self.input_identification_dict = {}
 
@@ -561,8 +701,7 @@ class RWHDERS:
                     current_der_input = {row[0]: row[1]}
             current_der_real_power = current_der_input['P']
             self.der_em_input_request[key] = current_der_real_power
-            # current_der_input_request = {key: current_der_real_power}
-            # self.der_em_input_request = current_der_input_request
+
 
     def get_input_request(self):
         """
@@ -605,6 +744,7 @@ class DERSHistoricalDataInput:
         .location_lookup_dictionary: A dictionary associating the DER unique identifiers with the bus they should
            be assigned to.
     """
+    # @profile
     def __init__(self, mcConfiguration):
                 
         self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
@@ -615,7 +755,8 @@ class DERSHistoricalDataInput:
         self.list_of_ders = []
         self.ders_watts = {}
         self.ders_vars = {}
-
+    
+    # @profile
     def initialize_der_s(self):
         
         """
@@ -625,7 +766,8 @@ class DERSHistoricalDataInput:
         the read_input_file() function. See below.
         """
         self.read_input_file()
-
+    
+    # @profile
     def get_input_request(self):
         
         """
@@ -650,7 +792,7 @@ class DERSHistoricalDataInput:
             assigned_der = dict([(value, key) for value, key in der_being_assigned.items()])
             derAssignmentHandler.append_new_values_to_association_table(values = assigned_der)
         
-
+    # @profile
     def open_input_file(self):
         """
         Opens the historical data input file, read it as a .csv file, and parses it into a list of dicts.
@@ -703,7 +845,8 @@ class DERSHistoricalDataInput:
         self.list_of_ders = list(self.location_lookup_dictionary.keys())
         self.input_table[0]['Time'] = first_row_time
 
-    def update_der_em_input_request(self):
+    # @profile
+    def update_der_em_input_request(self, force_first_row=False):
         
         """
         Checks the current simulation time against the input table. If a new input exists for the current timestep,
@@ -717,10 +860,17 @@ class DERSHistoricalDataInput:
         """
         
         self.der_em_input_request.clear()
-        
+        print("STEPPING IN TO UPDATE_DER_EM_INPUT_REQUEST for DERHISTORICALDATAINPUT")
         try:
-            input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
-                                     int(item['Time']) < (int(edmCore.sim_current_time) + 1))
+            if force_first_row is True:
+                print("DERHistoricalDataInput TEST MODE: retrieving first item from input log")
+                input_at_time_now = next(item for item in self.input_table)
+            
+            else:
+                print(edmCore.sim_current_time)
+                print(next(item for item in self.input_table)['Time'])
+                input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
+                                         int(item['Time']) < (int(edmCore.sim_current_time) + 1))
             self.new_values_inserted = True
             input_at_time_now = dict(input_at_time_now)
             input_at_time_now.pop('Time')
@@ -733,7 +883,7 @@ class DERSHistoricalDataInput:
         except StopIteration:
             return 
 
-        
+    # @profile
     def optimize_der_ems_inputs(self, attribute, new_inputs_keys, new_inputs_values):
         """
         We iterate through the input table, extract the DER type loads and non-DER type loads, and put each type 
@@ -757,9 +907,11 @@ class DERIdentificationManager:
             DERAssignmentHandler after the startup process is complete. Used to connect the unique identifiers of
             DER inputs (whatever form they might take) to mRIDs for their assigned DER-EMs.
     """
+    # @profile
     def __init__(self):
         self.association_lookup_table = None
 
+    # @profile
     def get_meas_name(self, mrid):
         """
         ACCESSOR FUNCTION: Returns a unique identifier for a given DER-EM mRID. If none found, the DER-EM was never
@@ -773,7 +925,8 @@ class DERIdentificationManager:
             return input_unique_id
         except UnboundLocalError:
             return 'Unassigned'
-
+    
+    # @profile
     def get_der_em_mrid(self, name):
         """
         ACCESSOR FUNCTION: Returns the associated DER-EM control mRID for a given input unique identifier. Unlike
@@ -782,6 +935,7 @@ class DERIdentificationManager:
         x = next(d for i, d in enumerate(self.association_lookup_table) if name in d)
         return x[name]
 
+    # @profile
     def initialize_association_lookup_table(self):
         """
         Retrieves the association table from the assignment handler.
@@ -812,21 +966,9 @@ class DERAssignmentHandler:
             DERIdentificationManager.
 
         .der_em_mrid_per_bus_query_message: SPARQL Query used to gather the DER-EM info for the assignment tables from the model database.
-
-    UPDATE:
-    There are several ways to pull the information from the Blazegraph. We can pull all the model information 
-    and filter the results here. Or, we can design one query to pull the DERs and triplex_loads information. The last
-    solution is to send two queries, the first one pulls the batteries and the second query pulls the triplex_loads. I
-    went with the last solution for the following reasons:
-
-        - Both the first and second solutions take around 2 seconds.
-        - Sending two queries individually takes:
-            * 174 ms each. Compared to the one query, this is way less significant time.
-        - Later, we combine the results of the two queries in one list.
-    
-    NOTE: Both equipments (batteries and triplex_loads) have the same buses.
     """
-
+    
+    # @profile
     def __init__(self):
         self.assignment_lookup_table = None
         self.assignment_table = None
@@ -859,12 +1001,13 @@ class DERAssignmentHandler:
         ORDER by ?name
         '''
 
+    # @profile
     def get_assignment_lookup_table(self):
         """
         ACCESSOR: Returns the assignment lookup table. Used in the message appendage process.
         """
         return self.assignment_lookup_table
-
+    # @profile
     def create_assignment_lookup_table(self):
         
         """
@@ -882,7 +1025,7 @@ class DERAssignmentHandler:
                                                name = 'DER_name',
                                                mrid= 'DER_mRID',
                                                merge_queries=True)
-
+    # @profile
     def iterate_over_queryy_response_info(self, query_response, name, mrid, merge_queries):
         if merge_queries == False:
             self.merged_loads = {}
@@ -898,6 +1041,7 @@ class DERAssignmentHandler:
         
         return list(self.merged_loads.values())
     
+    # @profile
     def assign_all_ders(self):
 
         """
@@ -911,6 +1055,7 @@ class DERAssignmentHandler:
         for key, value in mcConfiguration.ders_obj_list.items():
             eval(value).assign_der_s_to_der_em()
 
+    # @profile
     def get_mRID_for_der_on_bus(self, Bus):
         """
         For a given Bus, checks if a DER-EM exists on that bus and is available for assignment. If so, returns its mRID
@@ -938,6 +1083,7 @@ class DERAssignmentHandler:
         
         return der_mrid
 
+    # @profile
     def append_new_values_to_association_table(self, values):
         """
         Used by DER-S classes to add new values to the association table during initialization.
@@ -953,10 +1099,13 @@ class MCInputInterface:
         .current_unified_input_request: A list of all input requests currently being provided to the Input Interface
             by all active DER-Ss.
     """
-
+    
+    # @profile
     def __init__(self):
         self.current_unified_input_request = []
-
+        self.test_tpme1_unified_input_request = []
+    
+    # @profile
     def update_all_der_em_status(self):
         """
         Currently, calls the update_der_ems() method. In the future, may be used to call methods for different input
@@ -964,13 +1113,14 @@ class MCInputInterface:
         """
         self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
 
+    # @profile
     def update_all_der_s_status(self):
         """
         Gets the DER-S input requests.
         """
         self.get_all_der_s_input_requests()
 
-
+    # @profile
     def get_all_der_s_input_requests(self):
         """
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
@@ -987,7 +1137,13 @@ class MCInputInterface:
         self.current_unified_input_request.clear()
         for key, value in mcConfiguration.ders_obj_list.items():
             self.current_watts_input_request, self.current_vars_input_request = eval(value).get_input_request()
-
+        
+        # For TP-ME1-DER01:
+        print(edmCore.sim_current_time)
+        if edmCore.sim_current_time == "1570041120":
+            self.test_tpme1_unified_input_request = dict(self.current_watts_input_request)
+    
+    # @profile
     def update_der_ems(self, loads_dict, control_attribute):
         """
         Reads each line in the unified input request and uses the GridAPPS-D library to generate EDM input messages for
@@ -1029,19 +1185,6 @@ class MCInputInterface:
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
         loads_dict.clear()
-        # for der in loads_dict:
-        #     for key, value in der.items():
-
-        #         associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
-
-        #         my_diff_build.add_difference(associated_der_em_mrid,
-        #                                     control_attribute,
-        #                                     int(value), 0)
-                
-        # message = my_diff_build.get_message()
-        # edmCore.gapps_session.send(input_topic, message)
-        # my_diff_build.clear()
-        # loads_dict.clear()
 
 
 class GOTopologyProcessor:
@@ -1071,10 +1214,13 @@ class GOTopologyProcessor:
         - The updated version of this class aligns with the older version objectives. It is however expanded to accommodate
         more complex topologies.
     """
+
+    # @profile
     def __init__(self):
         
         self.topology_file = './Configuration/psu_feeder_topology.xml'
 
+    # @profile
     def import_topology_from_file(self):
         """
         Read topology file
@@ -1083,13 +1229,14 @@ class GOTopologyProcessor:
         root = tree.getroot()
 
         return root
-    
+    # @profile
     def get_substation(self):
         """
         Get the root name
         """
         return self.import_topology_from_file().tag
 
+    # @profile
     def get_groups (self):
         """
         Get groups in root
@@ -1097,6 +1244,7 @@ class GOTopologyProcessor:
         group = self.get_elements(self.import_topology_from_file(), 'group', 'name')
         return group
 
+    # @profile
     def get_feeders (self):
         """
         Get feeder in each group
@@ -1104,6 +1252,7 @@ class GOTopologyProcessor:
         feeders = self.get_elements(self.import_topology_from_file(), 'feeder', 'name')
         return feeders
 
+    # @profile
     def get_segments (self):
         """
         Get segments in each feeder
@@ -1111,6 +1260,7 @@ class GOTopologyProcessor:
         segments = self.get_elements(self.import_topology_from_file(), 'segment', 'name')
         return segments
 
+    # @profile
     def get_xfmrs (self):
         """
         Get transformers in each segment
@@ -1118,6 +1268,7 @@ class GOTopologyProcessor:
         xfmrs = self.get_elements(self.import_topology_from_file(), 'xfmr', 'name')
         return xfmrs
     
+    # @profile
     def get_buses (self):
         """
         Get buses in each segment for each DER
@@ -1125,6 +1276,7 @@ class GOTopologyProcessor:
         buses = self.get_elements(self.import_topology_from_file(), 'bus', 'name')
         return buses
 
+    # @profile
     def get_elements (self, element, tag, attribute):
         """
         Loop to retrieve the above attributes
@@ -1160,6 +1312,8 @@ class GOSensor:
             and posted service objects generated from this data.
     
     """
+
+    # @profile
     def __init__(self):
 
         self.service_request_decision = None
@@ -1177,7 +1331,8 @@ class GOSensor:
         self.current_path = os.getcwd()
         self.inv_file_path = f'{self.current_path}/inverter_control_file/'
         self.inv_file_name = 'model_startup_test.glm'
-            
+    
+    # @profile
     def make_service_request_decision(self):
         """
         Performs the following once per timestep.
@@ -1198,6 +1353,7 @@ class GOSensor:
         else:
             print("Service request failure. Wrong input.")
     
+    # @profile
     def setup_feeder_analysis_level (self):
         """
         Uncomment the level of where Grid Services should be monitored. All services should be working on substation,
@@ -1228,7 +1384,8 @@ class GOSensor:
             for clas, func in value.items():
                 self.feeder_nominal_voltage = func['nominal_voltage']
                 return eval(f"{key}{func['function']}")
-        
+    
+    # @profile
     def set_volt_var_thresholds (self):
         """
         Initially, sets the maximum and minimum thresholds for volt/var grid service.
@@ -1237,24 +1394,11 @@ class GOSensor:
         self.max_threshold = self.feeder_nominal_voltage + (self.feeder_nominal_voltage * self.voltage_tolerance)
         self.min_threshold = self.feeder_nominal_voltage - (self.feeder_nominal_voltage * self.voltage_tolerance)
 
+    # @profile
     def update_sensor_states(self):
         pass
-
-        # print("Checking for a Grid Service...")
     
-        # parsed_measurements = edmMeasurementProcessor.get_current_measurements()
-        # if parsed_measurements:
-        #     print(dersHistoricalDataInput.new_values_inserted)
-        #     try:
-        #         for key, value in parsed_measurements.items():
-        #             self.detect_grid_service_type (value)
-        #     except AttributeError:                              # eliminating the timestamp attribute
-        #         pass
-            
-        #     self.voltage_support_buses = list(set(self.voltage_support_buses))
-            # print(self.voltage_support_buses)
-            
-
+    # @profile
     def detect_grid_service_type (self, value):
         
         """
@@ -1284,7 +1428,7 @@ class GOSensor:
 
         # self.initialize_volt_var_support_service(bus=value.get('Bus'),magnitude=value.get('magnitude'))
        
- 
+    # @profile
     def initialize_volt_var_support_service (self, bus, magnitude):
         """
         Since GridAPPS-D storage objects do not provide volt/var support, we use external GridLAB-D file that provides 
@@ -1301,7 +1445,7 @@ class GOSensor:
         # self.initialize_grid_Service_elements (bus, magnitude)
         # self.run_ext_inverter_startup_file ()
 
-    
+    # @profile
     def set_grid_service_type (self, grid_service_type):
         self.service_type = grid_service_type
         # print(self.service_type)
@@ -1309,6 +1453,7 @@ class GOSensor:
         dersHistoricalDataInput.new_values_inserted = False
         # pass
 
+    # @profile
     def load_manual_service_file(self):
         
         """
@@ -1320,7 +1465,7 @@ class GOSensor:
         input_file.close()
         self.manual_service_xml_data = xmltodict.parse(data)
 
-
+    # @profile
     def manually_post_service(self, sim_time):
         """
         Called by make_service_request_decision() when in MANUAL mode. Reads the contents of the manual service
@@ -1354,6 +1499,7 @@ class GOOutputInterface:
     """
     current_service_requests = []
 
+    # @profile
     def get_all_posted_service_requests(self):
         """
         Retrieves the service message data from each posted service (see the GOPostedService.get_service_message_data()
@@ -1372,7 +1518,7 @@ class GOOutputInterface:
             else:
                 print("----------------All already posted----------------")
                 
-
+    # @profile
     def generate_service_messages(self):
         """
         Converts the current_service_requests list of dicts into a proper xml format. Used by the xml writed in
@@ -1388,6 +1534,7 @@ class GOOutputInterface:
         request_out_xml = request_out_xml + '</services>'
         return request_out_xml
 
+    # @profile
     def send_service_request_messages(self):
         """
         Writes the current service request messages to an xml file, which will be accessed by the GSP for its service
@@ -1451,7 +1598,7 @@ class MCOutputLog:
         self.file_num = 0
 
 
-
+    # @profile
     def update_logs(self):
         """
         During the first measurement, performs housekeeping tasks like opening the file, setting the name, translating
@@ -1480,7 +1627,7 @@ class MCOutputLog:
             self.write_row()
             self.message_size_checkpoint()
 
-
+    # @profile
     def message_size_checkpoint (self):
         """
         Set the message size and checks if the it is exceeded. If it is, it closes the current file, opens a new file, and
@@ -1497,6 +1644,7 @@ class MCOutputLog:
             self.message_size = 0
             self.close_out_logs()
     
+    # @profile
     def open_csv_file(self):
         """
         Opens the .csv file.
@@ -1504,6 +1652,7 @@ class MCOutputLog:
         print("Opening .csv file:")
         self.csv_file = open(self.log_name, 'w')
 
+    # @profile
     def open_csv_dict_writer(self):
         """
         Opens the dict writer used to write rows. Note that the headers used are the measurement mRIDs; the plain
@@ -1511,21 +1660,30 @@ class MCOutputLog:
         """
         self.csv_dict_writer = csv.DictWriter(self.csv_file, self.header_mrids) # header_mrids is a dict of object mrid and its name
 
+    # @profile
     def close_out_logs(self):
         """
         Closes the log file and re-appends the timestamps.
         """
         self.csv_file.close()
 
+    # @profile
     def translate_header_names(self):
         """
         Looks up the plain english names for the headers and provides them to a dictionary for use by write_header().
         """
         self.header_mrids = self.current_measurement.keys()
+        mrid_name_lookup_dict = {}
+
+        for item in self.mrid_name_lookup_table:
+            measid = item['measid']
+            mrid_name_lookup_dict[measid] = item
+        
         for i in self.header_mrids:
             if i != 'Timestamp':
                 try:
-                    lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+                    lookup_mrid = mrid_name_lookup_dict[i]
+                    # lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
                 except StopIteration:
                     print(lookup_mrid)
                 lookup_name = lookup_mrid['name']
@@ -1534,29 +1692,40 @@ class MCOutputLog:
         self.header_mrids = dict(zip(list(self.header_mrids), self.header_names))
         self.header_mrids['Timestamp'] = 'Timestamp'
 
+    # @profile
     def append_timestamps(self):
         """
         Convert simulation time to a human-readable format.
         """
-        print('current simulation time\t',edmTimekeeper.sim_current_time)
         self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
+        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
+        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
 
+        print("CURRENT TIMESTAMP [TEST]:")
+        print(self.current_measurement['Timestamp'])
+        print(edmTimekeeper.sim_current_time)
+
+    # @profile
     def write_header(self):
         """
         Writes the log header.
         """
         self.csv_dict_writer.writerow(self.header_mrids)
 
+    # @profile
     def write_row(self):
         """
         Writes a row of measurements to the logs.
         """
         self.csv_dict_writer.writerow(self.current_measurement)
 
+    # @profile
     def set_log_name(self):
         """
         Sets the log name based on the MCConfiguration settings.
         """
+        # self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
+        self.log_name = mcConfiguration.output_log_name
         self.log_name = f"{mcConfiguration.output_log_name}_{self.file_num}.csv"
         self.file_num += 1
 
@@ -1574,6 +1743,7 @@ class GOPostedService:
     stores whatever data is needed by the DERMS, and that there is a function that returns this data in dictionary
     format.
     """
+    # @profile
     def __init__(self, service_name="Undefined", group_id=0, service_type="Undefined", interval_start=0,
                  interval_duration=0, power=0, ramp=0, price=0):
         self.service_name = service_name
@@ -1586,33 +1756,43 @@ class GOPostedService:
         self.price = price
         self.status = False
 
+    # @profile
     def get_service_name(self):
         return self.service_name
 
+    # @profile
     def get_group_id(self):
         return self.group_id
 
+    # @profile
     def get_service_type(self):
         return self.service_type
 
+    # @profile
     def get_interval_start(self):
         return self.interval_start
 
+    # @profile
     def get_interval_duration(self):
         return self.interval_duration
 
+    # @profile
     def get_power(self):
         return self.power
 
+    # @profile
     def get_price(self):
         return self.price
 
+    # @profile
     def get_status(self):
         return self.status
 
+    # @profile
     def set_status(self, new_status):
         self.status = new_status
 
+    # @profile
     def get_service_message_data(self):
         """
         Returns the attribute names and values in dictionary form for use by the message wrapper (GOOutputInterface).
@@ -1631,7 +1811,7 @@ class GOPostedService:
 
 # ------------------------------------------------Function Definitions------------------------------------------------
 
-
+# @profile
 def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
     """
     Instantiates the callback classes.
@@ -1645,22 +1825,47 @@ def instantiate_callback_classes(simulation_id, gapps_object, edmCore):
 
 
 # ------------------------------------------Program Execution (Main loop)------------------------------------------
-def _main():
+# @profile
+def set_testing_conditions():
+    """
+    Used for unit testing. Sets up the ME for a run without actually starting the simulation. This will allow most
+    classes and specifications to be tested by importing ModelController.py as a module and using this method
+    to set initial conditions.
+    """
+    
+    global mcConfiguration
+    mcConfiguration = MCConfiguration()
+    global edmCore
+    edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    edmCore.put_in_test_mode()
+    edmCore.sim_start_up_process()
+    edmCore.start_simulation_and_pause()
+    edmCore.initialize_sim_mrid()
+    instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
+
+# @profile
+def _main(test_mode = False, DERSHDI_FilePath = None):
     """
     Main operating loop. Instantiates the core, runs the startup process, gets the sim mrid, instantiates the callback
     classes, and starts running the simulation. All ongoing processes are handled (and called) by the callback objects.
     Otherwise, sleeps until the end_program flag is thrown.
     """
+    global DERSHDIPath_test
+    DERSHDIPath_test = DERSHDI_FilePath
     global mcConfiguration
     mcConfiguration = MCConfiguration()
     global edmCore
     edmCore = EDMCore()  # EDMCore must be manually instantiated.
+    if test_mode is True:
+        edmCore.put_in_test_mode()
     edmCore.sim_start_up_process()
     edmCore.start_simulation()
     edmCore.initialize_sim_mrid()
     instantiate_callback_classes(edmCore.sim_mrid, edmCore.gapps_session, edmCore)
 
     global end_program
+    end_program = False
+
     while not end_program:
         time.sleep(0.1)
 
