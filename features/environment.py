@@ -5,6 +5,7 @@ from melogtool import *
 melogtool = MELogTool()
 import os
 import glob
+import cProfile
 
 def concatenate_logs(full_filepath):
     folder_path, filename = os.path.split(full_filepath)
@@ -42,19 +43,23 @@ def concatenate_logs(full_filepath):
 def before_all(context):
     context.MEPath = r"/root/PycharmProjects/doe-egot-me/"
     print(context.MEPath)
-    context.firstinputfilepath = r"DERSHistoricalDataInput/TP_ME1_A_LogInput.csv"
-    context.secondinputfilepath = r"DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv"
+    context.firstinputfilepath = r"DERSHistoricalDataInput/ders_1000.csv"
+    context.secondinputfilepath = r"DERSHistoricalDataInput/ders_2000.csv"
     context.outputxmlpath = r"output_to_DERMS/OutputtoGSP.xml"
-    context.unique_ids = ['LOGDER0001', '00000', '00001']
+    context.unique_ids = ['LOGDER0001_Watts', '00000_Watts', '00001_Watts']
 
     print("First run...")
     try:
         ModelController._main(test_mode=False, DERSHDI_FilePath=context.firstinputfilepath)
     except SystemExit:
+        print("SYSTEMEXIT")
         context.firstfilename = ModelController.mcConfiguration.output_log_name
         context.firstfilepath = context.MEPath + context.firstfilename
         print(context.firstfilepath)
         context.firstTPME1UIR = ModelController.mcInputInterface.test_tpme1_unified_input_request
+        print("context.firstTPME1UIR")
+        print(context.firstTPME1UIR)
+        print(ModelController.mcInputInterface.test_tpme1_unified_input_request)
 
     try:
         ModelController._main(test_mode=False, DERSHDI_FilePath=context.secondinputfilepath)
@@ -82,16 +87,17 @@ def before_all(context):
                                                              'DER-EM Name': item['DER_name']}
     context.association_lookup_table = ModelController.derIdentificationManager.association_lookup_table
     context.der_input_list = [
-        'LOGDER0001',
-        '00000',
-        '00001'
+        'LOGDER0001_Watts',
+        'LOGDER0001_VARs',
+        '00000_Watts',
+        '00001_Watts'
     ]
     context.der_em_list = [
-        'DEREM_6321_Battery',
-        'DEREM_6331_Battery',
-        'DEREM_6341_Battery',
-        'DEREM_2p_6751_Battery',
-        'DEREM_3p_6752_Battery'
+        'DEREM_6321',
+        'DEREM_6331',
+        'DEREM_6341',
+        'DEREM_2p_6751',
+        'DEREM_3p_6752'
     ]
 
     context.posted_service_list = ModelController.goSensor.posted_service_list

@@ -8,7 +8,7 @@
     <start_time>2019-10-02 18:31:57</start_time>
     <end_time>2019-10-02 18:32:23</end_time>
     <use_measurement_points>True</use_measurement_points>
-    <measurement_points>[PowerElectronicsConnection_BatteryUnit_DEREM_6321_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_6322_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_6331_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_6341_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_6342_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_2p_6751_Battery, PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery]</measurement_points>
+    <measurement_points>[PowerElectronicsConnection_BatteryUnit_DEREM_6321, PowerElectronicsConnection_BatteryUnit_DEREM_6322, PowerElectronicsConnection_BatteryUnit_DEREM_6331, PowerElectronicsConnection_BatteryUnit_DEREM_6332, PowerElectronicsConnection_BatteryUnit_DEREM_6341, PowerElectronicsConnection_BatteryUnit_DEREM_6342, PowerElectronicsConnection_BatteryUnit_DEREM_2p_6751, PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752]</measurement_points>
     <use_search_function>False</use_search_function>
     <values_to_search>[1,2]</values_to_search>
     <use_key_filtering>True</use_key_filtering>

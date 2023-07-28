@@ -9,13 +9,13 @@ from datetime import datetime, timedelta
 @given(u'DER-S inputs are available')
 def step_impl(context):
     assert path.exists(
-        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput.csv") is True
+        context.MEPath + "DERSHistoricalDataInput/ders_1000.csv") is True
     assert path.exists(
-        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv") is True
+        context.MEPath + "DERSHistoricalDataInput/ders_2000.csv") is True
     assert path.exists(
-        "/root/PycharmProjects/doe-egot-me/RWHDERS_Inputs/DER00000_Bus632.csv") is True
+        context.MEPath + "RWHDERS_Inputs/DER00000_Bus632.csv") is True
     assert path.exists(
-        "/root/PycharmProjects/doe-egot-me/RWHDERS_Inputs/DER00001_Bus633.csv") is True
+        context.MEPath + "RWHDERS_Inputs/DER00001_Bus633.csv") is True
 
 
 @when(u'A DER-S update occurs')
@@ -30,14 +30,14 @@ def step_impl(context):
 
 @then(u'The Unified Input Request should indicate an input request in the proper format')
 def step_impl(context):
-    assert type(context.firstTPME1UIR) is list
+    print(context.firstTPME1UIR)
+    assert type(context.firstTPME1UIR) is dict
     for items in context.firstTPME1UIR:
-        assert type(items) is dict
-    for item in context.firstTPME1UIR:
-        for i in item:
-            assert type(i) is str
-            assert type(item[i]) is str
-            assert type(int(item[i])) is int
+        print(items)
+        assert type(items) is str
+    for key, value in context.firstTPME1UIR.items():
+        assert type(key) is str
+        assert type(int(value)) is int
 
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.')
@@ -153,8 +153,8 @@ def step_impl(context):
                 next(reader)  # Skip the header row
 
     # Input file paths
-    input_1a_file = "DERSHistoricalDataInput/TP_ME1_A_LogInput.csv"
-    input_2a_file = "DERSHistoricalDataInput/TP_ME1_A_LogInput2.csv"
+    input_1a_file = "DERSHistoricalDataInput/ders_1000.csv"
+    input_2a_file = "DERSHistoricalDataInput/ders_2000.csv"
     output_1b_file = "df_test.csv"
     output_2b_file = "df_test2.csv"
 
@@ -170,20 +170,23 @@ def step_impl(context):
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs.')
 def step_impl(context):
 
-    for i in context.firstTPME1UIR:
-        unique_id = list(i.keys())
-        print(unique_id[0])
-        print(type(unique_id[0]))
+    # for i in context.firstTPME1UIR:
+    print(context.firstTPME1UIR)
+    # print(i)
+    # unique_id = list(i.keys())
+    unique_id = list(context.firstTPME1UIR.keys())
+    print(unique_id[0])
+    print(type(unique_id[0]))
+    print(context.unique_ids)
+    if unique_id[0] in context.unique_ids:
+        print("Removing:")
         print(context.unique_ids)
-        if unique_id[0] in context.unique_ids:
-            print("Removing:")
-            print(context.unique_ids)
-            context.unique_ids.remove(unique_id[0])
-            print(context.unique_ids)
-        else:
-            print("Excess unique ID found. Ensure system is in test configuration.")
-            assert True is False
-        print(len(context.unique_ids))
+        context.unique_ids.remove(unique_id[0])
+        print(context.unique_ids)
+    else:
+        print("Excess unique ID found. Ensure system is in test configuration.")
+        assert True is False
+    print(len(context.unique_ids))
     assert len(context.unique_ids) == 0
 
 
@@ -193,8 +196,9 @@ def step_impl(context):
 
 @then(u'Each DER-S should contain information associating a Unique ID with a locational identifier')
 def step_impl(context):
-    assert ModelController.dersHistoricalDataInput.test_first_row['LOGDER0001_loc'] == '632'
-    assert ModelController.rwhDERS.input_identification_dict['00000']['Bus'] == '632'
+    print(ModelController.dersHistoricalDataInput.test_first_row)
+    assert ModelController.dersHistoricalDataInput.test_first_row['LOGDER0001_loc'] == 'n632'
+    assert ModelController.rwhDERS.input_identification_dict['00000']['Bus'] == 'n632'
 
 
 @given(u'The Model Controller has completed the simulation startup process.')
@@ -306,6 +310,7 @@ def step_impl(context):
 @then(u'Log files should indicate power and voltage readings exist for three phases of any bus.')
 # Make Portable
 def step_impl(context):
+    print(context.first_parsed_output_df)
     headings_list = context.first_parsed_output_df.columns
     print(headings_list)
     heading_verification_list = [
@@ -323,6 +328,7 @@ def step_impl(context):
          'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_PNV[magnitude]'
                                 ]
     for item in heading_verification_list:
+        print(item)
         assert item in headings_list
 
 
@@ -365,7 +371,7 @@ def step_impl(context):
 @given(u'DER Inputs exist which include a DER-EM that acts as a load, source, and storage')
 def step_impl(context):
     assert path.exists(
-        "/root/PycharmProjects/doe-egot-me/DERSHistoricalDataInput/TP_ME1_A_LogInput.csv") is True
+        context.MEPath + "DERSHistoricalDataInput/ders_1000.csv") is True
 
 @given(u'Logs from a simulation exist which use these inputs')
 def step_impl(context):
@@ -436,23 +442,68 @@ def step_impl(context):
 @then(u'The logs should contain non-zero values for Voltage for a DER-EM')
 # Make Portable
 def step_impl(context):
-    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]'])
-    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]'] != 0
+    # Define the row index
+    row_index = 1
+
+    # Define the header pattern for the new header
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV\[magnitude\]$'
+
+    # Use regular expression to find matching columns
+    matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
+
+    # Check if the matching column exists in the DataFrame
+    if matching_columns.empty:
+        print("Matching column not found.")
+        assert True == False
+    else:
+        # Get the value at the specified row_index and matching column
+        value = matching_columns.iloc[row_index, 0]
+        print("Value:", value)
+
+        # Assert that the value is not equal to 0
+        assert value != 0
 
 
 
 @then(u'The logs should contain non-zero values for Power for a DER-EM')
 # Make Portable
 def step_impl(context):
-    print(context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]'])
-    assert context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]'] != 0
+    # Replace 'your_large_file.csv' with the actual path of your large CSV file
+    file_path = 'your_large_file.csv'
+    context.first_parsed_output_df = pd.read_csv(file_path)
+
+    # Define the row index
+    row_index = 1
+
+    # Define the header pattern
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA\[magnitude\]$'
+
+    # Use regular expression to find matching columns
+    matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
+
+    # Check if the matching column exists in the DataFrame
+    if matching_columns.empty:
+        print("Matching column not found.")
+        assert True == False
+    else:
+        # Get the value at the specified row_index and matching column
+        value = matching_columns.iloc[row_index, 0]
+        print("Value:", value)
+
+        # Assert that the value is not equal to 0 (this will fail now)
+        assert value != 0
 
 
 @then(u'The voltage values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    v1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_A_PNV[magnitude]']
-    v2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_B_PNV[magnitude]']
-    v3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_C_PNV[magnitude]']
+    print(context.first_parsed_output_df)
+    row_index = 1
+    header_pattern_v1 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_A_PNV\[magnitude\]$'
+    header_pattern_v2 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_B_PNV\[magnitude\]$'
+    header_pattern_v3 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_C_PNV\[magnitude\]$'
+    v1 = context.first_parsed_output_df.filter(regex=header_pattern_v1, axis=1).iloc[row_index, 0]
+    v2 = context.first_parsed_output_df.filter(regex=header_pattern_v2, axis=1).iloc[row_index, 0]
+    v3 = context.first_parsed_output_df.filter(regex=header_pattern_v3, axis=1).iloc[row_index, 0]
     print(v1)
     print(v2)
     print(v3)
@@ -462,12 +513,22 @@ def step_impl(context):
 
 @then(u'The power values on each phase for a single load should not be exactly equal')
 def step_impl(context):
-    p1 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_C_VA[magnitude]']
-    p2 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_A_VA[magnitude]']
-    p3 = context.first_parsed_output_df.at[1, 'PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752_Battery_B_VA[magnitude]']
-    print(p1)
-    print(p2)
-    print(p3)
+    # Define the row index
+    row_index = 1
+
+    # Define the header patterns
+    header_pattern_p1 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_C_VA\[magnitude\]$'
+    header_pattern_p2 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_A_VA\[magnitude\]$'
+    header_pattern_p3 = r'^PowerElectronicsConnection_BatteryUnit_DEREM_3p_6752.*_B_VA\[magnitude\]$'
+
+    # Extract values using the header patterns
+    p1 = context.first_parsed_output_df.filter(regex=header_pattern_p1, axis=1).iloc[row_index, 0]
+    p2 = context.first_parsed_output_df.filter(regex=header_pattern_p2, axis=1).iloc[row_index, 0]
+    p3 = context.first_parsed_output_df.filter(regex=header_pattern_p3, axis=1).iloc[row_index, 0]
+
+    print("p1:", p1)
+    print("p2:", p2)
+    print("p3:", p3)
     assert (p1 != p2 or p2 != p3 or p1 != p3)
 
 
@@ -479,6 +540,7 @@ def step_impl(context):
 @then(u'The Assignment Lookup table should contain the name of each DER-EM')
 def step_impl(context):
     # print(context.der_em_list)
+    # print(context.assignment_lookup_table)
     for i in context.der_em_list:
         assert context.assignment_lookup_table[i]
 
@@ -609,7 +671,23 @@ def step_impl(context):
 
 @then(u'The logs should indicate a DER-S changed state from one timestep to the next.')
 def step_impl(context):
-    column = context.first_parsed_output_df.loc[:,"PowerElectronicsConnection_BatteryUnit_DEREM_6341_Battery_A_VA[magnitude]"]
+    # Define the string to filter columns
+    # Define the row index
+    row_index = 1
+
+    # Define the header pattern
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6341.*_A_VA\[magnitude\]$'
+
+    # Use regular expression to find matching header
+    matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
+
+    # Check if the matching column exists in the DataFrame
+    if matching_columns.empty:
+        assert matching_columns != None
+    else:
+        # Get the value at the specified row_index and matching column
+        column = matching_columns.iloc[:, 0]
+        print("column:", column)
     v1 = column.iloc[5]
     v2 = column.iloc[6]
     print(column)
@@ -667,6 +745,7 @@ def step_impl(context):
     for item in context.association_lookup_table:
         for key, value in item.items():
             context.table_der_dict[key] = value
+    print(context.table_der_dict)
     for item in context.der_input_list:
         assert context.table_der_dict[item]
 
