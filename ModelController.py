@@ -1,27 +1,14 @@
-import re
-import os
-import ast
-import csv
-import time
-# import json
-import xmltodict
-import subprocess
-import pandas as pd
-from dict2xml import dict2xml
-from pprint import pprint as pp
-from gridappsd import topics as t
-import xml.etree.ElementTree as ET
-from gridappsd.simulation import Simulation
-from gridappsd import GridAPPSD, DifferenceBuilder
+
 """
 model controller
 
 To use behave, type "behave -v" in the terminal.
 
-To use the line profiler, uncomment all of the @profile decorators in ModelController.py and type 
+To use the line profiler, uncomment all of the # @profile decorators in ModelController.py and type 
 "kernprof -lv ModelController.py" in the terminal.
 
 """
+import re
 import ast
 import csv
 import os
@@ -505,6 +492,11 @@ class EDMMeasurementProcessor(object):
         Adds a bunch of extra important information to each measurement's value dictionary.
         """
         self.mrid_name_lookup_table = edmCore.get_mrid_name_lookup_table()
+        mrid_name_lookup_dict = {}
+        for item in self.mrid_name_lookup_table:
+            measid = item['measid']
+            mrid_name_lookup_dict[measid] = item
+
         '''
         self.mrid_name_lookup_table prints a detailed measurements info. The following is a snapshot:
         [{'bus': 'rg60',
@@ -520,6 +512,10 @@ class EDMMeasurementProcessor(object):
 
         '''
         self.measurement_lookup_table = edmCore.get_cim_measurement_dict()
+        mrid_measurement_lookup_dict = {}
+        for item in self.measurement_lookup_table:
+            mrid = item['mRID']
+            mrid_measurement_lookup_dict[mrid] = item
         '''
         Returns a detailed info about the model. A snapshot is shown below:
 
@@ -540,9 +536,9 @@ class EDMMeasurementProcessor(object):
         
         for i in self.measurement_mrids:
             try:
-                lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
-                
-            except StopIteration:
+                lookup_mrid = mrid_name_lookup_dict[i]
+                # lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+            except StopIteration: #  This may be deprecated.
                 print(f"\n\n-------- lookup_mrid --------")
             lookup_name = lookup_mrid['name']
             self.measurement_names.append(lookup_name)
@@ -554,8 +550,9 @@ class EDMMeasurementProcessor(object):
         for key, value in self.measurement_mrids.items():
             try:
                 self.current_measurements[key]['Measurement name'] = value
-                measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
-                                                              if item['mRID'] == key)
+                measurement_table_dict_containing_mrid = mrid_measurement_lookup_dict[key]
+                # measurement_table_dict_containing_mrid = next(item for item in self.measurement_lookup_table
+                #                                               if item['mRID'] == key)
                 self.current_measurements[key]['Meas Name'] = measurement_table_dict_containing_mrid['name']
                 self.current_measurements[key]['Conducting Equipment Name'] = measurement_table_dict_containing_mrid[
                     'ConductingEquipment_name']
@@ -575,6 +572,17 @@ class EDMMeasurementProcessor(object):
         """
 
         self.assignment_lookup_table = derAssignmentHandler.get_assignment_lookup_table()
+        assignment_lookup_dict = {}
+        for item in self.assignment_lookup_table:
+            try:
+                name = item['DER_name']
+                assignment_lookup_dict[name] = item
+            except KeyError:
+                try:
+                    name = item['house_name']
+                    assignment_lookup_dict[name] = item
+                except:
+                    raise('Error in assignment lookup table')
 
         # for item in self.assignment_lookup_table:
 
@@ -588,14 +596,20 @@ class EDMMeasurementProcessor(object):
         for key, value in self.current_measurements.items(): # current_measurements contains all loads
 
             try: # assignment_dict_with_given_name has all energyconsumers and ders
-                assignment_dict_with_given_name = next(
-                    item for item in self.assignment_lookup_table if
-                    ('DER_name' in item and item['DER_name'] == self.current_measurements[key][
-                        'Conducting Equipment Name'])
-                    or
-                    ('house_name' in item and item['house_name'] == self.current_measurements[key][
-                        'Conducting Equipment Name'])
-                )
+                # print(assignment_lookup_dict)
+                # print(key)
+                # print(value)
+
+                assignment_dict_with_given_name = assignment_lookup_dict[self.current_measurements[key]['Conducting Equipment Name']]
+
+                # assignment_dict_with_given_name = next(
+                #     item for item in self.assignment_lookup_table if
+                #     ('DER_name' in item and item['DER_name'] == self.current_measurements[key][
+                #         'Conducting Equipment Name'])
+                #     or
+                #     ('house_name' in item and item['house_name'] == self.current_measurements[key][
+                #         'Conducting Equipment Name'])
+                # )
 
                 if 'EnergyConsumer' in value['Measurement name']:
                     self.current_measurements[key]['EnergyConsumer Control mRID'] = assignment_dict_with_given_name['house_mRID']
@@ -607,7 +621,7 @@ class EDMMeasurementProcessor(object):
                     DER_input_name = derIdentificationManager.get_meas_name(assignment_dict_with_given_name['DER_mRID'])
                     self.current_measurements[key]['DER Input Unique ID'] = DER_input_name
 
-            except StopIteration:
+            except KeyError:
                 pass
 
 
@@ -1860,10 +1874,15 @@ class MCOutputLog:
         Looks up the plain english names for the headers and provides them to a dictionary for use by write_header().
         """
         self.header_mrids = self.current_measurement.keys()
+        mrid_name_lookup_dict = {}
+        for item in self.mrid_name_lookup_table:
+            measid = item['measid']
+            mrid_name_lookup_dict[measid] = item
         for i in self.header_mrids:
             if i != 'Timestamp':
                 try:
-                    lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
+                    lookup_mrid = mrid_name_lookup_dict[i]
+                    # lookup_mrid = next(item for item in self.mrid_name_lookup_table if item['measid'] == i)
                 except StopIteration:
                     print(lookup_mrid)
                 lookup_name = lookup_mrid['name']
@@ -1878,6 +1897,9 @@ class MCOutputLog:
         Convert simulation time to a human-readable format.
         """
         self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
+        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
+        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
+
         print("CURRENT TIMESTAMP [TEST]:")
         print(self.current_measurement['Timestamp'])
         print(edmTimekeeper.sim_current_time)
