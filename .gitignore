@@ -9,7 +9,7 @@
 /venv/pyvenv.cfg
 
 # Remove large csv files
-**/Logged_Grid_State_Data/**
+**/Logged_Grid_State_Data/*csv
 **/ders_testing/**
 **/cimhub_docker/**
 

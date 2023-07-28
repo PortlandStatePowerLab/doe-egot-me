@@ -483,7 +483,7 @@ class RWHDERS:
     """
 
     def __init__(self, mcConfiguration):
-        self.der_em_input_request = []
+        self.der_em_input_request = {}
         self.input_file_path = f"{mcConfiguration.mc_file_directory}/RWHDERS_Inputs/"
         self.input_identification_dict = {}
 
@@ -560,27 +560,9 @@ class RWHDERS:
                 for row in der_input_reader:
                     current_der_input = {row[0]: row[1]}
             current_der_real_power = current_der_input['P']
-            current_der_input_request = {key: current_der_real_power}
+            self.der_em_input_request[key] = current_der_real_power
+            # current_der_input_request = {key: current_der_real_power}
             # self.der_em_input_request = current_der_input_request
-            self.der_em_input_request.append(current_der_input_request)
-        # self.der_em_input_request.clear()
-
-        # for key, value in self.input_identification_dict.items():
-        #     current_der_input = pd.read_csv(self.input_file_path+value['Filepath'], header=None)
-            
-        #     if not current_der_input.empty:
-                
-        #         if len(current_der_input) > 1:
-        #             current_der_input = current_der_input.iloc[-1]
-        #             current_der_input_request = {key:current_der_input[1]}
-        #         else:
-        #             current_der_input_request = {key:current_der_input.values[0][1]}
-            
-        #     else:
-        #         print("RWH_Input file is empty!")
-
-        #     self.der_em_input_request.append(current_der_input_request)
-
 
     def get_input_request(self):
         """
@@ -624,10 +606,8 @@ class DERSHistoricalDataInput:
            be assigned to.
     """
     def __init__(self, mcConfiguration):
-        
-        
+                
         self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/DERSHistoricalDataInput/"
-        # self.historical_data_file_path = f"{mcConfiguration.mc_file_directory}/ders_testing/"
         self.location_lookup_dictionary = {}
         self.new_values_inserted = False
         self.der_em_input_request = []
@@ -685,18 +665,17 @@ class DERSHistoricalDataInput:
             - Sort the DERs profiles based on their order (from 1 - 960).
             - Append the bus, the DER magnitude, and Time to the dicionary (x). <-- same as the previous version of this function!
         """
-        ders = [file for file in os.listdir(self.historical_data_file_path) if file.startswith("ders")]
-        ders_files_sorted = sorted(ders, key=lambda x: int(x.split("_")[1].split(".")[0]))
-        df_all = pd.read_csv(self.historical_data_file_path+ders_files_sorted[0], usecols=['Time'])
+        ders = [file for file in os.listdir(self.historical_data_file_path)]
+        df_all = pd.read_csv(self.historical_data_file_path+ders[0], usecols=['Time'])
 
-        for file in ders_files_sorted:
+
+        for file in ders:
             df = pd.read_csv(self.historical_data_file_path+file)
             df = df.drop('Time', axis=1)
             df_all = pd.concat([df_all, df], axis=1)
         
-        df_all = df_all.fillna(0)
+        df_all = df_all.fillna(0)        
         return df_all.to_dict(orient='records')
-    
     
 
     def read_input_file(self):
@@ -983,10 +962,7 @@ class MCInputInterface:
         Currently, calls the update_der_ems() method. In the future, may be used to call methods for different input
         types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
-        self.current_vars_input_request.clear()
-        # self.current_watts_input_request.clear()
         self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
-        self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
 
     def update_all_der_s_status(self):
         """
@@ -1041,19 +1017,31 @@ class MCInputInterface:
 
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
-        for der in loads_dict:
-            for key, value in der.items():
+        for key, value in loads_dict.items():
 
-                associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+            associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
 
-                my_diff_build.add_difference(associated_der_em_mrid,
-                                            control_attribute,
-                                            int(value), 0)
-                
+            my_diff_build.add_difference(associated_der_em_mrid,
+                                         control_attribute,
+                                         int(value), 0)
+            
         message = my_diff_build.get_message()
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
         loads_dict.clear()
+        # for der in loads_dict:
+        #     for key, value in der.items():
+
+        #         associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
+
+        #         my_diff_build.add_difference(associated_der_em_mrid,
+        #                                     control_attribute,
+        #                                     int(value), 0)
+                
+        # message = my_diff_build.get_message()
+        # edmCore.gapps_session.send(input_topic, message)
+        # my_diff_build.clear()
+        # loads_dict.clear()
 
 
 class GOTopologyProcessor:
@@ -1550,6 +1538,7 @@ class MCOutputLog:
         """
         Convert simulation time to a human-readable format.
         """
+        print('current simulation time\t',edmTimekeeper.sim_current_time)
         self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
 
     def write_header(self):

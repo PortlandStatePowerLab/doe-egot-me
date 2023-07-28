@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd derms_help_files
-python3 map_dcms_ders.py
+#cd derms_help_files
+#python3 map_dcms_ders.py
 
 cd ../DERScripts
 echo "\n\n------------ UPLOADING MODEL ------------\n\n"

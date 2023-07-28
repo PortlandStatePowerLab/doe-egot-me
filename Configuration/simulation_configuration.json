@@ -8,8 +8,8 @@
         "applications": []
     },
     "simulation_config": {
-        "start_time": "1672531200",
-        "duration": "30",
+        "start_time": "1570041113",
+        "duration": "60",
         "simulator": "GridLAB-D",
         "timestep_frequency": "1000",
         "timestep_increment": "1000",

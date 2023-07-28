@@ -1,5 +1,5 @@
 import os
-import csv
+import glob
 import random
 import hashlib
 import pandas as pd
@@ -87,7 +87,7 @@ class Mapping_DCMs_And_DERs:
                 self.headers = row.values[0]
             else:
                 self.ders_names.append(row.values[0])
-    
+
     def randomize_ders_and_trim_der_list(self):
         """
         This is just a preferance. The full der file contains all ders for the first node, all ders for the second node,
@@ -97,6 +97,14 @@ class Mapping_DCMs_And_DERs:
         random.shuffle(self.ders_names)
         self.ders_names = self.ders_names[:len(self.lfdis)]
         # self.ders_names = self.ders_names[:2]
+
+    def clear_rwhder_files(self):
+        '''
+        Check if LFDI has been already assigned to a DER. If so, remove the file and assign the LFDI
+        to a new DER.
+        '''
+        filelist = glob.glob(self.me_dir+'/RWHDERS_Inputs/*.csv')
+        clear_dir = [os.remove(files) for files in filelist]
 
     def assign_LFDIs_and_DERs(self):
         """
@@ -114,6 +122,7 @@ class Mapping_DCMs_And_DERs:
         self.GetLFDIs()
         self.Open_EGoT13_Der_File()
         self.randomize_ders_and_trim_der_list()
+        self.clear_rwhder_files()
         self.assign_LFDIs_and_DERs()
         
 

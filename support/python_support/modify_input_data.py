@@ -1,14 +1,18 @@
 import os
+import random
 import pandas as pd
 from pprint import pprint as pp
 
-class add_remove_modify_data:
+
+# HDI --> Historical Data Input
+
+class add_remove_modify_HDI:
 
     def __init__(self):
         
         self.main_dir = os.getcwd()
-        self.input_files_path = "../DERSHistoricalDataInput/"
-        self.input_files_destination = "../DERSHistoricalDataInput/"
+        self.input_files_path = "../../DERSHistoricalDataInput/"
+        self.input_files_destination = "../../ders_testing/"
     
     def add_rows(self, df, time, watts, vars, loc):
         new_row = pd.DataFrame([[time, watts, vars, loc]], columns=df.columns)
@@ -39,10 +43,59 @@ class add_remove_modify_data:
             if file.startswith("ders"):
                 df = self.read_files(file)
                 df = self.remove_rows(df)
-                df = self.remove_columns(df)
-                df = self.add_rows(df=df, time=1672531206 ,watts=4500, vars=0, loc=self.constant_value)
+                # df = self.remove_columns(df)
+                df = self.add_rows(df=df, time=1570041117 ,watts=random.randint(0,4500),
+                                   vars=0, loc=self.constant_value)
+                
+                df = self.add_rows(df=df, time=1570041124 ,watts=random.randint(0,4500),
+                                   vars=0, loc=self.constant_value)
+                
+                df = self.add_rows(df=df, time=1570041130 ,watts=random.randint(0,4500),
+                                   vars=0, loc=self.constant_value)
                 self.write_files(df=df, files_name=file)
                 
 
-ders = add_remove_modify_data()
-ders.main_loop()
+class add_remove_modify_rwhders:
+
+    def __init__(self):
+        
+        self.hist_data = add_remove_modify_HDI()
+        self.dir = self.hist_data.main_dir
+        self.input_files = "../../RWHDERS_Inputs"
+        self.destination = self.input_files
+    
+    def add_rows(self, watts, file_name):
+        print(f'P,{watts}', file=file_name)
+    
+    def main_loop (self):
+        for file in os.listdir(self.input_files):
+            data_to_write = open(f'{self.input_files}/{file}', 'w')
+            self.add_rows(watts=random.randint(0,4500), file_name=data_to_write)
+            data_to_write.close()
+
+# rwh = add_remove_modify_HDI()
+# rwh.main_loop()
+
+class combine_ders_files:
+
+    def __init__(self):
+        self.main_dir = '../../DERSHistoricalDataInput'
+        self.dfs = {}
+    
+    def read_files (self):
+        for file in os.listdir(self.main_dir):
+            if file.startswith('ders'):
+                df = pd.read_csv(self.main_dir+'/'+file)
+                time = df.columns[0]
+                # df = df.drop('Time', axis=1)
+                self.dfs[time].append(df.iloc[:,1:])
+        combined_dfs = pd.concat(self.dfs.values(), axis=1, keys=self.dfs.keys())
+        pp(combined_dfs)
+    
+    def combine_dfs(self):
+        dfs = pd.concat(self.dfs, ignore_index=True)
+        print(dfs)
+
+
+ders = combine_ders_files()
+ders.read_files()
