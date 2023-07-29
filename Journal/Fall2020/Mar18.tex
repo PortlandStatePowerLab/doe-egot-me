@@ -1,0 +1,36 @@
+% NOTE - this is only a template without real arguments
+\begin{entry}{Initial Log API Functionality}{Mar 18, 2021}
+    \objective 
+    
+    Get some logging done
+    
+    \outline
+    
+    \begin{enumerate}
+        \item Meet with Shiva
+        \item Write a script that subscribes to the simulation output topic
+        \item Put this data somewhere
+    \end{enumerate}
+    
+    \procedures
+    
+    Today's task was to take what I've learned so far and begin to apply it in unique ways. The first thing I did was
+    write (or more accurately adapt) a callback function. This is required whenever you subscribe to a topic. In the
+    case of the simulation output, the python thing calls this function once every three seconds. So the ideal thing
+    to do was, after a lot of testing, use this callback to write a line of data to a dataframe. In this early step
+    I skipped the middleman and just wrote to a csv. This will allow me to easily test and troubleshoot the eventual
+    data going into the pandas dataframe.
+
+    I went of script and tried subscribing to the simulation log script. This is useful because it gives more data in
+    the python terminal about the simulation and, importantly, the status of the simulation. This can be used to stop
+    the script from running infinitely.
+
+
+    \results
+    
+    Logs are being generated containing who-knows-what, I just used a random message for the topic. I think it's
+    pretty much the entire simulation output. Next step is to filter it down to more specific data and put that in a
+    pandas dataframe with useful labels and, importantly, timecodes. Then, sadly, I need to rewrite the entire script
+    since it's basically a scratchpad file at the moment.
+    
+\end{entry}

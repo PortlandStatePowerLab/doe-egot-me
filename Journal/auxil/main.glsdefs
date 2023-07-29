@@ -1,0 +1,300 @@
+\ifglsentryexists{der}{}%
+{%
+\gls@defglossaryentry{der}%
+{%
+name={DER},%
+sort={DER},%
+type={acronym},%
+first={Distributed Energy Resource\glsspace (DER)},%
+firstplural={Distributed Energy Resources\glsspace (DERs)},%
+text={DER},%
+plural={DERs},%
+description={Distributed Energy Resource},%
+descriptionplural={Distributed Energy Resource\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Distributed Energy Resource},%
+longplural={Distributed Energy Resources},%
+short={DER},%
+shortplural={DERs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ferc}{}%
+{%
+\gls@defglossaryentry{ferc}%
+{%
+name={FERC},%
+sort={FERC},%
+type={acronym},%
+first={Federal Energy Regulatory Commission\glsspace (FERC)},%
+firstplural={Federal Energy Regulatory Commissions\glsspace (FERCs)},%
+text={FERC},%
+plural={FERCs},%
+description={Federal Energy Regulatory Commission},%
+descriptionplural={Federal Energy Regulatory Commission\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Federal Energy Regulatory Commission},%
+longplural={Federal Energy Regulatory Commissions},%
+short={FERC},%
+shortplural={FERCs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{osti}{}%
+{%
+\gls@defglossaryentry{osti}%
+{%
+name={OSTI},%
+sort={OSTI},%
+type={acronym},%
+first={Office of Scientific and Technical Information\glsspace (OSTI)},%
+firstplural={Office of Scientific and Technical Informations\glsspace (OSTIs)},%
+text={OSTI},%
+plural={OSTIs},%
+description={Office of Scientific and Technical Information},%
+descriptionplural={Office of Scientific and Technical Information\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Office of Scientific and Technical Information},%
+longplural={Office of Scientific and Technical Informations},%
+short={OSTI},%
+shortplural={OSTIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rps}{}%
+{%
+\gls@defglossaryentry{rps}%
+{%
+name={RPS},%
+sort={RPS},%
+type={acronym},%
+first={Renewable Portfolio Standard\glsspace (RPS)},%
+firstplural={Renewable Portfolio Standards\glsspace (RPSs)},%
+text={RPS},%
+plural={RPSs},%
+description={Renewable Portfolio Standard},%
+descriptionplural={Renewable Portfolio Standard\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Renewable Portfolio Standard},%
+longplural={Renewable Portfolio Standards},%
+short={RPS},%
+shortplural={RPSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rer}{}%
+{%
+\gls@defglossaryentry{rer}%
+{%
+name={RER},%
+sort={RER},%
+type={acronym},%
+first={Renewable Energy Resource\glsspace (RER)},%
+firstplural={Renewable Energy Resources\glsspace (RERs)},%
+text={RER},%
+plural={RERs},%
+description={Renewable Energy Resource},%
+descriptionplural={Renewable Energy Resource\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Renewable Energy Resource},%
+longplural={Renewable Energy Resources},%
+short={RER},%
+shortplural={RERs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{der-s}{}%
+{%
+\gls@defglossaryentry{der-s}%
+{%
+name={DER-S},%
+sort={DER-S},%
+type={acronym},%
+first={Distributed Energy Resource - Simulated\glsspace (DER-S)},%
+firstplural={Distributed Energy Resource - Simulateds\glsspace (DER-Ss)},%
+text={DER-S},%
+plural={DER-Ss},%
+description={Distributed Energy Resource - Simulated},%
+descriptionplural={Distributed Energy Resource - Simulated\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Distributed Energy Resource - Simulated},%
+longplural={Distributed Energy Resource - Simulateds},%
+short={DER-S},%
+shortplural={DER-Ss},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{der-em}{}%
+{%
+\gls@defglossaryentry{der-em}%
+{%
+name={DER-EM},%
+sort={DER-EM},%
+type={acronym},%
+first={Distributed Energy Resource - Electrical Model\glsspace (DER-EM)},%
+firstplural={Distributed Energy Resource - Electrical Models\glsspace (DER-EMs)},%
+text={DER-EM},%
+plural={DER-EMs},%
+description={Distributed Energy Resource - Electrical Model},%
+descriptionplural={Distributed Energy Resource - Electrical Model\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Distributed Energy Resource - Electrical Model},%
+longplural={Distributed Energy Resource - Electrical Models},%
+short={DER-EM},%
+shortplural={DER-EMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{me}{}%
+{%
+\gls@defglossaryentry{me}%
+{%
+name={ME},%
+sort={ME},%
+type={acronym},%
+first={Modeling Environment\glsspace (ME)},%
+firstplural={Modeling Environments\glsspace (MEs)},%
+text={ME},%
+plural={MEs},%
+description={Modeling Environment},%
+descriptionplural={Modeling Environment\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Modeling Environment},%
+longplural={Modeling Environments},%
+short={ME},%
+shortplural={MEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{mc}{}%
+{%
+\gls@defglossaryentry{mc}%
+{%
+name={MC},%
+sort={MC},%
+type={acronym},%
+first={Model Controller\glsspace (MC)},%
+firstplural={Model Controllers\glsspace (MCs)},%
+text={MC},%
+plural={MCs},%
+description={Model Controller},%
+descriptionplural={Model Controller\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Model Controller},%
+longplural={Model Controllers},%
+short={MC},%
+shortplural={MCs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{edm}{}%
+{%
+\gls@defglossaryentry{edm}%
+{%
+name={EDM},%
+sort={EDM},%
+type={acronym},%
+first={Electrical Distribution Model\glsspace (EDM)},%
+firstplural={Electrical Distribution Models\glsspace (EDMs)},%
+text={EDM},%
+plural={EDMs},%
+description={Electrical Distribution Model},%
+descriptionplural={Electrical Distribution Model\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Electrical Distribution Model},%
+longplural={Electrical Distribution Models},%
+short={EDM},%
+shortplural={EDMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

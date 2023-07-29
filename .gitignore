@@ -7,6 +7,8 @@
 /venv/local/
 /venv/.gitignore
 /venv/pyvenv.cfg
+<<<<<<< HEAD
+=======
 
 # Remove large csv files
 /Logged_Grid_State_Data/*csv
@@ -18,3 +20,9 @@
 
 
 # Remove debugging files (imported gridappsd models from blazegraph)
+
+**/gridappsd_file/**
+**/gridappsd_tmp/**
+*.txt
+>>>>>>> origin/me-psu-13-node-feeder
+

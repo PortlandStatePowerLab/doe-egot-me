@@ -1,0 +1,53 @@
+<all>
+    <group name= "group-1" >
+        <bus name="650" />
+    </group>
+
+    <group name= "group-2" >
+        <bus name="646" />
+    </group>
+
+    <group name="group-3" >
+        <bus name= "645" />
+    </group>
+
+    <group name="group-4" >
+        <bus name="632" />
+    </group>
+
+    <group name="group-5" >
+        <bus name="633" />
+    </group>
+
+    <group name="group-6" >
+        <bus name="634" />
+    </group>
+
+    <group name="group-7" >
+        <bus name="611" />
+    </group>
+
+    <group name="group-8" >
+        <bus name="684" />
+    </group>
+
+    <group name="group-9" >
+        <bus name="671" />
+    </group>
+
+    <group name="group-10" >
+        <bus name="692" />
+    </group>
+
+    <group name="group-11" >
+        <bus name="675" />
+    </group>
+
+    <group name="group-12" >
+        <bus name="652" />
+    </group>
+
+    <group name="group-13" >
+        <bus name="680" />
+    </group>
+</all>
