@@ -329,4 +329,3 @@ if fuidname is not None:
   for key, val in uuids.items():
     print ('{:s},{:s}'.format (key.replace(':', ',', 1), val), file=fuid)
   fuid.close()
-
