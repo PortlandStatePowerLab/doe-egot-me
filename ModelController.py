@@ -58,15 +58,15 @@ class MCConfiguration:
         self.mc_file_directory = os.getcwd()
         self.config_file_path = f"{self.mc_file_directory}/Configuration/Config.txt"
         self.ders_obj_list = {
-            'DERSHistoricalDataInput': 'dersHistoricalDataInput'
-            # 'RWHDERS': 'rwhDERS'
+            # 'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
 
         self.go_sensor_decision_making_manual_override = True
         self.manual_service_filename = "manually_posted_service_input.xml"
-        self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M")
+        self.output_log_name = 'Logged Grid State Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M")
 
 
 class EDMCore:
@@ -1538,7 +1538,7 @@ class GOOutputInterface:
         Writes the current service request messages to an xml file, which will be accessed by the GSP for its service
         provisioning functions.
         """
-        xmlfile = open("outputs_to_DERMS/OutputtoGSP.xml", "w")
+        xmlfile = open("Outputs To DERMS/OutputtoGSP.xml", "w")
         xmlfile.write(self.generate_service_messages())
         xmlfile.close()
 
