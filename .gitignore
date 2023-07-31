@@ -10,6 +10,7 @@
 
 # Remove large csv files
 /Logged_Grid_State_Data/*csv
+/Logged_Grid_State_Data/*py
 **/ders_testing/**
 **/cimhub_docker/**
 /dss_files/python_scripts/
