@@ -50,7 +50,7 @@ class MELogTool:
                 self.option_keys_to_include = self.imported_options["keys_to_include"]
                 self.option_keys_to_include = self.option_keys_to_include.strip('][').split(', ')
             if self.imported_options['use_search_function'] == 'True':
-                self.option_values_to_search = self.imported_options["values_to_searc"]
+                self.option_values_to_search = self.imported_options["values_to_search"]
                 self.option_values_to_search = self.option_values_to_search.strip('][').split(', ')
         except FileNotFoundError:
             self.quit_condition = True
@@ -68,6 +68,8 @@ class MELogTool:
         if log_filename_arg is not None:
             self.log_filepath = log_filename_arg
         # Read logs
+        print("FOR TESTING PURPOSES")
+        print(self.log_filepath)
         try:
             log_df = pd.read_csv(self.log_filepath)
         except pandas.errors.ParserError:
@@ -77,6 +79,7 @@ class MELogTool:
             quit()
         # Filter time
         if (self.option_start_time != None) and (self.option_end_time != None):
+            print(self.option_start_time)
             timeindex_dict = {}
             for i in log_df.index:
                 timeindex_dict[log_df["Timestamp"][i]] = i
@@ -131,7 +134,7 @@ class MELogTool:
             for key, value in column_series[column_series.index[0]].items():
                 if (key != "Phases") and (key != "MeasType"):
                     new_column_name = header_name + "_" + column_series[column_series.index[0]]["Phases"] + "_" + column_series[column_series.index[0]]["MeasType"] + "[" + str(key) + "]"
-                    new_column_name_trimmed = new_column_name.replace('.1', '').replace('.2', '').replace('.3', '').replace('.4', '').replace('.5', '')
+                    new_column_name_trimmed = new_column_name.replace('.1', '').replace('.2', '').replace('.3', '').replace('.4', '').replace('.5', '').replace('.6', '')
                     # print(new_column_name_trimmed)
                     new_names_dict[new_column_name_trimmed] = {header_name: key}
         for new_names, column_dicts in new_names_dict.items():

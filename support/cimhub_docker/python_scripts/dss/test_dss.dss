@@ -1,0 +1,4 @@
+redirect Master_base.dss
+set maxiterations=20
+solve
+export summary sum_master.csv

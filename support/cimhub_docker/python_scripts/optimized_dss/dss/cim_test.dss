@@ -1,0 +1,4 @@
+redirect /home/deras/Desktop/midrar_work_github/doe-egot-me/support/cimhub_docker/python_scripts/optimized_dss/dss/Master.dss
+solve
+export uuids Master.json
+export cim100 substation=Fictitious geo=Oregon subgeo=Portland file=Master.xml

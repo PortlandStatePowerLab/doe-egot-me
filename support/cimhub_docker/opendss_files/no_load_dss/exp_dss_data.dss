@@ -1,0 +1,4 @@
+redirect /home/deras/Desktop/midrar_work_github/cimhub_psu_feeder/cimhub_docker/no_load_dss/Master.dss
+solve
+export uuids Master.json
+export cim100 substation=Fictitious geo=Oregon subgeo=Portland file=Master.xml

@@ -7,3 +7,13 @@
 /venv/local/
 /venv/.gitignore
 /venv/pyvenv.cfg
+
+# Remove large csv files
+./Logged Grid State Data/*csv
+./Logged Grid State Data/*py
+./ders_testing/
+./cimhub_docker/**
+./dss_files/python_scripts/
+./dss_files/testing_files/
+**/support/**
+/ders_testing/
