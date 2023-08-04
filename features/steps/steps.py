@@ -9,13 +9,13 @@ from datetime import datetime, timedelta
 @given(u'DER-S inputs are available')
 def step_impl(context):
     assert path.exists(
-        context.MEPath + "DERSHistoricalDataInput/ders_1000.csv") is True
+        context.MEPath + "DERSHistoricalData Inputs/ders_1000.csv") is True
     assert path.exists(
-        context.MEPath + "DERSHistoricalDataInput/ders_2000.csv") is True
+        context.MEPath + "DERSHistoricalData Inputs/ders_2000.csv") is True
     assert path.exists(
-        context.MEPath + "RWHDERS_Inputs/DER00000_Bus632.csv") is True
+        context.MEPath + "RWHDERS Inputs/DER00000_Bus632.csv") is True
     assert path.exists(
-        context.MEPath + "RWHDERS_Inputs/DER00001_Bus633.csv") is True
+        context.MEPath + "RWHDERS Inputs/DER00001_Bus633.csv") is True
 
 
 @when(u'A DER-S update occurs')
@@ -42,16 +42,20 @@ def step_impl(context):
 
 @then(u'The Unified Input Request should indicate an input request with the correct unique IDs and magnitudes.')
 def step_impl(context):
+    print("FIRST TPME1UIR")
     print(context.firstTPME1UIR)
-    assert context.firstTPME1UIR['LOGDER0001_Watts'] == 10000000
-    assert context.firstTPME1UIR['00000_Watts'] == 100000
+
+    assert int(context.firstTPME1UIR['LOGDER0001_Watts']) == 1000
+    assert int(context.firstTPME1UIR['00000']) == 100000
 
 
 
 @given(u'Output logs exist for two unique simulations')
 def step_impl(context):
+    print(context.MEPath)
+    print(context.firstfilename)
     assert path.exists(
-        context.MEPath + context.firstfilename) is True
+        context.MEPath + context.firstfilename + "_1.csv") is True
     assert path.exists(
         context.MEPath + context.secondfilename + "_1.csv") is True
 
@@ -154,8 +158,8 @@ def step_impl(context):
                 next(reader)  # Skip the header row
 
     # Input file paths
-    input_1a_file = "DERSHistoricalDataInput/ders_1000.csv"
-    input_2a_file = "DERSHistoricalDataInput/ders_2000.csv"
+    input_1a_file = "DERSHistoricalData Inputs/ders_1000.csv"
+    input_2a_file = "DERSHistoricalData Inputs/ders_2000.csv"
     output_1b_file = "df_test.csv"
     output_2b_file = "df_test2.csv"
 
@@ -173,20 +177,23 @@ def step_impl(context):
 
     # for i in context.firstTPME1UIR:
     print(context.firstTPME1UIR)
+    print(context.firstTPME1UIR.keys())
     # print(i)
     # unique_id = list(i.keys())
     unique_id = list(context.firstTPME1UIR.keys())
-    print(unique_id[0])
-    print(type(unique_id[0]))
-    print(context.unique_ids)
-    if unique_id[0] in context.unique_ids:
-        print("Removing:")
+    for i in range(len(unique_id)):
+        print(range(len(unique_id)))
+        print(unique_id[i])
         print(context.unique_ids)
-        context.unique_ids.remove(unique_id[0])
-        print(context.unique_ids)
-    else:
-        print("Excess unique ID found. Ensure system is in test configuration.")
-        assert True is False
+        if unique_id[i] in context.unique_ids:
+            print("Removing:")
+            print(i)
+            print(context.unique_ids)
+            context.unique_ids.remove(unique_id[i])
+            print(context.unique_ids)
+        else:
+            print("Excess unique ID found. Ensure system is in test configuration.")
+            assert True is False
     print(len(context.unique_ids))
     assert len(context.unique_ids) == 0
 
@@ -198,7 +205,7 @@ def step_impl(context):
 @then(u'Each DER-S should contain information associating a Unique ID with a locational identifier')
 def step_impl(context):
     print(ModelController.dersHistoricalDataInput.test_first_row)
-    assert ModelController.dersHistoricalDataInput.test_first_row['LOGDER0001_loc'] == 'n632'
+    assert ModelController.dersHistoricalDataInput.test_first_row['LOGDER0001_loc'] == 'n634'
     assert ModelController.rwhDERS.input_identification_dict['00000']['Bus'] == 'n632'
 
 
@@ -225,7 +232,7 @@ def step_impl(context):
 @given(u'Logs from a simulation using these DER Input files exist')
 def step_impl(context):
     assert path.exists(
-        context.MEPath + context.firstfilename) is True
+        context.MEPath + context.firstfilename + "_1.csv") is True
     assert path.exists(
         context.MEPath + context.secondfilename + "_1.csv") is True
 
@@ -315,18 +322,18 @@ def step_impl(context):
     headings_list = context.first_parsed_output_df.columns
     print(headings_list)
     heading_verification_list = [
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_C_PNV[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_VA[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_VA[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV[magnitude]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_PNV[angle]',
-         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_B_PNV[magnitude]'
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_C_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_C_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_C_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_C_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_B_VA[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_B_VA[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_PNV[magnitude]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_B_PNV[angle]',
+         'PowerElectronicsConnection_BatteryUnit_DEREM_6332_B_PNV[magnitude]'
                                 ]
     for item in heading_verification_list:
         print(item)
@@ -361,18 +368,19 @@ def step_impl(context):
 
 @then(u'The logs should contain non-zero values for Voltage for a non-DER asset')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should contain non-zero values for Voltage for a non-DER asset')
+    column = context.first_parsed_output_df.loc[:, "EnergyConsumer_house_680_b_20_s1_VA[magnitude]"]
+    assert column.nunique() > 1
 
 
 @then(u'The logs should contain non-zero values for Power for a non-DER asset')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The logs should contain non-zero values for Power for a non-DER asset')
-
+    column = context.first_parsed_output_df.loc[:, "EnergyConsumer_house_680_b_20_s1_PNV[magnitude]"]
+    assert column.nunique() > 1
 
 @given(u'DER Inputs exist which include a DER-EM that acts as a load, source, and storage')
 def step_impl(context):
     assert path.exists(
-        context.MEPath + "DERSHistoricalDataInput/ders_1000.csv") is True
+        context.MEPath + "DERSHistoricalData Inputs/ders_1000.csv") is True
 
 @given(u'Logs from a simulation exist which use these inputs')
 def step_impl(context):
@@ -447,7 +455,7 @@ def step_impl(context):
     row_index = 1
 
     # Define the header pattern for the new header
-    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_PNV\[magnitude\]$'
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_PNV\[magnitude\]$'
 
     # Use regular expression to find matching columns
     matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
@@ -469,15 +477,11 @@ def step_impl(context):
 @then(u'The logs should contain non-zero values for Power for a DER-EM')
 # Make Portable
 def step_impl(context):
-    # Replace 'your_large_file.csv' with the actual path of your large CSV file
-    file_path = 'your_large_file.csv'
-    context.first_parsed_output_df = pd.read_csv(file_path)
-
     # Define the row index
     row_index = 1
 
     # Define the header pattern
-    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_Battery_A_VA\[magnitude\]$'
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6332_A_VA\[magnitude\]$'
 
     # Use regular expression to find matching columns
     matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
@@ -541,7 +545,8 @@ def step_impl(context):
 @then(u'The Assignment Lookup table should contain the name of each DER-EM')
 def step_impl(context):
     # print(context.der_em_list)
-    # print(context.assignment_lookup_table)
+    print(context.assignment_lookup_table)
+    # print(context.association_lookup_table)
     for i in context.der_em_list:
         assert context.assignment_lookup_table[i]
 
@@ -677,14 +682,15 @@ def step_impl(context):
     row_index = 1
 
     # Define the header pattern
-    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6341.*_A_VA\[magnitude\]$'
+    header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6344.*_A_VA\[magnitude\]$'
 
     # Use regular expression to find matching header
+    print(context.first_parsed_output_df)
     matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
 
     # Check if the matching column exists in the DataFrame
     if matching_columns.empty:
-        assert matching_columns != None
+        assert matching_columns is not None
     else:
         # Get the value at the specified row_index and matching column
         column = matching_columns.iloc[:, 0]

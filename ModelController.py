@@ -58,7 +58,7 @@ class MCConfiguration:
         self.mc_file_directory = os.getcwd()
         self.config_file_path = f"{self.mc_file_directory}/Configuration/Config.txt"
         self.ders_obj_list = {
-            # 'DERSHistoricalDataInput': 'dersHistoricalDataInput'
+            'DERSHistoricalDataInput': 'dersHistoricalDataInput',
             'RWHDERS': 'rwhDERS'
             # ,
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
@@ -1199,21 +1199,67 @@ class MCInputInterface:
         """
         self.get_all_der_s_input_requests()
 
-    # @profile
     def get_all_der_s_input_requests(self):
         """
         Retrieves input requests from all DER-Ss and appends them to a unified input request.
-
         """
+        combined_watts_dict = {}  # Initialize an empty dictionary for watts input
+        combined_vars_dict = {}  # Initialize an empty dictionary for vars input
         online_ders = mcConfiguration.ders_obj_list
-        
-        self.current_unified_input_request.clear()
+
         for key, value in mcConfiguration.ders_obj_list.items():
-            self.current_watts_input_request, self.current_vars_input_request = eval(value).get_input_request()
-        # For TP-ME1-DER01:
+            obj_instance = eval(value)
+            current_watts_input_request, current_vars_input_request = obj_instance.get_input_request()
+
+            # Update the combined_watts_dict with the current_watts_input_request dictionary
+            combined_watts_dict.update(current_watts_input_request)
+
+            # Update the combined_vars_dict with the current_vars_input_request dictionary
+            combined_vars_dict.update(current_vars_input_request)
+
+        # combined_watts_dict and combined_vars_dict will now contain the merged dictionaries
+        print("Combined Watts Dictionary:")
+        print(combined_watts_dict)
+        print("Combined Vars Dictionary:")
+        print(combined_vars_dict)
+
+        self.current_watts_input_request = combined_watts_dict
+        self.current_vars_input_request = combined_vars_dict
+
+        # Update self.test_tpme1_unified_input_request only for the specific sim_current_time value
+        print("CHECKING CURRENT TIME:")
         print(edmCore.sim_current_time)
-        if edmCore.sim_current_time == "1570041120":
-            self.test_tpme1_unified_input_request = dict(self.current_watts_input_request)
+        if int(edmCore.sim_current_time) == 1570041120:
+            print("UPDATING 1st UIR:")
+            self.test_tpme1_unified_input_request = dict(combined_watts_dict)
+            print(self.test_tpme1_unified_input_request)
+
+    # @profile
+    # def get_all_der_s_input_requests(self):
+    #     """
+    #     Retrieves input requests from all DER-Ss and appends them to a unified input request.
+    #
+    #     """
+    #     combined_dict = {}  # Initialize an empty dictionary
+    #     online_ders = mcConfiguration.ders_obj_list
+    #     self.current_unified_input_request.clear()
+    #
+    #     for key, value in mcConfiguration.ders_obj_list.items():
+    #         self.current_watts_input_request, self.current_vars_input_request = eval(value).get_input_request()
+    #         # For TP-ME1-DER01:
+    #
+    #         if edmCore.sim_current_time == "1570041120":
+    #             print("Retrieving first UIR for testing")
+    #             print(edmCore.sim_current_time)
+    #             # Update the combined_dict with the current_watts_input_request dictionary
+    #             combined_dict.update(self.current_watts_input_request)
+    #
+    #     # combined_dict will now contain the merged dictionaries
+    #     print("Combined Dictionary:")
+    #     print(combined_dict)
+    #     if combined_dict:
+    #         self.test_tpme1_unified_input_request = combined_dict
+
 
     # @profile
     def update_der_ems(self, loads_dict, control_attribute):
@@ -1246,7 +1292,9 @@ class MCInputInterface:
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
         for key, value in loads_dict.items():
-
+            print(self.current_watts_input_request)
+            print(key)
+            print(value)
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
 
             my_diff_build.add_difference(associated_der_em_mrid,
@@ -1254,6 +1302,7 @@ class MCInputInterface:
                                          int(value), 0)
 
         message = my_diff_build.get_message()
+        print(message)
         edmCore.gapps_session.send(input_topic, message)
         my_diff_build.clear()
         loads_dict.clear()
@@ -1766,9 +1815,9 @@ class MCOutputLog:
         """
         Convert simulation time to a human-readable format.
         """
-        self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
-        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
-        self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
+        self.current_measurement['Timestamp'] = pd.to_datetime(int(edmTimekeeper.sim_current_time), unit='s')
+        # self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
+        # self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
 
         print("CURRENT TIMESTAMP [TEST]:")
         print(self.current_measurement['Timestamp'])
