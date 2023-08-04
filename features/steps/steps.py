@@ -52,8 +52,6 @@ def step_impl(context):
 
 @given(u'Output logs exist for two unique simulations')
 def step_impl(context):
-    print(context.MEPath)
-    print(context.firstfilename)
     assert path.exists(
         context.MEPath + context.firstfilename + "_1.csv") is True
     assert path.exists(
@@ -545,7 +543,7 @@ def step_impl(context):
 @then(u'The Assignment Lookup table should contain the name of each DER-EM')
 def step_impl(context):
     # print(context.der_em_list)
-    print(context.assignment_lookup_table)
+    # print(context.assignment_lookup_table)
     # print(context.association_lookup_table)
     for i in context.der_em_list:
         assert context.assignment_lookup_table[i]
@@ -685,7 +683,7 @@ def step_impl(context):
     header_pattern = r'^PowerElectronicsConnection_BatteryUnit_DEREM_6344.*_A_VA\[magnitude\]$'
 
     # Use regular expression to find matching header
-    print(context.first_parsed_output_df)
+    # print(context.first_parsed_output_df)
     matching_columns = context.first_parsed_output_df.filter(regex=header_pattern, axis=1)
 
     # Check if the matching column exists in the DataFrame

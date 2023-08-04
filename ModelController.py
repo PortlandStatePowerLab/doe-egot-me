@@ -1819,9 +1819,6 @@ class MCOutputLog:
         # self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
         # self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
 
-        print("CURRENT TIMESTAMP [TEST]:")
-        print(self.current_measurement['Timestamp'])
-        print(edmTimekeeper.sim_current_time)
 
     # @profile
     def write_header(self):
