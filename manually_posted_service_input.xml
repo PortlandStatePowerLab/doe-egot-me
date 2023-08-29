@@ -1,0 +1,23 @@
+<services>
+    <service1>
+        <group_id>7</group_id>
+        <service_name>emergency</service_name>
+        <service_type>blackout</service_type>
+        <interval_start>0</interval_start>
+        <interval_duration>400</interval_duration>
+        <ramp>0</ramp>
+        <price>0</price>
+        <start_time>1672554595</start_time>
+    </service1>
+
+    <service2>
+        <group_id>4</group_id>
+        <service_name>voltage management</service_name>
+        <service_type>volt-var</service_type>
+        <interval_start>0</interval_start>
+        <interval_duration>10</interval_duration>
+        <ramp>0</ramp>
+        <price>0</price>
+        <start_time>1672552805</start_time>
+    </service2>
+</services>

@@ -1,0 +1,50 @@
+# @profile
+    def detect_grid_service_type (self, value):
+        """
+        Parse the measurements per timestep. If a voltage drop is detected or transformers are overloaded, 
+        other functions are called to respond to the detected drops. Services are posted only once unless
+        a new input value is inserted to the simulation.
+        
+        NOTE: Once a service is needed, it is directly posted to DERMS. Voltage support, however, is an exception.
+        All functions related to voltage service are outlined in initialize_volt_var_support_service() function.
+        """
+
+        pass
+
+    if (value.get('MeasType') == "PNV" and
+    value.get('Bus') in self.bus_list and
+            dersHistoricalDataInput.new_values_inserted is True):
+            
+            # print(self.min_threshold,'\t',value.get('magnitude', float('inf')))
+
+            if self.min_threshold > value.get('magnitude', float('inf')):
+                print("\n\n VOLTAGE DROP\n\n")
+                print('\n\nBus --> ',value.get('Bus'), 'magnitude --> ', value.get('magnitude'))
+                self.voltage_support_buses.append(value.get('Bus'))
+
+    # @profile
+    def peak_demand_mitigation(self):
+
+        df = pd.read_csv(self.peak_demand_file)
+        peak_demand = df.iloc[:,1].max()
+        for index, row in df.iterrows():
+            if row[1] == peak_demand:
+                self.grid_service_time = row[0]
+                self.grid_service_bus = row[-1]
+        
+        if edmTimekeeper.get_sim_current_time() == self.grid_service_time:
+            pass
+
+
+
+
+
+if mcConfiguration.go_sensor_decision_making_manual_override is True:
+            self.manually_post_service(edmTimekeeper.get_sim_current_time())
+        elif mcConfiguration.go_sensor_decision_making_manual_override is False:
+            pass
+            # self.bus_list = self.setup_feeder_analysis_level()
+            # self.set_volt_var_thresholds()
+            # self.update_sensor_states()
+        else:
+            print("Service request failure. Wrong input.")
