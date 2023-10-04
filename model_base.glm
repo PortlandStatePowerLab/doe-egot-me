@@ -1480,7 +1480,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-	V_base ${tlx_632_c_h_4};
+	V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1517,7 +1517,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1554,7 +1554,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1591,7 +1591,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1628,7 +1628,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-	V_base ${tlx_692_a_h_3};
+	V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1665,7 +1665,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1702,7 +1702,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1739,7 +1739,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1776,7 +1776,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1813,7 +1813,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1850,7 +1850,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1887,7 +1887,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1924,7 +1924,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1961,7 +1961,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -1998,7 +1998,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2035,7 +2035,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2072,7 +2072,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2109,7 +2109,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2146,7 +2146,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2183,7 +2183,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2220,7 +2220,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2257,7 +2257,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2294,7 +2294,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2331,7 +2331,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2368,7 +2368,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2405,7 +2405,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2442,7 +2442,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2479,7 +2479,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2516,7 +2516,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2553,7 +2553,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2590,7 +2590,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2627,7 +2627,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2701,7 +2701,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2775,7 +2775,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2812,7 +2812,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2849,7 +2849,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2886,7 +2886,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2923,7 +2923,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2960,7 +2960,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -2997,7 +2997,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3034,7 +3034,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3071,7 +3071,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3108,7 +3108,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3145,7 +3145,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3182,7 +3182,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3219,7 +3219,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3256,7 +3256,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3293,7 +3293,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3330,7 +3330,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3367,7 +3367,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3404,7 +3404,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3441,7 +3441,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3478,7 +3478,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3515,7 +3515,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3552,7 +3552,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3589,7 +3589,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3626,7 +3626,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3663,7 +3663,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3700,7 +3700,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3737,7 +3737,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3774,7 +3774,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3811,7 +3811,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3848,7 +3848,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3885,7 +3885,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3922,7 +3922,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3959,7 +3959,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -3996,7 +3996,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4033,7 +4033,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4070,7 +4070,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4107,7 +4107,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4144,7 +4144,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4181,7 +4181,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4255,7 +4255,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4292,7 +4292,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4329,7 +4329,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4403,7 +4403,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4440,7 +4440,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4477,7 +4477,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4514,7 +4514,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4551,7 +4551,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4588,7 +4588,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4625,7 +4625,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4662,7 +4662,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4699,7 +4699,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4736,7 +4736,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4773,7 +4773,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4810,7 +4810,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4847,7 +4847,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4884,7 +4884,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4921,7 +4921,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4958,7 +4958,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -4995,7 +4995,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5032,7 +5032,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5106,7 +5106,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5143,7 +5143,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5180,7 +5180,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5217,7 +5217,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5291,7 +5291,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5328,7 +5328,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5365,7 +5365,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5439,7 +5439,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5476,7 +5476,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5513,7 +5513,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5550,7 +5550,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5587,7 +5587,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5624,7 +5624,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5661,7 +5661,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5698,7 +5698,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5735,7 +5735,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5772,7 +5772,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5809,7 +5809,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5846,7 +5846,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5920,7 +5920,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -5994,7 +5994,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6031,7 +6031,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6068,7 +6068,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6105,7 +6105,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6179,7 +6179,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6216,7 +6216,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6253,7 +6253,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6290,7 +6290,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6327,7 +6327,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6364,7 +6364,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6401,7 +6401,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6438,7 +6438,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6475,7 +6475,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6512,7 +6512,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6623,7 +6623,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6660,7 +6660,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6734,7 +6734,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6771,7 +6771,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6808,7 +6808,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6845,7 +6845,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6882,7 +6882,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6919,7 +6919,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6956,7 +6956,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -6993,7 +6993,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7030,7 +7030,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7067,7 +7067,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7104,7 +7104,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7141,7 +7141,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7178,7 +7178,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7215,7 +7215,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7252,7 +7252,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7289,7 +7289,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7326,7 +7326,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7363,7 +7363,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7437,7 +7437,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7474,7 +7474,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7511,7 +7511,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7548,7 +7548,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7585,7 +7585,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7622,7 +7622,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7659,7 +7659,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7696,7 +7696,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7733,7 +7733,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7770,7 +7770,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7807,7 +7807,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7844,7 +7844,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7881,7 +7881,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7918,7 +7918,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7955,7 +7955,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -7992,7 +7992,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8029,7 +8029,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8066,7 +8066,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8140,7 +8140,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8177,7 +8177,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8214,7 +8214,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8288,7 +8288,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8325,7 +8325,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8362,7 +8362,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8399,7 +8399,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8436,7 +8436,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8473,7 +8473,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8510,7 +8510,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8547,7 +8547,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8584,7 +8584,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8621,7 +8621,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8658,7 +8658,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8695,7 +8695,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8769,7 +8769,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8806,7 +8806,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8843,7 +8843,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8880,7 +8880,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8954,7 +8954,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -8991,7 +8991,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9028,7 +9028,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9065,7 +9065,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9213,7 +9213,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9287,7 +9287,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9324,7 +9324,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9361,7 +9361,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9398,7 +9398,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9435,7 +9435,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9472,7 +9472,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9583,7 +9583,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9620,7 +9620,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9657,7 +9657,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9694,7 +9694,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9731,7 +9731,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9768,7 +9768,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9805,7 +9805,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9842,7 +9842,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9879,7 +9879,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9916,7 +9916,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9953,7 +9953,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -9990,7 +9990,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10027,7 +10027,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10064,7 +10064,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10101,7 +10101,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10138,7 +10138,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10175,7 +10175,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10212,7 +10212,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10249,7 +10249,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10286,7 +10286,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10360,7 +10360,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10397,7 +10397,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10508,7 +10508,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10545,7 +10545,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10582,7 +10582,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10619,7 +10619,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10656,7 +10656,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10693,7 +10693,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10730,7 +10730,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10767,7 +10767,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10804,7 +10804,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10841,7 +10841,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10878,7 +10878,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10915,7 +10915,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10952,7 +10952,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -10989,7 +10989,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11026,7 +11026,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11063,7 +11063,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11100,7 +11100,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11137,7 +11137,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11174,7 +11174,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11211,7 +11211,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11322,7 +11322,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11359,7 +11359,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11433,7 +11433,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11470,7 +11470,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11507,7 +11507,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11544,7 +11544,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11618,7 +11618,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11655,7 +11655,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11692,7 +11692,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11729,7 +11729,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11766,7 +11766,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11803,7 +11803,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11840,7 +11840,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11914,7 +11914,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11951,7 +11951,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -11988,7 +11988,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12025,7 +12025,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12062,7 +12062,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12099,7 +12099,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12136,7 +12136,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12173,7 +12173,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12210,7 +12210,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12321,7 +12321,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12358,7 +12358,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12395,7 +12395,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12432,7 +12432,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12469,7 +12469,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12543,7 +12543,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12580,7 +12580,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12654,7 +12654,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12691,7 +12691,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12728,7 +12728,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12765,7 +12765,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12802,7 +12802,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12839,7 +12839,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12876,7 +12876,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12913,7 +12913,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -12987,7 +12987,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13024,7 +13024,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13061,7 +13061,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13098,7 +13098,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13135,7 +13135,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13172,7 +13172,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13246,7 +13246,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13283,7 +13283,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13320,7 +13320,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13357,7 +13357,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13505,7 +13505,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13542,7 +13542,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13579,7 +13579,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13616,7 +13616,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13653,7 +13653,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13690,7 +13690,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13727,7 +13727,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13764,7 +13764,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13801,7 +13801,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13838,7 +13838,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13875,7 +13875,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13912,7 +13912,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13949,7 +13949,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -13986,7 +13986,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14060,7 +14060,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14097,7 +14097,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14134,7 +14134,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14208,7 +14208,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14282,7 +14282,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14319,7 +14319,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14356,7 +14356,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14393,7 +14393,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14430,7 +14430,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14467,7 +14467,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14504,7 +14504,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14541,7 +14541,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14578,7 +14578,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14615,7 +14615,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14652,7 +14652,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14726,7 +14726,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14763,7 +14763,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14800,7 +14800,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14837,7 +14837,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14874,7 +14874,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14911,7 +14911,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14948,7 +14948,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -14985,7 +14985,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15059,7 +15059,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15096,7 +15096,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15133,7 +15133,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15170,7 +15170,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15207,7 +15207,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15244,7 +15244,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15281,7 +15281,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15318,7 +15318,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15355,7 +15355,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15392,7 +15392,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15429,7 +15429,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15466,7 +15466,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15503,7 +15503,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15540,7 +15540,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15577,7 +15577,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15651,7 +15651,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15688,7 +15688,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15725,7 +15725,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15762,7 +15762,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15799,7 +15799,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15836,7 +15836,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15910,7 +15910,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15947,7 +15947,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -15984,7 +15984,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16021,7 +16021,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16058,7 +16058,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16095,7 +16095,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16169,7 +16169,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16206,7 +16206,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16243,7 +16243,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16280,7 +16280,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16317,7 +16317,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16354,7 +16354,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16391,7 +16391,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16428,7 +16428,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16465,7 +16465,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16502,7 +16502,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16539,7 +16539,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16576,7 +16576,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16613,7 +16613,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16650,7 +16650,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16687,7 +16687,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16724,7 +16724,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16761,7 +16761,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16798,7 +16798,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16835,7 +16835,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16872,7 +16872,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16909,7 +16909,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -16946,7 +16946,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17020,7 +17020,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17057,7 +17057,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17094,7 +17094,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17168,7 +17168,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17205,7 +17205,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17242,7 +17242,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17279,7 +17279,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17316,7 +17316,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17427,7 +17427,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17464,7 +17464,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17501,7 +17501,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17538,7 +17538,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17575,7 +17575,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17612,7 +17612,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17649,7 +17649,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17686,7 +17686,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17723,7 +17723,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17760,7 +17760,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17797,7 +17797,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17834,7 +17834,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17908,7 +17908,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17945,7 +17945,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -17982,7 +17982,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18019,7 +18019,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18056,7 +18056,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18093,7 +18093,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18130,7 +18130,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18167,7 +18167,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18204,7 +18204,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18241,7 +18241,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18278,7 +18278,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18315,7 +18315,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18352,7 +18352,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18389,7 +18389,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18426,7 +18426,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18463,7 +18463,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18500,7 +18500,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18537,7 +18537,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18574,7 +18574,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18611,7 +18611,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18685,7 +18685,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18722,7 +18722,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18796,7 +18796,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18833,7 +18833,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18870,7 +18870,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18907,7 +18907,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18944,7 +18944,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -18981,7 +18981,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19018,7 +19018,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19092,7 +19092,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19203,7 +19203,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19240,7 +19240,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19277,7 +19277,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19351,7 +19351,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19388,7 +19388,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19462,7 +19462,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19499,7 +19499,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19536,7 +19536,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19573,7 +19573,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19610,7 +19610,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19647,7 +19647,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19684,7 +19684,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19721,7 +19721,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19758,7 +19758,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19795,7 +19795,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19832,7 +19832,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19869,7 +19869,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19906,7 +19906,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19943,7 +19943,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -19980,7 +19980,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20017,7 +20017,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20054,7 +20054,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20128,7 +20128,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20202,7 +20202,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20239,7 +20239,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20276,7 +20276,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20313,7 +20313,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20350,7 +20350,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20387,7 +20387,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20424,7 +20424,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20461,7 +20461,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20498,7 +20498,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20572,7 +20572,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20609,7 +20609,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20646,7 +20646,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20683,7 +20683,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20757,7 +20757,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20794,7 +20794,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20868,7 +20868,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20942,7 +20942,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -20979,7 +20979,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21016,7 +21016,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21053,7 +21053,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21090,7 +21090,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21127,7 +21127,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21164,7 +21164,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21201,7 +21201,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21238,7 +21238,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21275,7 +21275,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21312,7 +21312,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21349,7 +21349,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21386,7 +21386,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21460,7 +21460,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21497,7 +21497,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21534,7 +21534,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21571,7 +21571,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21608,7 +21608,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21645,7 +21645,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21719,7 +21719,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21756,7 +21756,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21793,7 +21793,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21830,7 +21830,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21904,7 +21904,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21941,7 +21941,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -21978,7 +21978,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22015,7 +22015,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22052,7 +22052,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22089,7 +22089,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22126,7 +22126,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22163,7 +22163,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22200,7 +22200,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22237,7 +22237,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22274,7 +22274,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22348,7 +22348,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22385,7 +22385,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22496,7 +22496,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22533,7 +22533,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22570,7 +22570,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22607,7 +22607,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22644,7 +22644,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22681,7 +22681,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22755,7 +22755,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22792,7 +22792,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22829,7 +22829,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22866,7 +22866,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22903,7 +22903,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22940,7 +22940,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -22977,7 +22977,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23014,7 +23014,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23125,7 +23125,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23162,7 +23162,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23199,7 +23199,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23236,7 +23236,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23273,7 +23273,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23310,7 +23310,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23347,7 +23347,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23421,7 +23421,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23495,7 +23495,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23532,7 +23532,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23569,7 +23569,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23606,7 +23606,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23643,7 +23643,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23680,7 +23680,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23717,7 +23717,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23754,7 +23754,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23791,7 +23791,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23828,7 +23828,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23865,7 +23865,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23902,7 +23902,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23939,7 +23939,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -23976,7 +23976,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24013,7 +24013,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24050,7 +24050,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24124,7 +24124,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24161,7 +24161,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24198,7 +24198,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24235,7 +24235,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24272,7 +24272,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24309,7 +24309,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24346,7 +24346,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24383,7 +24383,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24420,7 +24420,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24457,7 +24457,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24494,7 +24494,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24568,7 +24568,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24605,7 +24605,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24642,7 +24642,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24679,7 +24679,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24753,7 +24753,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24790,7 +24790,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24827,7 +24827,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24864,7 +24864,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24901,7 +24901,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24938,7 +24938,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -24975,7 +24975,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25012,7 +25012,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25049,7 +25049,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25086,7 +25086,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25123,7 +25123,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25160,7 +25160,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25197,7 +25197,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25234,7 +25234,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25271,7 +25271,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25308,7 +25308,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25345,7 +25345,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25382,7 +25382,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25419,7 +25419,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25456,7 +25456,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25493,7 +25493,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25530,7 +25530,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25567,7 +25567,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25604,7 +25604,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25678,7 +25678,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25715,7 +25715,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25752,7 +25752,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25789,7 +25789,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25826,7 +25826,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25863,7 +25863,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25900,7 +25900,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25937,7 +25937,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -25974,7 +25974,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26011,7 +26011,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26048,7 +26048,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26085,7 +26085,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26122,7 +26122,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26196,7 +26196,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26233,7 +26233,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26270,7 +26270,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26307,7 +26307,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26344,7 +26344,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26381,7 +26381,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26455,7 +26455,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26529,7 +26529,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26566,7 +26566,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26603,7 +26603,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26640,7 +26640,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26677,7 +26677,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26714,7 +26714,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26751,7 +26751,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26788,7 +26788,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26862,7 +26862,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26899,7 +26899,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26936,7 +26936,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -26973,7 +26973,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27010,7 +27010,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27047,7 +27047,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27084,7 +27084,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27121,7 +27121,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27158,7 +27158,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27195,7 +27195,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27232,7 +27232,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27269,7 +27269,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27306,7 +27306,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27343,7 +27343,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27380,7 +27380,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27417,7 +27417,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27454,7 +27454,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27491,7 +27491,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27528,7 +27528,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27565,7 +27565,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27639,7 +27639,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27676,7 +27676,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27713,7 +27713,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27750,7 +27750,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27824,7 +27824,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27861,7 +27861,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27898,7 +27898,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27935,7 +27935,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -27972,7 +27972,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28009,7 +28009,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28046,7 +28046,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28083,7 +28083,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28120,7 +28120,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28157,7 +28157,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28194,7 +28194,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28231,7 +28231,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28268,7 +28268,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28305,7 +28305,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28379,7 +28379,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28416,7 +28416,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28453,7 +28453,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28490,7 +28490,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28527,7 +28527,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28564,7 +28564,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28601,7 +28601,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28638,7 +28638,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28675,7 +28675,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28712,7 +28712,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28786,7 +28786,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28823,7 +28823,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28860,7 +28860,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28897,7 +28897,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28934,7 +28934,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -28971,7 +28971,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29008,7 +29008,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29045,7 +29045,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29082,7 +29082,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29119,7 +29119,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29156,7 +29156,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29193,7 +29193,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29230,7 +29230,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29267,7 +29267,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29304,7 +29304,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29341,7 +29341,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29378,7 +29378,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29415,7 +29415,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29452,7 +29452,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29489,7 +29489,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29526,7 +29526,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29563,7 +29563,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29600,7 +29600,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29674,7 +29674,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29711,7 +29711,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29748,7 +29748,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29785,7 +29785,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29822,7 +29822,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29859,7 +29859,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29933,7 +29933,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -29970,7 +29970,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30007,7 +30007,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30044,7 +30044,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30118,7 +30118,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30155,7 +30155,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30192,7 +30192,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30229,7 +30229,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30303,7 +30303,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30377,7 +30377,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30414,7 +30414,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30451,7 +30451,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30525,7 +30525,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30562,7 +30562,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30599,7 +30599,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30673,7 +30673,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30710,7 +30710,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30747,7 +30747,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30784,7 +30784,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30821,7 +30821,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30858,7 +30858,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30895,7 +30895,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30932,7 +30932,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -30969,7 +30969,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31006,7 +31006,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31043,7 +31043,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31080,7 +31080,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31117,7 +31117,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31154,7 +31154,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31191,7 +31191,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31228,7 +31228,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31265,7 +31265,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31302,7 +31302,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31339,7 +31339,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31413,7 +31413,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31450,7 +31450,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31487,7 +31487,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31561,7 +31561,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31635,7 +31635,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31672,7 +31672,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31746,7 +31746,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31783,7 +31783,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31820,7 +31820,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31857,7 +31857,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31894,7 +31894,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31931,7 +31931,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_23_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_23};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -31968,7 +31968,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32005,7 +32005,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_37_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_37};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32042,7 +32042,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32116,7 +32116,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32153,7 +32153,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32190,7 +32190,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32227,7 +32227,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32264,7 +32264,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32301,7 +32301,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32338,7 +32338,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_3_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_3};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32375,7 +32375,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32412,7 +32412,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32449,7 +32449,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32486,7 +32486,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32523,7 +32523,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32560,7 +32560,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32597,7 +32597,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32634,7 +32634,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32671,7 +32671,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32708,7 +32708,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32745,7 +32745,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32782,7 +32782,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32819,7 +32819,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_22_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_22};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32856,7 +32856,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32930,7 +32930,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -32967,7 +32967,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33004,7 +33004,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33041,7 +33041,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33078,7 +33078,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33115,7 +33115,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_18_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_18};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33152,7 +33152,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33189,7 +33189,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33337,7 +33337,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33374,7 +33374,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33411,7 +33411,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33448,7 +33448,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33485,7 +33485,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33522,7 +33522,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33559,7 +33559,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33596,7 +33596,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33633,7 +33633,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33670,7 +33670,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33707,7 +33707,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33744,7 +33744,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33781,7 +33781,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33818,7 +33818,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33855,7 +33855,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33892,7 +33892,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -33966,7 +33966,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34040,7 +34040,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34188,7 +34188,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34225,7 +34225,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34262,7 +34262,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34299,7 +34299,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34336,7 +34336,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34373,7 +34373,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_13_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_13};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34410,7 +34410,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34447,7 +34447,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34484,7 +34484,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34521,7 +34521,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_17_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_17};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34558,7 +34558,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_15_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_15};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34595,7 +34595,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34669,7 +34669,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_6_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_6};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34706,7 +34706,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34780,7 +34780,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_16_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_16};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34817,7 +34817,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34854,7 +34854,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_26_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_26};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34928,7 +34928,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -34965,7 +34965,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35002,7 +35002,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35039,7 +35039,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35076,7 +35076,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35113,7 +35113,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35150,7 +35150,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35187,7 +35187,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_40_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_40};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35224,7 +35224,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_31_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_31};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35261,7 +35261,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_28_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_28};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35298,7 +35298,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_33_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_33};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35335,7 +35335,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35372,7 +35372,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35409,7 +35409,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_20_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_20};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35446,7 +35446,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35520,7 +35520,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_a_h_24_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_a_h_24};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35594,7 +35594,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_a_h_39_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_a_h_39};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35631,7 +35631,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_c_h_5_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_c_h_5};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35668,7 +35668,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_9_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_9};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35705,7 +35705,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35742,7 +35742,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_19_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_19};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35779,7 +35779,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35853,7 +35853,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_8_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_8};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35890,7 +35890,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -35964,7 +35964,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36001,7 +36001,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_1_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_1};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36038,7 +36038,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_b_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_b_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36075,7 +36075,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_10_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_10};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36112,7 +36112,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_2_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_2};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36149,7 +36149,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_675_c_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_675_c_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36186,7 +36186,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_12_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_12};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36223,7 +36223,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_c_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_c_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36260,7 +36260,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_a_h_11_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_a_h_11};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36297,7 +36297,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_645_b_h_4_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_645_b_h_4};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36334,7 +36334,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_14_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_14};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36371,7 +36371,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_632_b_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_632_b_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36408,7 +36408,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_b_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_b_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36445,7 +36445,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_7_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_7};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36482,7 +36482,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_692_c_h_21_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_692_c_h_21};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36519,7 +36519,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36556,7 +36556,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_684_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_684_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36593,7 +36593,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_29_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_29};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36630,7 +36630,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_652_a_h_35_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_652_a_h_35};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36667,7 +36667,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_c_h_27_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_c_h_27};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36741,7 +36741,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_611_c_h_38_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_611_c_h_38};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36778,7 +36778,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_a_h_34_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_a_h_34};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36815,7 +36815,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_a_h_36_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_a_h_36};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36852,7 +36852,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_b_h_30_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_b_h_30};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36889,7 +36889,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_671_b_h_32_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_671_b_h_32};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;
@@ -36926,7 +36926,7 @@ object inverter {
 	volt_var_control_lockout 60;
 	sense_object tlx_633_c_h_25_stmtr;
 	inverter_efficiency 0.975;
-		V_base ${tlx_633_c_h_25};
+		V_base 240;
 	rated_power 10000.000;
 	P_Out 0.000;
 	Q_Out 0.000;

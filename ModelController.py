@@ -69,7 +69,7 @@ class MCConfiguration:
             # 'EXAMPLEDERClassName': 'exampleDERObjectName'
         }
 
-        self.go_sensor_decision_making_manual_override = True
+        self.go_sensor_decision_making_manual_override = False
         self.manual_service_filename = "manually_posted_service_input.xml"
         self.output_log_name = 'Logged_Grid_State_Data/MeasOutputLogs_' + datetime.today().strftime("%d_%m_%Y_%H_%M")
 
@@ -398,28 +398,14 @@ class EDMTimeKeeper(object):
 
         print("Performing on-timestep updates:")
         self.edmCoreObj.sim_current_time = self.sim_current_time
-        # mcInputInterface.update_all_der_s_status()
-        # mcInputInterface.update_all_der_em_status()
-        # mcOutputLog.update_logs()
-        # goSensor.make_service_request_decision()
-        # goOutputInterface.get_all_posted_service_requests()
-        # goOutputInterface.send_service_request_messages()
         
         mcInputInterface.update_all_der_s_status()
         goSensor.make_service_request_decision()
         goOutputInterface.get_all_posted_service_requests()
         goOutputInterface.send_service_request_messages()
-        goGridServices.services_start_up()
         mcInputInterface.update_all_der_em_status()
         mcOutputLog.update_logs()
 
-        
-        # if goSensor.volt_var_flag is True:
-        #     goSensor.initialize_volt_var_service_file()
-        # if edmCore.sim_current_time == '1672552855':
-        #     goSensor.initialize_blackstart_grid_service(opened=1,closed=0)
-        # elif edmCore.sim_current_time == '1672552915':
-        #     goSensor.initialize_blackstart_grid_service(opened=0,closed=1)
 
 class EDMMeasurementProcessor(object):
     """
@@ -648,8 +634,9 @@ class RWHDERS:
 
     def __init__(self, mcConfiguration):
         self.der_em_input_request = {}
-        # self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS_Inputs/"
-        self.input_file_path = mcConfiguration.mc_file_directory + r"/rwh_testing/"
+        self.ders_vars = {}
+        self.input_file_path = mcConfiguration.mc_file_directory + r"/RWHDERS_Inputs/"
+        # self.input_file_path = mcConfiguration.mc_file_directory + r"/rwh_testing/"
         self.input_identification_dict = {}
 
 
@@ -746,8 +733,9 @@ class RWHDERS:
         This function (with this specific name) is required in each DER-S used by the ME. Accessor function that calls
         for an updated input request, then returns the updated request for use by the MCInputInterface
         """
-        self.ders_vars = {}
         self.update_der_em_input_request()
+        # self.der_em_input_request.clear()
+        # self.ders_vars.clear()
         return self.der_em_input_request, self.ders_vars
 
 
@@ -782,8 +770,9 @@ class DERSHistoricalDataInput:
     # @profile
     def __init__(self, mcConfiguration):
 
-        # self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/DERSHistoricalData_Inputs/"
-        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/dhi_testing2/"
+        # self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/energy_sched_diverted/"
+        # self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/energy_sched/"
+        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/DERSHistoricalData_Inputs/"
         self.location_lookup_dictionary = {}
         self.test_first_row = None
         self.new_values_inserted = False
@@ -812,6 +801,7 @@ class DERSHistoricalDataInput:
         for an updated input request, then returns the updated request for use by the MCInputInterface
         """
         self.update_der_em_input_request()
+        self.ders_vars.clear()
         return self.ders_watts, self.ders_vars
 
     # @profile
@@ -882,7 +872,7 @@ class DERSHistoricalDataInput:
                 der_name = key
                 der_loc = key.replace('_Watts','_loc')
                 self.location_lookup_dictionary[der_name] = der_loc
-            if 'VARs' in key:
+            if 'Vars' in key:
                 imag = key
                 self.location_lookup_dictionary[imag] = der_loc
         self.list_of_ders = list(self.location_lookup_dictionary.keys())
@@ -910,9 +900,9 @@ class DERSHistoricalDataInput:
             for key, value in input_at_time_now.items():
                 if 'Watts' in key:
                     self.optimize_der_ems_inputs(attribute=self.ders_watts, new_inputs_keys=key, new_inputs_values=value)
-                if 'VARs' in key:
+                if 'Vars' in key:
                     self.optimize_der_ems_inputs(attribute=self.ders_vars, new_inputs_keys=key, new_inputs_values=value)
-
+            
         except StopIteration as e:
             return
 
@@ -1015,7 +1005,7 @@ class DERAssignmentHandler:
          ?s c:IdentifiedObject.name ?name.
           ?s c:IdentifiedObject.mRID ?id.
          ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
-         VALUES ?fdrid {{"_4CEA3135-E463-4A0F-80C3-BF7F236E0C05"}}  # psu_feeder
+         VALUES ?fdrid {{"_8A879127-2EB1-4352-9DDC-985B8CB21C72"}}  # psu_feeder
          ?pec c:Equipment.EquipmentContainer ?fdr.
          ?fdr c:IdentifiedObject.mRID ?fdrid.
          ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
@@ -1140,13 +1130,14 @@ class MCInputInterface:
 
     # @profile
     def update_all_der_em_status(self):
-        goSensor.volt_var_flag = True
+        
         """
         Currently, calls the update_der_ems() method. In the future, may be used to call methods for different input
         types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
         # pass
         self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
+        # self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
         # if goSensor.volt_var_flag is True:
         #     self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
         #     goSensor.volt_var_flag = False
@@ -1183,6 +1174,7 @@ class MCInputInterface:
 
         self.current_watts_input_request = combined_watts_dict
         self.current_vars_input_request = combined_vars_dict
+        
 
         # Update self.test_tpme1_unified_input_request only for the specific sim_current_time value
         if edmCore.sim_current_time == "1570041120":
@@ -1290,7 +1282,7 @@ class GOTopologyProcessor:
         """
         Get groups in root
         """
-        group = self.get_elements(self.import_topology_from_file(), 'group', 'name')
+        group = self.get_elements(self.import_topology_from_file(), 'Group', 'name')
         return group
 
     # @profile
@@ -1298,7 +1290,7 @@ class GOTopologyProcessor:
         """
         Get feeder in each group
         """
-        feeders = self.get_elements(self.import_topology_from_file(), 'feeder', 'name')
+        feeders = self.get_elements(self.import_topology_from_file(), 'Feeder', 'name')
         return feeders
 
     # @profile
@@ -1306,7 +1298,7 @@ class GOTopologyProcessor:
         """
         Get segments in each feeder
         """
-        segments = self.get_elements(self.import_topology_from_file(), 'segment', 'name')
+        segments = self.get_elements(self.import_topology_from_file(), 'Segment', 'name')
         return segments
 
     # @profile
@@ -1314,7 +1306,7 @@ class GOTopologyProcessor:
         """
         Get transformers in each segment
         """
-        xfmrs = self.get_elements(self.import_topology_from_file(), 'xfmr', 'name')
+        xfmrs = self.get_elements(self.import_topology_from_file(), 'Transformer', 'name')
         return xfmrs
     
     # @profile
@@ -1322,7 +1314,7 @@ class GOTopologyProcessor:
         """
         Get buses in each segment for each DER
         """
-        buses = self.get_elements(self.import_topology_from_file(), 'bus', 'name')
+        buses = self.get_elements(self.import_topology_from_file(), 'ServicePoint', 'name')
         return buses
 
     # @profile
@@ -1381,6 +1373,15 @@ class GoGridServices:
         self.sw_status = 'closed'
         self.service_group = None
         self.service_buses = []
+        self.vv_service_time = 0
+        self.vv_period = 0
+        self.voltvar_flag = True
+
+        self.enable_emergency = False
+        self.enable_reserve = False
+        self.enable_energy = False
+
+
 
 
     def get_der_em_ratings (self):
@@ -1399,38 +1400,35 @@ class GoGridServices:
     # @profile
     def initialize_services (self):
         '''
-        Called from perform_all_on_timestep_updates. Retrieves all posted services. Initialize each service and
+        Called from sim_startup_update(). Retrieves all posted services. Initialize each service and
         provide the appropriate response.
         '''
         self.get_der_em_ratings()
         self.get_switches_information()
 
-
     # @profile
     def services_start_up(self):
         '''
-        Voltage management is an autonomous service; so it is skipped from this class. It is still need to be posted.
+        Both autonomous and scheduled services land in here. This method posts the services and initializes its
+        attributes, such as interval, duration, ramp, etc. Once a service request is submitted to the GSP:DERMS, 
+        this method monitors the 
         '''
         self.sim_time = int(edmCore.sim_current_time)
-
-        service_data = [(x['service_type'],x['start_time'], x['interval_duration'], x['group_id'])
-                        for x in goOutputInterface.current_service_requests
-                        if x['service_name'] != 'voltage management']
+        current_services = goSensor.manual_service_xml_data
         
-        if service_data:
-            if 'blackout' in service_data[0] or 'black start' in service_data[0]:
-                self.group_id = int(service_data[0][3])
-                self.blackout_time = int(service_data[0][1])    # antcipated blackout time
-                self.blackout_period = int(service_data[0][2])  # anticipated blackout period
-                print('\nstarting blackout time\t',self.blackout_time,
-                      '\nending blackout time\t', self.blackout_time+self.blackout_period,
-                      '\nswitch is opened for\t', (self.blackout_time+self.blackout_period) - self.blackout_time,
-                      '\nswitch closes at \t',self.blackout_time+self.blackout_period)
-                self.initialize_emergency_grid_service()
-
+        if current_services:
+            for key, value in current_services['services'].items():
+                if value['service_type'] == 'blackstart':
+                    pass
+                    # self.initialize_emergency_grid_service(service_attributes=value)
+                elif value['service_type'] == 'voltvar':
+                    pass
+                    # self.initialize_voltage_management_grid_service(service_attributes=value)
+                elif value['service_type'] == 'reserve':
+                    self.initialize_reserve_grid_service(service_attributes=value)
 
     # @profile
-    def initialize_emergency_grid_service (self):
+    def initialize_emergency_grid_service (self, service_attributes):
         
         '''
         The emergency grid service is manually instantiated; it is not an autonomous grid service.
@@ -1441,23 +1439,25 @@ class GoGridServices:
         The emergency grid service methods are all synchronized with the blackstart_start_time after the switch
         closes (blackstart service starts).
         '''
-        self.retrieve_service_buses(self.group_id)
+        self.retrieve_service_buses(service_attributes['group_id'])
         self.retrieve_service_der_ems()
         self.precharge_der_ems()
-        self.update_posted_service()
-        self.set_switch_status()
-        self.staggering_der_ems()
+        self.set_switch_status(service_start_time=int(service_attributes['start_time']),
+                               service_period=int(service_attributes['interval_duration']))
+        
+        self.staggering_der_ems(service_start_time=int(service_attributes['start_time']),
+                               service_period=int(service_attributes['interval_duration']))
 
     # @profile
-    def set_switch_status(self):
+    def set_switch_status(self, service_start_time, service_period):
         
-        if ((self.sim_time) == (self.blackout_time + self.blackout_period)):
+        if ((self.sim_time) == (service_start_time + service_period)):
             print('\n ---> SWITCH IS CLOSED  <---\n')
             self.change_switch_status(open=0, close=1)
             self.sw_status = 'returned'
             
         
-        elif self.sim_time == self.blackout_time:
+        elif self.sim_time == service_start_time:
             print('\n ---> SWITCH IS OPENED  <---\n')
             self.change_switch_status(open=1, close=0)
             self.sw_status = 'open'
@@ -1469,10 +1469,13 @@ class GoGridServices:
         Shared method. Retrieves all buses in the group_id within the goOutputInterface.current_service_requests and
         apply the grid service these specifc buses.
         '''
+
         if f'group-{group_id}' != self.service_group:
-            print('\n ---> RETRIEVING SERVICE BUSES  <---\n')
+
+            print(f'\n ---> RETRIEVING SERVICE BUSES ASSOCIATED WITH GROUP {group_id} <---\n')
+
             root = goTopologyProcessor.import_topology_from_file()
-            for group in root.findall('.//group'):
+            for group in root.findall('.//Group'):
                 if f'group-{group_id}' == (group.attrib)['name']:
                     self.service_group = (group.attrib)['name']
                     for bus in group.findall('.//bus'):
@@ -1522,8 +1525,8 @@ class GoGridServices:
         NOTE: Precharging DER-EMs means setting their P_OUT attribute to its maximum (rated value).
         '''
 
-        if 0 < (self.blackout_time - self.sim_time) < 1500 and self.sw_status == 'closed':
-        # if 0 < (self.blackout_time - self.sim_time) < 180 and self.sw_status == 'closed':
+        if 0 < (self.service_time - self.sim_time) < 1500 and self.sw_status == 'closed':
+        # if 0 < (self.service_time - self.sim_time) < 180 and self.sw_status == 'closed':
             soc = self.get_measurements()
             print('soc value\t',soc)
             if float(soc) < 100:
@@ -1552,24 +1555,7 @@ class GoGridServices:
         my_diff_build.clear()
 
     # @profile
-    def update_posted_service(self):
-        if self.sim_time == self.blackout_time + self.blackout_period:
-            print('\n ---> POSTING BLACKSTART SERVICE <---\n')
-
-            print('posting black start service')
-            name = 'emergency'
-            group_id = self.group_id
-            service_type = 'black start'
-            interval_duration = str(0)
-            interval_start = self.blackout_time + self.blackout_period
-            ramp = str(0)
-            price = str(0)
-            start_time = self.blackout_time + self.blackout_period
-            goSensor.posted_service_list.append(GOPostedService(
-                name, group_id, service_type, interval_start, start_time, interval_duration, ramp, price))
-
-    # @profile
-    def staggering_der_ems (self):
+    def staggering_der_ems (self, service_start_time, service_period):
         '''
         Upon re-energizing the feeder, DER-EMs should be staggered; not dispatched all at once. For PSU DERMS,
         it is the GSP-DERMS responibility to stagger DER-EMs.
@@ -1591,16 +1577,59 @@ class GoGridServices:
             
             mcInputInterface.current_watts_input_request = filtered_input_requests.copy()
 
-            if self.sim_time == (self.blackout_time + self.blackout_period + self.stagg_time_increment):
+            if self.sim_time == (service_start_time + service_period + self.stagg_time_increment):
                 self.current_energized_der_ems += 20
                 self.stagg_time_increment += 100
                 # self.stagg_time_increment += 120
 
+    # @profile
+    def initialize_reserve_grid_service (self, service_attributes):
+        self.retrieve_service_buses(group_id=service_attributes['group_id'])
+        if self.sim_time == int(service_attributes['start_time']):
+            print('\n\n-----\n\n')
+            print('\n\nworking on reserve service\n\n')
+            print('\n\n-----\n\n')
+
 
     # @profile
-    def initialize_voltage_management_grid_service (self):
-        pass
+    def initialize_voltage_management_grid_service (self, service_attributes):
+        '''
+        The voltage should be back to normal immediately as DER-EMs inject VARs. Given that the measurements are
+        repeated 3 seconds, we allow the access to this method every three seconds.
+        '''
+
+        if self.voltvar_flag is True:
+            self.vv_period = 14
+            self.vv_service_time = int(edmCore.sim_current_time)
+            print('\n\nINITIALIZING VOLTAGE MANAGEMENT\n\n')
+            edmCore.sim_session.pause()
+            self.initialize_inverter_model_file()
+            self.run_inverter_model_file()
+            self.voltvar_flag = False
+            edmCore.sim_session.resume()
+            self.get_VARs_from_inverter_model_file()
     
+    # @profile
+    def clear_volt_var_service(self):
+
+        print('clearing vv service at\t-->\t',self.service_start_time+self.service_duration)
+
+        # print('service time\t\t', self.vv_service_time)
+        
+        if ((self.service_start_time+self.service_duration) <= int(edmCore.sim_current_time)):
+            mcInputInterface.current_vars_input_request = {key:'0' for key,value in mcInputInterface.current_vars_input_request.items()}
+            # mcInputInterface.current_vars_input_request = {key:'0' for key,
+            # value in mcInputInterface.current_vars_input_request.items()}
+            # print('\n\nCLEARING VARs RIGHT NOW\n\n')
+            # path = mcConfiguration.mc_file_directory+'/RWHDERS_Inputs/'
+            # for filename in os.listdir(path):
+            #     df = pd.read_csv(path+filename)
+            #     df.columns = ['P','0']
+            #     df.to_csv(path+filename, index=False)
+            
+            # self.update_posted_service(name='voltage management2',group_id='7',service_type='volt-var',
+            #                            interval_duration='80',interval_start='0',ramp='0',price='0',start_time='1672552950')
+
     # @profile
     def end_emergency_service(self):
         pass
@@ -1632,11 +1661,19 @@ class GoGridServices:
 
     # @profile
     def get_VARs_from_inverter_model_file (self):
-        pass
+        for files in os.listdir('./gld_outputs/'):
+            if files.endswith("csv"):
+                df = pd.read_csv('./gld_outputs/'+files, skiprows=8)
+                df = df.head(1)
+                for index, row in df.iterrows():
+                    VARs = row[1]
+                bus = files.replace(".csv","")
+                self.update_der_ems_vars(bus,VARs)
 
     # @profile
     def run_inverter_model_file (self):
-        pass
+        p1 = subprocess.Popen('gridlabd model_startup_test.glm', shell=True)
+        p1.wait()
 
     # @profile
     def restore_feeder_after_faults (self):
@@ -1644,11 +1681,41 @@ class GoGridServices:
 
     # @profile
     def initialize_inverter_model_file (self):
-        pass
+        gld_file = open ('./'+goSensor.inv_file_name, 'w')
+        headers = """
+clock {
+    starttime '2023-05-19 17:00:00';
+    stoptime '2023-05-19 17:10:00';
+}
+module generators;
+module tape;
+module powerflow {
+    line_capacitance TRUE;
+    solver_method NR;
+}
+"""
+        footers = """
+#define VSOURCE=66395.28095680696
+#include "./model_base.glm"
+"""
+        print(headers, file=gld_file)
+        for key, item in goSensor.voltage_support_buses.items():
+            if '680' in key:
+                print(f"#define {key}={int(item*2)}", file=gld_file)
+            else:
+                print(f"#define {key}=240", file=gld_file)
+        print(footers, file=gld_file)
 
     # @profile
-    def update_der_ems_vars (self):
-        pass
+    def update_der_ems_vars (self,bus,VARs):
+        print('vars -->\t',VARs)
+        # mcInputInterface.current_vars_input_request = {key:str(VARs) for key,value in mcInputInterface.current_vars_input_request.items()}
+        for input_files in os.listdir(mcConfiguration.mc_file_directory+r"/RWHDERS_Inputs"):
+            pattern = re.match(r"DER(\w+)_Bus"+bus+".csv", input_files)
+            if pattern is not None:
+                output_file = open (mcConfiguration.mc_file_directory+r"/RWHDERS_Inputs/"+pattern.group(0),"w")
+                print(f'Q,{(float(VARs))*2}', file=output_file)
+                output_file.close()
 
     # @profile
     def peak_demand_detector (self):
@@ -1683,15 +1750,12 @@ class GOSensor:
     def __init__(self):
 
         self.service_request_decision = None
-        self.current_sensor_states = None
-        self.peak_demand_service_flag = None
-        self.volt_var_flag = None
-        self.blackstart_service_flag = True
         self.targeted_bus = None
         self.manual_service_xml_data = {}
         self.voltage_support_buses = {}
         self.posted_service_list = []
-        self.bus_list = []
+        self.enable_autonomous_services = False
+        self.enable_scheduled_services = True
 
         # Set Feeder Parameters
 
@@ -1719,32 +1783,62 @@ class GOSensor:
             self.manually_post_service(edmTimekeeper.get_sim_current_time())
 
         elif mcConfiguration.go_sensor_decision_making_manual_override is False:
-            # self.initialize_peak_demand_service()
-            self.bus_list = self.setup_feeder_analysis_level()
-            self.set_volt_var_thresholds()
-            self.update_sensor_states()
+            self.manually_post_service(edmTimekeeper.get_sim_current_time())
+            self.autonomous_services()
+            self.scheduled_services()
 
         else:
             print("Service request failure. Wrong input.")
  
+    
     # @profile
-    def update_sensor_states(self):
+    def autonomous_services (self):
+        """
+        Autonomous services, such as Frequency Response and Voltage Management (V-Var or V-Watts), are intentionally
+        left optional. For analysis purposes, a TE may want to create a base case and a testing case to show the
+        impact of a given autonomous service. Autonomous services are initialized based on grid states and do not 
+        require GO-GSP:DERMS interaction during the service.
+        """
+        if self.enable_autonomous_services is True:
+            self.update_sensor_states(current_measurements = edmMeasurementProcessor.get_current_measurements())
+
+    # @profile
+    def scheduled_services (self):
+        """
+        Emergency, energy, or reserve are all examples of scheduled grid services. These services are not fully
+        dependent on grid states. Rather, they are planned ahead of time. In case of an event, these services
+        are initialized. Settings for these services are contained within the GoGridServices class. GO-GSP:DERMS
+        interactions are required during the service.
+        """
+        if self.enable_scheduled_services is True:
+            goGridServices.services_start_up()
+
+
+    # @profile
+    def update_sensor_states(self, current_measurements):
         '''
         Retrieves measurement data from the Measurement Processor. The measurements are organized by topological group.
         This is only used by AUTOMATIC MODE. Not currently implemented.
         '''
-        current_measurements = edmMeasurementProcessor.get_current_measurements()
         if current_measurements:
-
             try:
                 for key, value in current_measurements.items():
-                    if (value.get('MeasType') == 'PNV') and (value.get('Bus') == 'n645'):
-                        print('prior service. n645 mag\t',value.get('magnitude'))
-                        if (value.get('magnitude')) < 2376:
+                    if (value.get('MeasType') == 'PNV') and (value.get('Bus') == 'n680'):
+                        print(value.get('magnitude'))
+                        if (value.get('magnitude')) < 2280.95:
+                            print('\n\nvoltage dropped\n\n')
+                            
+                            if (int(edmCore.sim_current_time) - goGridServices.vv_service_time) > 4:
+                                goGridServices.voltvar_flag = True
 
                             self.targeted_bus = (value.get('Bus')).split('n')[1]
-                            print('node 645\t',value.get('magnitude'),'\t',value.get('Bus'))
-                            pass
+                            print('node 680\t',value.get('magnitude'),'\t',value.get('Bus'),'\t',value.get('Phases'))
+                            # goGridServices.initialize_voltage_management_grid_service()
+                            
+                            
+                        else:
+                            goGridServices.voltvar_flag = False
+                            goGridServices.clear_volt_var_service()
 
                     if (value.get('MeasType') == 'PNV') and ((value.get('Conducting Equipment Name')).startswith('DER')):
                         if ((value.get('Bus')).startswith('tlx')):
@@ -1781,12 +1875,11 @@ class GOSensor:
         """
         Called by make_service_request_decision() when in MANUAL mode. Reads the contents of the manual service
         dictionary, draws all relevant data points for each service, and instantiates a GOPostedService object for each
-        one, appending the objects to a list.
+        one, appending the objects to a list. All services need to be posted as the simulation gets started.
         """
         
         for key, item in self.manual_service_xml_data['services'].items():
             if (int(edmCore.sim_start_time) + 4) == int(sim_time):
-            # if int(item['start_time']) == int(sim_time):
                 name = item['service_name']
                 group_id = item["group_id"]
                 service_type = item["service_type"]
@@ -2135,7 +2228,7 @@ class GOPostedService:
         """
         Returns the attribute names and values in dictionary form for use by the message wrapper (GOOutputInterface).
         """
-        if self.service_type != 'voltage management':
+        if self.service_name != 'voltage management':
             service_message_data = {
                 "service_name": self.service_name,
                 "group_id": self.group_id,
@@ -2152,6 +2245,12 @@ class GOPostedService:
                 "service_name": self.service_name,
                 "group_id": self.group_id,
                 "service_type": self.service_type,
+                "interval_start": self.interval_start,
+                "start_time":self.start_time,
+                "interval_duration": self.interval_duration,
+                "power": self.power,
+                "ramp": self.ramp,
+                "price": self.price,
                 "CurveData":
                 [
                     {"xvalue":self.curve[0], "yvalue":self.curve[1]},

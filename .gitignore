@@ -12,14 +12,15 @@
 /Logged_Grid_State_Data/*csv
 /Logged_Grid_State_Data/*py
 /dss_files/testing_files/
+/DERSHistoricalData_Inputs/*csv
 
 **/cimhub_docker/**
 **/gld_outputs/**
 **/support/**
 
-# Remove testing services files:
-**/blackstart_service_results/**
-**/vol_var_results/**
-**/grid_services_scripts/**
+# Remove testing services files (these should be in a diff branch):
+/blackstart_service_results/**
+/vol_var_results/**
+/grid_services_scripts/**
 
 # Remove debugging files (imported gridappsd models from blazegraph)
