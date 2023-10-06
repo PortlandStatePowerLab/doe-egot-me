@@ -1,5 +1,5 @@
 uuid_file,EGoT13_der_psu_uuid.txt
-feederID,_8A879127-2EB1-4352-9DDC-985B8CB21C72
+feederID,_89869331-6171-421C-95D8-55D61BCA706D
 //name,bus,phases(ABCs1s2),type(Battery,Photovoltaic),RatedkVA,RatedkV,kW,kVAR,RatedkWH,StoredkWH
 DER_680_a_1,tlx_680_a_h_1,s1s2,Battery,20,0.240,0,0.0,500.0,250.0
 DER_680_a_2,tlx_680_a_h_2,s1s2,Battery,20,0.240,0,0.0,500.0,250.0

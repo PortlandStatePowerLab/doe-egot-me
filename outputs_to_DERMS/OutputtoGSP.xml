@@ -40,7 +40,7 @@
 </service2>
 <service3>
 <group_id>1</group_id>
-<interval_duration>10</interval_duration>
+<interval_duration>5</interval_duration>
 <interval_start>0</interval_start>
 <power>0</power>
 <price>0</price>

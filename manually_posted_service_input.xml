@@ -46,7 +46,7 @@
         <service_name>energy</service_name>
         <service_type>reserve</service_type>
         <interval_start>0</interval_start>
-        <interval_duration>10</interval_duration>
+        <interval_duration>5</interval_duration>
         <ramp>0</ramp>
         <price>0</price>
         <start_time>1672552805</start_time>

@@ -26,7 +26,6 @@ import xml.etree.ElementTree as ET
 from collections import defaultdict
 from gridappsd.simulation import Simulation
 from gridappsd import GridAPPSD, DifferenceBuilder
-from forecast_peak_demand import peak_demand_mitigation
 
 end_program = False
 
@@ -130,12 +129,8 @@ class EDMCore:
         derIdentificationManager.initialize_association_lookup_table()
         mcOutputLog.set_log_name()
         goTopologyProcessor.import_topology_from_file()
-        # goSensor.get_switch_information()
-        # goSensor.setup_feeder_analysis_level()
-        # goSensor.set_volt_var_thresholds()
         goSensor.load_manual_service_file()
         goGridServices.initialize_services()
-        # goSensor.peak_demand_detector()
 
     # @profile
     def load_config_from_file(self):
@@ -1005,7 +1000,7 @@ class DERAssignmentHandler:
          ?s c:IdentifiedObject.name ?name.
           ?s c:IdentifiedObject.mRID ?id.
          ?pec c:PowerElectronicsConnection.PowerElectronicsUnit ?s.
-         VALUES ?fdrid {{"_8A879127-2EB1-4352-9DDC-985B8CB21C72"}}  # psu_feeder
+         VALUES ?fdrid {{"_89869331-6171-421C-95D8-55D61BCA706D"}}  # psu_feeder
          ?pec c:Equipment.EquipmentContainer ?fdr.
          ?fdr c:IdentifiedObject.mRID ?fdrid.
          ?pec c:PowerElectronicsConnection.ratedS ?ratedS.
@@ -1214,6 +1209,9 @@ class MCInputInterface:
         
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
+        print('\n\nSENDING THE FOLLOWING VALUES\n\n')
+        pp(loads_dict)
+        print('\n\nSENDING THE FOLLOWING VALUES\n\n')
         for key, value in loads_dict.items():
 
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
@@ -1400,8 +1398,7 @@ class GoGridServices:
     # @profile
     def initialize_services (self):
         '''
-        Called from sim_startup_update(). Retrieves all posted services. Initialize each service and
-        provide the appropriate response.
+        Called from sim_startup_update().
         '''
         self.get_der_em_ratings()
         self.get_switches_information()
@@ -1413,6 +1410,7 @@ class GoGridServices:
         attributes, such as interval, duration, ramp, etc. Once a service request is submitted to the GSP:DERMS, 
         this method monitors the 
         '''
+
         self.sim_time = int(edmCore.sim_current_time)
         current_services = goSensor.manual_service_xml_data
         
@@ -1427,6 +1425,10 @@ class GoGridServices:
                 elif value['service_type'] == 'reserve':
                     self.initialize_reserve_grid_service(service_attributes=value)
 
+    def get_services_attributes (self):
+        pass
+        
+
     # @profile
     def initialize_emergency_grid_service (self, service_attributes):
         
@@ -1439,6 +1441,7 @@ class GoGridServices:
         The emergency grid service methods are all synchronized with the blackstart_start_time after the switch
         closes (blackstart service starts).
         '''
+    
         self.retrieve_service_buses(service_attributes['group_id'])
         self.retrieve_service_der_ems()
         self.precharge_der_ems()
@@ -1478,7 +1481,7 @@ class GoGridServices:
             for group in root.findall('.//Group'):
                 if f'group-{group_id}' == (group.attrib)['name']:
                     self.service_group = (group.attrib)['name']
-                    for bus in group.findall('.//bus'):
+                    for bus in group.findall('.//ServicePoint'):
                         self.service_buses.append((bus.attrib)['name'])
 
     # @profile    
@@ -1495,7 +1498,7 @@ class GoGridServices:
                 if key in self.service_buses:
                     if f"{value['DER-Name']}_Watts" not in self.service_der_ems:
                         self.service_der_ems[f"{value['DER-Name']}_Watts"] = []
-                    self.service_der_ems[f"{value['DER-Name']}_Watts"].append(f"-{value['ratedS']}")
+                    self.service_der_ems[f"{value['DER-Name']}_Watts"].append(f"{value['ratedS']}")
 
     # @profile
     def get_measurements (self):
@@ -1584,12 +1587,25 @@ class GoGridServices:
 
     # @profile
     def initialize_reserve_grid_service (self, service_attributes):
-        self.retrieve_service_buses(group_id=service_attributes['group_id'])
-        if self.sim_time == int(service_attributes['start_time']):
-            print('\n\n-----\n\n')
-            print('\n\nworking on reserve service\n\n')
-            print('\n\n-----\n\n')
-
+        if self.enable_reserve != True:
+            print('\n\nGetting service characteristics\n\n')
+            self.retrieve_service_buses(group_id=service_attributes['group_id'])
+            self.retrieve_service_der_ems()
+            self.enable_reserve = True
+        else:
+            if ( (int(service_attributes['start_time']) + int(service_attributes['interval_duration'])) >= self.sim_time >= int(service_attributes['start_time'])):
+                    print('\n\nReserve Service in Progress\n\n')
+                    mcInputInterface.current_watts_input_request.update({key:(float(0.0))
+                                                                        for key in self.service_der_ems})
+            print('\n\n SERVICE BUSES\n\n')
+            pp(self.service_buses)
+            print('\n\n SERVICE BUSES\n\n')
+            print('\n\n SERVICE der-ems\n\n')
+            pp(self.service_der_ems)
+            print('\n\n SERVICE der-ems\n\n')
+            print('\n\n watts_request\n\n')
+            pp(mcInputInterface.current_watts_input_request)
+            print('\n\n watts_request\n\n')
 
     # @profile
     def initialize_voltage_management_grid_service (self, service_attributes):
