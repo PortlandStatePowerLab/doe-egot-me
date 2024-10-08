@@ -13,6 +13,7 @@
 /Logged_Grid_State_Data/*py
 /dss_files/testing_files/
 /DERSHistoricalData_Inputs/*csv
+/source_files/
 
 **/cimhub_docker/**
 **/gld_outputs/**

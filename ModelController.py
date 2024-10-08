@@ -12,10 +12,13 @@ import re
 import os
 import ast
 import csv
+import math
 import time
+import random
 import itertools
 import xmltodict
 import subprocess
+import numpy as np
 import pandas as pd
 import xml.dom.minidom
 from datetime import datetime
@@ -767,7 +770,7 @@ class DERSHistoricalDataInput:
 
         # self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/energy_sched_diverted/"
         # self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/energy_sched/"
-        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/DERSHistoricalData_Inputs/"
+        self.historical_data_file_path = mcConfiguration.mc_file_directory + r"/demand_shifting/DERSHistoricalData_Inputs/"
         self.location_lookup_dictionary = {}
         self.test_first_row = None
         self.new_values_inserted = False
@@ -798,6 +801,7 @@ class DERSHistoricalDataInput:
         self.update_der_em_input_request()
         self.ders_vars.clear()
         return self.ders_watts, self.ders_vars
+        # return self.der_em_input_request
 
     # @profile
     def assign_der_s_to_der_em(self):
@@ -886,6 +890,8 @@ class DERSHistoricalDataInput:
             states will be updated. Therefore, we need to check for a grid service.
         """
         self.der_em_input_request.clear()
+
+        
         try:
             input_at_time_now = next(item for item in self.input_table if int(edmCore.sim_current_time) <=
                                          int(item['Time']) < (int(edmCore.sim_current_time) + 1))
@@ -894,10 +900,15 @@ class DERSHistoricalDataInput:
             input_at_time_now.pop('Time')
             for key, value in input_at_time_now.items():
                 if 'Watts' in key:
-                    self.optimize_der_ems_inputs(attribute=self.ders_watts, new_inputs_keys=key, new_inputs_values=value)
+                    self.ders_watts[key] = value
                 if 'Vars' in key:
-                    self.optimize_der_ems_inputs(attribute=self.ders_vars, new_inputs_keys=key, new_inputs_values=value)
-            
+                    self.ders_vars[key] = value
+            # for key, value in input_at_time_now.items():
+            #     if 'Watts' in key:
+            #         self.optimize_der_ems_inputs(attribute=self.ders_watts, new_inputs_keys=key, new_inputs_values=value)
+            #     if 'Vars' in key:
+            #         self.optimize_der_ems_inputs(attribute=self.ders_vars, new_inputs_keys=key, new_inputs_values=value)
+        
         except StopIteration as e:
             return
 
@@ -1131,11 +1142,8 @@ class MCInputInterface:
         types; a separate method may be written for voltage inputs, for instance, and called here once per timestep.
         """
         # pass
+        
         self.update_der_ems(loads_dict=self.current_watts_input_request, control_attribute="PowerElectronicsConnection.p")
-        # self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
-        # if goSensor.volt_var_flag is True:
-        #     self.update_der_ems(loads_dict=self.current_vars_input_request, control_attribute="PowerElectronicsConnection.q")
-        #     goSensor.volt_var_flag = False
         
 
     # @profile
@@ -1157,7 +1165,6 @@ class MCInputInterface:
         for key, value in mcConfiguration.ders_obj_list.items():
             obj_instance = eval(value)
             current_watts_input_request, current_vars_input_request = obj_instance.get_input_request()
-            # pp(current_vars_input_request)
 
             # Update the combined_watts_dict with the current_watts_input_request dictionary
             combined_watts_dict.update(current_watts_input_request)
@@ -1174,8 +1181,8 @@ class MCInputInterface:
         # Update self.test_tpme1_unified_input_request only for the specific sim_current_time value
         if edmCore.sim_current_time == "1570041120":
             self.test_tpme1_unified_input_request = {
-                "watts": combined_watts_dict,
-                "vars": combined_vars_dict
+                "Watts": combined_watts_dict,
+                "Vars": combined_vars_dict
             }
 
     # @profile
@@ -1209,9 +1216,6 @@ class MCInputInterface:
         
         input_topic = t.simulation_input_topic(edmCore.sim_mrid)
         my_diff_build = DifferenceBuilder(edmCore.sim_mrid)
-        print('\n\nSENDING THE FOLLOWING VALUES\n\n')
-        pp(loads_dict)
-        print('\n\nSENDING THE FOLLOWING VALUES\n\n')
         for key, value in loads_dict.items():
 
             associated_der_em_mrid = derIdentificationManager.get_der_em_mrid(key)
@@ -1374,10 +1378,12 @@ class GoGridServices:
         self.vv_service_time = 0
         self.vv_period = 0
         self.voltvar_flag = True
-
+        self.ramp_rate_factor = None
         self.enable_emergency = False
         self.enable_reserve = False
         self.enable_energy = False
+        self.ramping_down = None
+        self.ramping_up = 0
 
 
 
@@ -1423,7 +1429,10 @@ class GoGridServices:
                     pass
                     # self.initialize_voltage_management_grid_service(service_attributes=value)
                 elif value['service_type'] == 'reserve':
-                    self.initialize_reserve_grid_service(service_attributes=value)
+                    pass
+                    # self.initialize_reserve_grid_service(service_attributes=value)
+                elif value['service_type'] == 'demand':
+                    self.initialize_energy_grid_service(service_attributes=value)
 
     def get_services_attributes (self):
         pass
@@ -1519,7 +1528,7 @@ class GoGridServices:
 
 
     # @profile
-    def precharge_der_ems(self):
+    def precharge_der_ems(self, service_attributes):
         '''
         This is a testing method; such method should be adjusted by PSU-DERMS. For testing purposes, however, we
         precharge all DER-EMs by modifying the current_input_watts_request. This is done by sending a load-up command
@@ -1528,7 +1537,7 @@ class GoGridServices:
         NOTE: Precharging DER-EMs means setting their P_OUT attribute to its maximum (rated value).
         '''
 
-        if 0 < (self.service_time - self.sim_time) < 1500 and self.sw_status == 'closed':
+        if 0 < (int(service_attributes['start_time']) - self.sim_time) < 1500 and self.sw_status == 'closed':
         # if 0 < (self.service_time - self.sim_time) < 180 and self.sw_status == 'closed':
             soc = self.get_measurements()
             print('soc value\t',soc)
@@ -1586,26 +1595,144 @@ class GoGridServices:
                 # self.stagg_time_increment += 120
 
     # @profile
-    def initialize_reserve_grid_service (self, service_attributes):
-        if self.enable_reserve != True:
+    def initialize_energy_grid_service(self, service_attributes):
+        if self.enable_energy != True:
             print('\n\nGetting service characteristics\n\n')
             self.retrieve_service_buses(group_id=service_attributes['group_id'])
             self.retrieve_service_der_ems()
+            self.enable_energy = True
+
+            self.service_start_time = int(service_attributes['start_time'])
+            self.service_duration = int(service_attributes['interval_duration'])
+            self.service_end_time = self.service_start_time + self.service_duration
+            self.current_energized_der_ems = int(len(self.service_der_ems))
+            self.ramping_down = self.service_start_time + 5
+            self.ramping_up_ders = 5
+            self.ramping_up_time = int(self.service_end_time) + 1
+            # self.data = np.linspace(0.12,0.84,num=len(self.service_der_ems))
+            
+
+        elif (self.service_end_time >= self.sim_time >= self.service_start_time):
+            
+            if (self.sim_time == self.ramping_down) and (self.current_energized_der_ems > 5):
+                print('\n\ndecrementing energized DERs\n\n')
+                self.ramping_down += 5
+                self.current_energized_der_ems -= 5
+            
+            # elif (self.current_energized_der_ems > 5):
+
+            bus = self.service_buses[0].split('_')[1]
+            
+            service_der_ems = dict(itertools.islice(self.service_der_ems.items(),self.current_energized_der_ems))
+            similar_keys = set(mcInputInterface.current_watts_input_request.keys()) & set(service_der_ems.keys())
+            self.filtered_input_requests = {key: mcInputInterface.current_watts_input_request[key]
+                                    for key in mcInputInterface.current_watts_input_request.keys()
+                                    if key in similar_keys or not f'{bus}' in key}
+
+            mcInputInterface.current_watts_input_request = self.filtered_input_requests.copy()
+            
+            print('\n\nramping ders down\n\n')
+            print('\ncurrent energized derems:\t', self.current_energized_der_ems)
+            print('Service der ems length:\t', len(self.service_der_ems))
+            print('length of input data:\t',len(self.filtered_input_requests))
+            print('staggering time increment:\t', self.ramping_down)
+
+                
+                # elif self.current_energized_der_ems == 5:
+                #     filtered_input_requests = {key: mcInputInterface.current_watts_input_request[key] + random.randint(0,4500)
+                #                                for key in mcInputInterface.current_watts_input_request.keys()
+                #                                if '633' in key and mcInputInterface.current_watts_input_request[key] <= 0}
+                #     mcInputInterface.current_watts_input_request = filtered_input_requests.copy()
+        
+        elif (self.sim_time >= self.service_end_time) and (self.current_energized_der_ems < int(len(self.service_der_ems))):
+            if (self.current_energized_der_ems < int(len(self.service_der_ems))) and (self.sim_time == self.ramping_up_time):
+                print('\n\nramping ders up')
+                self.ramping_up_ders += 5
+                self.ramping_up_time += 5
+                self.current_energized_der_ems +=5
+            
+            
+            print('\nService time ended. Ramping up DERs')
+            bus = self.service_buses[0].split('_')[1]
+
+            service_der_ems = dict(itertools.islice(self.service_der_ems.items(),self.ramping_up_ders))
+            similar_keys = set(mcInputInterface.current_watts_input_request.keys()) & set(service_der_ems.keys())
+            self.filtered_input_requests = {key: mcInputInterface.current_watts_input_request[key]
+                                       for key in mcInputInterface.current_watts_input_request.keys()
+                                       if key in similar_keys or not f'{bus}' in key}
+            
+            print('length of input data:\t',len(self.filtered_input_requests))
+            print('ramping up rate\t',self.ramping_up_time)
+            print('\ncurrent energized derems:\t', self.current_energized_der_ems)
+
+            mcInputInterface.current_watts_input_request = self.filtered_input_requests.copy()
+
+
+            # if ((int(service_attributes['start_time']) + int(service_attributes['interval_duration'])) >= self.sim_time >= int(service_attributes['start_time'])):
+            #     mcInputInterface.current_watts_input_request.update({key:(float(0.0))
+            #                                                             for key in self.service_der_ems})
+
+    def ramp_up_der_ems (self):
+        pass
+
+    # @profile
+    def initialize_reserve_grid_service (self, service_attributes):
+        
+        self.service_start_time = int(service_attributes['start_time'])
+        self.service_interval = int(service_attributes['interval_start'])
+        self.service_end_time = self.service_start_time + int(service_attributes['interval_duration'])
+        self.ramping_down_time_end = self.service_end_time + int(service_attributes['ramp'])
+        self.ramping_down_time = int(service_attributes['ramp'])
+
+        print('---> reserve service in Action <---')
+        print(f'service will start @ --> {self.service_start_time}')
+        print(f'service will end @ --> {self.service_end_time}')
+        print(f'service ramping will end @ --> {self.ramping_down_time_end}\n\n')
+
+
+        if self.enable_reserve != True:
+            print('\n\nGetting service characteristics\n\n')
+            track_ders = []
+            self.retrieve_service_buses(group_id=service_attributes['group_id'])
+            self.retrieve_service_der_ems()
             self.enable_reserve = True
-        else:
-            if ( (int(service_attributes['start_time']) + int(service_attributes['interval_duration'])) >= self.sim_time >= int(service_attributes['start_time'])):
-                    print('\n\nReserve Service in Progress\n\n')
-                    mcInputInterface.current_watts_input_request.update({key:(float(0.0))
-                                                                        for key in self.service_der_ems})
-            print('\n\n SERVICE BUSES\n\n')
-            pp(self.service_buses)
-            print('\n\n SERVICE BUSES\n\n')
-            print('\n\n SERVICE der-ems\n\n')
-            pp(self.service_der_ems)
-            print('\n\n SERVICE der-ems\n\n')
-            print('\n\n watts_request\n\n')
-            pp(mcInputInterface.current_watts_input_request)
-            print('\n\n watts_request\n\n')
+            gen_values_for_ramp = np.linspace(0, np.pi, int(service_attributes['ramp']) * 2) # we're grapping 1st quarter of the wave, so we need to create the double
+            self.ramp_rate_factor = np.cos(gen_values_for_ramp)
+            self.ramp_rate_factor = self.ramp_rate_factor[:int(service_attributes['ramp'])]
+            # self.ramping_down = math.ceil((int(service_attributes['ramp'])/int(len(self.service_der_ems))))
+            self.ramping_down = 1
+            self.ramp_rate_counter = 0
+            self.current_energized_der_ems = len(self.service_der_ems) # 640
+        
+        # elif self.service_end_time >= self.sim_time > self.service_start_time:
+        elif (self.service_start_time + self.service_interval) >= self.sim_time > self.service_start_time:
+            print('\n\nramping DERs up\n\n')
+
+            self.ramping_up += 7
+            self.last_updated_values = {}
+            for self.key in self.service_der_ems:
+                self.updated_values = mcInputInterface.current_watts_input_request[self.key] + self.ramping_up
+                mcInputInterface.current_watts_input_request[self.key] = self.updated_values
+                self.last_updated_values[self.key] = self.updated_values
+        
+        elif self.service_end_time >= self.sim_time >= (self.service_start_time + self.service_interval):
+            print('\n\nconstant load period\n\n')
+            for self.key in self.service_der_ems:
+                mcInputInterface.current_watts_input_request[self.key] = self.last_updated_values[self.key]
+        
+        elif self.sim_time >= self.service_end_time and self.ramping_down >= 0.4:
+            
+            print('\n\nShould start ramping down right now\n\n')
+
+            for self.key in self.service_der_ems:
+                decrementing = self.last_updated_values[self.key] * self.ramping_down
+                decrementing = decrementing + random.randint(1,800)
+                mcInputInterface.current_watts_input_request[self.key] = decrementing
+            # self.ramping_down -= 0.05
+            self.ramping_down -= random.uniform(0.0001, 0.009)
+            print(self.ramping_down)
+
+
 
     # @profile
     def initialize_voltage_management_grid_service (self, service_attributes):
@@ -1651,7 +1778,7 @@ class GoGridServices:
         pass
     
     # @profile
-    def initialize_energy_scheduling_grid_service (self):
+    def initialize_energy_scheduling_grid_service (self, service_attributes):
         pass
     
     # @profile
@@ -2137,7 +2264,7 @@ class MCOutputLog:
         """
         Convert simulation time to a human-readable format.
         """
-        self.current_measurement['Timestamp'] = pd.to_datetime(edmTimekeeper.sim_current_time, unit='s')
+        self.current_measurement['Timestamp'] = pd.to_datetime(int(edmTimekeeper.sim_current_time), unit='s')
         self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].tz_localize('UTC')
         self.current_measurement['Timestamp'] = self.current_measurement['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')
 

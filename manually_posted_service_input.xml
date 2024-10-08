@@ -42,16 +42,23 @@
     </service2>
 
     <service3>
-        <group_id>1</group_id>
+        <group_id>3</group_id>
         <service_name>energy</service_name>
         <service_type>reserve</service_type>
-        <interval_start>0</interval_start>
-        <interval_duration>5</interval_duration>
-        <ramp>0</ramp>
+        <interval_start>600</interval_start>
+        <interval_duration>4080</interval_duration>
+        <ramp>635</ramp>
         <price>0</price>
-        <start_time>1672552805</start_time>
+        <start_time>1672555800</start_time>
     </service3>
-
+    <service4>
+        <group_id>1</group_id>
+        <service_name>energy</service_name>
+        <service_type>demand</service_type>
+        <interval_start>0</interval_start>
+        <interval_duration>300</interval_duration>
+        <ramp>635</ramp>
+        <price>0</price>
+        <start_time>1672552860</start_time>
+    </service4>
 </services>
-
-    
